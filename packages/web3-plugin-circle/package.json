@@ -21,8 +21,6 @@
     "type": "git",
     "url": "git@github.com:ChainSafe/web3-circle-libs.git"
   },
-  "dependencies": {
-  },
   "devDependencies": {
     "@chainsafe/eslint-config": "^2.0.0",
     "@types/jest": "^29.5.2",
