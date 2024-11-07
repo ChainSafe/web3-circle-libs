@@ -1,11 +1,11 @@
 import crypto from "crypto";
 import forge from "node-forge";
-import { Api } from "./base";
+import { BaseApi } from "./baseApi";
 
 type PublicKey = {
   publicKey: string;
 };
-export class SecretApi extends Api {
+export class SecretApi extends BaseApi {
   static generateSecret(): string {
     return crypto.randomBytes(32).toString("hex");
   }

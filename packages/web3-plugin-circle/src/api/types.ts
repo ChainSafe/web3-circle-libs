@@ -1,9 +1,41 @@
-export type CreateParams = {
-  idempotencyKey: string;
-  blockchains: string[];
-  entitySecretCiphertext: string;
-  walletSetId: string;
+export type FilterPagesOptions = {
+  pageBefore?: string;
+  pageAfter?: string;
+  pageSize?: number;
 };
+export type FilterOptions = {
+  from?: string;
+  to?: string;
+} & FilterPagesOptions;
+
+export type WalletCreateParameters = {
+  walletSetId: string;
+  blockchains: string[];
+  idempotencyKey: string;
+  accountType?: string;
+  count?: number;
+  metadata?: { [key: string]: any }[];
+};
+export type WalletListParameters = {
+  address?: string;
+  blockchain?: string;
+  walletSetId?: string;
+  refId?: string;
+} & FilterOptions;
+
+export type WalletUpdateParameters = {
+  id: string;
+  name?: string;
+  refId?: string;
+};
+
+export type WalletBalanceParameters = {
+  id: string;
+  includeAll?: boolean;
+  name?: string;
+  tokenAddress?: string;
+  standard?: string;
+} & FilterPagesOptions;
 
 export type Wallet = {
   id: string;
@@ -26,24 +58,23 @@ export type WalletFilterOptions = {
   blockchain?: string;
   walletSetId?: string;
   refId?: string;
-  from?: string;
-  to?: string;
-  pageBefore?: string;
-  pageAfter?: string;
-  pageSize?: number;
-};
+} & FilterOptions;
 
-export type WalletSetListParameters = {
-  from?: string;
-  to?: string;
-  pageBefore?: string;
-  pageAfter?: string;
-  pageSize?: number;
-};
+export type WalletNftsParameters = {
+  id: string;
+  includeAll?: boolean;
+  name?: string;
+  tokenAddress?: string;
+  standard?: string;
+} & FilterPagesOptions;
+
+export type WalletSetListParameters = FilterOptions;
 export type WalletSetCreateParameters = {
   idempotencyKey?: string;
-  entitySecretCiphertext?: string;
   name?: string;
+};
+export type DeveloperFields = {
+  entitySecretCiphertext: string;
 };
 export type WalletSetUpdateParameters = {
   id: string;
@@ -56,4 +87,39 @@ export type WalletSet = {
   updateDate: string;
   custodyType: string;
   name?: string;
+};
+export type WalletTokenBalances = {
+  amount: string;
+  token: {
+    id: string;
+    name: string;
+    standard: string;
+    blockchain: string;
+    decimals: number;
+    isNative: boolean;
+    symbol: string;
+    tokenAddress: string;
+    updateDate: string;
+    createDate: string;
+  };
+  updateDate: string;
+};
+
+export type WalletNft = {
+  amount: string;
+  metadata: string;
+  nftTokenId: string;
+  token: {
+    id: string;
+    name: string;
+    standard: string;
+    blockchain: string;
+    decimals: number;
+    isNative: boolean;
+    symbol: string;
+    tokenAddress: string;
+    updateDate: string;
+    createDate: string;
+  };
+  updateDate: string;
 };

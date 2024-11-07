@@ -1,67 +1,46 @@
-import { Api } from "./base";
 import {
+  DeveloperFields,
   WalletSet,
   WalletSetCreateParameters,
   WalletSetListParameters,
   WalletSetUpdateParameters,
 } from "./types";
 import { v4 } from "uuid";
-import { SecretApi } from "./secret";
+import { DeveloperApi } from "./baseDeveloperApi";
 
-export class WalletSetApi extends Api {
-  private secret?: string;
-  private publicKey?: string;
-  constructor(
-    baseUrl: string,
-    apiKey: string,
-    secret?: string,
-    publicKey?: string,
-  ) {
-    super(baseUrl, apiKey);
-    this.secret = secret;
-    this.publicKey = publicKey;
-  }
+export class WalletSetApi extends DeveloperApi {
   async create(params: WalletSetCreateParameters): Promise<WalletSet> {
-    if (!this.secret || !this.publicKey) {
-      throw new Error("Secret and public key are not set");
-    }
-    const data: WalletSetCreateParameters = {
-      entitySecretCiphertext: SecretApi.getEntitySecretCiphertext(
-        this.secret,
-        this.publicKey,
-      ),
+    const data: WalletSetCreateParameters & DeveloperFields = {
+      entitySecretCiphertext: this.generateCipherText(),
       idempotencyKey: params.idempotencyKey ?? v4(),
     };
     if (params.name) {
       data.name = params.name;
     }
-    const result = await this.postRequest<
-      WalletSetCreateParameters,
-      { walletSet: WalletSet }
-    >("/developer/walletSets", data);
-    return result.walletSet;
+    return this.postRequest<
+      WalletSetCreateParameters & DeveloperFields,
+      WalletSet
+    >("/developer/walletSets", data, "walletSet");
   }
   async update(params: WalletSetUpdateParameters): Promise<WalletSet> {
-    const { id, name } = params;
-    const result = await this.putRequest<
-      Omit<WalletSetUpdateParameters, "id">,
-      { walletSet: WalletSet }
-    >(`/developer/walletSets${id}`, {
-      name,
-    });
-    return result.walletSet;
+    return this.putRequest<WalletSetUpdateParameters, WalletSet>(
+      `/developer/walletSets`,
+      params,
+      "walletSet",
+    );
   }
   async list(params?: WalletSetListParameters): Promise<WalletSet[]> {
-    const result = await this.getRequest<
-      WalletSetListParameters,
-      { walletSets: WalletSet[] }
-    >("/walletSets", params);
-    return result.walletSets;
+    return this.getRequest<WalletSetListParameters, WalletSet[]>(
+      "/walletSets",
+      params,
+      "walletSets",
+    );
   }
   async get(id: string): Promise<WalletSet> {
-    const result = await this.getRequest<never, { walletSet: WalletSet }>(
+    return this.getRequest<never, WalletSet>(
       `/walletSets/${id}`,
+      undefined,
+      "walletSet",
     );
-    return result.walletSet;
   }
 }
