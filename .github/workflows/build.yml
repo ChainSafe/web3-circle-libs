@@ -21,6 +21,6 @@ jobs:
             - run: yarn build
             - run: export API_KEY=${{secrets.API_KEY}}
             - run: export CIPHER_TEXT=${{secrets.CIPHER_TEXT}}
-            - run: export PUBLIC_KEY=${{secrets.PUBLIC_KEY}}
+            - run: export PUBLIC_KEY="${{secrets.PUBLIC_KEY}}"
             - run: export SECRET=${{secrets.SECRET}}
             - run: yarn test:e2e
