@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import forge from "node-forge";
-import { BaseApi } from "./baseApi";
+import { BaseApi } from "./BaseApi";
 
 export class SecretApi extends BaseApi {
   static generateSecret(): string {

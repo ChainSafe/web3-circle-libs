@@ -82,8 +82,35 @@ export class BaseApi {
     const { id, ...rest } = params;
 
     const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<Omit<PutBaseParams, "id">>(rest),
+      ...this.prepareRequestData<BaseParams>(rest),
       method: "put",
+    });
+
+    return this.prepareResponseData<ReturnType>(response, fieldName);
+  }
+  async patchRequest<ReturnType>(
+    endPoint: string,
+    params: PutBaseParams,
+    fieldName?: string,
+  ): Promise<ReturnType> {
+    const { id, ...rest } = params;
+    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
+      ...this.prepareRequestData<BaseParams>(rest),
+      method: "patch",
+    });
+
+    return this.prepareResponseData<ReturnType>(response, fieldName);
+  }
+
+  async deleteRequest<ReturnType>(
+    endPoint: string,
+    params: PutBaseParams,
+    fieldName?: string,
+  ): Promise<ReturnType> {
+    const { id, ...rest } = params;
+    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
+      ...this.prepareRequestData<BaseParams>(rest),
+      method: "delete",
     });
 
     return this.prepareResponseData<ReturnType>(response, fieldName);

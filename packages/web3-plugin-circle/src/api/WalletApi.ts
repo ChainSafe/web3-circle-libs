@@ -8,7 +8,7 @@ import {
   WalletTokenBalances,
   WalletNft,
 } from "./types";
-import { DeveloperApi } from "./baseDeveloperApi";
+import { DeveloperApi } from "./DeveloperApi";
 import { v4 } from "uuid";
 
 export class WalletApi extends DeveloperApi {

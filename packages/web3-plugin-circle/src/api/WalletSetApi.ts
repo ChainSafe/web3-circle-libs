@@ -6,7 +6,7 @@ import {
   WalletSetUpdateParameters,
 } from "./types";
 import { v4 } from "uuid";
-import { DeveloperApi } from "./baseDeveloperApi";
+import { DeveloperApi } from "./DeveloperApi";
 
 export class WalletSetApi extends DeveloperApi {
   async create(params: WalletSetCreateParameters): Promise<WalletSet> {

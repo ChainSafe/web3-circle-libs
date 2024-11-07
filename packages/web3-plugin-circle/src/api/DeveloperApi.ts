@@ -1,5 +1,5 @@
-import { BaseApi } from "./baseApi";
-import { SecretApi } from "./secret";
+import { BaseApi } from "./BaseApi";
+import { SecretApi } from "./SecretApi";
 
 export class DeveloperApi extends BaseApi {
   protected secret?: string;
