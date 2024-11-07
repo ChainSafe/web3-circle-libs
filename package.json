@@ -23,5 +23,6 @@
     "build": "yarn workspace web3-plugin-circle build",
     "build:docs": "yarn workspace web3-plugin-circle build:docs",
     "test": "yarn workspace web3-plugin-circle test"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
