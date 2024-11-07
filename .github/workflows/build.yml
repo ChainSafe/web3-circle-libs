@@ -1,0 +1,26 @@
+name: 'Install and test'
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+
+jobs:
+    test:
+        strategy:
+            matrix:
+                node: [20]
+        name: Install and test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node }}
+                  cache: yarn
+            - run: cd packages/web3-plugin-circle
+            - run: yarn install
+            - run: yarn build
+            - run: export API_KEY=${{secrets.API_KEY}}
+            - run: export CIPHER_TEXT=${{secrets.CIPHER_TEXT}}
+            - run: export PUBLIC_KEY=${{secrets.PUBLIC_KEY}}
+            - run: export SECRET=${{secrets.SECRET}}
+            - run: yarn test:e2e

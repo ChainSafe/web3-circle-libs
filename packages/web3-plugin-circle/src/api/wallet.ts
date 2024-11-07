@@ -1,12 +1,10 @@
 import {
   WalletCreateParameters,
   Wallet,
-  WalletFilterOptions,
   WalletListParameters,
   WalletUpdateParameters,
   WalletBalanceParameters,
   WalletNftsParameters,
-  DeveloperFields,
   WalletTokenBalances,
   WalletNft,
 } from "./types";
@@ -15,7 +13,7 @@ import { v4 } from "uuid";
 
 export class WalletApi extends DeveloperApi {
   async create(params: WalletCreateParameters): Promise<Wallet[]> {
-    return this.postRequest<WalletCreateParameters & DeveloperFields, Wallet[]>(
+    return this.postRequest<Wallet[]>(
       "/developer/wallets",
       {
         ...params,
@@ -26,39 +24,24 @@ export class WalletApi extends DeveloperApi {
     );
   }
   async list(params?: WalletListParameters): Promise<Wallet[]> {
-    return this.getRequest<WalletListParameters, Wallet[]>(
-      "/wallets",
-      params,
-      "wallets",
-    );
+    return this.getRequest<Wallet[]>("/wallets", params, "wallets");
   }
   async get(id: string): Promise<Wallet> {
-    return this.getRequest<never, Wallet>(
-      `/wallets/${id}`,
-      undefined,
-      "wallet",
-    );
+    return this.getRequest<Wallet>(`/wallets/${id}`, undefined, "wallet");
   }
   async update(params: WalletUpdateParameters): Promise<Wallet> {
-    return this.putRequest<WalletUpdateParameters, Wallet>(
-      "/wallets",
-      params,
-      "wallet",
-    );
+    return this.putRequest<Wallet>("/wallets", params, "wallet");
   }
   async balance(params: WalletBalanceParameters): Promise<WalletTokenBalances> {
     const { id, ...rest } = params;
-    return this.getRequest<
-      Omit<WalletFilterOptions, "id">,
-      WalletTokenBalances
-    >(`/wallets/${id}/balances`, rest, "tokenBalances");
+    return this.getRequest<WalletTokenBalances>(
+      `/wallets/${id}/balances`,
+      rest,
+      "tokenBalances",
+    );
   }
   async nfts(params: WalletNftsParameters): Promise<WalletNft[]> {
     const { id, ...rest } = params;
-    return this.getRequest<Omit<WalletNftsParameters, "id">, WalletNft[]>(
-      `/wallets/${id}/nfts`,
-      rest,
-      "nfts",
-    );
+    return this.getRequest<WalletNft[]>(`/wallets/${id}/nfts`, rest, "nfts");
   }
 }

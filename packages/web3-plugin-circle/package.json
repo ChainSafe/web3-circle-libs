@@ -11,7 +11,8 @@
   "scripts": {
     "lint": "eslint '{src,test}/**/*.ts'",
     "build": "tsc --project tsconfig.build.json",
-    "test": "jest --config=./test/jest.config.js"
+    "test": "jest --config=./test/jest.config.js",
+    "test:e2e": "jest --config=./test/jest.config.js e2e"
   },
   "contributors": [
     "ChainSafe <info@chainsafe.io>"

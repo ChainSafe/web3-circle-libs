@@ -2,9 +2,6 @@ import crypto from "crypto";
 import forge from "node-forge";
 import { BaseApi } from "./baseApi";
 
-type PublicKey = {
-  publicKey: string;
-};
 export class SecretApi extends BaseApi {
   static generateSecret(): string {
     return crypto.randomBytes(32).toString("hex");
@@ -22,9 +19,10 @@ export class SecretApi extends BaseApi {
     return forge.util.encode64(encryptedData);
   }
   async getPublicKey(): Promise<string> {
-    const res = await this.getRequest<never, PublicKey>(
+    return this.getRequest<string>(
       "/config/entity/publicKey",
+      undefined,
+      "publicKey",
     );
-    return res.publicKey;
   }
 }

@@ -9,6 +9,14 @@ type ResponseData<ReturnType> = {
   data: ReturnType;
 };
 type RequestData = { headers: HeadersInit; body: BodyInit };
+
+interface BaseParams {
+  [key: string]: unknown; // Allows any other properties
+}
+interface PutBaseParams {
+  id: string;
+  [key: string]: unknown; // Allows any other properties
+}
 export class BaseApi {
   private baseUrl: string;
   private apiKey: string;
@@ -18,9 +26,7 @@ export class BaseApi {
     this.baseUrl = baseUrl;
     this.apiKey = apiKey;
   }
-  registerEntitySecretCiphertext(cipherText: string): void {
-    this.cipherText = cipherText;
-  }
+
   get headers(): HeadersInit {
     return {
       ...headers,
@@ -28,6 +34,7 @@ export class BaseApi {
       Authorization: `Bearer ${this.apiKey}`,
     };
   }
+
   private prepareRequestData<Params extends Record<string, unknown>>(
     params: Params,
   ): RequestData {
@@ -38,6 +45,7 @@ export class BaseApi {
       }),
     } as RequestData;
   }
+
   private async prepareResponseData<ReturnType>(
     res: Response,
     fieldName?: string,
@@ -54,45 +62,48 @@ export class BaseApi {
     return response.data;
   }
 
-  async postRequest<Params extends Record<string, unknown>, ReturnType>(
-    url: string,
-    params: Params,
+  async postRequest<ReturnType>(
+    endPoint: string,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
-    return this.prepareResponseData<ReturnType>(
-      await fetch(`${this.baseUrl}${url}`, {
-        ...this.prepareRequestData<Params>(params),
-        method: "post",
-      }),
-      fieldName,
-    );
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams>(params),
+      method: "post",
+    });
+
+    return this.prepareResponseData<ReturnType>(response, fieldName);
   }
-  async putRequest<
-    Params extends { id: string } & Record<string, unknown>,
-    ReturnType,
-  >(url: string, params: Params, fieldName?: string): Promise<ReturnType> {
+  async putRequest<ReturnType>(
+    endPoint: string,
+    params: PutBaseParams,
+    fieldName?: string,
+  ): Promise<ReturnType> {
     const { id, ...rest } = params;
-    return this.prepareResponseData<ReturnType>(
-      await fetch(`${this.baseUrl}${url}/${id}`, {
-        ...this.prepareRequestData<Omit<Params, "id">>(rest),
-        method: "put",
-      }),
-      fieldName,
-    );
+
+    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
+      ...this.prepareRequestData<Omit<PutBaseParams, "id">>(rest),
+      method: "put",
+    });
+
+    return this.prepareResponseData<ReturnType>(response, fieldName);
   }
 
-  async getRequest<Params extends Record<string, unknown>, ReturnType>(
-    url: string,
-    params?: Params,
+  async getRequest<ReturnType>(
+    endPoint: string,
+    params?: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
     const urlParams = objectToUrlParams(params);
-    return this.prepareResponseData<ReturnType>(
-      await fetch(`${this.baseUrl}${url}${urlParams ? `?${urlParams}` : ""}`, {
+
+    const response = await fetch(
+      `${this.baseUrl}${endPoint}${urlParams ? `?${urlParams}` : ""}`,
+      {
         method: "get",
         headers: this.headers,
-      }),
-      fieldName,
+      },
     );
+
+    return this.prepareResponseData<ReturnType>(response, fieldName);
   }
 }

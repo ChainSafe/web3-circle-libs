@@ -1,6 +1,6 @@
-import { WalletApi } from "../src/api/wallet";
-import { SecretApi } from "../src/api/secret";
-import { WalletSetApi } from "../src/api/walletSet";
+import { WalletApi } from "../../src/api/wallet";
+import { SecretApi } from "../../src/api/secret";
+import { WalletSetApi } from "../../src/api/walletSet";
 import { v4 } from "uuid";
 
 const apikey = process.env.API_KEY as string;
@@ -25,7 +25,7 @@ describe("Api Tests", () => {
   });
   describe("Wallet Sets", () => {
     const walletSetApi = new WalletSetApi(baseUrl, apikey, secret, publicKey);
-    it("list", async () => {
+    it("Get all wallet sets", async () => {
       const res = await walletSetApi.list();
       expect(res).toBeDefined();
       expect(res.length).toBeGreaterThan(0);
@@ -35,7 +35,7 @@ describe("Api Tests", () => {
       expect(walletSet.createDate).toBeDefined();
       expect(walletSet.updateDate).toBeDefined();
     });
-    it("get", async () => {
+    it("Get a wallet set", async () => {
       const walletSet = await walletSetApi.get(
         "c8fe6fb7-afbc-5a71-a973-7eb7ad1d5125",
       );
@@ -46,7 +46,7 @@ describe("Api Tests", () => {
       expect(walletSet.createDate).toBeDefined();
       expect(walletSet.name).toBeDefined();
     });
-    it("create", async () => {
+    it("Create a new wallet set", async () => {
       const randName = `name-${v4()}`;
       const res = await walletSetApi.create({
         idempotencyKey: v4(),
@@ -58,7 +58,7 @@ describe("Api Tests", () => {
       expect(res.updateDate).toBeDefined();
       expect(res.name).toBe(randName);
     });
-    it("update", async () => {
+    it("Update a wallet set", async () => {
       const randName = `name-${v4()}`;
       const res = await walletSetApi.update({
         id: "8ab26468-aa26-5158-b582-9d0f42e4d40f",
@@ -73,7 +73,7 @@ describe("Api Tests", () => {
   });
   describe("Wallet", () => {
     const walletApi = new WalletApi(baseUrl, apikey, secret, publicKey);
-    it("list", async () => {
+    it("List wallets", async () => {
       const res = await walletApi.list();
       expect(res).toBeDefined();
       const wallet = res[0];
@@ -87,7 +87,7 @@ describe("Api Tests", () => {
       expect(wallet.updateDate).toBeDefined();
       expect(wallet.createDate).toBeDefined();
     });
-    it("get", async () => {
+    it("Retrieve a wallet", async () => {
       const id = "d9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7";
       const wallet = await walletApi.get(id);
       expect(wallet.id).toBe(id);
@@ -100,7 +100,7 @@ describe("Api Tests", () => {
       expect(wallet.updateDate).toBeDefined();
       expect(wallet.createDate).toBeDefined();
     });
-    it("create", async () => {
+    it("Create wallets", async () => {
       const res = await walletApi.create({
         walletSetId: "8ab26468-aa26-5158-b582-9d0f42e4d40f",
         idempotencyKey: v4(),
@@ -119,7 +119,7 @@ describe("Api Tests", () => {
       expect(wallet.createDate).toBeDefined();
     });
 
-    it("update", async () => {
+    it("Update a wallet", async () => {
       const id = "d9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7";
       const randName = `name-${v4()}`;
       const randRefId = `refId-${v4()}`;
@@ -133,14 +133,14 @@ describe("Api Tests", () => {
       expect(wallet.refId).toBe(randRefId);
     });
 
-    it("balance", async () => {
+    it("Get token balance for a wallet", async () => {
       const id = "d9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7";
       const balances = await walletApi.balance({
         id,
       });
       expect(balances).toBeDefined();
     });
-    it("nfts", async () => {
+    it("Get NFTs for a wallet", async () => {
       const id = "d9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7";
       const nfts = await walletApi.nfts({
         id,

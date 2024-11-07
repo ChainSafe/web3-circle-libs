@@ -53,13 +53,6 @@ export type Wallet = {
   accountType: string; // Use string literal if there are multiple fixed types
 };
 
-export type WalletFilterOptions = {
-  address?: string;
-  blockchain?: string;
-  walletSetId?: string;
-  refId?: string;
-} & FilterOptions;
-
 export type WalletNftsParameters = {
   id: string;
   includeAll?: boolean;

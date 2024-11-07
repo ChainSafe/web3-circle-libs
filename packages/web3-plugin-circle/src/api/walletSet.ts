@@ -17,27 +17,24 @@ export class WalletSetApi extends DeveloperApi {
     if (params.name) {
       data.name = params.name;
     }
-    return this.postRequest<
-      WalletSetCreateParameters & DeveloperFields,
-      WalletSet
-    >("/developer/walletSets", data, "walletSet");
+    return this.postRequest<WalletSet>(
+      "/developer/walletSets",
+      data,
+      "walletSet",
+    );
   }
   async update(params: WalletSetUpdateParameters): Promise<WalletSet> {
-    return this.putRequest<WalletSetUpdateParameters, WalletSet>(
+    return this.putRequest<WalletSet>(
       `/developer/walletSets`,
       params,
       "walletSet",
     );
   }
   async list(params?: WalletSetListParameters): Promise<WalletSet[]> {
-    return this.getRequest<WalletSetListParameters, WalletSet[]>(
-      "/walletSets",
-      params,
-      "walletSets",
-    );
+    return this.getRequest<WalletSet[]>("/walletSets", params, "walletSets");
   }
   async get(id: string): Promise<WalletSet> {
-    return this.getRequest<never, WalletSet>(
+    return this.getRequest<WalletSet>(
       `/walletSets/${id}`,
       undefined,
       "walletSet",
