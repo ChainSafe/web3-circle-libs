@@ -2,7 +2,6 @@ import fetch from "cross-fetch";
 import { v4 } from "uuid";
 import { objectToUrlParams } from "./utils";
 
-const headers = { "Content-Type": "application/json" };
 type ResponseData<ReturnType> = {
   code: number;
   message?: string;
@@ -29,7 +28,7 @@ export class BaseApi {
 
   get headers(): HeadersInit {
     return {
-      ...headers,
+      "Content-Type": "application/json",
       "X-Request-Id": v4(),
       Authorization: `Bearer ${this.apiKey}`,
     };
@@ -52,7 +51,7 @@ export class BaseApi {
   ): Promise<ReturnType> {
     const response = (await res.json()) as unknown as ResponseData<ReturnType>;
     if (Number(response.code)) {
-      throw new Error(response.message);
+      throw new Error(`ERROR CODE: ${response.code}. ${response.message}`);
     }
     if (fieldName) {
       return (response.data as unknown as Record<string, ReturnType>)[

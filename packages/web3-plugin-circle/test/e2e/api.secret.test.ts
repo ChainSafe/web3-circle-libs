@@ -17,4 +17,10 @@ describe("Api Secret Tests", () => {
     const publicKey = await secretApi.getPublicKey();
     expect(publicKey).toBeDefined();
   });
+  it("Retrieving Your Entity's Public Key", async () => {
+    const secretApi = new SecretApi(baseUrl, apikey);
+    const config = await secretApi.getConfig();
+    expect(config).toBeDefined();
+    expect(config.appId).toBeDefined();
+  });
 });

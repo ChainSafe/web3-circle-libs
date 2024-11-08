@@ -1,5 +1,6 @@
 import { WalletApi } from "../../src/api/WalletApi";
 import { v4 } from "uuid";
+import { BLOCKCHAIN } from "../../src/api/constants";
 
 const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
@@ -18,7 +19,6 @@ describe("Api Wallet Tests", () => {
     expect(wallet.walletSetId).toBe("8ab26468-aa26-5158-b582-9d0f42e4d40f");
     expect(wallet.custodyType).toBe("DEVELOPER");
     expect(wallet.address).toBeDefined();
-    expect(wallet.blockchain).toBe("MATIC-AMOY");
     expect(wallet.accountType).toBe("EOA");
     expect(wallet.updateDate).toBeDefined();
     expect(wallet.createDate).toBeDefined();
@@ -31,7 +31,6 @@ describe("Api Wallet Tests", () => {
     expect(wallet.walletSetId).toBe("8ab26468-aa26-5158-b582-9d0f42e4d40f");
     expect(wallet.custodyType).toBe("DEVELOPER");
     expect(wallet.address).toBeDefined();
-    expect(wallet.blockchain).toBe("MATIC-AMOY");
     expect(wallet.accountType).toBe("EOA");
     expect(wallet.updateDate).toBeDefined();
     expect(wallet.createDate).toBeDefined();
@@ -40,7 +39,7 @@ describe("Api Wallet Tests", () => {
     const res = await walletApi.create({
       walletSetId: "8ab26468-aa26-5158-b582-9d0f42e4d40f",
       idempotencyKey: v4(),
-      blockchains: ["MATIC-AMOY"],
+      blockchains: [BLOCKCHAIN.ETH_SEPOLIA],
     });
     expect(res).toBeDefined();
     const wallet = res[0];
@@ -49,7 +48,7 @@ describe("Api Wallet Tests", () => {
     expect(wallet.walletSetId).toBe("8ab26468-aa26-5158-b582-9d0f42e4d40f");
     expect(wallet.custodyType).toBe("DEVELOPER");
     expect(wallet.address).toBeDefined();
-    expect(wallet.blockchain).toBe("MATIC-AMOY");
+    expect(wallet.blockchain).toBe(BLOCKCHAIN.ETH_SEPOLIA);
     expect(wallet.accountType).toBe("EOA");
     expect(wallet.updateDate).toBeDefined();
     expect(wallet.createDate).toBeDefined();

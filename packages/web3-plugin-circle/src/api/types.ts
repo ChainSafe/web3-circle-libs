@@ -154,10 +154,9 @@ export type GetTransactionParameters = {
  */
 export type CreateTransferTransactionParameters = {
   walletId: string;
-  entitySecretCiphertext: string;
   destinationAddress: string;
-  idempotencyKey: string;
   amounts: string[];
+  idempotencyKey?: string;
   feeLevel?: string;
   gasLimit?: string;
   gasPrice?: string;
@@ -635,4 +634,8 @@ export type EventLog = {
   topics: string[];
   txHash: string;
   userOpHash: string;
+};
+
+export type ConfigEntity = {
+  appId: string;
 };

@@ -23,6 +23,7 @@ export class SignApi extends DeveloperApi {
       "signature",
     );
   }
+  // This endpoint is only available for the following chains: SOL, SOL-DEVNET, NEAR, NEAR-TESTNET, EVM, TEST-TESTNET
   async signTransaction(
     params: SignTransactionParameters,
   ): Promise<SignedTransaction> {
@@ -31,6 +32,7 @@ export class SignApi extends DeveloperApi {
       entitySecretCiphertext: this.generateCipherText(),
     });
   }
+  // This endpoint is only available for NEAR and NEAR-TESTNET
   async signDelegateAction(
     params: SignDelegateActionParameters,
   ): Promise<SignedTransactionDelegate> {

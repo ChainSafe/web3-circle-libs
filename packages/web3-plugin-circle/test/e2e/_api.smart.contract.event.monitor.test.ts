@@ -1,23 +1,17 @@
 import { SmartContractEventMonitorApi } from "../../src/api/SmartContractEventMonitorApi";
 import { v4 } from "uuid";
+import { BLOCKCHAIN } from "../../src/api/constants";
 
 const apikey = process.env.API_KEY as string;
-const publicKey = process.env.PUBLIC_KEY as string;
-const secret = process.env.SECRET as string;
 
 const baseUrl = "https://api.circle.com/v1/w3s";
 
 describe("SmartContractEventMonitorApi Tests", () => {
-  const eventMonitorApi = new SmartContractEventMonitorApi(
-    baseUrl,
-    apikey,
-    secret,
-    publicKey,
-  );
+  const eventMonitorApi = new SmartContractEventMonitorApi(baseUrl, apikey);
 
-  it("Get Event Monitors", async () => {
+  it.only("Get Event Monitors", async () => {
     const params = {
-      blockchain: "ETH",
+      blockchain: BLOCKCHAIN.ETH_SEPOLIA,
     };
     const eventMonitors = await eventMonitorApi.getEventMonitors(params);
     expect(eventMonitors).toBeDefined();

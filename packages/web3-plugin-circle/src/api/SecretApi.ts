@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import forge from "node-forge";
 import { BaseApi } from "./BaseApi";
+import { ConfigEntity } from "./types";
 
 export class SecretApi extends BaseApi {
   static generateSecret(): string {
@@ -24,5 +25,8 @@ export class SecretApi extends BaseApi {
       undefined,
       "publicKey",
     );
+  }
+  async getConfig(): Promise<ConfigEntity> {
+    return this.getRequest<ConfigEntity>("/config/entity");
   }
 }

@@ -13,6 +13,7 @@ import {
   EstimateFee,
 } from "./types";
 import { DeveloperApi } from "./DeveloperApi";
+import { v4 } from "uuid";
 
 export class TransactionApi extends DeveloperApi {
   async list(params?: ListTransactionsParameters): Promise<Transaction[]> {
@@ -35,6 +36,7 @@ export class TransactionApi extends DeveloperApi {
   ): Promise<Transfer> {
     return this.postRequest<Transfer>("/developer/transactions/transfer", {
       ...params,
+      idempotencyKey: params.idempotencyKey ?? v4(),
       entitySecretCiphertext: this.generateCipherText(),
     });
   }
