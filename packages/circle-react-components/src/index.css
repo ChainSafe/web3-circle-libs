@@ -1,6 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --brand-primary: #0ea5e9; /* 198.63 88.66% 48.43% */
+  --brand-primary-hsl: 198.63 88.66% 48.43%;
+  --brand-secondary: #0284c7; /* 200.41 98.01% 39.41% */
+  --brand-secondary-hsl: 200.41 98.01% 39.41%;
+  --brand-accent: #0c4a6e; /* 202.04 80.33% 23.92% */
+  --brand-accent-hsl: 202.04 80.33% 23.92%;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
