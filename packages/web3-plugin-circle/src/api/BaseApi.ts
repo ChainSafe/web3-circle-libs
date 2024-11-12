@@ -16,16 +16,28 @@ interface PutBaseParams {
   id: string;
   [key: string]: unknown; // Allows any other properties
 }
+
+/**
+ * Methods for sending requests to the Circle REST API
+ */
 export class BaseApi {
   private baseUrl: string;
   private apiKey: string;
   protected cipherText?: string;
 
+  /**
+   * Constructs a new `BaseApi` instance
+   * @param baseUrl the base URL for the Circle REST API
+   * @param apiKey the API key to include with requests
+   */
   constructor(baseUrl: string, apiKey: string) {
     this.baseUrl = baseUrl;
     this.apiKey = apiKey;
   }
 
+  /**
+   * Get a set of headers (including the API key) that will be used by this `BaseApi`
+   */
   get headers(): HeadersInit {
     return {
       "Content-Type": "application/json",
@@ -61,6 +73,13 @@ export class BaseApi {
     return response.data;
   }
 
+  /**
+   * Send a POST request to the Circle REST API and return the response
+   * @param endPoint the API endpoint for the POST request
+   * @param params the parameters for the POST request
+   * @param fieldName the response field to return (all fields will be returned if omitted)
+   * @returns the requested POST response field or the entire response if the `fieldName` parameter was omitted
+   */
   async postRequest<ReturnType>(
     endPoint: string,
     params: BaseParams,
@@ -73,6 +92,14 @@ export class BaseApi {
 
     return this.prepareResponseData<ReturnType>(response, fieldName);
   }
+
+  /**
+   * Send a PUT request to the Circle REST API and return the response
+   * @param endPoint the API endpoint for the PUT request
+   * @param params the parameters for the PUT request
+   * @param fieldName the response field to return (all fields will be returned if omitted)
+   * @returns the requested PUT response field or the entire response if the `fieldName` parameter was omitted
+   */
   async putRequest<ReturnType>(
     endPoint: string,
     params: PutBaseParams,
@@ -87,6 +114,14 @@ export class BaseApi {
 
     return this.prepareResponseData<ReturnType>(response, fieldName);
   }
+
+  /**
+   * Send a PATCH request to the Circle REST API and return the response
+   * @param endPoint the API endpoint for the PATCH request
+   * @param params the parameters for the PATCH request
+   * @param fieldName the response field to return (all fields will be returned if omitted)
+   * @returns the requested PATCH response field or the entire response if the `fieldName` parameter was omitted
+   */
   async patchRequest<ReturnType>(
     endPoint: string,
     params: PutBaseParams,
@@ -101,6 +136,13 @@ export class BaseApi {
     return this.prepareResponseData<ReturnType>(response, fieldName);
   }
 
+  /**
+   * Send a DELETE request to the Circle REST API and return the response
+   * @param endPoint the API endpoint for the DELETE request
+   * @param params the parameters for the DELETE request
+   * @param fieldName the response field to return (all fields will be returned if omitted)
+   * @returns the requested DELETE response field or the entire response if the `fieldName` parameter was omitted
+   */
   async deleteRequest<ReturnType>(
     endPoint: string,
     params: PutBaseParams,
@@ -115,6 +157,13 @@ export class BaseApi {
     return this.prepareResponseData<ReturnType>(response, fieldName);
   }
 
+  /**
+   * Send a GET request to the Circle REST API and return the response
+   * @param endPoint the API endpoint for the GET request
+   * @param params (optional) the parameters for the GET request
+   * @param fieldName the response field to return (all fields will be returned if omitted)
+   * @returns the requested GET response field or the entire response if the `fieldName` parameter was omitted
+   */
   async getRequest<ReturnType>(
     endPoint: string,
     params?: BaseParams,
