@@ -21,6 +21,7 @@
   "scripts": {
     "lint": "yarn workspace web3-plugin-circle lint",
     "build": "yarn workspace web3-plugin-circle build",
+    "build:docs": "yarn workspace web3-plugin-circle build:docs",
     "test": "yarn workspace web3-plugin-circle test"
   }
 }
