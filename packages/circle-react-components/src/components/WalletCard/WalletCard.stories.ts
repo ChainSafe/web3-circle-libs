@@ -20,7 +20,7 @@ export const Default: Story = {
   args: {
     title: 'Interop Wallet',
     user: { name: 'Rob McIntosh', avatar: 'https://github.com/shadcn.png' },
-    currentBalance: BigInt(4020620),
-    previousBalance: BigInt(4020620),
+    currentBalance: BigInt(150000),
+    previousBalance: BigInt(100000),
   },
 };

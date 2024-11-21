@@ -1,12 +1,13 @@
+import { BalanceChangeBadge } from '@/components/BalanceChangeBadge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { formatBalance } from '@/lib/formatBalance';
 import { getInitials } from '@/lib/getInitials';
 
-import { BalanceChangeBadge } from './BalanceChangeBadge';
-import { DonutChart } from './DonutChart';
+import { DonutChart } from './components/DonutChart';
+import { MenuButton } from './components/MenuButton';
 
-/**  User's information in the wallet. */
+/** User's information in the wallet. */
 export interface WalletUser {
   /** The full name of the user. */
   name: string;
@@ -39,38 +40,48 @@ export function WalletCard({
   previousBalance,
 }: WalletCardProps) {
   return (
-    <Card>
-      <CardContent>
+    <Card className="p-4 flex items-center gap-6">
+      <div className="flex-shrink-0 max-w-[30%]">
         <DonutChart />
+      </div>
 
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-          <div className="flex items-center gap-2 mt-1">
-            <Avatar>
-              <AvatarImage src={user.avatar} />
-              <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-            </Avatar>
-            <p className="text-sm text-gray-500">{user.name}</p>
+      <div className="flex-1">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+            <div className="flex items-center gap-2 mt-1">
+              <Avatar className="w-8 h-8">
+                <AvatarImage src={user.avatar} />
+                <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+              </Avatar>
+              <p className="text-sm text-gray-500">{user.name}</p>
+            </div>
           </div>
-          <p className="mt-4 text-sm text-gray-500">Current balance</p>
 
-          <div className="balance-display">
-            <span className="balance-icon">💲</span>
-            <span className="balance-amount">{formatBalance(currentBalance)}</span>
-          </div>
+          <MenuButton />
+        </div>
+        <p className="mt-4 text-sm text-gray-500">Current balance</p>
+
+        <div className="mt-1 flex items-center gap-2">
+          <img
+            src="https://cdn.prod.website-files.com/67116d0daddc92483c812e88/67116d0daddc92483c81364f_USDC_icon_32x32.webp"
+            alt="Circle Logo"
+            className="w-6 h-6"
+          />
+          <span className="text-2xl font-bold text-gray-900">
+            {formatBalance(currentBalance)}
+          </span>
 
           {previousBalance ? (
-            <BalanceChangeBadge
-              currentBalance={currentBalance}
-              previousBalance={previousBalance}
-            />
+            <div className="ml-auto">
+              <BalanceChangeBadge
+                currentBalance={currentBalance}
+                previousBalance={previousBalance}
+              />
+            </div>
           ) : null}
         </div>
-
-        <button className="text-gray-400 hover:text-gray-600" aria-label="Menu">
-          &#8226;&#8226;&#8226;
-        </button>
-      </CardContent>
+      </div>
     </Card>
   );
 }
