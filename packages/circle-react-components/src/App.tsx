@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { WalletBalance } from '@/components/WalletBalance';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import { Layout } from './layout/Layout';
+import { Home } from './pages/Home';
+import { Overview } from './pages/Overview';
 
 export function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1 className="text-3xl font-bold">Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>count is {count}</Button>
-        <WalletBalance />
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="overview" element={<Overview />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
