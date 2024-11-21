@@ -68,7 +68,7 @@ export function WalletCard({
             alt="Circle Logo"
             className="w-6 h-6"
           />
-          <span className="text-2xl font-bold text-gray-900">
+          <span className="text-2xl font-semibold text-gray-900">
             {formatBalance(currentBalance)}
           </span>
 
