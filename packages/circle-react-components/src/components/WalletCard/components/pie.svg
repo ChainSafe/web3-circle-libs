@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(-90deg)">
+  <!-- Background circle -->
+  <circle
+    cx="21"
+    cy="21"
+    r="15.915"
+    fill="transparent"
+    stroke="#EDE9FE"
+    stroke-width="5"
+  />
+
+  <!-- Filled segments -->
+  <circle
+    cx="21"
+    cy="21"
+    r="15.915"
+    fill="transparent"
+    stroke="#A78BFA"
+    stroke-width="5"
+    stroke-dasharray="75 25"
+    stroke-dashoffset="0"
+  />
+</svg>
