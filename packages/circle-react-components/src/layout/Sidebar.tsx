@@ -2,6 +2,8 @@ import { PieChart, User, Box, Database, LayoutDashboard } from 'lucide-react';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import circleLogo from './circle-logo.svg';
+
 interface SidebarNavLinkProps {
   to: string;
   icon: React.ReactElement;
@@ -27,7 +29,9 @@ function SidebarNavLink({ to, icon, label }: SidebarNavLinkProps) {
 export function Sidebar() {
   return (
     <aside className="bg-white w-64 h-full shadow-md flex flex-col">
-      <div className="p-6 text-2xl font-bold">Logo</div>
+      <div className="p-6 max-w-[180px]">
+        <img src={circleLogo} alt="Circle Logo" />
+      </div>
       <nav className="flex-1 px-4">
         <SidebarNavLink to="/overview" icon={<LayoutDashboard />} label="Overview" />
         <SidebarNavLink to="/customers" icon={<User />} label="Customers" />

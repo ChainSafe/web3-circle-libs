@@ -1,6 +1,7 @@
 import { BalanceChangeBadge } from '@/components/BalanceChangeBadge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
+import { UsdcIcon } from '@/components/UsdcIcon';
 import { formatBalance } from '@/lib/formatBalance';
 import { getInitials } from '@/lib/getInitials';
 
@@ -63,11 +64,7 @@ export function WalletCard({
         <p className="mt-4 text-sm text-gray-500">Current balance</p>
 
         <div className="mt-1 flex items-center gap-2">
-          <img
-            src="https://cdn.prod.website-files.com/67116d0daddc92483c812e88/67116d0daddc92483c81364f_USDC_icon_32x32.webp"
-            alt="Circle Logo"
-            className="w-6 h-6"
-          />
+          <UsdcIcon size={24} />
           <span className="text-2xl font-semibold text-gray-900">
             {formatBalance(currentBalance)}
           </span>
