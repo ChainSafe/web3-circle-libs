@@ -1,6 +1,5 @@
 import { SmartContractApi } from '../../src/api/SmartContractApi';
 import { v4 } from 'uuid';
-import { create as createAccount } from 'web3-eth-accounts';
 import { BLOCKCHAIN, FEE_LEVEL } from '../../src/api/constants';
 import { BasicAbi, BasicBytecode } from './fixtures/Basic';
 import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
@@ -85,7 +84,7 @@ describe('SmartContractApi Tests', () => {
   it.skip('Import a contract', async () => {
     const params = {
       blockchain: BLOCKCHAIN.ETH_SEPOLIA,
-      address: createAccount().address,
+      address: '0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357',
       name: `Contract ${v4().slice(0, 6)}`,
       idempotencyKey: v4(),
     };
@@ -95,7 +94,9 @@ describe('SmartContractApi Tests', () => {
     expect(importedContract.createDate).toBeDefined();
     expect(importedContract.updateDate).toBeDefined();
     expect(importedContract.archived).toBe(false);
-    expect(importedContract.contractAddress).toBe(params.address);
+    expect(importedContract.contractAddress.toLowerCase()).toBe(
+      String(params.address).toLowerCase(),
+    );
     expect(importedContract.blockchain).toBe(BLOCKCHAIN.ETH_SEPOLIA);
     expect(importedContract.status).toBe('COMPLETE');
     expect(importedContract.functions).toBeDefined();

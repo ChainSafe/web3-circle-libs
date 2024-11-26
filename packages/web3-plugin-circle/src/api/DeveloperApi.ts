@@ -1,6 +1,5 @@
 import { BaseApi } from './BaseApi';
 import { SecretApi } from './SecretApi';
-import { v4 } from 'uuid';
 
 export class DeveloperApi extends BaseApi {
   protected secret?: string;
@@ -19,12 +18,11 @@ export class DeveloperApi extends BaseApi {
   protected addCipherTextAndIdempotencyKeyToParams<
     Param extends { [key: string]: unknown },
   >(params: Param): Param & { entitySecretCiphertext: string; idempotencyKey: string } {
-    return {
+    return this.addIdempotencyKeyToParams<Param & { entitySecretCiphertext: string }>({
       ...params,
       entitySecretCiphertext: params.entitySecretCiphertext
         ? (params.entitySecretCiphertext as string)
         : this.generateCipherText(),
-      idempotencyKey: params.idempotencyKey ? (params.idempotencyKey as string) : v4(),
-    };
+    });
   }
 }

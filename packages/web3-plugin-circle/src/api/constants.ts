@@ -33,3 +33,10 @@ export const TRANSACTION_STATE = {
   DENIED: 'DENIED', // Terminal State. The platform denies the transaction. For a detailed reason, refer to the errorReason.
   ACCELERATED: 'ACCELERATED', // The transaction has been accelerated.
 };
+
+export const TEMPLATE = {
+  AIRDROP: '13e322f2-18dc-4f57-8eed-4bddfc50f85e',
+  MULTI_TOKEN: 'aea21da6-0aa2-4971-9a1a-5098842b1248',
+  ERC_721: '76b83278-50e2-4006-8b63-5b1a2a814533',
+  ERC_20: 'a1b74add-23e0-4712-88d1-6b3009e85a86',
+};

@@ -52,6 +52,15 @@ export class BaseApi {
     };
   }
 
+  protected addIdempotencyKeyToParams<Param extends { [key: string]: unknown }>(
+    params: Param,
+  ): Param & { idempotencyKey: string } {
+    return {
+      ...params,
+      idempotencyKey: params.idempotencyKey ? (params.idempotencyKey as string) : v4(),
+    };
+  }
+
   private prepareRequestData<Params extends Record<string, unknown>>(
     params: Params,
   ): RequestData {
@@ -69,8 +78,9 @@ export class BaseApi {
   ): Promise<ReturnType> {
     const response = (await res.json()) as unknown as ResponseData<ReturnType>;
     if (Number(response.code)) {
+      console.log(response);
       let errorsMsgs = '';
-      if (response.errors) {
+      if (Array.isArray(response.errors)) {
         errorsMsgs = response.errors
           .map(
             (error) => `${error.message}${error.location ? `(${error.location})` : ''}`,

@@ -1,6 +1,6 @@
 import { SmartContractTemplateApi } from '../../src/api/SmartContractTemplateApi';
 import { ETH_SEPOLIA_WALLET_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
-import { BLOCKCHAIN, FEE_LEVEL } from '../../src/api/constants';
+import { BLOCKCHAIN, FEE_LEVEL, TEMPLATE } from '../../src/api/constants';
 
 const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
@@ -18,7 +18,7 @@ describe('SmartContractTemplateApi Tests', () => {
 
   it('Estimate Contract Deployment Fee', async () => {
     const params = {
-      id: 'a1b74add-23e0-4712-88d1-6b3009e85a86',
+      id: TEMPLATE.ERC_20,
       walletId: ETH_SEPOLIA_WALLET_ID,
       blockchain: BLOCKCHAIN.ETH_SEPOLIA,
       templateParameters: {
@@ -36,7 +36,7 @@ describe('SmartContractTemplateApi Tests', () => {
 
   it('Deploy Contract from Template', async () => {
     const params = {
-      id: 'a1b74add-23e0-4712-88d1-6b3009e85a86',
+      id: TEMPLATE.ERC_20,
       walletId: ETH_SEPOLIA_WALLET_ID,
       name: 'TTK',
       blockchain: BLOCKCHAIN.ETH_SEPOLIA,

@@ -700,7 +700,7 @@ export type CreateEventMonitorParameters = {
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
   /** The specific event to which you want to subscribe. Please ensure no spaces are included. */
   eventSignature: string;
   /** The on-chain address of this contract. */
