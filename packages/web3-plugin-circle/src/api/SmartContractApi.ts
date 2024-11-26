@@ -11,7 +11,6 @@ import {
   QueryContractParameters,
   UpdateContractParameters,
 } from './types';
-import { v4 } from 'uuid';
 
 export class SmartContractApi extends DeveloperApi {
   /**
@@ -95,10 +94,8 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the deployed contract
    */
   async deploy(params: DeployContractParameters): Promise<DeployContract> {
-    const data = { ...params };
-    data.entitySecretCiphertext =
-      data.entitySecretCiphertext ?? this.generateCipherText();
-    data.idempotencyKey = params.idempotencyKey ?? v4();
+    const data =
+      this.addCipherTextAndIdempotencyKeyToParams<DeployContractParameters>(params);
     return this.postRequest<DeployContract>(
       '/contracts/deploy',
       this.prepareAbiParams(data),

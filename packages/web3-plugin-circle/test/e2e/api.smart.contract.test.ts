@@ -188,7 +188,6 @@ describe('SmartContractApi Tests', () => {
       abiParameters: ['0x1bf9ad0cc2ad298c69a2995aa806ee832788218c'],
     };
     const queryResult = await smartContractApi.query(params);
-    console.log('queryResult', queryResult);
     expect(queryResult).toBeDefined();
     expect(queryResult.outputData).toBeDefined();
     expect(queryResult.outputData).toBe(

@@ -61,7 +61,13 @@ export type WalletCreateParameters = {
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
+  /**
+   * A base64 string expression of the entity secret ciphertext.
+   * The entity secret should be encrypted by the entity public key.
+   * Circle mandates that the entity secret ciphertext is unique for each API request.
+   */
+  entitySecretCiphertext?: string;
   /**
    * An account can be a Smart Contract Account (SCA) or an Externally Owned Account (EOA).
    * To learn more, see the account types guide (https://developers.circle.com/w3s/programmable-wallets-account-types).
@@ -169,9 +175,12 @@ export type WalletSetCreateParameters = {
   idempotencyKey?: string;
   /** Name or description associated with the wallet or walletSet. */
   name?: string;
-};
-export type DeveloperFields = {
-  entitySecretCiphertext: string;
+  /**
+   * A base64 string expression of the entity secret ciphertext.
+   * The entity secret should be encrypted by the entity public key.
+   * Circle mandates that the entity secret ciphertext is unique for each API request.
+   */
+  entitySecretCiphertext?: string;
 };
 
 /**
@@ -473,7 +482,7 @@ export type ImportContractParameters = {
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
   /** The description for a contract. */
   description?: string;
 };

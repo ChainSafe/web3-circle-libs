@@ -13,7 +13,6 @@ import {
   EstimateFee,
 } from './types';
 import { DeveloperApi } from './DeveloperApi';
-import { v4 } from 'uuid';
 
 export class TransactionApi extends DeveloperApi {
   /**
@@ -44,11 +43,12 @@ export class TransactionApi extends DeveloperApi {
    * @returns the new transfer transaction
    */
   async createTransfer(params: CreateTransferTransactionParameters): Promise<Transfer> {
-    return this.postRequest<Transfer>('/developer/transactions/transfer', {
-      ...params,
-      idempotencyKey: params.idempotencyKey ?? v4(),
-      entitySecretCiphertext: this.generateCipherText(),
-    });
+    return this.postRequest<Transfer>(
+      '/developer/transactions/transfer',
+      this.addCipherTextAndIdempotencyKeyToParams<CreateTransferTransactionParameters>(
+        params,
+      ),
+    );
   }
 
   /**
@@ -96,10 +96,10 @@ export class TransactionApi extends DeveloperApi {
   async createContractExecutionTransaction(
     params: CreateContractExecutionTransactionParameters,
   ): Promise<Transfer> {
-    const data = { ...params };
-    data.entitySecretCiphertext =
-      data.entitySecretCiphertext ?? this.generateCipherText();
-    data.idempotencyKey = params.idempotencyKey ?? v4();
+    const data =
+      this.addCipherTextAndIdempotencyKeyToParams<CreateContractExecutionTransactionParameters>(
+        params,
+      );
     return this.postRequest<Transfer>('/developer/transactions/contractExecution', data);
   }
 
@@ -113,10 +113,12 @@ export class TransactionApi extends DeveloperApi {
    */
   async cancelTransaction(params: CancelTransactionParameters): Promise<Transfer> {
     const { id, ...rest } = params;
-    rest.entitySecretCiphertext =
-      rest.entitySecretCiphertext ?? this.generateCipherText();
-    rest.idempotencyKey = params.idempotencyKey ?? v4();
-    return this.postRequest<Transfer>(`/developer/transactions/${id}/cancel`, rest);
+    return this.postRequest<Transfer>(
+      `/developer/transactions/${id}/cancel`,
+      this.addCipherTextAndIdempotencyKeyToParams<
+        Omit<CancelTransactionParameters, 'id'>
+      >(rest),
+    );
   }
 
   /**
@@ -130,9 +132,11 @@ export class TransactionApi extends DeveloperApi {
     params: AccelerateTransactionParameters,
   ): Promise<Transfer> {
     const { id, ...rest } = params;
-    rest.entitySecretCiphertext =
-      rest.entitySecretCiphertext ?? this.generateCipherText();
-    rest.idempotencyKey = params.idempotencyKey ?? v4();
-    return this.postRequest<Transfer>(`/developer/transactions/${id}/accelerate`, rest);
+    return this.postRequest<Transfer>(
+      `/developer/transactions/${id}/accelerate`,
+      this.addCipherTextAndIdempotencyKeyToParams<
+        Omit<AccelerateTransactionParameters, 'id'>
+      >(rest),
+    );
   }
 }

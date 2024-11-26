@@ -7,9 +7,8 @@ import {
   WalletNftsParameters,
   WalletTokenBalances,
   WalletNft,
-} from "./types";
-import { DeveloperApi } from "./DeveloperApi";
-import { v4 } from "uuid";
+} from './types';
+import { DeveloperApi } from './DeveloperApi';
 
 export class WalletApi extends DeveloperApi {
   /**
@@ -21,13 +20,9 @@ export class WalletApi extends DeveloperApi {
    */
   async create(params: WalletCreateParameters): Promise<Wallet[]> {
     return this.postRequest<Wallet[]>(
-      "/developer/wallets",
-      {
-        ...params,
-        idempotencyKey: params.idempotencyKey ?? v4(),
-        entitySecretCiphertext: this.generateCipherText(),
-      },
-      "wallets",
+      '/developer/wallets',
+      this.addCipherTextAndIdempotencyKeyToParams<WalletCreateParameters>(params),
+      'wallets',
     );
   }
 
@@ -38,7 +33,7 @@ export class WalletApi extends DeveloperApi {
    * @returns the list of wallets
    */
   async list(params?: WalletListParameters): Promise<Wallet[]> {
-    return this.getRequest<Wallet[]>("/wallets", params, "wallets");
+    return this.getRequest<Wallet[]>('/wallets', params, 'wallets');
   }
 
   /**
@@ -48,7 +43,7 @@ export class WalletApi extends DeveloperApi {
    * @returns the requested wallet
    */
   async get(id: string): Promise<Wallet> {
-    return this.getRequest<Wallet>(`/wallets/${id}`, undefined, "wallet");
+    return this.getRequest<Wallet>(`/wallets/${id}`, undefined, 'wallet');
   }
 
   /**
@@ -58,7 +53,7 @@ export class WalletApi extends DeveloperApi {
    * @returns the updated wallet
    */
   async update(params: WalletUpdateParameters): Promise<Wallet> {
-    return this.putRequest<Wallet>("/wallets", params, "wallet");
+    return this.putRequest<Wallet>('/wallets', params, 'wallet');
   }
 
   /**
@@ -72,7 +67,7 @@ export class WalletApi extends DeveloperApi {
     return this.getRequest<WalletTokenBalances>(
       `/wallets/${id}/balances`,
       rest,
-      "tokenBalances",
+      'tokenBalances',
     );
   }
 
@@ -85,6 +80,6 @@ export class WalletApi extends DeveloperApi {
    */
   async nfts(params: WalletNftsParameters): Promise<WalletNft[]> {
     const { id, ...rest } = params;
-    return this.getRequest<WalletNft[]>(`/wallets/${id}/nfts`, rest, "nfts");
+    return this.getRequest<WalletNft[]>(`/wallets/${id}/nfts`, rest, 'nfts');
   }
 }

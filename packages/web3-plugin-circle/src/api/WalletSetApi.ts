@@ -1,12 +1,10 @@
 import {
-  DeveloperFields,
   WalletSet,
   WalletSetCreateParameters,
   WalletSetListParameters,
   WalletSetUpdateParameters,
-} from "./types";
-import { v4 } from "uuid";
-import { DeveloperApi } from "./DeveloperApi";
+} from './types';
+import { DeveloperApi } from './DeveloperApi';
 
 export class WalletSetApi extends DeveloperApi {
   /**
@@ -16,18 +14,12 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the new wallet set
    */
   async create(params: WalletSetCreateParameters): Promise<WalletSet> {
-    const data: WalletSetCreateParameters & DeveloperFields = {
-      entitySecretCiphertext: this.generateCipherText(),
-      idempotencyKey: params.idempotencyKey ?? v4(),
-    };
+    const data: WalletSetCreateParameters =
+      this.addCipherTextAndIdempotencyKeyToParams<WalletSetCreateParameters>(params);
     if (params.name) {
       data.name = params.name;
     }
-    return this.postRequest<WalletSet>(
-      "/developer/walletSets",
-      data,
-      "walletSet",
-    );
+    return this.postRequest<WalletSet>('/developer/walletSets', data, 'walletSet');
   }
 
   /**
@@ -37,11 +29,7 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the updated wallet set
    */
   async update(params: WalletSetUpdateParameters): Promise<WalletSet> {
-    return this.putRequest<WalletSet>(
-      `/developer/walletSets`,
-      params,
-      "walletSet",
-    );
+    return this.putRequest<WalletSet>(`/developer/walletSets`, params, 'walletSet');
   }
 
   /**
@@ -51,7 +39,7 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the list of wallet sets
    */
   async list(params?: WalletSetListParameters): Promise<WalletSet[]> {
-    return this.getRequest<WalletSet[]>("/walletSets", params, "walletSets");
+    return this.getRequest<WalletSet[]>('/walletSets', params, 'walletSets');
   }
 
   /**
@@ -61,10 +49,6 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the requested wallet set
    */
   async get(id: string): Promise<WalletSet> {
-    return this.getRequest<WalletSet>(
-      `/walletSets/${id}`,
-      undefined,
-      "walletSet",
-    );
+    return this.getRequest<WalletSet>(`/walletSets/${id}`, undefined, 'walletSet');
   }
 }

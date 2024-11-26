@@ -18,7 +18,7 @@ export class SignApi extends DeveloperApi {
   async signMessage(params: SignMessageParameters): Promise<string> {
     return this.postRequest<string>(
       '/developer/sign/message',
-      { ...params, entitySecretCiphertext: this.generateCipherText() },
+      this.addCipherTextToParams<SignMessageParameters>(params),
       'signature',
     );
   }
@@ -31,7 +31,7 @@ export class SignApi extends DeveloperApi {
   async signTypedData(params: SignTypedDataParameters): Promise<string> {
     return this.postRequest<string>(
       '/developer/sign/typedData',
-      { ...params, entitySecretCiphertext: this.generateCipherText() },
+      this.addCipherTextToParams<SignTypedDataParameters>(params),
       'signature',
     );
   }
@@ -45,10 +45,10 @@ export class SignApi extends DeveloperApi {
    * @returns the signed transaction
    */
   async signTransaction(params: SignTransactionParameters): Promise<SignedTransaction> {
-    return this.postRequest<SignedTransaction>('/developer/sign/transaction', {
-      ...params,
-      entitySecretCiphertext: this.generateCipherText(),
-    });
+    return this.postRequest<SignedTransaction>(
+      '/developer/sign/transaction',
+      this.addCipherTextToParams<SignTransactionParameters>(params),
+    );
   }
 
   /**
@@ -61,9 +61,9 @@ export class SignApi extends DeveloperApi {
   async signDelegateAction(
     params: SignDelegateActionParameters,
   ): Promise<SignedTransactionDelegate> {
-    return this.postRequest<SignedTransactionDelegate>('/developer/sign/delegateAction', {
-      ...params,
-      entitySecretCiphertext: this.generateCipherText(),
-    });
+    return this.postRequest<SignedTransactionDelegate>(
+      '/developer/sign/delegateAction',
+      this.addCipherTextToParams<SignDelegateActionParameters>(params),
+    );
   }
 }

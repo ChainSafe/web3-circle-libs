@@ -15,14 +15,21 @@ export class DeveloperApi extends BaseApi {
     }
     return SecretApi.getEntitySecretCiphertext(this.secret, this.publicKey);
   }
-  protected addCipherTextAndIdempotencyKeyToParams<
-    Param extends { [key: string]: unknown },
-  >(params: Param): Param & { entitySecretCiphertext: string; idempotencyKey: string } {
-    return this.addIdempotencyKeyToParams<Param & { entitySecretCiphertext: string }>({
+  protected addCipherTextToParams<Param extends { [key: string]: unknown }>(
+    params: Param,
+  ): Param & { entitySecretCiphertext: string } {
+    return {
       ...params,
       entitySecretCiphertext: params.entitySecretCiphertext
         ? (params.entitySecretCiphertext as string)
         : this.generateCipherText(),
-    });
+    };
+  }
+  protected addCipherTextAndIdempotencyKeyToParams<
+    Param extends { [key: string]: unknown },
+  >(params: Param): Param & { entitySecretCiphertext: string; idempotencyKey: string } {
+    return this.addCipherTextToParams<Param & { idempotencyKey: string }>(
+      this.addIdempotencyKeyToParams<Param>(params),
+    );
   }
 }
