@@ -11,9 +11,9 @@ import {
   CancelTransactionParameters,
   AccelerateTransactionParameters,
   EstimateFee,
-} from "./types";
-import { DeveloperApi } from "./DeveloperApi";
-import { v4 } from "uuid";
+} from './types';
+import { DeveloperApi } from './DeveloperApi';
+import { v4 } from 'uuid';
 
 export class TransactionApi extends DeveloperApi {
   /**
@@ -23,11 +23,7 @@ export class TransactionApi extends DeveloperApi {
    * @returns the list of transactions
    */
   async list(params?: ListTransactionsParameters): Promise<Transaction[]> {
-    return this.getRequest<Transaction[]>(
-      "/transactions",
-      params,
-      "transactions",
-    );
+    return this.getRequest<Transaction[]>('/transactions', params, 'transactions');
   }
 
   /**
@@ -38,11 +34,7 @@ export class TransactionApi extends DeveloperApi {
    */
   async get(params: GetTransactionParameters): Promise<Transaction> {
     const { id, ...rest } = params;
-    return this.getRequest<Transaction>(
-      `/transactions/${id}`,
-      rest,
-      "transaction",
-    );
+    return this.getRequest<Transaction>(`/transactions/${id}`, rest, 'transaction');
   }
 
   /**
@@ -51,10 +43,8 @@ export class TransactionApi extends DeveloperApi {
    * @param params the parameters for the create transfer transaction request
    * @returns the new transfer transaction
    */
-  async createTransfer(
-    params: CreateTransferTransactionParameters,
-  ): Promise<Transfer> {
-    return this.postRequest<Transfer>("/developer/transactions/transfer", {
+  async createTransfer(params: CreateTransferTransactionParameters): Promise<Transfer> {
+    return this.postRequest<Transfer>('/developer/transactions/transfer', {
       ...params,
       idempotencyKey: params.idempotencyKey ?? v4(),
       entitySecretCiphertext: this.generateCipherText(),
@@ -68,11 +58,7 @@ export class TransactionApi extends DeveloperApi {
    * @returns a value that indicates whether or not the address is valid
    */
   async validateAddress(params: ValidateAddressParameters): Promise<boolean> {
-    return this.postRequest<boolean>(
-      "/transactions/validateAddress",
-      params,
-      "isValid",
-    );
+    return this.postRequest<boolean>('/transactions/validateAddress', params, 'isValid');
   }
 
   /**
@@ -86,7 +72,7 @@ export class TransactionApi extends DeveloperApi {
     params: EstimateContractExecutionFeeParameters,
   ): Promise<EstimateFee> {
     return this.postRequest<EstimateFee>(
-      "/transactions/contractExecution/estimateFee",
+      '/transactions/contractExecution/estimateFee',
       params,
     );
   }
@@ -97,13 +83,8 @@ export class TransactionApi extends DeveloperApi {
    * @param params the parameters for the estimate transfer transaction request
    * @returns the transfer transaction estimate
    */
-  async estimateTransferFee(
-    params: EstimateTransferFeeParameters,
-  ): Promise<EstimateFee> {
-    return this.postRequest<EstimateFee>(
-      "/transactions/transfer/estimateFee",
-      params,
-    );
+  async estimateTransferFee(params: EstimateTransferFeeParameters): Promise<EstimateFee> {
+    return this.postRequest<EstimateFee>('/transactions/transfer/estimateFee', params);
   }
 
   /**
@@ -115,10 +96,11 @@ export class TransactionApi extends DeveloperApi {
   async createContractExecutionTransaction(
     params: CreateContractExecutionTransactionParameters,
   ): Promise<Transfer> {
-    return this.postRequest<Transfer>(
-      "/developer/transactions/contractExecution",
-      params,
-    );
+    const data = { ...params };
+    data.entitySecretCiphertext =
+      data.entitySecretCiphertext ?? this.generateCipherText();
+    data.idempotencyKey = params.idempotencyKey ?? v4();
+    return this.postRequest<Transfer>('/developer/transactions/contractExecution', data);
   }
 
   /**
@@ -129,18 +111,17 @@ export class TransactionApi extends DeveloperApi {
    * @param params the parameters for the cancel transaction request
    * @returns the cancelled transaction
    */
-  async cancelTransaction(
-    params: CancelTransactionParameters,
-  ): Promise<Transfer> {
+  async cancelTransaction(params: CancelTransactionParameters): Promise<Transfer> {
     const { id, ...rest } = params;
-    return this.postRequest<Transfer>(
-      `/developer/transactions/${id}/cancel`,
-      rest,
-    );
+    rest.entitySecretCiphertext =
+      rest.entitySecretCiphertext ?? this.generateCipherText();
+    rest.idempotencyKey = params.idempotencyKey ?? v4();
+    return this.postRequest<Transfer>(`/developer/transactions/${id}/cancel`, rest);
   }
 
   /**
    * Accelerates a specified transaction from a developer-controlled wallet. Additional gas fees may be incurred.
+   * Accelerating a transaction can only occur when a transaction is in the SENT state.
    * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-accelerate
    * @param params the parameters for the accelerate transaction request
    * @returns the accelerated transaction
@@ -149,9 +130,9 @@ export class TransactionApi extends DeveloperApi {
     params: AccelerateTransactionParameters,
   ): Promise<Transfer> {
     const { id, ...rest } = params;
-    return this.postRequest<Transfer>(
-      `/developer/transactions/${id}/accelerate`,
-      rest,
-    );
+    rest.entitySecretCiphertext =
+      rest.entitySecretCiphertext ?? this.generateCipherText();
+    rest.idempotencyKey = params.idempotencyKey ?? v4();
+    return this.postRequest<Transfer>(`/developer/transactions/${id}/accelerate`, rest);
   }
 }

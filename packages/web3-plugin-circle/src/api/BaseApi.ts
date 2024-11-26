@@ -1,11 +1,17 @@
-import fetch from "cross-fetch";
-import { v4 } from "uuid";
-import { objectToUrlParams } from "./utils";
+import fetch from 'cross-fetch';
+import { v4 } from 'uuid';
+import { objectToUrlParams } from './utils';
 
 type ResponseData<ReturnType> = {
   code: number;
   message?: string;
   data: ReturnType;
+  errors?: {
+    message: string;
+    location: string;
+    invalidValue: string;
+    error: string;
+  }[];
 };
 type RequestData = { headers: HeadersInit; body: BodyInit };
 
@@ -40,8 +46,8 @@ export class BaseApi {
    */
   get headers(): HeadersInit {
     return {
-      "Content-Type": "application/json",
-      "X-Request-Id": v4(),
+      'Content-Type': 'application/json',
+      'X-Request-Id': v4(),
       Authorization: `Bearer ${this.apiKey}`,
     };
   }
@@ -63,12 +69,20 @@ export class BaseApi {
   ): Promise<ReturnType> {
     const response = (await res.json()) as unknown as ResponseData<ReturnType>;
     if (Number(response.code)) {
-      throw new Error(`ERROR CODE: ${response.code}. ${response.message}`);
+      let errorsMsgs = '';
+      if (response.errors) {
+        errorsMsgs = response.errors
+          .map(
+            (error) => `${error.message}${error.location ? `(${error.location})` : ''}`,
+          )
+          .join(', ');
+      }
+      throw new Error(
+        `${response.code}: ${response.message}.${errorsMsgs ? ` Errors: ${errorsMsgs}` : ''}`,
+      );
     }
     if (fieldName) {
-      return (response.data as unknown as Record<string, ReturnType>)[
-        fieldName
-      ];
+      return (response.data as unknown as Record<string, ReturnType>)[fieldName];
     }
     return response.data;
   }
@@ -87,9 +101,8 @@ export class BaseApi {
   ): Promise<ReturnType> {
     const response = await fetch(`${this.baseUrl}${endPoint}`, {
       ...this.prepareRequestData<BaseParams>(params),
-      method: "post",
+      method: 'post',
     });
-
     return this.prepareResponseData<ReturnType>(response, fieldName);
   }
 
@@ -109,7 +122,7 @@ export class BaseApi {
 
     const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
       ...this.prepareRequestData<BaseParams>(rest),
-      method: "put",
+      method: 'put',
     });
 
     return this.prepareResponseData<ReturnType>(response, fieldName);
@@ -130,7 +143,7 @@ export class BaseApi {
     const { id, ...rest } = params;
     const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
       ...this.prepareRequestData<BaseParams>(rest),
-      method: "patch",
+      method: 'patch',
     });
 
     return this.prepareResponseData<ReturnType>(response, fieldName);
@@ -151,7 +164,7 @@ export class BaseApi {
     const { id, ...rest } = params;
     const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
       ...this.prepareRequestData<BaseParams>(rest),
-      method: "delete",
+      method: 'delete',
     });
 
     return this.prepareResponseData<ReturnType>(response, fieldName);
@@ -172,9 +185,9 @@ export class BaseApi {
     const urlParams = objectToUrlParams(params);
 
     const response = await fetch(
-      `${this.baseUrl}${endPoint}${urlParams ? `?${urlParams}` : ""}`,
+      `${this.baseUrl}${endPoint}${urlParams ? `?${urlParams}` : ''}`,
       {
-        method: "get",
+        method: 'get',
         headers: this.headers,
       },
     );

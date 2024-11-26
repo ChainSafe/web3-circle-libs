@@ -1,7 +1,7 @@
-import crypto from "crypto";
-import forge from "node-forge";
-import { BaseApi } from "./BaseApi";
-import { ConfigEntity } from "./types";
+import crypto from 'crypto';
+import forge from 'node-forge';
+import { BaseApi } from './BaseApi';
+import { ConfigEntity, RegisteredEntity } from './types';
 
 export class SecretApi extends BaseApi {
   /**
@@ -9,7 +9,7 @@ export class SecretApi extends BaseApi {
    * @returns a random 32-byte value formatted as a hex string
    */
   static generateSecret(): string {
-    return crypto.randomBytes(32).toString("hex");
+    return crypto.randomBytes(32).toString('hex');
   }
 
   /**
@@ -21,7 +21,7 @@ export class SecretApi extends BaseApi {
   static getEntitySecretCiphertext(secret: string, pemKey: string): string {
     const entitySecret = forge.util.hexToBytes(secret);
     const publicKey = forge.pki.publicKeyFromPem(pemKey);
-    const encryptedData = publicKey.encrypt(entitySecret, "RSA-OAEP", {
+    const encryptedData = publicKey.encrypt(entitySecret, 'RSA-OAEP', {
       md: forge.md.sha256.create(),
       mgf1: {
         md: forge.md.sha256.create(),
@@ -37,11 +37,7 @@ export class SecretApi extends BaseApi {
    * @returns the entity's public key
    */
   async getPublicKey(): Promise<string> {
-    return this.getRequest<string>(
-      "/config/entity/publicKey",
-      undefined,
-      "publicKey",
-    );
+    return this.getRequest<string>('/config/entity/publicKey', undefined, 'publicKey');
   }
 
   /**
@@ -50,6 +46,18 @@ export class SecretApi extends BaseApi {
    * @returns the entity's configuration
    */
   async getConfig(): Promise<ConfigEntity> {
-    return this.getRequest<ConfigEntity>("/config/entity");
+    return this.getRequest<ConfigEntity>('/config/entity');
+  }
+
+  /**
+   * Register an entity's secret ciphertext with the Circle REST API
+   * @returns the entity's configuration
+   */
+  async registerEntitySecretCiphertext(
+    entitySecretCiphertext: string,
+  ): Promise<RegisteredEntity> {
+    return this.postRequest<RegisteredEntity>('/config/entity/entitySecret', {
+      entitySecretCiphertext,
+    });
   }
 }

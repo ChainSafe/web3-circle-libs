@@ -5,8 +5,8 @@ import {
   SignDelegateActionParameters,
   SignedTransaction,
   SignedTransactionDelegate,
-} from "./types";
-import { DeveloperApi } from "./DeveloperApi";
+} from './types';
+import { DeveloperApi } from './DeveloperApi';
 
 export class SignApi extends DeveloperApi {
   /**
@@ -17,9 +17,9 @@ export class SignApi extends DeveloperApi {
    */
   async signMessage(params: SignMessageParameters): Promise<string> {
     return this.postRequest<string>(
-      "/developer/sign/message",
+      '/developer/sign/message',
       { ...params, entitySecretCiphertext: this.generateCipherText() },
-      "signature",
+      'signature',
     );
   }
   /**
@@ -30,9 +30,9 @@ export class SignApi extends DeveloperApi {
    */
   async signTypedData(params: SignTypedDataParameters): Promise<string> {
     return this.postRequest<string>(
-      "/developer/sign/typedData",
+      '/developer/sign/typedData',
       { ...params, entitySecretCiphertext: this.generateCipherText() },
-      "signature",
+      'signature',
     );
   }
 
@@ -44,10 +44,8 @@ export class SignApi extends DeveloperApi {
    * @param params the parameters for the sign transaction request
    * @returns the signed transaction
    */
-  async signTransaction(
-    params: SignTransactionParameters,
-  ): Promise<SignedTransaction> {
-    return this.postRequest<SignedTransaction>("/developer/sign/transaction", {
+  async signTransaction(params: SignTransactionParameters): Promise<SignedTransaction> {
+    return this.postRequest<SignedTransaction>('/developer/sign/transaction', {
       ...params,
       entitySecretCiphertext: this.generateCipherText(),
     });
@@ -63,9 +61,9 @@ export class SignApi extends DeveloperApi {
   async signDelegateAction(
     params: SignDelegateActionParameters,
   ): Promise<SignedTransactionDelegate> {
-    return this.postRequest<SignedTransactionDelegate>(
-      "/developer/sign/delegateAction",
-      { ...params, entitySecretCiphertext: this.generateCipherText() },
-    );
+    return this.postRequest<SignedTransactionDelegate>('/developer/sign/delegateAction', {
+      ...params,
+      entitySecretCiphertext: this.generateCipherText(),
+    });
   }
 }

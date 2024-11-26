@@ -332,44 +332,6 @@ export type CreateTransferTransactionParameters = {
    * it will be treated as the same request and the original response will be returned.
    */
   idempotencyKey?: string;
-  /**
-   * A dynamic blockchain fee level setting (LOW, MEDIUM, or HIGH)
-   * that will be used to pay gas for the transaction. Calculated based on network traffic,
-   * supply of validators, and demand for transaction verification.
-   * Cannot be used with gasPrice, priorityFee, or maxFee.
-   */
-  feeLevel?: string;
-  /**
-   * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
-   * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
-   * the provided gasLimit is required to be greater or equal to feeLevel estimation
-   * and will override the estimation's gasLimit.
-   */
-  gasLimit?: string;
-  /**
-   * For blockchains without EIP-1559 support, the maximum price of gas, in gwei,
-   * to use per each unit of gas (see gasLimit). Requires gasLimit.
-   * Cannot be used with feeLevel, priorityFee, or maxFee.
-   */
-  gasPrice?: string;
-  /**
-   * For blockchains with EIP-1559 support, the maximum price per unit of gas (see gasLimit),
-   * in gwei. Requires priorityFee, and gasLimit to be present.
-   * Cannot be used with feeLevel or gasPrice.
-   */
-  maxFee?: string;
-  /**
-   * For blockchains with EIP-1559 support, the “tip”, in gwei,
-   * to add to the base fee as an incentive for validators.
-   * Please note that the maxFee and gasLimit parameters are required alongside the priorityFee.
-   * The feeLevel and gasPrice parameters cannot be used with the priorityFee.
-   */
-  priorityFee?: string;
-  /**
-   * List of NFT token IDs corresponding with the NFTs to transfer.
-   * Batch transfers are supported only for ERC-1155 tokens.
-   * The length of NFT token IDs must match the length of amounts.
-   */
   nftTokenIds?: string[];
   /** Optional reference or description used to identify the transaction. */
   refId?: string;
@@ -382,7 +344,7 @@ export type CreateTransferTransactionParameters = {
    * The blockchain and tokenId fields are mutually exclusive.
    */
   blockchain?: string;
-};
+} & FeeType;
 
 /**
  * Parameters for an estimate
@@ -418,14 +380,14 @@ export type EstimateContractDeploymentFeeParameters = {
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/deploy-contract-template
  */
 export type DeployContractTemplateParameters = {
- /** The universally unique identifier of the resource. */
+  /** The universally unique identifier of the resource. */
   id: string;
   /**
    * A base64 string expression of the entity secret ciphertext.
    * The entity secret should be encrypted by the entity public key.
    * Circle mandates that the entity secret ciphertext is unique for each API request.
    */
-  entitySecretCiphertext: string;
+  entitySecretCiphertext?: string;
   /** Name of the contract in your Circle console. */
   name: string;
   /** System-generated unique identifier of the resource. */
@@ -442,47 +404,14 @@ export type DeployContractTemplateParameters = {
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
   /** Description of the contract. */
   description?: string;
   /** JSON object that contains the template deployment parameters used to initialize the contract(s) on-chain. */
   templateParameters?: { [key: string]: any };
-  /**
-   * A dynamic blockchain fee level setting (LOW, MEDIUM, or HIGH)
-   * that will be used to pay gas for the transaction. Calculated based on network traffic,
-   * supply of validators, and demand for transaction verification.
-   * Cannot be used with gasPrice, priorityFee, or maxFee.
-   */
-  feeLevel?: string;
-  /**
-   * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
-   * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
-   * the provided gasLimit is required to be greater or equal to feeLevel estimation
-   * and will override the estimation's gasLimit.
-   */
-  gasLimit?: string;
-  /**
-   * For blockchains without EIP-1559 support, the maximum price of gas, in gwei,
-   * to use per each unit of gas (see gasLimit). Requires gasLimit.
-   * Cannot be used with feeLevel, priorityFee, or maxFee.
-   */
-  gasPrice?: string;
-  /**
-   * For blockchains with EIP-1559 support, the maximum price per unit of gas (see gasLimit),
-   * in gwei. Requires priorityFee, and gasLimit to be present.
-   * Cannot be used with feeLevel or gasPrice.
-   */
-  maxFee?: string;
-  /**
-   * For blockchains with EIP-1559 support, the “tip”, in gwei,
-   * to add to the base fee as an incentive for validators.
-   * Please note that the maxFee and gasLimit parameters are required alongside the priorityFee.
-   * The feeLevel and gasPrice parameters cannot be used with the priorityFee.
-   */
-  priorityFee?: string;
   /** RefID is a custom label field. */
   refId?: string;
-};
+} & FeeType;
 
 /**
  * Parameters for a list contracts request
@@ -549,6 +478,31 @@ export type ImportContractParameters = {
   description?: string;
 };
 
+type ContractDeploymentRequiredParams =
+  | {
+      /**
+       * Unique system generated identifier of the wallet.
+       * Required when sourceAddress and blockchain are not provided.
+       * Mutually exclusive with sourceAddress and blockchain.
+       * For contract deploys this wallet ID will be used as the source.
+       */
+      walletId: string;
+    }
+  | {
+      /**
+       * The blockchain network that the resource is to be created on or is currently on.
+       * Required along with sourceAddress if you don't provide walletId.
+       * The blockchain and walletId fields are mutually exclusive.
+       */
+      blockchain: string;
+      /**
+       * Source address of the transaction.
+       * Required along with blockchain if walletId is not provided.
+       * The sourceAddress and walletId fields are mutually exclusive.
+       */
+      sourceAddress: string;
+    };
+
 /**
  * Parameters for an estimate contract deployment request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/estimate-contract-deploy
@@ -556,14 +510,9 @@ export type ImportContractParameters = {
 export type EstimateContractDeploymentParameters = {
   /** Bytecode of the contract being deployed. */
   bytecode: string;
-  /** The contract's ABI in a JSON stringified format. */
-  abiJson?: string;
-  /**
-   * The blockchain network that the resource is to be created on or is currently on.
-   * Required along with sourceAddress if you don't provide walletId.
-   * The blockchain and walletId fields are mutually exclusive.
-   */
-  blockchain: string;
+  /** The contract's ABI */
+  abiJson?: string | object;
+
   /** Signature of the constructor if the contract has one. constructor() by default. */
   constructorSignature?: string;
   /**
@@ -571,20 +520,77 @@ export type EstimateContractDeploymentParameters = {
    * Must be an empty array if there are no constructor parameters.
    */
   constructorParameters?: (string | number | boolean)[];
-  /**
-   * Source address of the transaction.
-   * Required along with blockchain if walletId is not provided.
-   * The sourceAddress and walletId fields are mutually exclusive.
-   */
-  sourceAddress?: string;
-  /**
-   * Unique system generated identifier of the wallet.
-   * Required when sourceAddress and blockchain are not provided.
-   * Mutually exclusive with sourceAddress and blockchain.
-   * For contract deploys this wallet ID will be used as the source.
-   */
-  walletId?: string;
-};
+} & ContractDeploymentRequiredParams;
+
+type FeeType =
+  | {
+      /**
+       * A dynamic blockchain fee level setting (LOW, MEDIUM, or HIGH)
+       * that will be used to pay gas for the transaction. Calculated based on network traffic,
+       * supply of validators, and demand for transaction verification.
+       * Cannot be used with gasPrice, priorityFee, or maxFee.
+       */
+      feeLevel: string;
+    }
+  | {
+      /**
+       * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
+       * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
+       * the provided gasLimit is required to be greater or equal to feeLevel estimation
+       * and will override the estimation's gasLimit.
+       */
+      gasLimit: string;
+      /**
+       * A dynamic blockchain fee level setting (LOW, MEDIUM, or HIGH)
+       * that will be used to pay gas for the transaction. Calculated based on network traffic,
+       * supply of validators, and demand for transaction verification.
+       * Cannot be used with gasPrice, priorityFee, or maxFee.
+       */
+      feeLevel?: string;
+    }
+  | {
+      /**
+       * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
+       * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
+       * the provided gasLimit is required to be greater or equal to feeLevel estimation
+       * and will override the estimation's gasLimit.
+       */
+      gasLimit: string;
+      /**
+       * For blockchains without EIP-1559 support, the maximum price of gas, in gwei,
+       * to use per each unit of gas (see gasLimit). Requires gasLimit.
+       * Cannot be used with feeLevel, priorityFee, or maxFee.
+       */
+      gasPrice: string;
+      feeLevel: never;
+      priorityFee: never;
+      maxFee: never;
+    }
+  | {
+      /**
+       * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
+       * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
+       * the provided gasLimit is required to be greater or equal to feeLevel estimation
+       * and will override the estimation's gasLimit.
+       */
+      gasLimit: string;
+      /**
+       * For blockchains with EIP-1559 support, the maximum price per unit of gas (see gasLimit),
+       * in gwei. Requires priorityFee, and gasLimit to be present.
+       * Cannot be used with feeLevel or gasPrice.
+       */
+      maxFee: string;
+      /**
+       * For blockchains with EIP-1559 support, the “tip”, in gwei,
+       * to add to the base fee as an incentive for validators.
+       * Please note that the maxFee and gasLimit parameters are required alongside the priorityFee.
+       * The feeLevel and gasPrice parameters cannot be used with the priorityFee.
+       */
+      priorityFee: string;
+      /** Optional reference or description used to identify the transaction. */
+      feeLevel: never;
+      gasPrice: never;
+    };
 
 /**
  * Parameters for a deploy contract request
@@ -602,11 +608,11 @@ export type DeployContractParameters = {
    * The entity secret should be encrypted by the entity public key.
    * Circle mandates that the entity secret ciphertext is unique for each API request.
    */
-  entitySecretCiphertext: string;
+  entitySecretCiphertext?: string;
   /** Bytecode of the contract being deployed. */
   bytecode: string;
-  /** The contract's ABI in a JSON stringified format. */
-  abiJson: string;
+  /** The contract's ABI */
+  abiJson: string | object;
   /**
    * Unique system generated identifier of the wallet.
    * Required when sourceAddress and blockchain are not provided.
@@ -622,7 +628,7 @@ export type DeployContractParameters = {
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
   /** The description for a contract. */
   description?: string;
   /**
@@ -630,42 +636,9 @@ export type DeployContractParameters = {
    * Must be an empty array if there are no constructor parameters.
    */
   constructorParameters?: (string | number | boolean)[];
-  /**
-   * A dynamic blockchain fee level setting (LOW, MEDIUM, or HIGH)
-   * that will be used to pay gas for the transaction. Calculated based on network traffic,
-   * supply of validators, and demand for transaction verification.
-   * Cannot be used with gasPrice, priorityFee, or maxFee.
-   */
-  feeLevel?: string;
-  /**
-   * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
-   * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
-   * the provided gasLimit is required to be greater or equal to feeLevel estimation
-   * and will override the estimation's gasLimit.
-   */
-  gasLimit?: string;
-  /**
-   * For blockchains without EIP-1559 support, the maximum price of gas, in gwei,
-   * to use per each unit of gas (see gasLimit). Requires gasLimit.
-   * Cannot be used with feeLevel, priorityFee, or maxFee.
-   */
-  gasPrice?: string;
-  /**
-   * For blockchains with EIP-1559 support, the maximum price per unit of gas (see gasLimit),
-   * in gwei. Requires priorityFee, and gasLimit to be present.
-   * Cannot be used with feeLevel or gasPrice.
-   */
-  maxFee?: string;
-  /**
-   * For blockchains with EIP-1559 support, the “tip”, in gwei,
-   * to add to the base fee as an incentive for validators.
-   * Please note that the maxFee and gasLimit parameters are required alongside the priorityFee.
-   * The feeLevel and gasPrice parameters cannot be used with the priorityFee.
-   */
-  priorityFee?: string;
-  /** Optional reference or description used to identify the transaction. */
+
   refId?: string;
-};
+} & FeeType;
 
 /**
  * Parameters for a query contract request
@@ -891,7 +864,7 @@ export type CreateContractExecutionTransactionParameters = {
    * The entity secret should be encrypted by the entity public key.
    * Circle mandates that the entity secret ciphertext is unique for each API request.
    */
-  entitySecretCiphertext: string;
+  entitySecretCiphertext?: string;
   /** The blockchain address of the contract to be executed. */
   contractAddress: string;
   /**
@@ -900,7 +873,7 @@ export type CreateContractExecutionTransactionParameters = {
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
   /**
    * The contract ABI function signature or callData field is required for interacting with the smart contract.
    * The ABI function signature cannot be used simultaneously with callData. e.g. burn(uint256)
@@ -924,42 +897,9 @@ export type CreateContractExecutionTransactionParameters = {
    * Optional field for payable api only, if not provided, no native token will be sent.
    */
   amount?: string;
-  /**
-   * A dynamic blockchain fee level setting (LOW, MEDIUM, or HIGH)
-   * that will be used to pay gas for the transaction. Calculated based on network traffic,
-   * supply of validators, and demand for transaction verification.
-   * Cannot be used with gasPrice, priorityFee, or maxFee.
-   */
-  feeLevel?: string;
-  /**
-   * The maximum units of gas to use for the transaction. Required if feeLevel is not provided.
-   * GasLimit override (only supported for EOA wallets): Using gasLimit together with feeLevel,
-   * the provided gasLimit is required to be greater or equal to feeLevel estimation
-   * and will override the estimation's gasLimit.
-   */
-  gasLimit?: string;
-  /**
-   * For blockchains without EIP-1559 support, the maximum price of gas, in gwei,
-   * to use per each unit of gas (see gasLimit). Requires gasLimit.
-   * Cannot be used with feeLevel, priorityFee, or maxFee.
-   */
-  gasPrice?: string;
-  /**
-   * For blockchains with EIP-1559 support, the maximum price per unit of gas (see gasLimit),
-   * in gwei. Requires priorityFee, and gasLimit to be present.
-   * Cannot be used with feeLevel or gasPrice.
-   */
-  maxFee?: string;
-  /**
-   * For blockchains with EIP-1559 support, the “tip”, in gwei,
-   * to add to the base fee as an incentive for validators.
-   * Please note that the maxFee and gasLimit parameters are required alongside the priorityFee.
-   * The feeLevel and gasPrice parameters cannot be used with the priorityFee.
-   */
-  priorityFee?: string;
   /** Optional reference or description used to identify the transaction. */
   refId?: string;
-};
+} & FeeType;
 
 /**
  * Parameters for a cancel transaction request
@@ -973,14 +913,14 @@ export type CancelTransactionParameters = {
    * The entity secret should be encrypted by the entity public key.
    * Circle mandates that the entity secret ciphertext is unique for each API request.
    */
-  entitySecretCiphertext: string;
+  entitySecretCiphertext?: string;
   /**
    * Universally unique identifier (UUID v4) idempotency key.
    * This key is utilized to ensure exactly-once execution of mutating requests.
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
 };
 
 export type AccelerateTransactionParameters = {
@@ -991,14 +931,14 @@ export type AccelerateTransactionParameters = {
    * The entity secret should be encrypted by the entity public key.
    * Circle mandates that the entity secret ciphertext is unique for each API request.
    */
-  entitySecretCiphertext: string;
+  entitySecretCiphertext?: string;
   /**
    * Universally unique identifier (UUID v4) idempotency key.
    * This key is utilized to ensure exactly-once execution of mutating requests.
    * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
    * it will be treated as the same request and the original response will be returned.
    */
-  idempotencyKey: string;
+  idempotencyKey?: string;
 };
 
 /**
@@ -1741,4 +1681,8 @@ export type EventLog = {
 export type ConfigEntity = {
   /** System-generated unique identifier of the entity's app. */
   appId: string;
+};
+export type RegisteredEntity = {
+  /** System-generated unique identifier of the entity's app. */
+  recoveryFile: string;
 };

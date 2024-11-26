@@ -1,4 +1,4 @@
-import { DeveloperApi } from "./DeveloperApi";
+import { DeveloperApi } from './DeveloperApi';
 import {
   Contract,
   DeployContract,
@@ -10,7 +10,8 @@ import {
   QueryContract,
   QueryContractParameters,
   UpdateContractParameters,
-} from "./types";
+} from './types';
+import { v4 } from 'uuid';
 
 export class SmartContractApi extends DeveloperApi {
   /**
@@ -20,7 +21,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the list of contracts
    */
   async list(params?: ListContractsParameters): Promise<Contract[]> {
-    return this.getRequest<Contract[]>("/contracts", params, "contracts");
+    return this.getRequest<Contract[]>('/contracts', params, 'contracts');
   }
 
   /**
@@ -31,7 +32,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the requested contract
    */
   async get(id: string): Promise<Contract> {
-    return this.getRequest<Contract>(`/contracts/${id}`, undefined, "contract");
+    return this.getRequest<Contract>(`/contracts/${id}`, undefined, 'contract');
   }
 
   /**
@@ -43,7 +44,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the updated contract
    */
   async update(params: UpdateContractParameters): Promise<Contract> {
-    return this.patchRequest<Contract>(`/contracts`, params, "contract");
+    return this.patchRequest<Contract>(`/contracts`, params, 'contract');
   }
 
   /**
@@ -54,7 +55,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the imported contract
    */
   async importContract(params: ImportContractParameters): Promise<Contract> {
-    return this.postRequest<Contract>("/contracts/import", params, "contract");
+    return this.postRequest<Contract>('/contracts/import', params, 'contract');
   }
 
   /**
@@ -68,11 +69,24 @@ export class SmartContractApi extends DeveloperApi {
     params: EstimateContractDeploymentParameters,
   ): Promise<EstimateFee> {
     return this.postRequest<EstimateFee>(
-      "/contracts/deploy/estimateFee",
-      params,
+      '/contracts/deploy/estimateFee',
+      this.prepareAbiParams(params),
     );
   }
-
+  private prepareAbiParams(
+    params: EstimateContractDeploymentParameters | DeployContractParameters,
+  ): EstimateContractDeploymentParameters | DeployContractParameters {
+    const formattedParams = { ...params };
+    if (
+      typeof formattedParams.abiJson === 'object' &&
+      Array.isArray(formattedParams.abiJson)
+    ) {
+      {
+        formattedParams.abiJson = JSON.stringify(formattedParams.abiJson);
+      }
+    }
+    return formattedParams;
+  }
   /**
    * Deploy a smart contract on a specified blockchain using the contract's ABI and bytecode.
    * The deployment will originate from one of your Circle Programmable Wallets.
@@ -81,7 +95,14 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the deployed contract
    */
   async deploy(params: DeployContractParameters): Promise<DeployContract> {
-    return this.postRequest<DeployContract>("/contracts/deploy", params);
+    const data = { ...params };
+    data.entitySecretCiphertext =
+      data.entitySecretCiphertext ?? this.generateCipherText();
+    data.idempotencyKey = params.idempotencyKey ?? v4();
+    return this.postRequest<DeployContract>(
+      '/contracts/deploy',
+      this.prepareAbiParams(data),
+    );
   }
 
   /**
@@ -91,6 +112,6 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the result of querying the contract
    */
   async query(params: QueryContractParameters): Promise<QueryContract> {
-    return this.postRequest<QueryContract>("/contracts/query", params);
+    return this.postRequest<QueryContract>('/contracts/query', params);
   }
 }
