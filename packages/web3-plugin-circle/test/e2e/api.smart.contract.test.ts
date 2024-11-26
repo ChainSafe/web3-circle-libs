@@ -8,6 +8,9 @@ const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
+console.log('apikey', String(apikey).slice(0, 10));
+console.log('publicKey', String(publicKey).slice(0, 10));
+console.log('secret', String(secret).slice(0, 10));
 const baseUrl = 'https://api.circle.com/v1/w3s';
 
 describe('SmartContractApi Tests', () => {
@@ -17,6 +20,7 @@ describe('SmartContractApi Tests', () => {
     const contractId = '019365d4-c9ba-7705-89c5-94a32cfdbd97';
     const params = {
       blockchain: BLOCKCHAIN.ETH_SEPOLIA,
+      name: 'USDC',
     };
     const contracts = await smartContractApi.list(params);
     expect(contracts).toBeDefined();
