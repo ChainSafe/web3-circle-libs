@@ -1,14 +1,12 @@
-import { SmartContractEventMonitorApi } from '../../src/api/SmartContractEventMonitorApi';
-import { BLOCKCHAIN } from '../../src/api/constants';
+import { SmartContractEventMonitorApi } from '../../src/sdk/SmartContractEventMonitorApi';
+import { BASE_URL, BLOCKCHAIN } from '../../src/sdk/constants';
 import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS } from './fixtures';
 
 const apikey = process.env.API_KEY as string;
 
-const baseUrl = 'https://api.circle.com/v1/w3s';
-
 // @todo: all event monitors requires webhook to be set up. All requests return forbidden
 describe.skip('SmartContractEventMonitorApi Tests', () => {
-  const eventMonitorApi = new SmartContractEventMonitorApi(baseUrl, apikey);
+  const eventMonitorApi = new SmartContractEventMonitorApi(BASE_URL, apikey);
 
   it('Get Event Monitors', async () => {
     const params = {

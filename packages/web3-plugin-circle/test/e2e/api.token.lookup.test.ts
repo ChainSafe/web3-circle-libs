@@ -1,11 +1,11 @@
-import { TokenLookupApi } from '../../src/api/TokenLookupApi';
+import { TokenLookupApi } from '../../src/sdk/TokenLookupApi';
 import { ETH_SEPOLIA_EURC_TOKEN_ID } from './fixtures';
+import { BASE_URL } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
-const baseUrl = 'https://api.circle.com/v1/w3s';
 
 describe('TokenLookupApi Tests', () => {
-  const tokenLookupApi = new TokenLookupApi(baseUrl, apikey);
+  const tokenLookupApi = new TokenLookupApi(BASE_URL, apikey);
 
   it('Get Token by ID', async () => {
     const tokenId = ETH_SEPOLIA_EURC_TOKEN_ID;

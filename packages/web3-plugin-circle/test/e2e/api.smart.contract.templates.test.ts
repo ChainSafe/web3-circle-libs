@@ -1,16 +1,14 @@
-import { SmartContractTemplateApi } from '../../src/api/SmartContractTemplateApi';
+import { SmartContractTemplateApi } from '../../src/sdk/SmartContractTemplateApi';
 import { ETH_SEPOLIA_WALLET_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
-import { BLOCKCHAIN, FEE_LEVEL, TEMPLATE } from '../../src/api/constants';
+import { BASE_URL, BLOCKCHAIN, FEE_LEVEL, TEMPLATE } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
-const baseUrl = 'https://api.circle.com/v1/w3s';
-
 describe('SmartContractTemplateApi Tests', () => {
   const smartContractTemplateApi = new SmartContractTemplateApi(
-    baseUrl,
+    BASE_URL,
     apikey,
     secret,
     publicKey,

@@ -1,20 +1,24 @@
-import { TransactionApi } from '../../src/api/TransactionApi';
+import { TransactionApi } from '../../src/sdk/TransactionApi';
 import {
   ETH_SEPOLIA_BASIC_CONTRACT_ADDRESS,
   ETH_SEPOLIA_WALLET_ID,
   waitTxState,
 } from './fixtures';
-import { BLOCKCHAIN, FEE_LEVEL, TRANSACTION_STATE } from '../../src/api/constants';
+import {
+  BASE_URL,
+  BLOCKCHAIN,
+  FEE_LEVEL,
+  TRANSACTION_STATE,
+} from '../../src/sdk/constants';
 import { v4 } from 'uuid';
 
 const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
-const baseUrl = 'https://api.circle.com/v1/w3s';
 jest.setTimeout(30000);
 describe('TransactionApi Tests', () => {
-  const transactionApi = new TransactionApi(baseUrl, apikey, secret, publicKey);
+  const transactionApi = new TransactionApi(BASE_URL, apikey, secret, publicKey);
 
   it('List Transactions', async () => {
     const res = await transactionApi.list();

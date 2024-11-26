@@ -15,6 +15,8 @@ export const BLOCKCHAIN = {
   SOL_DEVNET: 'SOL-DEVNET',
 };
 
+export const BASE_URL = 'https://api.circle.com/v1/w3s';
+
 export const FEE_LEVEL = {
   HIGH: 'HIGH',
   MEDIUM: 'MEDIUM',

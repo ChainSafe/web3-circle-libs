@@ -1,15 +1,16 @@
-import { WalletApi } from '../../src/sdk/WalletApi';
+import { CircleSDK } from '../../src/sdk/index';
 import { v4 } from 'uuid';
-import { BASE_URL, BLOCKCHAIN } from '../../src/sdk/constants';
+import { BLOCKCHAIN } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
-describe('Api Wallet Tests', () => {
-  const walletApi = new WalletApi(BASE_URL, apikey, secret, publicKey);
+describe('Api SDK Tests', () => {
+  const sdk = new CircleSDK(apikey, secret, publicKey);
+
   it('List wallets', async () => {
-    const res = await walletApi.list();
+    const res = await sdk.wallet.list();
     expect(res).toBeDefined();
     const wallet = res[0];
     expect(wallet.id).toBeDefined();
@@ -23,7 +24,7 @@ describe('Api Wallet Tests', () => {
   });
   it('Retrieve a wallet', async () => {
     const id = 'd9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7';
-    const wallet = await walletApi.get(id);
+    const wallet = await sdk.wallet.get(id);
     expect(wallet.id).toBe(id);
     expect(wallet.state).toBe('LIVE');
     expect(wallet.walletSetId).toBe('8ab26468-aa26-5158-b582-9d0f42e4d40f');
@@ -34,7 +35,7 @@ describe('Api Wallet Tests', () => {
     expect(wallet.createDate).toBeDefined();
   });
   it('Create wallets', async () => {
-    const res = await walletApi.create({
+    const res = await sdk.wallet.create({
       walletSetId: '8ab26468-aa26-5158-b582-9d0f42e4d40f',
       idempotencyKey: v4(),
       blockchains: [BLOCKCHAIN.ETH_SEPOLIA],
@@ -56,7 +57,7 @@ describe('Api Wallet Tests', () => {
     const id = 'd9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7';
     const randName = `name-${v4()}`;
     const randRefId = `refId-${v4()}`;
-    const wallet = await walletApi.update({
+    const wallet = await sdk.wallet.update({
       id,
       name: randName,
       refId: randRefId,
@@ -68,14 +69,14 @@ describe('Api Wallet Tests', () => {
 
   it('Get token balance for a wallet', async () => {
     const id = 'd9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7';
-    const balances = await walletApi.balance({
+    const balances = await sdk.wallet.balance({
       id,
     });
     expect(balances).toBeDefined();
   });
   it('Get NFTs for a wallet', async () => {
     const id = 'd9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7';
-    const nfts = await walletApi.nfts({
+    const nfts = await sdk.wallet.nfts({
       id,
     });
     expect(nfts).toBeDefined();

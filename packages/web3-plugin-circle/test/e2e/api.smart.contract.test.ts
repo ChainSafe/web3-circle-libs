@@ -1,6 +1,6 @@
-import { SmartContractApi } from '../../src/api/SmartContractApi';
+import { SmartContractApi } from '../../src/sdk/SmartContractApi';
 import { v4 } from 'uuid';
-import { BLOCKCHAIN, FEE_LEVEL } from '../../src/api/constants';
+import { BASE_URL, BLOCKCHAIN, FEE_LEVEL } from '../../src/sdk/constants';
 import { BasicAbi, BasicBytecode } from './fixtures/Basic';
 import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
 
@@ -11,10 +11,9 @@ const secret = process.env.SECRET as string;
 console.log('apikey', String(apikey).slice(0, 10));
 console.log('publicKey', String(publicKey).slice(0, 10));
 console.log('secret', String(secret).slice(0, 10));
-const baseUrl = 'https://api.circle.com/v1/w3s';
 
 describe('SmartContractApi Tests', () => {
-  const smartContractApi = new SmartContractApi(baseUrl, apikey, secret, publicKey);
+  const smartContractApi = new SmartContractApi(BASE_URL, apikey, secret, publicKey);
 
   it('List contracts', async () => {
     const contractId = '019365d4-c9ba-7705-89c5-94a32cfdbd97';

@@ -1,14 +1,13 @@
-import { WalletSetApi } from '../../src/api/WalletSetApi';
+import { WalletSetApi } from '../../src/sdk/WalletSetApi';
 import { v4 } from 'uuid';
+import { BASE_URL } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
 const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
-const baseUrl = 'https://api.circle.com/v1/w3s';
-
 describe('Wallet Sets', () => {
-  const walletSetApi = new WalletSetApi(baseUrl, apikey, secret, publicKey);
+  const walletSetApi = new WalletSetApi(BASE_URL, apikey, secret, publicKey);
   it('Get all wallet sets', async () => {
     const res = await walletSetApi.list();
     expect(res).toBeDefined();
