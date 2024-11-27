@@ -1,0 +1,15 @@
+{
+  "name": "circle-sdk-examples",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "run": "tsx"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "tsx": "^4.19.2",
+    "web3-plugin-circle": "*"
+  }
+}
