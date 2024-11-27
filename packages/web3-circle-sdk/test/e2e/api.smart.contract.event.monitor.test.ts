@@ -1,12 +1,12 @@
-import { SmartContractEventMonitorApi } from '../../src/sdk/SmartContractEventMonitorApi';
-import { BASE_URL, BLOCKCHAIN } from '../../src/sdk/constants';
+import { BLOCKCHAIN, SmartContractEventMonitorApi } from '../../src';
+
 import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS } from './fixtures';
 
 const apikey = process.env.API_KEY as string;
 
 // @todo: all event monitors requires webhook to be set up. All requests return forbidden
 describe.skip('SmartContractEventMonitorApi Tests', () => {
-  const eventMonitorApi = new SmartContractEventMonitorApi(BASE_URL, apikey);
+  const eventMonitorApi = new SmartContractEventMonitorApi(apikey);
 
   it('Get Event Monitors', async () => {
     const params = {

@@ -1,5 +1,5 @@
 import { BaseApi } from './BaseApi';
-import { Token } from './types';
+import type { Token } from './types';
 
 export class TokenLookupApi extends BaseApi {
   /**

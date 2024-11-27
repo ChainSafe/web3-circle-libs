@@ -1,12 +1,11 @@
-import { SignApi } from '../../src/sdk/SignApi';
+import { SignApi } from '../../src';
+
 import { ETH_SEPOLIA_WALLET_ID, EVM_TESTNET_WALLET_ID } from './fixtures';
-import { BASE_URL } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
-const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
-function jsonToBase64(jsonObject: any) {
+function jsonToBase64(jsonObject: object): string {
   // Convert the JSON object to a string
   const jsonString = JSON.stringify(jsonObject);
 
@@ -17,7 +16,7 @@ function jsonToBase64(jsonObject: any) {
 }
 describe('Api Tests', () => {
   describe('Sign', () => {
-    const signApi = new SignApi(BASE_URL, apikey, secret, publicKey);
+    const signApi = new SignApi(apikey, secret);
 
     it('Sign a message', async () => {
       const message = 'Hello, World!';

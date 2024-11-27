@@ -1,13 +1,15 @@
-import { CircleSDK } from '../../src/sdk/index';
 import { v4 } from 'uuid';
-import { BLOCKCHAIN } from '../../src/sdk/constants';
+
+import { CircleSDK, BLOCKCHAIN } from '../../src';
 
 const apikey = process.env.API_KEY as string;
-const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
 describe('Api SDK Tests', () => {
-  const sdk = new CircleSDK(apikey, secret, publicKey);
+  const sdk = new CircleSDK(apikey, secret);
+  beforeAll(async () => {
+    await sdk.init();
+  });
 
   it('List wallets', async () => {
     const res = await sdk.wallet.list();

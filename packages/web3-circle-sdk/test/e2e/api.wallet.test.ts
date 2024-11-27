@@ -1,13 +1,12 @@
-import { WalletApi } from '../../src/sdk/WalletApi';
 import { v4 } from 'uuid';
-import { BASE_URL, BLOCKCHAIN } from '../../src/sdk/constants';
+
+import { BLOCKCHAIN, WalletApi } from '../../src';
 
 const apikey = process.env.API_KEY as string;
-const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
 describe('Api Wallet Tests', () => {
-  const walletApi = new WalletApi(BASE_URL, apikey, secret, publicKey);
+  const walletApi = new WalletApi(apikey, secret);
   it('List wallets', async () => {
     const res = await walletApi.list();
     expect(res).toBeDefined();

@@ -1,4 +1,5 @@
-import {
+import { BaseApi } from './BaseApi';
+import type {
   GetEventMonitorsParameters,
   CreateEventMonitorParameters,
   UpdateEventMonitorParameters,
@@ -7,7 +8,6 @@ import {
   EventMonitor,
   EventLog,
 } from './types';
-import { BaseApi } from './BaseApi';
 
 export class SmartContractEventMonitorApi extends BaseApi {
   /**

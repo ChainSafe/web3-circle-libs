@@ -1,11 +1,11 @@
-import { TokenLookupApi } from '../../src/sdk/TokenLookupApi';
+import { TokenLookupApi } from '../../src';
+
 import { ETH_SEPOLIA_EURC_TOKEN_ID } from './fixtures';
-import { BASE_URL } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
 
 describe('TokenLookupApi Tests', () => {
-  const tokenLookupApi = new TokenLookupApi(BASE_URL, apikey);
+  const tokenLookupApi = new TokenLookupApi(apikey);
 
   it('Get Token by ID', async () => {
     const tokenId = ETH_SEPOLIA_EURC_TOKEN_ID;

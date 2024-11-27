@@ -1,4 +1,5 @@
-import {
+import { DeveloperApi } from './DeveloperApi';
+import type {
   WalletCreateParameters,
   Wallet,
   WalletListParameters,
@@ -8,7 +9,6 @@ import {
   WalletTokenBalances,
   WalletNft,
 } from './types';
-import { DeveloperApi } from './DeveloperApi';
 
 export class WalletApi extends DeveloperApi {
   /**
@@ -21,7 +21,7 @@ export class WalletApi extends DeveloperApi {
   async create(params: WalletCreateParameters): Promise<Wallet[]> {
     return this.postRequest<Wallet[]>(
       '/developer/wallets',
-      this.addCipherTextAndIdempotencyKeyToParams<WalletCreateParameters>(params),
+      await this.addCipherTextAndIdempotencyKeyToParams<WalletCreateParameters>(params),
       'wallets',
     );
   }

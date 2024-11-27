@@ -1,7 +1,9 @@
 import crypto from 'crypto';
+
 import forge from 'node-forge';
+
 import { BaseApi } from './BaseApi';
-import { ConfigEntity, RegisteredEntity } from './types';
+import type { ConfigEntity, RegisteredEntity } from './types';
 
 export class SecretApi extends BaseApi {
   /**

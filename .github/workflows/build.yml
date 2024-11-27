@@ -10,6 +10,7 @@
                  node: [20]
          name: Install and test
          runs-on: ubuntu-latest
+
          steps:
              - uses: actions/checkout@v4
              - uses: actions/setup-node@v4
@@ -19,8 +20,8 @@
              - run: cd packages/web3-plugin-circle
              - run: yarn install
              - run: yarn build
-             - run: export API_KEY=${{secrets.API_KEY}}
-             - run: export CIPHER_TEXT=${{secrets.CIPHER_TEXT}}
-             - run: export PUBLIC_KEY="${{secrets.PUBLIC_KEY}}"
-             - run: export SECRET=${{secrets.SECRET}}
-             - run: cd packages/web3-plugin-circle && yarn test:e2e
+             - name: Run tests
+               env:
+                  API_KEY: ${{ secrets.API_KEY }}
+                  PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+               run: cd packages/web3-plugin-circle && yarn test:e2e

@@ -1,4 +1,4 @@
-import { SecretApi } from 'web3-plugin-circle';
+import { SecretApi } from '../../../packages/web3-circle-sdk';
 import { sdk } from './_sdk';
 
 // Generate a random 32-byte value that you will use to generate a cipher texts

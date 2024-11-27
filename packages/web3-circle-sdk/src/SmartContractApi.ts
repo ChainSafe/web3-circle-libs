@@ -1,5 +1,5 @@
 import { DeveloperApi } from './DeveloperApi';
-import {
+import type {
   Contract,
   DeployContract,
   DeployContractParameters,
@@ -95,7 +95,7 @@ export class SmartContractApi extends DeveloperApi {
    */
   async deploy(params: DeployContractParameters): Promise<DeployContract> {
     const data =
-      this.addCipherTextAndIdempotencyKeyToParams<DeployContractParameters>(params);
+      await this.addCipherTextAndIdempotencyKeyToParams<DeployContractParameters>(params);
     return this.postRequest<DeployContract>(
       '/contracts/deploy',
       this.prepareAbiParams(data),

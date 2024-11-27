@@ -1,4 +1,5 @@
-import {
+import { DeveloperApi } from './DeveloperApi';
+import type {
   ListTransactionsParameters,
   GetTransactionParameters,
   CreateTransferTransactionParameters,
@@ -12,7 +13,6 @@ import {
   AccelerateTransactionParameters,
   EstimateFee,
 } from './types';
-import { DeveloperApi } from './DeveloperApi';
 
 export class TransactionApi extends DeveloperApi {
   /**
@@ -45,7 +45,7 @@ export class TransactionApi extends DeveloperApi {
   async createTransfer(params: CreateTransferTransactionParameters): Promise<Transfer> {
     return this.postRequest<Transfer>(
       '/developer/transactions/transfer',
-      this.addCipherTextAndIdempotencyKeyToParams<CreateTransferTransactionParameters>(
+      await this.addCipherTextAndIdempotencyKeyToParams<CreateTransferTransactionParameters>(
         params,
       ),
     );
@@ -97,7 +97,7 @@ export class TransactionApi extends DeveloperApi {
     params: CreateContractExecutionTransactionParameters,
   ): Promise<Transfer> {
     const data =
-      this.addCipherTextAndIdempotencyKeyToParams<CreateContractExecutionTransactionParameters>(
+      await this.addCipherTextAndIdempotencyKeyToParams<CreateContractExecutionTransactionParameters>(
         params,
       );
     return this.postRequest<Transfer>('/developer/transactions/contractExecution', data);
@@ -115,7 +115,7 @@ export class TransactionApi extends DeveloperApi {
     const { id, ...rest } = params;
     return this.postRequest<Transfer>(
       `/developer/transactions/${id}/cancel`,
-      this.addCipherTextAndIdempotencyKeyToParams<
+      await this.addCipherTextAndIdempotencyKeyToParams<
         Omit<CancelTransactionParameters, 'id'>
       >(rest),
     );
@@ -134,7 +134,7 @@ export class TransactionApi extends DeveloperApi {
     const { id, ...rest } = params;
     return this.postRequest<Transfer>(
       `/developer/transactions/${id}/accelerate`,
-      this.addCipherTextAndIdempotencyKeyToParams<
+      await this.addCipherTextAndIdempotencyKeyToParams<
         Omit<AccelerateTransactionParameters, 'id'>
       >(rest),
     );

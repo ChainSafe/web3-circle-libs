@@ -1,10 +1,10 @@
-import {
+import { DeveloperApi } from './DeveloperApi';
+import type {
   EstimateContractDeploymentFeeParameters,
   DeployContractTemplateParameters,
   EstimateFee,
   DeployContractFromTemplate,
 } from './types';
-import { DeveloperApi } from './DeveloperApi';
 
 export class SmartContractTemplateApi extends DeveloperApi {
   /**
@@ -31,7 +31,7 @@ export class SmartContractTemplateApi extends DeveloperApi {
   ): Promise<DeployContractFromTemplate> {
     const { id, ...rest } = params;
     const data =
-      this.addCipherTextAndIdempotencyKeyToParams<
+      await this.addCipherTextAndIdempotencyKeyToParams<
         Omit<DeployContractTemplateParameters, 'id'>
       >(rest);
     return this.postRequest<DeployContractFromTemplate>(`/templates/${id}/deploy`, data);

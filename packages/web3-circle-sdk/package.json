@@ -1,7 +1,7 @@
 {
-  "name": "web3-plugin-circle",
+  "name": "web3-circle-sdk",
   "version": "0.1.0",
-  "description": "Web3.js Circle plugin",
+  "description": "Web3 Circle SDK",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",

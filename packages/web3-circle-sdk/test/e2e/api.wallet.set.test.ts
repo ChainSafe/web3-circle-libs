@@ -1,13 +1,12 @@
-import { WalletSetApi } from '../../src/sdk/WalletSetApi';
 import { v4 } from 'uuid';
-import { BASE_URL } from '../../src/sdk/constants';
+
+import { WalletSetApi } from '../../src';
 
 const apikey = process.env.API_KEY as string;
-const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
 describe('Wallet Sets', () => {
-  const walletSetApi = new WalletSetApi(BASE_URL, apikey, secret, publicKey);
+  const walletSetApi = new WalletSetApi(apikey, secret);
   it('Get all wallet sets', async () => {
     const res = await walletSetApi.list();
     expect(res).toBeDefined();

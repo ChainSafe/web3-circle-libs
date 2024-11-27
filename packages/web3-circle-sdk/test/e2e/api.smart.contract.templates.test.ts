@@ -1,18 +1,12 @@
-import { SmartContractTemplateApi } from '../../src/sdk/SmartContractTemplateApi';
+import { BLOCKCHAIN, FEE_LEVEL, TEMPLATE, SmartContractTemplateApi } from '../../src';
+
 import { ETH_SEPOLIA_WALLET_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
-import { BASE_URL, BLOCKCHAIN, FEE_LEVEL, TEMPLATE } from '../../src/sdk/constants';
 
 const apikey = process.env.API_KEY as string;
-const publicKey = process.env.PUBLIC_KEY as string;
 const secret = process.env.SECRET as string;
 
 describe('SmartContractTemplateApi Tests', () => {
-  const smartContractTemplateApi = new SmartContractTemplateApi(
-    BASE_URL,
-    apikey,
-    secret,
-    publicKey,
-  );
+  const smartContractTemplateApi = new SmartContractTemplateApi(apikey, secret);
 
   it('Estimate Contract Deployment Fee', async () => {
     const params = {

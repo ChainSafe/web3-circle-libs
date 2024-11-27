@@ -1,5 +1,7 @@
 import fetch from 'cross-fetch';
 import { v4 } from 'uuid';
+
+import { BASE_URL } from './constants';
 import { objectToUrlParams } from './utils';
 
 type ResponseData<ReturnType> = {
@@ -36,7 +38,7 @@ export class BaseApi {
    * @param baseUrl the base URL for the Circle REST API
    * @param apiKey the API key to include with requests
    */
-  constructor(baseUrl: string, apiKey: string) {
+  constructor(apiKey: string, baseUrl: string = BASE_URL) {
     this.baseUrl = baseUrl;
     this.apiKey = apiKey;
   }

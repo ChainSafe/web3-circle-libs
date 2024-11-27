@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { CircleSDK } from 'web3-plugin-circle';
+import { CircleSDK } from '../../../packages/web3-circle-sdk';
 
 dotenv.config({ path: '../../.env' });
 

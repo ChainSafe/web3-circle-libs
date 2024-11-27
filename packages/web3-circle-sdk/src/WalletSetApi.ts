@@ -1,10 +1,10 @@
-import {
+import { DeveloperApi } from './DeveloperApi';
+import type {
   WalletSet,
   WalletSetCreateParameters,
   WalletSetListParameters,
   WalletSetUpdateParameters,
 } from './types';
-import { DeveloperApi } from './DeveloperApi';
 
 export class WalletSetApi extends DeveloperApi {
   /**
@@ -15,7 +15,9 @@ export class WalletSetApi extends DeveloperApi {
    */
   async create(params: WalletSetCreateParameters): Promise<WalletSet> {
     const data: WalletSetCreateParameters =
-      this.addCipherTextAndIdempotencyKeyToParams<WalletSetCreateParameters>(params);
+      await this.addCipherTextAndIdempotencyKeyToParams<WalletSetCreateParameters>(
+        params,
+      );
     if (params.name) {
       data.name = params.name;
     }
