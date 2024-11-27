@@ -1,4 +1,5 @@
 import { useMemo, type ReactNode } from 'react';
+
 import { CircleClient, CircleSdkContext } from './CircleSdkContext';
 
 /**
