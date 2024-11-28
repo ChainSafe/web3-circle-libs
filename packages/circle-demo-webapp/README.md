@@ -1,40 +1,19 @@
-# Welcome to Remix!
+# Circle Demo Web App + Circle React Components
 
-- 📖 [Remix docs](https://remix.run/docs)
+A collection of React components designed for building applications with [Circle](https://developers.circle.com/).
 
-## Development
+## Run the Demo
 
-Run the dev server:
+Explore a demo application built with Remix.js that showcases the components in action:
 
-```shellscript
-npm run dev
+```
+yarn dev
 ```
 
-## Deployment
+## Run Storybook
 
-First, build your app for production:
+Browse the component library in a sandbox environment to view and test individual components:
 
-```sh
-npm run build
 ```
-
-Then run the app in production mode:
-
-```sh
-npm start
+yarn storybook
 ```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
