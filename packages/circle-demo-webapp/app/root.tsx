@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+
 import { Sidebar } from './components/Sidebar';
 
 import './tailwind.css';

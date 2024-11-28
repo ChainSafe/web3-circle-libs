@@ -11,7 +11,6 @@ const meta = {
   tags: ['autodocs'],
 } satisfies Meta<typeof WalletCard>;
 
-// eslint-disable-next-line import/no-default-export
 export default meta;
 
 type Story = StoryObj<typeof meta>;
