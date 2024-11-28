@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "description": "Web3.js circle plugin and web3 circle UI components lib",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
