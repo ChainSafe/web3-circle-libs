@@ -8,9 +8,6 @@ import { BasicAbi, BasicBytecode } from './fixtures/Basic';
 const apikey = process.env.API_KEY as string;
 const secret = process.env.SECRET as string;
 
-console.log('apikey', String(apikey).slice(0, 10));
-console.log('secret', String(secret).slice(0, 10));
-
 describe('SmartContractApi Tests', () => {
   const smartContractApi = new SmartContractApi(apikey, secret);
 
