@@ -1,6 +1,6 @@
+import { Link, NavLink } from '@remix-run/react';
 import { User, Box, LayoutDashboard } from 'lucide-react';
 import React from 'react';
-import { Link, NavLink } from '@remix-run/react';
 
 import circleLogo from './circle-logo.svg';
 
