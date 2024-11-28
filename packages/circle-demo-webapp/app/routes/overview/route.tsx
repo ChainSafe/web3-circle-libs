@@ -1,11 +1,37 @@
+import { ActionFunctionArgs } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+
 import { WalletCard } from '~/components/WalletCard';
+import { sdk } from '~/lib/sdk';
 
 import { BalanceCard } from './components/BalanceCard';
 import { PageHeader } from './components/PageHeader';
 import { RecentTransactionsCard } from './components/RecentTransactionsCard';
 import { WalletsCard } from './components/WalletsCard';
 
+export async function loader() {
+  const walletSets = await sdk.walletSet.list();
+  return walletSets.length > 0 ? walletSets[0] : null;
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const body = await request.formData();
+  console.log(body);
+
+  return null;
+}
+
 export default function Overview() {
+  const walletSet = useLoaderData<typeof loader>();
+
+  if (!walletSet) {
+    return (
+      <div className="space-y-6">
+        <h2>No wallet set</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader />
@@ -35,7 +61,7 @@ export default function Overview() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <WalletsCard />
+          <WalletsCard walletSet={walletSet} />
         </div>
 
         <RecentTransactionsCard />
