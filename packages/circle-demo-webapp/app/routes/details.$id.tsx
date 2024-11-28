@@ -1,12 +1,12 @@
 import { useParams } from '@remix-run/react';
 
-export const loader = async ({ params }: { params: { id: string } }) => {
+export function loader({ params }: { params: { id: string } }) {
   const { id } = params;
 
   console.log('id', id);
 
   return [];
-};
+}
 
 export default function WalletDetailsPage() {
   const { id } = useParams();
