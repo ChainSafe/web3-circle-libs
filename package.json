@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "description": "Web3.js circle plugin and web3 circle UI components lib",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
@@ -19,10 +20,10 @@
     "url": "git@github.com:ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
-    "lint": "yarn workspace web3-plugin-circle lint",
-    "build": "yarn workspace web3-plugin-circle build",
-    "build:docs": "yarn workspace web3-plugin-circle build:docs",
-    "test": "yarn workspace web3-plugin-circle test"
+    "lint": "yarn workspace web3-circle-sdk lint",
+    "build": "yarn workspace web3-circle-sdk build",
+    "build:docs": "yarn workspace web3-circle-sdk build:docs",
+    "test": "yarn workspace web3-circle-sdk test"
   },
   "packageManager": "yarn@1.22.22"
 }
