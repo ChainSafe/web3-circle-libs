@@ -10,6 +10,6 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "tsx": "^4.19.2",
-    "web3-plugin-circle": "*"
+    "web3-circle-sdk": "*"
   }
 }

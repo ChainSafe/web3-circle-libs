@@ -1,2 +1,2 @@
-web3-plugin-circle
+web3-circle-sdk
 ===========
