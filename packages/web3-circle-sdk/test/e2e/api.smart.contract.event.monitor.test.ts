@@ -62,7 +62,6 @@ describe.skip('SmartContractEventMonitorApi Tests', () => {
       to: '2024-12-31T12:00:00Z',
     };
     const eventLogs = await eventMonitorApi.getEventLogs(params);
-    console.log(eventLogs);
     expect(eventLogs).toBeDefined();
     expect(eventLogs.length).toBeGreaterThan(0);
     const log = eventLogs[0];

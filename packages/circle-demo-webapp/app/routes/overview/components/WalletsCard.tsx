@@ -1,11 +1,11 @@
-import { Plus } from 'lucide-react';
+import { WalletSet } from 'web3-circle-sdk';
 
 import { Badge } from '~/components/ui/badge';
-import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { formatBalance } from '~/lib/formatBalance';
 
 import { MenuButton } from './MenuButton';
+import { NewWalletDialog } from './NewWalletDialog';
 
 interface WalletRowProps {
   gradient: string;
@@ -79,7 +79,11 @@ const wallets = [
   },
 ];
 
-export function WalletsCard() {
+interface WalletsCardProps {
+  walletSet: WalletSet;
+}
+
+export function WalletsCard({ walletSet }: WalletsCardProps) {
   return (
     <Card className="p-6">
       <div className="flex justify-between items-center mb-8">
@@ -89,9 +93,8 @@ export function WalletsCard() {
             10/20 Compliant
           </Badge>
         </div>
-        <Button>
-          <Plus /> New Wallet
-        </Button>
+
+        <NewWalletDialog walletSet={walletSet} />
       </div>
 
       <table className="w-full table-auto">
