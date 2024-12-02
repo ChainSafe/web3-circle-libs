@@ -154,7 +154,7 @@ describe('TransactionApi Tests', () => {
       feeLevel: FEE_LEVEL.MEDIUM,
       idempotencyKey: v4(),
     });
-    const canceled = await transactionApi.cancelTransaction({
+    const canceled = await transactionApi.cancel({
       id: res.id,
     });
     expect(res).toBeDefined();
@@ -184,7 +184,7 @@ describe('TransactionApi Tests', () => {
     // wait for sent status. Accelerating a transaction can only occur when a transaction is in the SENT state.
     await waitTxState(transactionApi, tx.id, TRANSACTION_STATE.SENT);
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const res = await transactionApi.accelerateTransaction({ id: tx.id });
+    const res = await transactionApi.accelerate({ id: tx.id });
     await waitTxState(transactionApi, tx.id, [
       TRANSACTION_STATE.ACCELERATED,
       TRANSACTION_STATE.CONFIRMED,
