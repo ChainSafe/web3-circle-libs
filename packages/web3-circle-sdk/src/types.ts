@@ -64,7 +64,7 @@ export type FaucetRequestParameters = {
 };
 
 export type GetMonitoredTokensParameters = {
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
   tokenAddress?: string;
   symbol?: string;
   from?: string; // ISO 8601 date-time format
@@ -128,7 +128,7 @@ export type WalletListParameters = {
   /** Filter by the blockchain address of the wallet. */
   address?: string;
   /** Filter by blockchain. */
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
   /** Filter by the wallet set. */
   walletSetId?: string;
   /** Filter by the reference identifier. */
@@ -318,7 +318,7 @@ export type SignDelegateActionParameters = {
  */
 export type ListTransactionsParameters = {
   /** Filter by blockchain. */
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
   /** Filter by the custody type. */
   custodyType?: string;
   /** Filter by the destination address. */
@@ -387,7 +387,7 @@ export type CreateTransferTransactionParameters = {
    * Blockchain of the transferred token. Required if tokenId is not provided.
    * The blockchain and tokenId fields are mutually exclusive.
    */
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
 } & FeeType;
 
 /**
@@ -463,7 +463,7 @@ export type DeployContractTemplateParameters = {
  */
 export type ListContractsParameters = {
   /** Filter by blockchain. */
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
   /** Filter contracts by input type. */
   contractInputType?: string;
   /** Filter contracts by deployer address. */
@@ -724,7 +724,7 @@ export type GetEventMonitorsParameters = {
   /** Filter contracts by address. */
   contractAddress?: string;
   /** Filter by blockchain. */
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
   /** Filter monitors by event signature. */
   eventSignature?: string;
   /** Queries items created since the specified date-time (inclusive) in ISO 8601 format. */
@@ -780,7 +780,7 @@ export type GetEventLogsParameters = {
   /** Filter contracts by address. */
   contractAddress?: string;
   /** Filter by blockchain. */
-  blockchain?: string;
+  blockchain?: BLOCKCHAIN;
   /** Queries items created since the specified date-time (inclusive) in ISO 8601 format. */
   from?: string;
   /** Queries items created before the specified date-time (inclusive) in ISO 8601 format. */

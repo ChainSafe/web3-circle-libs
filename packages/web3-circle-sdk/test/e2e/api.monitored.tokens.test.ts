@@ -1,6 +1,6 @@
 import { BLOCKCHAIN, MONITORED_TOKENS_SCOPE, MonitoredTokensApi } from '../../src';
 
-import { ETH_SEPOLIA_EURC_TOKEN_ID } from './fixtures/fixtures';
+import { ETH_SEPOLIA_EURC_TOKEN_ID, wait } from './fixtures/fixtures';
 
 const apikey = process.env.API_KEY as string;
 describe('Monitored tokens Api', () => {
@@ -86,6 +86,8 @@ describe('Monitored tokens Api', () => {
   });
 
   it('Update scope', async () => {
+    // fix API rate limit error
+    await wait(1000);
     const res = await monitoredTokensApi.updateScope({
       scope: MONITORED_TOKENS_SCOPE.MONITOR_ALL,
     });

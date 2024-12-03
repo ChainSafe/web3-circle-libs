@@ -24,3 +24,6 @@ export const waitTxState = async (
       }
     }, 500);
   });
+
+export const wait = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
