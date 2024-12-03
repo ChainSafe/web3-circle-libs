@@ -46,6 +46,14 @@ export type FilterOptions = {
   to?: string;
 } & FilterPagesOptions;
 
+export type FaucetRequestParameters = {
+  blockchain: string;
+  address: string;
+  native?: boolean;
+  usdc?: boolean;
+  eurc?: boolean;
+};
+
 /**
  * Parameters for a create wallet request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet

@@ -39,7 +39,11 @@ export class SecretApi extends BaseApi {
    * @returns the entity's public key
    */
   async getPublicKey(): Promise<string> {
-    return this.getRequest<string>('/config/entity/publicKey', undefined, 'publicKey');
+    return this.getRequest<string>(
+      '/w3s/config/entity/publicKey',
+      undefined,
+      'publicKey',
+    );
   }
 
   /**
@@ -48,7 +52,7 @@ export class SecretApi extends BaseApi {
    * @returns the entity's configuration
    */
   async getConfig(): Promise<ConfigEntity> {
-    return this.getRequest<ConfigEntity>('/config/entity');
+    return this.getRequest<ConfigEntity>('/w3s/config/entity');
   }
 
   /**
@@ -58,7 +62,7 @@ export class SecretApi extends BaseApi {
   async registerEntitySecretCiphertext(
     entitySecretCiphertext: string,
   ): Promise<RegisteredEntity> {
-    return this.postRequest<RegisteredEntity>('/config/entity/entitySecret', {
+    return this.postRequest<RegisteredEntity>('/w3s/config/entity/entitySecret', {
       entitySecretCiphertext,
     });
   }
