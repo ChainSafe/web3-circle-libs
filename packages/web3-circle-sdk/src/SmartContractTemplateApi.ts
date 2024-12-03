@@ -26,7 +26,7 @@ export class SmartContractTemplateApi extends DeveloperApi {
    * @param params the parameters for the deploy contract from template request
    * @returns the contract(s) deployed from the template
    */
-  async deployContract(
+  async deploy(
     params: DeployContractTemplateParameters,
   ): Promise<DeployContractFromTemplate> {
     const { id, ...rest } = params;

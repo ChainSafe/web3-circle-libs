@@ -25,7 +25,7 @@ export * from './WalletApi';
 export * from './WalletSetApi';
 
 // main sdk
-export class CircleSDK {
+export class CircleSdk {
   private _apiKey: string;
   private _secret: string;
   private _baseUrl: string;

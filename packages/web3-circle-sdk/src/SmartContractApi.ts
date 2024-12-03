@@ -53,7 +53,7 @@ export class SmartContractApi extends DeveloperApi {
    * @param params the parameters for the import contract request
    * @returns the imported contract
    */
-  async importContract(params: ImportContractParameters): Promise<Contract> {
+  async import(params: ImportContractParameters): Promise<Contract> {
     return this.postRequest<Contract>('/contracts/import', params, 'contract');
   }
 
@@ -64,7 +64,7 @@ export class SmartContractApi extends DeveloperApi {
    * @param params the parameters for the estimate deployment request
    * @returns the fee estimate
    */
-  async estimateDeployment(
+  async estimateDeploymentFee(
     params: EstimateContractDeploymentParameters,
   ): Promise<EstimateFee> {
     return this.postRequest<EstimateFee>(
