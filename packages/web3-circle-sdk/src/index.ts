@@ -1,3 +1,4 @@
+import { FaucetApi } from './FaucetApi';
 import { SecretApi } from './SecretApi';
 import { SignApi } from './SignApi';
 import { SmartContractApi } from './SmartContractApi';
@@ -23,6 +24,7 @@ export * from './TokenLookupApi';
 export * from './TransactionApi';
 export * from './WalletApi';
 export * from './WalletSetApi';
+export * from './FaucetApi';
 
 // main sdk
 export class CircleSDK {
@@ -38,6 +40,7 @@ export class CircleSDK {
   public transaction: TransactionApi;
   public wallet: WalletApi;
   public walletSet: WalletSetApi;
+  public faucet: FaucetApi;
 
   constructor(apiKey: string, secret: string, baseUrl: string = BASE_URL) {
     this._apiKey = apiKey;
@@ -60,6 +63,7 @@ export class CircleSDK {
     this.transaction = new TransactionApi(this._apiKey, this._secret, this._baseUrl);
     this.wallet = new WalletApi(this._apiKey, this._secret, this._baseUrl);
     this.walletSet = new WalletSetApi(this._apiKey, this._secret, this._baseUrl);
+    this.faucet = new FaucetApi(this._apiKey, this._secret);
   }
   public async init(): Promise<void> {
     try {

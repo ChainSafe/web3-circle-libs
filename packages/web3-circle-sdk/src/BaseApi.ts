@@ -78,6 +78,10 @@ export class BaseApi {
     res: Response,
     fieldName?: string,
   ): Promise<ReturnType> {
+    // case when empty body is returned
+    if (String(res.statusText).toLowerCase() === 'no content') {
+      return undefined as unknown as ReturnType;
+    }
     const response = (await res.json()) as unknown as ResponseData<ReturnType>;
     if (Number(response.code)) {
       console.log(response);

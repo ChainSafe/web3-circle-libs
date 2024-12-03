@@ -20,7 +20,7 @@ export class WalletApi extends DeveloperApi {
    */
   async create(params: WalletCreateParameters): Promise<Wallet[]> {
     return this.postRequest<Wallet[]>(
-      '/developer/wallets',
+      '/w3s/developer/wallets',
       await this.addCipherTextAndIdempotencyKeyToParams<WalletCreateParameters>(params),
       'wallets',
     );
@@ -33,7 +33,7 @@ export class WalletApi extends DeveloperApi {
    * @returns the list of wallets
    */
   async list(params?: WalletListParameters): Promise<Wallet[]> {
-    return this.getRequest<Wallet[]>('/wallets', params, 'wallets');
+    return this.getRequest<Wallet[]>('/w3s/wallets', params, 'wallets');
   }
 
   /**
@@ -43,7 +43,7 @@ export class WalletApi extends DeveloperApi {
    * @returns the requested wallet
    */
   async get(id: string): Promise<Wallet> {
-    return this.getRequest<Wallet>(`/wallets/${id}`, undefined, 'wallet');
+    return this.getRequest<Wallet>(`/w3s/wallets/${id}`, undefined, 'wallet');
   }
 
   /**
@@ -53,7 +53,7 @@ export class WalletApi extends DeveloperApi {
    * @returns the updated wallet
    */
   async update(params: WalletUpdateParameters): Promise<Wallet> {
-    return this.putRequest<Wallet>('/wallets', params, 'wallet');
+    return this.putRequest<Wallet>('/w3s/wallets', params, 'wallet');
   }
 
   /**
@@ -65,7 +65,7 @@ export class WalletApi extends DeveloperApi {
   async balance(params: WalletBalanceParameters): Promise<WalletTokenBalances> {
     const { id, ...rest } = params;
     return this.getRequest<WalletTokenBalances>(
-      `/wallets/${id}/balances`,
+      `/w3s/wallets/${id}/balances`,
       rest,
       'tokenBalances',
     );
@@ -80,6 +80,6 @@ export class WalletApi extends DeveloperApi {
    */
   async nfts(params: WalletNftsParameters): Promise<WalletNft[]> {
     const { id, ...rest } = params;
-    return this.getRequest<WalletNft[]>(`/wallets/${id}/nfts`, rest, 'nfts');
+    return this.getRequest<WalletNft[]>(`/w3s/wallets/${id}/nfts`, rest, 'nfts');
   }
 }

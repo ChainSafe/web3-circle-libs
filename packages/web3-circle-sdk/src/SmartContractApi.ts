@@ -20,7 +20,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the list of contracts
    */
   async list(params?: ListContractsParameters): Promise<Contract[]> {
-    return this.getRequest<Contract[]>('/contracts', params, 'contracts');
+    return this.getRequest<Contract[]>('/w3s/contracts', params, 'contracts');
   }
 
   /**
@@ -31,7 +31,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the requested contract
    */
   async get(id: string): Promise<Contract> {
-    return this.getRequest<Contract>(`/contracts/${id}`, undefined, 'contract');
+    return this.getRequest<Contract>(`/w3s/contracts/${id}`, undefined, 'contract');
   }
 
   /**
@@ -43,7 +43,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the updated contract
    */
   async update(params: UpdateContractParameters): Promise<Contract> {
-    return this.patchRequest<Contract>(`/contracts`, params, 'contract');
+    return this.patchRequest<Contract>(`/w3s/contracts`, params, 'contract');
   }
 
   /**
@@ -54,7 +54,7 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the imported contract
    */
   async importContract(params: ImportContractParameters): Promise<Contract> {
-    return this.postRequest<Contract>('/contracts/import', params, 'contract');
+    return this.postRequest<Contract>('/w3s/contracts/import', params, 'contract');
   }
 
   /**
@@ -68,7 +68,7 @@ export class SmartContractApi extends DeveloperApi {
     params: EstimateContractDeploymentParameters,
   ): Promise<EstimateFee> {
     return this.postRequest<EstimateFee>(
-      '/contracts/deploy/estimateFee',
+      '/w3s/contracts/deploy/estimateFee',
       this.prepareAbiParams(params),
     );
   }
@@ -97,7 +97,7 @@ export class SmartContractApi extends DeveloperApi {
     const data =
       await this.addCipherTextAndIdempotencyKeyToParams<DeployContractParameters>(params);
     return this.postRequest<DeployContract>(
-      '/contracts/deploy',
+      '/w3s/contracts/deploy',
       this.prepareAbiParams(data),
     );
   }
@@ -109,6 +109,6 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the result of querying the contract
    */
   async query(params: QueryContractParameters): Promise<QueryContract> {
-    return this.postRequest<QueryContract>('/contracts/query', params);
+    return this.postRequest<QueryContract>('/w3s/contracts/query', params);
   }
 }

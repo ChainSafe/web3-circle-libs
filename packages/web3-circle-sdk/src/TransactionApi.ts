@@ -22,7 +22,7 @@ export class TransactionApi extends DeveloperApi {
    * @returns the list of transactions
    */
   async list(params?: ListTransactionsParameters): Promise<Transaction[]> {
-    return this.getRequest<Transaction[]>('/transactions', params, 'transactions');
+    return this.getRequest<Transaction[]>('/w3s/transactions', params, 'transactions');
   }
 
   /**
@@ -33,7 +33,7 @@ export class TransactionApi extends DeveloperApi {
    */
   async get(params: GetTransactionParameters): Promise<Transaction> {
     const { id, ...rest } = params;
-    return this.getRequest<Transaction>(`/transactions/${id}`, rest, 'transaction');
+    return this.getRequest<Transaction>(`/w3s/transactions/${id}`, rest, 'transaction');
   }
 
   /**
@@ -44,7 +44,7 @@ export class TransactionApi extends DeveloperApi {
    */
   async createTransfer(params: CreateTransferTransactionParameters): Promise<Transfer> {
     return this.postRequest<Transfer>(
-      '/developer/transactions/transfer',
+      '/w3s/developer/transactions/transfer',
       await this.addCipherTextAndIdempotencyKeyToParams<CreateTransferTransactionParameters>(
         params,
       ),
@@ -58,7 +58,11 @@ export class TransactionApi extends DeveloperApi {
    * @returns a value that indicates whether or not the address is valid
    */
   async validateAddress(params: ValidateAddressParameters): Promise<boolean> {
-    return this.postRequest<boolean>('/transactions/validateAddress', params, 'isValid');
+    return this.postRequest<boolean>(
+      '/w3s/transactions/validateAddress',
+      params,
+      'isValid',
+    );
   }
 
   /**
@@ -72,7 +76,7 @@ export class TransactionApi extends DeveloperApi {
     params: EstimateContractExecutionFeeParameters,
   ): Promise<EstimateFee> {
     return this.postRequest<EstimateFee>(
-      '/transactions/contractExecution/estimateFee',
+      '/w3s/transactions/contractExecution/estimateFee',
       params,
     );
   }
@@ -84,7 +88,10 @@ export class TransactionApi extends DeveloperApi {
    * @returns the transfer transaction estimate
    */
   async estimateTransferFee(params: EstimateTransferFeeParameters): Promise<EstimateFee> {
-    return this.postRequest<EstimateFee>('/transactions/transfer/estimateFee', params);
+    return this.postRequest<EstimateFee>(
+      '/w3s/transactions/transfer/estimateFee',
+      params,
+    );
   }
 
   /**
@@ -100,7 +107,10 @@ export class TransactionApi extends DeveloperApi {
       await this.addCipherTextAndIdempotencyKeyToParams<CreateContractExecutionTransactionParameters>(
         params,
       );
-    return this.postRequest<Transfer>('/developer/transactions/contractExecution', data);
+    return this.postRequest<Transfer>(
+      '/w3s/developer/transactions/contractExecution',
+      data,
+    );
   }
 
   /**
@@ -114,7 +124,7 @@ export class TransactionApi extends DeveloperApi {
   async cancelTransaction(params: CancelTransactionParameters): Promise<Transfer> {
     const { id, ...rest } = params;
     return this.postRequest<Transfer>(
-      `/developer/transactions/${id}/cancel`,
+      `/w3s/developer/transactions/${id}/cancel`,
       await this.addCipherTextAndIdempotencyKeyToParams<
         Omit<CancelTransactionParameters, 'id'>
       >(rest),
@@ -133,7 +143,7 @@ export class TransactionApi extends DeveloperApi {
   ): Promise<Transfer> {
     const { id, ...rest } = params;
     return this.postRequest<Transfer>(
-      `/developer/transactions/${id}/accelerate`,
+      `/w3s/developer/transactions/${id}/accelerate`,
       await this.addCipherTextAndIdempotencyKeyToParams<
         Omit<AccelerateTransactionParameters, 'id'>
       >(rest),

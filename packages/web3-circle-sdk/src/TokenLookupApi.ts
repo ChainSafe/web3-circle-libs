@@ -10,6 +10,6 @@ export class TokenLookupApi extends BaseApi {
    * @returns the requested token
    */
   async get(id: string): Promise<Token> {
-    return this.getRequest<Token>(`/tokens/${id}`, undefined, 'token');
+    return this.getRequest<Token>(`/w3s/tokens/${id}`, undefined, 'token');
   }
 }

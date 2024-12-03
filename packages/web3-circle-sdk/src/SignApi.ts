@@ -17,7 +17,7 @@ export class SignApi extends DeveloperApi {
    */
   async signMessage(params: SignMessageParameters): Promise<string> {
     return this.postRequest<string>(
-      '/developer/sign/message',
+      '/w3s/developer/sign/message',
       await this.addCipherTextToParams<SignMessageParameters>(params),
       'signature',
     );
@@ -30,7 +30,7 @@ export class SignApi extends DeveloperApi {
    */
   async signTypedData(params: SignTypedDataParameters): Promise<string> {
     return this.postRequest<string>(
-      '/developer/sign/typedData',
+      '/w3s/developer/sign/typedData',
       await this.addCipherTextToParams<SignTypedDataParameters>(params),
       'signature',
     );
@@ -46,7 +46,7 @@ export class SignApi extends DeveloperApi {
    */
   async signTransaction(params: SignTransactionParameters): Promise<SignedTransaction> {
     return this.postRequest<SignedTransaction>(
-      '/developer/sign/transaction',
+      '/w3s/developer/sign/transaction',
       await this.addCipherTextToParams<SignTransactionParameters>(params),
     );
   }
@@ -62,7 +62,7 @@ export class SignApi extends DeveloperApi {
     params: SignDelegateActionParameters,
   ): Promise<SignedTransactionDelegate> {
     return this.postRequest<SignedTransactionDelegate>(
-      '/developer/sign/delegateAction',
+      '/w3s/developer/sign/delegateAction',
       await this.addCipherTextToParams<SignDelegateActionParameters>(params),
     );
   }
