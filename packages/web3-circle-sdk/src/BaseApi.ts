@@ -46,7 +46,7 @@ export class BaseApi {
   /**
    * Get a set of headers (including the API key) that will be used by this `BaseApi`
    */
-  get headers(): HeadersInit {
+  protected get headers(): HeadersInit {
     return {
       'Content-Type': 'application/json',
       'X-Request-Id': v4(),
@@ -109,7 +109,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested POST response field or the entire response if the `fieldName` parameter was omitted
    */
-  async postRequest<ReturnType>(
+  protected async postRequest<ReturnType>(
     endPoint: string,
     params: BaseParams,
     fieldName?: string,
@@ -128,7 +128,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested PUT response field or the entire response if the `fieldName` parameter was omitted
    */
-  async putRequest<ReturnType>(
+  protected async putRequest<ReturnType>(
     endPoint: string,
     params: PutBaseParams,
     fieldName?: string,
@@ -150,7 +150,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested PATCH response field or the entire response if the `fieldName` parameter was omitted
    */
-  async patchRequest<ReturnType>(
+  protected async patchRequest<ReturnType>(
     endPoint: string,
     params: PutBaseParams,
     fieldName?: string,
@@ -171,7 +171,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested DELETE response field or the entire response if the `fieldName` parameter was omitted
    */
-  async deleteRequest<ReturnType>(
+  protected async deleteRequest<ReturnType>(
     endPoint: string,
     params: PutBaseParams,
     fieldName?: string,
@@ -192,7 +192,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested GET response field or the entire response if the `fieldName` parameter was omitted
    */
-  async getRequest<ReturnType>(
+  protected async getRequest<ReturnType>(
     endPoint: string,
     params?: BaseParams,
     fieldName?: string,
