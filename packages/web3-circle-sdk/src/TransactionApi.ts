@@ -121,7 +121,7 @@ export class TransactionApi extends DeveloperApi {
    * @param params the parameters for the cancel transaction request
    * @returns the cancelled transaction
    */
-  async cancelTransaction(params: CancelTransactionParameters): Promise<Transfer> {
+  async cancel(params: CancelTransactionParameters): Promise<Transfer> {
     const { id, ...rest } = params;
     return this.postRequest<Transfer>(
       `/w3s/developer/transactions/${id}/cancel`,
@@ -138,9 +138,7 @@ export class TransactionApi extends DeveloperApi {
    * @param params the parameters for the accelerate transaction request
    * @returns the accelerated transaction
    */
-  async accelerateTransaction(
-    params: AccelerateTransactionParameters,
-  ): Promise<Transfer> {
+  async accelerate(params: AccelerateTransactionParameters): Promise<Transfer> {
     const { id, ...rest } = params;
     return this.postRequest<Transfer>(
       `/w3s/developer/transactions/${id}/accelerate`,

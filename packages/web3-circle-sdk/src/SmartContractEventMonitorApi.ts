@@ -16,7 +16,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @param params parameters for the get event monitors request
    * @returns the event monitors related to the specified filters
    */
-  async getEventMonitors(params?: GetEventMonitorsParameters): Promise<EventMonitor[]> {
+  async get(params?: GetEventMonitorsParameters): Promise<EventMonitor[]> {
     return this.getRequest<EventMonitor[]>(
       '/w3s/contracts/monitors',
       params,
@@ -30,9 +30,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @param params parameters for the create event monitor request
    * @returns the new event monitor
    */
-  async createEventMonitor(
-    params: CreateEventMonitorParameters,
-  ): Promise<EventMonitor[]> {
+  async create(params: CreateEventMonitorParameters): Promise<EventMonitor[]> {
     return this.postRequest<EventMonitor[]>(
       '/w3s/contracts/monitors',
       this.addIdempotencyKeyToParams<CreateEventMonitorParameters>(params),
@@ -46,9 +44,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @param params parameters for the update event monitor request
    * @returns the updated event monitor
    */
-  async updateEventMonitor(
-    params: UpdateEventMonitorParameters,
-  ): Promise<EventMonitor[]> {
+  async update(params: UpdateEventMonitorParameters): Promise<EventMonitor[]> {
     return this.putRequest<EventMonitor[]>(
       '/w3s/contracts/monitors/',
       params,

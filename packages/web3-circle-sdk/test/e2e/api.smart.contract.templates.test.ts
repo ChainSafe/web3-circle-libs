@@ -39,7 +39,7 @@ describe('SmartContractTemplateApi Tests', () => {
       },
       feeLevel: FEE_LEVEL.MEDIUM,
     };
-    const deployResult = await smartContractTemplateApi.deployContract(params);
+    const deployResult = await smartContractTemplateApi.deploy(params);
     expect(deployResult).toBeDefined();
     expect(deployResult.contractIds).toBeDefined();
     expect(deployResult.transactionId).toBeDefined();

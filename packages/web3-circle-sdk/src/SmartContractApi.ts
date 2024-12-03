@@ -64,7 +64,7 @@ export class SmartContractApi extends DeveloperApi {
    * @param params the parameters for the estimate deployment request
    * @returns the fee estimate
    */
-  async estimateDeployment(
+  async estimateDeploymentFee(
     params: EstimateContractDeploymentParameters,
   ): Promise<EstimateFee> {
     return this.postRequest<EstimateFee>(

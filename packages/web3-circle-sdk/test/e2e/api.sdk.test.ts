@@ -1,12 +1,12 @@
 import { v4 } from 'uuid';
 
-import { CircleSDK, BLOCKCHAIN } from '../../src';
+import { CircleSdk, BLOCKCHAIN } from '../../src';
 
 const apikey = process.env.API_KEY as string;
 const secret = process.env.SECRET as string;
 
 describe('Api SDK Tests', () => {
-  const sdk = new CircleSDK(apikey, secret);
+  const sdk = new CircleSdk(apikey, secret);
   beforeAll(async () => {
     await sdk.init();
   });

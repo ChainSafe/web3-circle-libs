@@ -87,7 +87,7 @@ describe('SmartContractApi Tests', () => {
       name: `Contract ${v4().slice(0, 6)}`,
       idempotencyKey: v4(),
     };
-    const importedContract = await smartContractApi.importContract(params);
+    const importedContract = await smartContractApi.import(params);
     expect(importedContract.name).toBe(params.name);
     expect(importedContract.contractInputType).toBe('IMPORT');
     expect(importedContract.createDate).toBeDefined();
@@ -112,7 +112,7 @@ describe('SmartContractApi Tests', () => {
       constructorParameters: [1, 'str'],
       sourceAddress: '0x81d3Ce1A567389F6cB1178A68EB33Aa6f081Dc52',
     };
-    const feeEstimate = await smartContractApi.estimateDeployment(params);
+    const feeEstimate = await smartContractApi.estimateDeploymentFee(params);
 
     expect(feeEstimate).toBeDefined();
     expect(feeEstimate.low).toBeDefined();
@@ -138,7 +138,7 @@ describe('SmartContractApi Tests', () => {
       walletId: ETH_SEPOLIA_WALLET_ID,
       constructorParameters: [1, 'str'],
     };
-    const feeEstimate = await smartContractApi.estimateDeployment(params);
+    const feeEstimate = await smartContractApi.estimateDeploymentFee(params);
 
     expect(feeEstimate).toBeDefined();
     expect(feeEstimate.low).toBeDefined();
