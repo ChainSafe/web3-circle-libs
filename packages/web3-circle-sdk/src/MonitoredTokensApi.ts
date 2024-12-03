@@ -63,12 +63,12 @@ export class MonitoredTokensApi extends BaseApi {
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens-scope
    * @returns boolean
    */
-  async updateScope(
-    params: UpdateMonitoredTokensScopeParameters,
-  ): Promise<MonitoredTokenEntity> {
-    return this.putRequest<MonitoredTokenEntity>(
-      '/w3s/config/entity/monitoredTokens',
-      params.scope,
+  async updateScope(params: UpdateMonitoredTokensScopeParameters): Promise<boolean> {
+    return (
+      (await this.putRequest<undefined>(
+        '/w3s/config/entity/monitoredTokens/scope',
+        params,
+      )) === undefined
     );
   }
 }

@@ -1,4 +1,4 @@
-import { MonitoredTokensApi, BLOCKCHAIN } from '../../src';
+import { BLOCKCHAIN, MONITORED_TOKENS_SCOPE, MonitoredTokensApi } from '../../src';
 
 import { ETH_SEPOLIA_EURC_TOKEN_ID } from './fixtures/fixtures';
 
@@ -40,7 +40,6 @@ describe('Monitored tokens Api', () => {
     expect(token.symbol).toBeDefined();
     expect(token.tokenAddress).toBeDefined();
     expect(token.updateDate).toBeDefined();
-    console.log('res', res);
   });
 
   it('Update', async () => {
@@ -86,13 +85,17 @@ describe('Monitored tokens Api', () => {
     expect(res.tokens.length).toBe(1);
   });
 
-  it.only('Update scope', async () => {
+  it('Update scope', async () => {
     const res = await monitoredTokensApi.updateScope({
-      scope: 'SELECTED',
+      scope: MONITORED_TOKENS_SCOPE.MONITOR_ALL,
     });
-    console.log('res', res);
-    expect(res.scope).toBeDefined();
-    expect(res.tokens).toBeDefined();
-    expect(res.tokens.length).toBe(1);
+    expect(res).toBe(true);
+    const monitoredAll = await monitoredTokensApi.get();
+    expect(monitoredAll.scope).toBe(MONITORED_TOKENS_SCOPE.MONITOR_ALL);
+    await monitoredTokensApi.updateScope({
+      scope: MONITORED_TOKENS_SCOPE.SELECTED,
+    });
+    const monitoredSelected = await monitoredTokensApi.get();
+    expect(monitoredSelected.scope).toBe(MONITORED_TOKENS_SCOPE.SELECTED);
   });
 });

@@ -2,6 +2,15 @@
  * Request types
  */
 
+import {
+  BLOCKCHAIN,
+  FEE_LEVEL,
+  MONITORED_TOKENS_SCOPE,
+  TRANSACTION_STATE,
+  TRANSFER_STATE,
+  WALLET_STATE,
+} from './constants';
+
 /**
  * Options for pagination filters
  */
@@ -47,7 +56,7 @@ export type FilterOptions = {
 } & FilterPagesOptions;
 
 export type FaucetRequestParameters = {
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   address: string;
   native?: boolean;
   usdc?: boolean;
@@ -70,7 +79,7 @@ export type MonitoredTokensParameters = {
 };
 
 export type UpdateMonitoredTokensScopeParameters = {
-  scope: 'SELECTED' | 'MONITOR_ALL'; // Scope for monitoring tokens
+  scope: MONITORED_TOKENS_SCOPE; // Scope for monitoring tokens
 };
 /**
  * Parameters for a create wallet request
@@ -80,7 +89,7 @@ export type WalletCreateParameters = {
   /** System-generated unique identifier of the resource. */
   walletSetId: string;
   /** Blockchain(s) the requested wallets will be created on. */
-  blockchains: string[];
+  blockchains: BLOCKCHAIN[];
   /**
    * Universally unique identifier (UUID v4) idempotency key.
    * This key is utilized to ensure exactly-once execution of mutating requests.
@@ -319,7 +328,7 @@ export type ListTransactionsParameters = {
   /** Filter by the operation of the transaction. */
   operation?: string;
   /** Filter by the state of the transaction. */
-  state?: string;
+  state?: TRANSFER_STATE;
   /** Filter on the transaction hash of the transaction. */
   txHash?: string;
   /** Filter by on the transaction type. */
@@ -393,7 +402,7 @@ export type EstimateContractDeploymentFeeParameters = {
    * Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * Source address of the transaction. Required along with blockchain if walletId is not provided.
    * The sourceAddress and walletId fields are mutually exclusive.
@@ -432,7 +441,7 @@ export type DeployContractTemplateParameters = {
    * Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * Universally unique identifier (UUID v4) idempotency key.
    * This key is utilized to ensure exactly-once execution of mutating requests.
@@ -497,7 +506,7 @@ export type ImportContractParameters = {
    * Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** The on-chain address of this contract. */
   address: string;
   /** The name for a contract. Must be alphanumeric [a-zA-Z0-9]. */
@@ -529,7 +538,7 @@ type ContractDeploymentRequiredParams =
        * Required along with sourceAddress if you don't provide walletId.
        * The blockchain and walletId fields are mutually exclusive.
        */
-      blockchain: string;
+      blockchain: BLOCKCHAIN;
       /**
        * Source address of the transaction.
        * Required along with blockchain if walletId is not provided.
@@ -565,7 +574,7 @@ type FeeType =
        * supply of validators, and demand for transaction verification.
        * Cannot be used with gasPrice, priorityFee, or maxFee.
        */
-      feeLevel: string;
+      feeLevel: FEE_LEVEL;
     }
   | {
       /**
@@ -581,7 +590,7 @@ type FeeType =
        * supply of validators, and demand for transaction verification.
        * Cannot be used with gasPrice, priorityFee, or maxFee.
        */
-      feeLevel?: string;
+      feeLevel?: FEE_LEVEL;
     }
   | {
       /**
@@ -637,7 +646,7 @@ export type DeployContractParameters = {
    * Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * A base64 string expression of the entity secret ciphertext.
    * The entity secret should be encrypted by the entity public key.
@@ -685,7 +694,7 @@ export type QueryContractParameters = {
    * Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** Address of the contract to be queried. */
   address: string;
   /**
@@ -740,7 +749,7 @@ export type CreateEventMonitorParameters = {
   eventSignature: string;
   /** The on-chain address of this contract. */
   contractAddress: string;
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
 };
 
 /**
@@ -784,7 +793,7 @@ export type GetEventLogsParameters = {
  */
 export type ValidateAddressParameters = {
   /** The blockchain network that the resource is to be created on or is currently on. */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * Blockchain generated unique identifier, associated with wallet (account),
    * smart contract or other blockchain objects.
@@ -826,7 +835,7 @@ export type EstimateContractExecutionFeeParameters = {
    * Blockchain associated with the transaction. Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * Source address of the transaction. Required along with blockchain if walletId is not provided.
    * The sourceAddress and walletId fields are mutually exclusive.
@@ -874,7 +883,7 @@ export type EstimateTransferFeeParameters = {
    * Blockchain of the transferred token. Required if tokenId is not provided.
    * The blockchain and tokenId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * Unique system generated identifier of the wallet.
    * Required when sourceAddress and blockchain are not provided.
@@ -1013,7 +1022,7 @@ export type WalletTokenBalances = {
     name: string;
     standard: string;
     /** The blockchain network that the resource is to be created on or is currently on. */
-    blockchain: string;
+    blockchain: BLOCKCHAIN;
     /** Number of decimal places shown in the token amount. */
     decimals: number;
     /** Defines if the token is a native token of the specified blockchain. If TRUE, the token is a native token. */
@@ -1057,7 +1066,7 @@ export type WalletNft = {
     name: string;
     standard: string;
     /** The blockchain network that the resource is to be created on or is currently on. */
-    blockchain: string;
+    blockchain: BLOCKCHAIN;
     /** Number of decimal places shown in the token amount. */
     decimals: number;
     /** Defines if the token is a native token of the specified blockchain. If TRUE, the token is a native token. */
@@ -1096,7 +1105,7 @@ export type Wallet = {
   /**
    * The blockchain network that the resource is to be created on or is currently on.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /**
    * Date and time the resource was created, in ISO-8601 UTC format.
    */
@@ -1120,7 +1129,7 @@ export type Wallet = {
   /**
    * This enum describes the current state of the wallet.
    */
-  state: string; // If the state can only have specific values, you can use string literals like 'LIVE' | 'INACTIVE'
+  state: WALLET_STATE; // If the state can only have specific values, you can use string literals like 'LIVE' | 'INACTIVE'
   /**
    * Unique system generated identifier for the user.
    */
@@ -1202,7 +1211,7 @@ export type Transaction = {
   /** Block height of the transaction, representing the number of blockchain confirmations. */
   blockHeight?: number;
   /** The blockchain network that the resource is to be created on or is currently on. */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** The blockchain address of the contract to be executed. */
   contractAddress?: string;
   /** Date and time the resource was created, in ISO-8601 UTC format. */
@@ -1275,7 +1284,7 @@ export type Transaction = {
    * e.g. LOW, MEDIUM, HIGH. For Get Transactions API,
    * this will only be returned if transaction type is used in the request query parameters
    */
-  feeLevel?: string;
+  feeLevel?: FEE_LEVEL;
   /** Date the transaction was first confirmed in a block. ISO-8601 UTC date/time. */
   firstConfirmDate?: string;
   /** Gas fee, in native token, paid to the network for the transaction. */
@@ -1294,7 +1303,7 @@ export type Transaction = {
    */
   sourceAddress?: string;
   /** Current state of the transaction. */
-  state: string;
+  state: TRANSACTION_STATE;
   /** System-generated unique identifier of the resource. */
   tokenId?: string;
   transactionType: string;
@@ -1346,7 +1355,7 @@ export type Transfer = {
   /** System-generated unique identifier of the resource. */
   id: string;
   /** Current state of the transaction. */
-  state?: string;
+  state?: TRANSFER_STATE;
 };
 
 /**
@@ -1514,7 +1523,7 @@ export type Token = {
   name: string;
   standard: string;
   /** The blockchain network that the resource is to be created on or is currently on. */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** Number of decimal places shown in the token amount. */
   decimals: number;
   /**
@@ -1596,7 +1605,7 @@ export type Contract = {
    * Required along with sourceAddress if you don't provide walletId.
    * The blockchain and walletId fields are mutually exclusive.
    */
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** Bytecode of the contract being deployed. */
   bytecode: string;
   /** The on-chain address of this contract. */
@@ -1678,7 +1687,7 @@ export type Contract = {
  */
 export type EventMonitor = {
   id: string;
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** The on-chain address of this contract. */
   contractAddress: string;
   eventSignature: string;
@@ -1695,7 +1704,7 @@ export type EventMonitor = {
 export type EventLog = {
   blockHash: string;
   blockHeight: number;
-  blockchain: string;
+  blockchain: BLOCKCHAIN;
   /** The on-chain address of this contract. */
   contractAddress: string;
   data: string;
