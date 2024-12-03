@@ -84,7 +84,6 @@ export class BaseApi {
     }
     const response = (await res.json()) as unknown as ResponseData<ReturnType>;
     if (Number(response.code)) {
-      console.log(response);
       let errorsMsgs = '';
       if (Array.isArray(response.errors)) {
         errorsMsgs = response.errors
