@@ -1,6 +1,6 @@
 import { BLOCKCHAIN, SmartContractEventMonitorApi } from '../../src';
 
-import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS } from './fixtures';
+import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS } from './fixtures/fixtures';
 
 const apikey = process.env.API_KEY as string;
 

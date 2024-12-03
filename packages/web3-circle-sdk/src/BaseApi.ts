@@ -20,10 +20,6 @@ type RequestData = { headers: HeadersInit; body: BodyInit };
 interface BaseParams {
   [key: string]: unknown; // Allows any other properties
 }
-interface PutBaseParams {
-  id: string;
-  [key: string]: unknown; // Allows any other properties
-}
 
 /**
  * Methods for sending requests to the Circle REST API
@@ -46,7 +42,7 @@ export class BaseApi {
   /**
    * Get a set of headers (including the API key) that will be used by this `BaseApi`
    */
-  get headers(): HeadersInit {
+  protected get headers(): HeadersInit {
     return {
       'Content-Type': 'application/json',
       'X-Request-Id': v4(),
@@ -63,14 +59,17 @@ export class BaseApi {
     };
   }
 
-  private prepareRequestData<Params extends Record<string, unknown>>(
+  private prepareRequestData<Params extends Record<string, unknown> | string>(
     params: Params,
   ): RequestData {
     return {
       headers: this.headers,
-      body: JSON.stringify({
-        ...params,
-      }),
+      body:
+        typeof params === 'string'
+          ? params
+          : JSON.stringify({
+              ...params,
+            }),
     } as RequestData;
   }
 
@@ -109,7 +108,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested POST response field or the entire response if the `fieldName` parameter was omitted
    */
-  async postRequest<ReturnType>(
+  protected async postRequest<ReturnType>(
     endPoint: string,
     params: BaseParams,
     fieldName?: string,
@@ -128,15 +127,13 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested PUT response field or the entire response if the `fieldName` parameter was omitted
    */
-  async putRequest<ReturnType>(
+  protected async putRequest<ReturnType>(
     endPoint: string,
-    params: PutBaseParams,
+    params: BaseParams | string,
     fieldName?: string,
   ): Promise<ReturnType> {
-    const { id, ...rest } = params;
-
-    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<BaseParams>(rest),
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams | string>(params),
       method: 'put',
     });
 
@@ -150,14 +147,13 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested PATCH response field or the entire response if the `fieldName` parameter was omitted
    */
-  async patchRequest<ReturnType>(
+  protected async patchRequest<ReturnType>(
     endPoint: string,
-    params: PutBaseParams,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
-    const { id, ...rest } = params;
-    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<BaseParams>(rest),
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams>(params),
       method: 'patch',
     });
 
@@ -171,14 +167,13 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested DELETE response field or the entire response if the `fieldName` parameter was omitted
    */
-  async deleteRequest<ReturnType>(
+  protected async deleteRequest<ReturnType>(
     endPoint: string,
-    params: PutBaseParams,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
-    const { id, ...rest } = params;
-    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<BaseParams>(rest),
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams>(params),
       method: 'delete',
     });
 
@@ -192,7 +187,7 @@ export class BaseApi {
    * @param fieldName the response field to return (all fields will be returned if omitted)
    * @returns the requested GET response field or the entire response if the `fieldName` parameter was omitted
    */
-  async getRequest<ReturnType>(
+  protected async getRequest<ReturnType>(
     endPoint: string,
     params?: BaseParams,
     fieldName?: string,

@@ -54,6 +54,24 @@ export type FaucetRequestParameters = {
   eurc?: boolean;
 };
 
+export type GetMonitoredTokensParameters = {
+  blockchain?: string;
+  tokenAddress?: string;
+  symbol?: string;
+  from?: string; // ISO 8601 date-time format
+  to?: string; // ISO 8601 date-time format
+  pageBefore?: string; // UUID
+  pageAfter?: string; // UUID
+  pageSize?: number; // between 1 and 50, default is 10
+};
+
+export type MonitoredTokensParameters = {
+  tokenIds: string[]; // List of token IDs to add to the monitored tokens list
+};
+
+export type UpdateMonitoredTokensScopeParameters = {
+  scope: 'SELECTED' | 'MONITOR_ALL'; // Scope for monitoring tokens
+};
 /**
  * Parameters for a create wallet request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet
@@ -1702,4 +1720,9 @@ export type ConfigEntity = {
 export type RegisteredEntity = {
   /** System-generated unique identifier of the entity's app. */
   recoveryFile: string;
+};
+
+export type MonitoredTokenEntity = {
+  tokens: Token[];
+  scope: string;
 };

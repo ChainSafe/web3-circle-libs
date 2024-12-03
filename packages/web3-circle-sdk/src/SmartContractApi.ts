@@ -43,7 +43,8 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the updated contract
    */
   async update(params: UpdateContractParameters): Promise<Contract> {
-    return this.patchRequest<Contract>(`/w3s/contracts`, params, 'contract');
+    const { id, ...rest } = params;
+    return this.patchRequest<Contract>(`/w3s/contracts/${id}`, rest, 'contract');
   }
 
   /**
@@ -54,7 +55,11 @@ export class SmartContractApi extends DeveloperApi {
    * @returns the imported contract
    */
   async import(params: ImportContractParameters): Promise<Contract> {
-    return this.postRequest<Contract>('/w3s/contracts/import', params, 'contract');
+    return this.postRequest<Contract>(
+      '/w3s/contracts/import',
+      this.addIdempotencyKeyToParams(params),
+      'contract',
+    );
   }
 
   /**
