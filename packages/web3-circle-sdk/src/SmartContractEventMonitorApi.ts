@@ -58,7 +58,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @param params parameters for the delete event monitor request
    * @returns an empty Promise
    */
-  async deleteEventMonitor(params: DeleteEventMonitorParameters): Promise<void> {
+  async delete(params: DeleteEventMonitorParameters): Promise<void> {
     return this.deleteRequest<void>(`/w3s/contracts/monitors`, params);
   }
 

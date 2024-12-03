@@ -53,7 +53,7 @@ export class SmartContractApi extends DeveloperApi {
    * @param params the parameters for the import contract request
    * @returns the imported contract
    */
-  async importContract(params: ImportContractParameters): Promise<Contract> {
+  async import(params: ImportContractParameters): Promise<Contract> {
     return this.postRequest<Contract>('/w3s/contracts/import', params, 'contract');
   }
 
