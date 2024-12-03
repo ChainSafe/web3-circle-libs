@@ -59,17 +59,14 @@ export class BaseApi {
     };
   }
 
-  private prepareRequestData<Params extends Record<string, unknown> | string>(
+  private prepareRequestData<Params extends Record<string, unknown>>(
     params: Params,
   ): RequestData {
     return {
       headers: this.headers,
-      body:
-        typeof params === 'string'
-          ? params
-          : JSON.stringify({
-              ...params,
-            }),
+      body: JSON.stringify({
+        ...params,
+      }),
     } as RequestData;
   }
 
@@ -129,11 +126,11 @@ export class BaseApi {
    */
   protected async putRequest<ReturnType>(
     endPoint: string,
-    params: BaseParams | string,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
     const response = await fetch(`${this.baseUrl}${endPoint}`, {
-      ...this.prepareRequestData<BaseParams | string>(params),
+      ...this.prepareRequestData<BaseParams>(params),
       method: 'put',
     });
 
