@@ -1,1 +1,0 @@
-import{j as e}from"./jsx-runtime-BMrMXMSG.js";import{G as s}from"./index-BvnfiDyM.js";function a(){const{id:i}=s();return e.jsxs("div",{children:[e.jsx("h2",{children:"Details"}),e.jsxs("p",{children:["You are viewing details for item with ID: ",i]})]})}export{a as default};
