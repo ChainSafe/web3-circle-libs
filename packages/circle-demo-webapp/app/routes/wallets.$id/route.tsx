@@ -12,32 +12,15 @@ export async function loader({ params }: { params: { id: string } }) {
   return sdk.wallet.list({ walletSetId: id });
 }
 
-enum BLOCKCHAIN {
-  ETH = 'ETH',
-  ETH_SEPOLIA = 'ETH-SEPOLIA',
-  AVAX = 'AVAX',
-  AVAX_FUJI = 'AVAX-FUJI',
-  MATIC = 'MATIC',
-  MATIC_AMOY = 'MATIC-AMOY',
-  SOL = 'SOL',
-  SOL_DEVNET = 'SOL-DEVNET',
-  ARB = 'ARB',
-  ARB_SEPOLIA = 'ARB-SEPOLIA',
-  NEAR = 'NEAR',
-  NEAR_TESTNET = 'NEAR-TESTNET',
-  EVM = 'EVM',
-  EVM_TESTNET = 'EVM-TESTNET',
-  UNI_SEPOLIA = 'UNI-SEPOLIA',
-}
-
 export async function action({ request }: ActionFunctionArgs) {
   const body = await request.formData();
   const name = String(body.get('name'));
   const walletSetId = String(body.get('walletSetId'));
+  const blockchain = String(body.get('blockchain'));
 
   await sdk.wallet.create({
     walletSetId,
-    blockchains: [BLOCKCHAIN.ETH_SEPOLIA],
+    blockchains: [blockchain],
     metadata: [
       {
         name,
