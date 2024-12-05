@@ -1,29 +1,15 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useParams } from '@remix-run/react';
 
+import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 
 import { NewWalletDialog } from './components/NewWalletDialog';
-import { WalletsCard } from './components/WalletsCard';
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
 
-  const wallets = await sdk.wallet.list({ walletSetId: id });
-
-  const walletsWithBalance = Promise.all(
-    wallets.map(async (wallet) => {
-      return {
-        ...wallet,
-        balance: await sdk.wallet.balance({
-          id: wallet.id,
-          includeAll: true,
-        }),
-      };
-    }),
-  );
-
-  return walletsWithBalance;
+  return sdk.wallet.list({ walletSetId: id });
 }
 
 enum BLOCKCHAIN {
@@ -89,11 +75,17 @@ export default function Page() {
     <div className="space-y-6">
       <header className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Wallet Set {id}</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Wallet Set</h1>
+          <p>{id}</p>
         </div>
+        <NewWalletDialog walletSetId={id} />
       </header>
 
-      <WalletsCard wallets={wallets} walletSetId={id} />
+      <div className="flex items-center gap-6">
+        {wallets.map((wallet) => (
+          <WalletDetails key={wallet.id} wallet={wallet} />
+        ))}
+      </div>
     </div>
   );
 }

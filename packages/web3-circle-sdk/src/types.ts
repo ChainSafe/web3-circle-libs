@@ -1106,7 +1106,7 @@ export type Wallet = {
   /**
    * Unique system generated identifier for the user.
    */
-  userId: string;
+  userId?: string;
   /**
    * System-generated unique identifier of the resource.
    */
@@ -1114,7 +1114,7 @@ export type Wallet = {
   /**
    * For NEAR blockchains only, the originally assigned public key of a wallet at the time of its creation.
    */
-  initialPublicKey: string;
+  initialPublicKey?: string;
   /**
    * An account can be a Smart Contract Account (SCA) or an Externally Owned Account (EOA).
    * To learn more, see the account types guide (https://developers.circle.com/w3s/programmable-wallets-account-types).

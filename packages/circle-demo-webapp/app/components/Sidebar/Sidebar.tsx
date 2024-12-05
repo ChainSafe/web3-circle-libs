@@ -35,8 +35,7 @@ export function Sidebar() {
         </Link>
       </div>
       <nav className="flex-1 px-4">
-        <SidebarNavLink to="/overview" icon={<LayoutDashboard />} label="Overview" />
-        <SidebarNavLink to="/wallets" icon={<User />} label="Wallet Sets" />
+        <SidebarNavLink to="/wallets" icon={<LayoutDashboard />} label="Wallet Sets" />
         <SidebarNavLink to="/customers" icon={<User />} label="Customers" />
         <SidebarNavLink to="/products" icon={<Box />} label="Products" />
       </nav>
