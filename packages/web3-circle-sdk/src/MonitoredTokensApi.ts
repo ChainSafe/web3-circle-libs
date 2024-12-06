@@ -11,7 +11,8 @@ export class MonitoredTokensApi extends BaseApi {
    * Adds new tokens to the monitored tokens list.
    * When fetching wallet balances, only these tokens will be shown by default.
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/create-monitored-tokens
-   * @param params List of token IDs to add to the monitored tokens list.
+   * @param params the parameters for the set monitored tokens request
+   * @returns the new monitored tokens
    */
   async set(params: MonitoredTokensParameters): Promise<MonitoredTokenEntity> {
     return this.postRequest<MonitoredTokenEntity>(
@@ -23,7 +24,8 @@ export class MonitoredTokensApi extends BaseApi {
   /**
    * Updates the scope of monitored tokens to either monitor all tokens or only selected tokens.
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens
-   * @param params Scope for monitoring tokens.
+   * @param params the parameters for the update monitored tokens request
+   * @returns the updated monitored tokens
    */
   async update(params: MonitoredTokensParameters): Promise<MonitoredTokenEntity> {
     return this.putRequest<MonitoredTokenEntity>(
@@ -35,7 +37,8 @@ export class MonitoredTokensApi extends BaseApi {
   /**
    * Retrieves the list of monitored tokens.
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/list-monitored-tokens
-   * @returns List of monitored token IDs.
+   * @param params the parameters for the get monitored tokens request
+   * @returns the monitored tokens
    */
   async get(params?: GetMonitoredTokensParameters): Promise<MonitoredTokenEntity> {
     return this.getRequest<MonitoredTokenEntity>(
@@ -47,7 +50,8 @@ export class MonitoredTokensApi extends BaseApi {
   /**
    * Delete monitored tokens
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/delete-monitored-tokens
-   * @returns boolean
+   * @param params the parameters for the delete monitored token request
+   * @returns a boolean that indicates if the monitored tokens were deleted
    */
   async delete(params: MonitoredTokensParameters): Promise<boolean> {
     return (
@@ -61,7 +65,8 @@ export class MonitoredTokensApi extends BaseApi {
   /**
    * Update monitored tokens scope
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens-scope
-   * @returns boolean
+   * @param params the parameters for the update monitored tokens scope request
+   * @returns a boolean that indicates if the scope of the monitored tokens was updated
    */
   async updateScope(params: UpdateMonitoredTokensScopeParameters): Promise<boolean> {
     return (

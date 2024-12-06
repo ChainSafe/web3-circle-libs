@@ -43,7 +43,7 @@ export class CircleSdk {
   public wallet: WalletApi;
   public walletSet: WalletSetApi;
   public faucet: FaucetApi;
-  public monitoredTokensApi: MonitoredTokensApi;
+  public monitoredTokens: MonitoredTokensApi;
 
   constructor(apiKey: string, secret: string, baseUrl: string = BASE_URL) {
     this._apiKey = apiKey;
@@ -67,7 +67,7 @@ export class CircleSdk {
     this.wallet = new WalletApi(this._apiKey, this._secret, this._baseUrl);
     this.walletSet = new WalletSetApi(this._apiKey, this._secret, this._baseUrl);
     this.faucet = new FaucetApi(this._apiKey, this._baseUrl);
-    this.monitoredTokensApi = new MonitoredTokensApi(this._apiKey, this._baseUrl);
+    this.monitoredTokens = new MonitoredTokensApi(this._apiKey, this._baseUrl);
   }
   public async init(): Promise<void> {
     try {

@@ -36,6 +36,7 @@ export type FilterPagesOptions = {
    */
   pageAfter?: string;
   /**
+   * An integer between 1 and 50. Default is 10.
    * Limits the number of items to be returned.
    * Some collections have a strict upper bound that will disregard this value.
    * In case the specified value is higher than the allowed limit,
@@ -55,31 +56,93 @@ export type FilterOptions = {
   to?: string;
 } & FilterPagesOptions;
 
+/**
+ * Parameters for a faucet request
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/request-testnet-tokens
+ */
 export type FaucetRequestParameters = {
+  /**
+   * The testnet blockchain network the resource will be created on or is currently on.
+   * Allowed values: ETH-SEPOLIA, AVAX-FUJI, MATIC-AMOY, SOL-DEVNET, ARB-SEPOLIA, UNI-SEPOLIA
+   */
   blockchain: BLOCKCHAIN;
+  /**
+   * Blockchain generated unique identifier, associated with wallet (account),
+   * smart contract or other blockchain objects.
+   */
   address: string;
+  /** Request native testnet tokens. */
   native?: boolean;
+  /** Request USDC testnet tokens. */
   usdc?: boolean;
+  /** Request EURC testnet tokens. */
   eurc?: boolean;
 };
 
+/**
+ * Parameters for a get monitored tokens request
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/list-monitored-tokens
+ */
 export type GetMonitoredTokensParameters = {
+  /** Filter by blockchain. */
   blockchain?: BLOCKCHAIN;
+  /** Filter by token address. */
   tokenAddress?: string;
+  /** Filter by token symbol. */
   symbol?: string;
-  from?: string; // ISO 8601 date-time format
-  to?: string; // ISO 8601 date-time format
-  pageBefore?: string; // UUID
-  pageAfter?: string; // UUID
-  pageSize?: number; // between 1 and 50, default is 10
+  /** Queries items created since the specified date-time (inclusive) in ISO 8601 format. */
+  from?: string;
+  /** Queries items created before the specified date-time (inclusive) in ISO 8601 format. */
+  to?: string;
+  /**
+   *  A collection ID value used for pagination.
+   *  It marks the exclusive end of a page.
+   *  When provided, the collection resource will return the next n items before the id,
+   *  with n being specified by pageSize.
+   *  The items will be returned in the natural order of the collection.
+   *  The resource will return the first page if neither pageAfter nor pageBefore are specified.
+   *  SHOULD NOT be used in conjunction with pageAfter.
+   */
+  pageBefore?: string;
+  /**
+   * A collection ID value used for pagination.
+   * It marks the exclusive begin of a page.
+   * When provided, the collection resource will return the next n items after the id,
+   * with n being specified by pageSize.
+   * The items will be returned in the natural order of the collection.
+   * The resource will return the first page if neither pageAfter nor pageBefore are specified.
+   * SHOULD NOT be used in conjunction with pageBefore.
+   */
+  pageAfter?: string;
+  /**
+   * An integer between 1 and 50. Default is 10.
+   * Limits the number of items to be returned.
+   * Some collections have a strict upper bound that will disregard this value.
+   * In case the specified value is higher than the allowed limit,
+   * the collection limit will be used.
+   * If avoided, the collection will determine the page size itself.
+   */
+  pageSize?: number;
 };
 
+/**
+ * Parameters for monitored token requests
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/create-monitored-tokens
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/delete-monitored-tokens
+ */
 export type MonitoredTokensParameters = {
-  tokenIds: string[]; // List of token IDs to add to the monitored tokens list
+  /** List of token IDs */
+  tokenIds: string[];
 };
 
+/**
+ * Parameters for a update monitored tokens scope request
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens-scope
+ */
 export type UpdateMonitoredTokensScopeParameters = {
-  scope: MONITORED_TOKENS_SCOPE; // Scope for monitoring tokens
+  /** Scope for monitoring tokens */
+  scope: MONITORED_TOKENS_SCOPE;
 };
 /**
  * Parameters for a create wallet request
@@ -1731,7 +1794,18 @@ export type RegisteredEntity = {
   recoveryFile: string;
 };
 
+/**
+ * A list of monitored token
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/create-monitored-tokens
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens
+ * https://developers.circle.com/api-reference/w3s/programmable-wallets/list-monitored-tokens
+ */
 export type MonitoredTokenEntity = {
+  /**
+   * List of monitored tokens.
+   * When fetching wallet balances, only these tokens will be shown by default.
+   */
   tokens: Token[];
+  /** Scope for monitoring tokens */
   scope: string;
 };
