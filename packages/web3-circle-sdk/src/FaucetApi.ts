@@ -6,7 +6,7 @@ export class FaucetApi extends BaseApi {
    * Request testnet tokens for your wallet.
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/request-testnet-tokens
    * @param params the parameters for the faucet request
-   * @returns boolean
+   * @returns a boolean that indicates if the faucet request was successful
    */
   async request(params: FaucetRequestParameters): Promise<boolean> {
     return (

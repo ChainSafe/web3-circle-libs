@@ -2,7 +2,10 @@ import { v4 } from 'uuid';
 
 import { BLOCKCHAIN, FEE_LEVEL, SmartContractApi } from '../../src';
 
-import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
+import {
+  ETH_SEPOLIA_USDC_CONTRACT_ADDRESS,
+  ETH_SEPOLIA_WALLET_ID,
+} from './fixtures/fixtures';
 import { BasicAbi, BasicBytecode } from './fixtures/Basic';
 
 const apikey = process.env.API_KEY as string;

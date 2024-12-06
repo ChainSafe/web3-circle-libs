@@ -1,6 +1,6 @@
 import { BLOCKCHAIN, FEE_LEVEL, TEMPLATE, SmartContractTemplateApi } from '../../src';
 
-import { ETH_SEPOLIA_WALLET_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures';
+import { ETH_SEPOLIA_WALLET_ADDRESS, ETH_SEPOLIA_WALLET_ID } from './fixtures/fixtures';
 
 const apikey = process.env.API_KEY as string;
 const secret = process.env.SECRET as string;

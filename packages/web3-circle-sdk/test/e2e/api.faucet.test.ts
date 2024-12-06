@@ -1,6 +1,6 @@
 import { FaucetApi, BLOCKCHAIN, BASE_URL } from '../../src';
 
-import { ETH_SEPOLIA_WALLET_ADDRESS } from './fixtures';
+import { ETH_SEPOLIA_WALLET_ADDRESS } from './fixtures/fixtures';
 
 const apikey = process.env.API_KEY as string;
 // skip because of rate limit

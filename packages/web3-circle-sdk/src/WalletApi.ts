@@ -53,7 +53,8 @@ export class WalletApi extends DeveloperApi {
    * @returns the updated wallet
    */
   async update(params: WalletUpdateParameters): Promise<Wallet> {
-    return this.putRequest<Wallet>('/w3s/wallets', params, 'wallet');
+    const { id, ...rest } = params;
+    return this.putRequest<Wallet>(`/w3s/wallets/${id}`, rest, 'wallet');
   }
 
   /**

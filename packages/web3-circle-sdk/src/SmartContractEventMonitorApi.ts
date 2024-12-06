@@ -45,9 +45,11 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @returns the updated event monitor
    */
   async update(params: UpdateEventMonitorParameters): Promise<EventMonitor[]> {
+    const { id, ...rest } = params;
+
     return this.putRequest<EventMonitor[]>(
-      '/w3s/contracts/monitors/',
-      params,
+      `/w3s/contracts/monitors/${id}`,
+      rest,
       'eventMonitors',
     );
   }
@@ -59,7 +61,8 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @returns an empty Promise
    */
   async delete(params: DeleteEventMonitorParameters): Promise<void> {
-    return this.deleteRequest<void>(`/w3s/contracts/monitors`, params);
+    const { id, ...rest } = params;
+    return this.deleteRequest<void>(`/w3s/contracts/monitors/${id}`, rest);
   }
 
   /**
