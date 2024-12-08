@@ -2,8 +2,15 @@
   "name": "web3-circle-sdk",
   "version": "0.1.0",
   "description": "Web3 Circle SDK",
+  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
