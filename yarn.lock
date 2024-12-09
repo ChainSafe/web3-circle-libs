@@ -2812,6 +2812,19 @@
   resolved "https://registry.yarnpkg.com/@web3-storage/multipart-parser/-/multipart-parser-1.0.0.tgz#6b69dc2a32a5b207ba43e556c25cc136a56659c4"
   integrity sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==
 
+"@web3icons/common@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.7.2.tgz#c375232d8d0273479bcf899dfd15acc57bfa7ead"
+  integrity sha512-zgk15pcLKNM+3ve35vOnFvOLOfEb+7+WhgjyNQQfJSM9AsuLAQIgcDV1r5GCJqzjRrFIinS1eI3z8xuYVWHaiQ==
+
+"@web3icons/react@^3.13.2":
+  version "3.13.2"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-3.13.2.tgz#ec7d18673eb037aac44d4f15f0c40a1bc8b60095"
+  integrity sha512-d7CKIBCOglWpCIPMee3nSxK6Af5Xc274F+N78VBt2cKqVy++koifr9uF97qKQt0v0z3XSFP6NLFHWCZLyHpivg==
+  dependencies:
+    "@web3icons/common" "0.7.2"
+    react "^18.2.0"
+
 "@zxing/text-encoding@0.9.0":
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/@zxing/text-encoding/-/text-encoding-0.9.0.tgz#fb50ffabc6c7c66a0c96b4c03e3d9be74864b70b"

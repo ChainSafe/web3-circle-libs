@@ -6,9 +6,10 @@ import { Label } from '../ui/label';
 
 export interface WalletDetailsProps {
   wallet: Wallet;
+  children?: React.ReactNode;
 }
 
-export function WalletDetails({ wallet }: WalletDetailsProps) {
+export function WalletDetails({ wallet, children }: WalletDetailsProps) {
   return (
     <Card>
       <CardHeader>
@@ -44,6 +45,8 @@ export function WalletDetails({ wallet }: WalletDetailsProps) {
             {wallet.accountType}
           </Badge>
         </div>
+
+        {children ?? <div>{children}</div>}
       </CardContent>
     </Card>
   );
