@@ -1,0 +1,92 @@
+{
+  "name": "web3-circle-react-components",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChainSafe/web3-circle-libs/"
+  },
+  "main": "./dist/web3-circle-react-components.umd.js",
+  "module": "./dist/web3-circle-react-components.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/web3-circle-react-components.es.js",
+      "require": "./dist/web3-circle-react-components.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "VITE_CJS_TRACE=true storybook dev -p 6006",
+    "build:storybook": "storybook build",
+    "build": "tsc && vite build",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
+    "test": "vitest",
+    "test:cov": "vitest run --coverage",
+    "ci-prepublish": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.22.10",
+    "@storybook/addon-essentials": "8.4.6",
+    "@storybook/addon-interactions": "8.4.6",
+    "@storybook/addon-links": "8.4.6",
+    "@storybook/addon-styling-webpack": "^1.0.1",
+    "@storybook/blocks": "8.4.6",
+    "@storybook/core": "8.4.6",
+    "@storybook/react": "8.4.6",
+    "@storybook/react-vite": "8.4.6",
+    "@storybook/testing-library": "0.2.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "16.0.1",
+    "@types/node": "20.4.9",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "18.2.0",
+    "@typescript-eslint/eslint-plugin": "8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vitejs/plugin-react": "4.3.4",
+    "@vitest/coverage-v8": "2.1.8",
+    "autoprefixer": "10.4.14",
+    "babel-loader": "9.1.3",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-import": "2.28.0",
+    "eslint-plugin-n": "16.0.1",
+    "eslint-plugin-promise": "6.1.1",
+    "eslint-plugin-react": "7.33.1",
+    "eslint-plugin-storybook": "0.6.13",
+    "husky": "8.0.3",
+    "jsdom": "22.1.0",
+    "json": "11.0.0",
+    "lint-staged": "13.2.3",
+    "postcss": "8.4.27",
+    "prettier": "3.0.1",
+    "prop-types": "15.8.1",
+    "storybook": "8.4.6",
+    "tailwindcss": "3.4.16",
+    "typescript": "5.3.3",
+    "vite": "6.0.2",
+    "vite-plugin-dts": "4.3.0",
+    "vitest": "2.1.8",
+    "webpack": "^5.97.1"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier -w"
+    ]
+  }
+}

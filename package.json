@@ -22,7 +22,8 @@
     "lint": "yarn workspace web3-circle-sdk lint",
     "build": "yarn workspace web3-circle-sdk build",
     "build:docs": "yarn workspace web3-circle-sdk build:docs",
-    "test": "yarn workspace web3-circle-sdk test"
+    "test": "yarn workspace web3-circle-sdk test",
+    "prepare": "husky install"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@4.5.3"
 }
