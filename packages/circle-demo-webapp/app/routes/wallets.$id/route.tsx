@@ -1,6 +1,7 @@
 import { ActionFunctionArgs } from '@remix-run/node';
-import { useLoaderData, useParams } from '@remix-run/react';
+import { Link, useLoaderData, useParams } from '@remix-run/react';
 
+import { Button } from '~/components/ui/button';
 import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 
@@ -8,6 +9,10 @@ import { NewWalletDialog } from './components/NewWalletDialog';
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
+
+  if (!id) {
+    throw new Error('Wallet Set ID is required');
+  }
 
   return sdk.wallet.list({ walletSetId: id });
 }
@@ -64,9 +69,15 @@ export default function Page() {
         <NewWalletDialog walletSetId={id} />
       </header>
 
-      <div className="flex items-center gap-6">
+      <div className="flex flex-wrap items-center gap-6">
         {wallets.map((wallet) => (
-          <WalletDetails key={wallet.id} wallet={wallet} />
+          <div key={wallet.id} className="flex-1 min-w-[360px]">
+            <WalletDetails wallet={wallet}>
+              <Button variant="outline" asChild>
+                <Link to={`/wallet/${wallet.id}`}>Show wallet page</Link>
+              </Button>
+            </WalletDetails>
+          </div>
         ))}
       </div>
     </div>

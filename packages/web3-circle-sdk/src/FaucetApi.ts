@@ -6,11 +6,11 @@ export class FaucetApi extends BaseApi {
    * Request testnet tokens for your wallet.
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/request-testnet-tokens
    * @param params the parameters for the faucet request
-   * @returns boolean
+   * @returns void
+   *
+   * TODO: this endpoint doesn't work, returns TypeError: Only absolute URLs are supported
    */
-  async request(params: FaucetRequestParameters): Promise<boolean> {
-    return (
-      (await this.postRequest<void>('/faucet/drips', params, 'wallets')) === undefined
-    );
+  async request(params: FaucetRequestParameters): Promise<void> {
+    return this.postRequest<void>('/faucet/drips', params);
   }
 }
