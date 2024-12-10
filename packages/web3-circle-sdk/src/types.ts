@@ -1834,7 +1834,7 @@ export interface Detail {
   createDate: string;
 }
 
-export interface ScreenResult {
+export interface ScreeningResult {
   result: SCREENING_RESULT;
   decision: Decision;
   id: Record<string, unknown>;

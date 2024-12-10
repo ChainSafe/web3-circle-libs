@@ -1,9 +1,10 @@
-import { FaucetApi, BLOCKCHAIN, BASE_URL } from '../../src';
+import { BASE_URL, BLOCKCHAIN, FaucetApi } from '../../src';
 
 import { ETH_SEPOLIA_WALLET_ADDRESS } from './fixtures/fixtures';
 
 const apikey = process.env.API_KEY as string;
-describe('Faucet Api', () => {
+// skipped because of rate limit
+describe.skip('Faucet Api', () => {
   const faucetApi = new FaucetApi(apikey, BASE_URL);
 
   it('Request native token', async () => {
