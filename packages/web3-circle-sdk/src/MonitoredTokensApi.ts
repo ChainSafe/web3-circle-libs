@@ -51,29 +51,19 @@ export class MonitoredTokensApi extends BaseApi {
    * Delete monitored tokens
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/delete-monitored-tokens
    * @param params the parameters for the delete monitored token request
-   * @returns a boolean that indicates if the monitored tokens were deleted
+   * @returns void
    */
-  async delete(params: MonitoredTokensParameters): Promise<boolean> {
-    return (
-      (await this.postRequest<undefined>(
-        '/w3s/config/entity/monitoredTokens/delete',
-        params,
-      )) === undefined
-    );
+  async delete(params: MonitoredTokensParameters): Promise<void> {
+    return this.postRequest<void>('/w3s/config/entity/monitoredTokens/delete', params);
   }
 
   /**
    * Update monitored tokens scope
    * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens-scope
    * @param params the parameters for the update monitored tokens scope request
-   * @returns a boolean that indicates if the scope of the monitored tokens was updated
+   * @returns void
    */
-  async updateScope(params: UpdateMonitoredTokensScopeParameters): Promise<boolean> {
-    return (
-      (await this.putRequest<undefined>(
-        '/w3s/config/entity/monitoredTokens/scope',
-        params,
-      )) === undefined
-    );
+  async updateScope(params: UpdateMonitoredTokensScopeParameters): Promise<void> {
+    return this.putRequest<void>('/w3s/config/entity/monitoredTokens/scope', params);
   }
 }

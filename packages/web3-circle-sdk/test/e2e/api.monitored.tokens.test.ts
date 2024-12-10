@@ -71,7 +71,7 @@ describe('Monitored tokens Api', () => {
     const deleteRes = await monitoredTokensApi.delete({
       tokenIds: [ETH_SEPOLIA_EURC_TOKEN_ID],
     });
-    expect(deleteRes).toBe(true);
+    expect(deleteRes).toBeUndefined();
     const resAfterDeleted = await monitoredTokensApi.get({
       blockchain: BLOCKCHAIN.ETH_SEPOLIA,
     });
@@ -91,7 +91,7 @@ describe('Monitored tokens Api', () => {
     const res = await monitoredTokensApi.updateScope({
       scope: MONITORED_TOKENS_SCOPE.MONITOR_ALL,
     });
-    expect(res).toBe(true);
+    expect(res).toBeUndefined();
     const monitoredAll = await monitoredTokensApi.get();
     expect(monitoredAll.scope).toBe(MONITORED_TOKENS_SCOPE.MONITOR_ALL);
     await monitoredTokensApi.updateScope({

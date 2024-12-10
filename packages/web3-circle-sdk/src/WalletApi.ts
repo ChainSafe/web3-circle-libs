@@ -63,9 +63,9 @@ export class WalletApi extends DeveloperApi {
    * @param params the parameters for the wallet token balance request
    * @returns the token balances for the specified wallet
    */
-  async balance(params: WalletBalanceParameters): Promise<WalletTokenBalances> {
+  async balance(params: WalletBalanceParameters): Promise<WalletTokenBalances[]> {
     const { id, ...rest } = params;
-    return this.getRequest<WalletTokenBalances>(
+    return this.getRequest<WalletTokenBalances[]>(
       `/w3s/wallets/${id}/balances`,
       rest,
       'tokenBalances',

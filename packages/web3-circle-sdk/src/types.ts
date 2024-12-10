@@ -2,10 +2,17 @@
  * Request types
  */
 
-import {
+import type {
   BLOCKCHAIN,
+  CHAIN,
   FEE_LEVEL,
   MONITORED_TOKENS_SCOPE,
+  SCREEN_DECISION_REASON_TYPE,
+  SCREENING_DECISION_ACTION,
+  SCREENING_DECISION_REASON_RISK_CATEGORY,
+  SCREENING_DECISION_REASON_RISK_SOURCE,
+  SCREENING_DECISION_REASON_SOURCE,
+  SCREENING_RESULT,
   TRANSACTION_STATE,
   TRANSFER_STATE,
   WALLET_STATE,
@@ -748,6 +755,24 @@ export type QueryContractParameters = {
   callData?: string;
   /** FromAddress is the address that will populate msg.sender in the contract call. */
   fromAddress?: string;
+};
+
+/**
+ * Parameters for a get event monitors request
+ * https://developers.circle.com/api-reference/w3s/smart-contract-platform/get-event-monitors
+ */
+export type ScreenAddressParameters = {
+  /** Blockchain network.*/
+  chain: CHAIN;
+  /** Blockchain address of the blockchain network. */
+  address: string;
+  /**
+   * Universally unique identifier (UUID v4) idempotency key.
+   * This key is utilized to ensure exactly-once execution of mutating requests.
+   * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
+   * it will be treated as the same request and the original response will be returned.
+   */
+  idempotencyKey?: string;
 };
 
 /**
@@ -1780,3 +1805,41 @@ export type MonitoredTokenEntity = {
   /** Scope for monitoring tokens */
   scope: MONITORED_TOKENS_SCOPE;
 };
+
+export interface Decision {
+  ruleName: string;
+  actions: SCREENING_DECISION_ACTION[];
+  screeningDate: string;
+  reasons: Reason[];
+}
+
+export interface Reason {
+  source: SCREENING_DECISION_REASON_SOURCE;
+  sourceValue: string;
+  riskScore: SCREENING_DECISION_REASON_RISK_SOURCE;
+  riskCategories: SCREENING_DECISION_REASON_RISK_CATEGORY[];
+  type: SCREEN_DECISION_REASON_TYPE;
+  signalSource: SignalSource;
+}
+
+export interface SignalSource {
+  rowId: Record<string, unknown>;
+  pointer: string;
+}
+
+export interface Detail {
+  id: string;
+  vendor: string;
+  response: Record<string, unknown>;
+  createDate: string;
+}
+
+export interface ScreenResult {
+  result: SCREENING_RESULT;
+  decision: Decision;
+  id: Record<string, unknown>;
+  address: string;
+  chain: CHAIN;
+  details: Detail[];
+  alertId: Record<string, unknown>;
+}
