@@ -20,10 +20,6 @@ type RequestData = { headers: HeadersInit; body: BodyInit };
 interface BaseParams {
   [key: string]: unknown; // Allows any other properties
 }
-interface PutBaseParams {
-  id: string;
-  [key: string]: unknown; // Allows any other properties
-}
 
 /**
  * Methods for sending requests to the Circle REST API
@@ -130,13 +126,11 @@ export class BaseApi {
    */
   protected async putRequest<ReturnType>(
     endPoint: string,
-    params: PutBaseParams,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
-    const { id, ...rest } = params;
-
-    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<BaseParams>(rest),
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams>(params),
       method: 'put',
     });
 
@@ -152,12 +146,11 @@ export class BaseApi {
    */
   protected async patchRequest<ReturnType>(
     endPoint: string,
-    params: PutBaseParams,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
-    const { id, ...rest } = params;
-    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<BaseParams>(rest),
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams>(params),
       method: 'patch',
     });
 
@@ -173,12 +166,11 @@ export class BaseApi {
    */
   protected async deleteRequest<ReturnType>(
     endPoint: string,
-    params: PutBaseParams,
+    params: BaseParams,
     fieldName?: string,
   ): Promise<ReturnType> {
-    const { id, ...rest } = params;
-    const response = await fetch(`${this.baseUrl}${endPoint}/${id}`, {
-      ...this.prepareRequestData<BaseParams>(rest),
+    const response = await fetch(`${this.baseUrl}${endPoint}`, {
+      ...this.prepareRequestData<BaseParams>(params),
       method: 'delete',
     });
 
