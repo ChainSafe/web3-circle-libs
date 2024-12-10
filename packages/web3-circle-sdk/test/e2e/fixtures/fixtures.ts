@@ -1,4 +1,4 @@
-import type { TransactionApi } from '../../src/TransactionApi';
+import type { TransactionApi } from '../../../src/TransactionApi';
 
 export const ETH_SEPOLIA_WALLET_ID = 'c6243ec1-0e98-5deb-885d-fe1de7f16edc';
 export const ETH_SEPOLIA_WALLET_ADDRESS = '0x16dba1b356bed03159e5074836169b487b845ecd';
@@ -24,3 +24,6 @@ export const waitTxState = async (
       }
     }, 500);
   });
+
+export const wait = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));

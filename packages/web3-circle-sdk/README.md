@@ -14,6 +14,25 @@ API:
   - This is a convenience class for working with all the other classes described below.
   - Instantiate with `const circle: CircleSdk = new CircleSdk(apiKey, secret);` then
     initialize with `await circle.init();`.
+- [`FaucetApi`](https://chainsafe.github.io/web3-circle-libs/classes/FaucetApi.html)
+  - Exposed by the `CircleSdk` class as the `faucet` property (i.e. `CircleSdk.faucet`).
+  - Supports the following Circle Web3 Services REST API endpoints:
+    - [Request testnet tokens](https://developers.circle.com/api-reference/w3s/programmable-wallets/request-testnet-tokens)
+      (`FaucetApi.request`)
+- [`MonitoredTokensApi`](https://chainsafe.github.io/web3-circle-libs/classes/MonitoredTokensApi.html)
+  - Exposed by the `CircleSdk` class as the `monitoredTokens` property (i.e.
+    `CircleSdk.monitoredTokens`).
+  - Supports the following Circle Web3 Services REST API endpoints:
+    - [Set monitored tokens](https://developers.circle.com/api-reference/w3s/programmable-wallets/create-monitored-tokens)
+      (`MonitoredTokensApi.set`)
+    - [Update monitored tokens](https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens)
+      (`MonitoredTokensApi.update`)
+    - [Retrieve existing monitored tokens](https://developers.circle.com/api-reference/w3s/programmable-wallets/list-monitored-tokens)
+      (`MonitoredTokensApi.get`)
+    - [Delete monitored tokens](https://developers.circle.com/api-reference/w3s/programmable-wallets/delete-monitored-tokens)
+      (`MonitoredTokensApi.delete`)
+    - [Update monitored tokens scope](https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens-scope)
+      (`MonitoredTokensApi.updateScope`)
 - [`SecretApi`](https://chainsafe.github.io/web3-circle-libs/classes/SecretApi.html)
   - Exposed by the `CircleSdk` class as the `secret` property (i.e. `CircleSdk.secret`).
   - Supports the following Circle Web3 Services REST API endpoints:
