@@ -71,6 +71,7 @@ describe('Api Wallet Tests', () => {
       id,
     });
     expect(balances).toBeDefined();
+    expect(Array.isArray(balances)).toBeTruthy();
   });
   it('Get NFTs for a wallet', async () => {
     const id = 'd9d5d92e-c75f-5bd9-bcfc-fa26273ba8f7';

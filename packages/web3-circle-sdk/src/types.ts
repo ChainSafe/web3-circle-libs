@@ -2,10 +2,17 @@
  * Request types
  */
 
-import {
+import type {
   BLOCKCHAIN,
+  CHAIN,
   FEE_LEVEL,
   MONITORED_TOKENS_SCOPE,
+  SCREEN_DECISION_REASON_TYPE,
+  SCREENING_DECISION_ACTION,
+  SCREENING_DECISION_REASON_RISK_CATEGORY,
+  SCREENING_DECISION_REASON_RISK_SOURCE,
+  SCREENING_DECISION_REASON_SOURCE,
+  SCREENING_RESULT,
   TRANSACTION_STATE,
   TRANSFER_STATE,
   WALLET_STATE,
@@ -751,6 +758,24 @@ export type QueryContractParameters = {
 };
 
 /**
+ * Parameters for a screen address request
+ * https://developers.circle.com/api-reference/w3s/compliance/screen-address
+ */
+export type ScreenAddressParameters = {
+  /** Blockchain network.*/
+  chain: CHAIN;
+  /** Blockchain address of the blockchain network. */
+  address: string;
+  /**
+   * Universally unique identifier (UUID v4) idempotency key.
+   * This key is utilized to ensure exactly-once execution of mutating requests.
+   * To create a UUIDv4 go to uuidgenerator.net. If the same key is reused,
+   * it will be treated as the same request and the original response will be returned.
+   */
+  idempotencyKey?: string;
+};
+
+/**
  * Parameters for a get event monitors request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/get-event-monitors
  */
@@ -1043,10 +1068,10 @@ export type WalletSet = {
 };
 
 /**
- * The token balances of a wallet
+ * The token balance of a wallet
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-wallet-balance
  */
-export type WalletTokenBalances = {
+export type WalletTokenBalance = {
   /** The token balance amount */
   amount: string;
   token: {
@@ -1766,7 +1791,7 @@ export type RegisteredEntity = {
 };
 
 /**
- * A list of monitored token
+ * A list of monitored tokens
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/create-monitored-tokens
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/list-monitored-tokens
@@ -1780,3 +1805,84 @@ export type MonitoredTokenEntity = {
   /** Scope for monitoring tokens */
   scope: MONITORED_TOKENS_SCOPE;
 };
+
+/**
+ * A decision associated with a {@link ScreeningResult}
+ * https://developers.circle.com/api-reference/w3s/compliance/screen-address
+ */
+export interface ScreeningResultDecision {
+  /** Name of the matched rule found in screening. */
+  ruleName: string;
+  /** Actions to take for the decision. */
+  actions: SCREENING_DECISION_ACTION[];
+  /** Date and time the resource was created, in ISO-8601 UTC format. */
+  screeningDate: string;
+  /** List of risk signals that are associated with the blockchain address. */
+  reasons: ScreeningResultReason[];
+}
+
+/**
+ * A reason associated with a {@link ScreeningResult} {@link ScreeningResultDecision}
+ * https://developers.circle.com/api-reference/w3s/compliance/screen-address
+ */
+export interface ScreeningResultReason {
+  /** Source of the risk signal. */
+  source: SCREENING_DECISION_REASON_SOURCE;
+  /**
+   * Value of the source.
+   * For example, if source is “ADDRESS”. The source value would be an blockchain address.
+   */
+  sourceValue: string;
+  /** Risk score of the signal. */
+  riskScore: SCREENING_DECISION_REASON_RISK_SOURCE;
+  /** List of risk categories for the signal. */
+  riskCategories: SCREENING_DECISION_REASON_RISK_CATEGORY[];
+  /** Type of the signal. */
+  type: SCREEN_DECISION_REASON_TYPE;
+  /** Source info that is used to look up more information of the signal. */
+  signalSource: ScreeningResultSignalSource;
+}
+
+/**
+ * The source of a risk signal associated with a {@link ScreeningResult} {@link ScreeningResultDecision}
+ * {@link ScreeningResultReason}
+ * https://developers.circle.com/api-reference/w3s/compliance/screen-address
+ */
+export interface ScreeningResultSignalSource {
+  rowId: Record<string, unknown>;
+  /** JSON path of the risk signal in the vendor response. */
+  pointer: string;
+}
+
+/**
+ * An additional details associated with a {@link ScreeningResult}
+ * https://developers.circle.com/api-reference/w3s/compliance/screen-address
+ */
+export interface ScreeningResultDetail {
+  /** System-generated unique identifier of the resource. */
+  id: string;
+  /** Vendor name. */
+  vendor: string;
+  /** Free form vendor response base on the selected vendor, this field is opaque. */
+  response: Record<string, unknown>;
+  /** Date and time the resource was created, in ISO-8601 UTC format. */
+  createDate: string;
+}
+
+/**
+ * The result of a screening request for a specific blockchain address and chain
+ * https://developers.circle.com/api-reference/w3s/compliance/screen-address
+ */
+export interface ScreeningResult {
+  /** Summary result of the screening evaluation. */
+  result: SCREENING_RESULT;
+  decision: ScreeningResultDecision;
+  id: Record<string, unknown>;
+  /** Blockchain address which is screened. */
+  address: string;
+  /** Blockchain network. */
+  chain: CHAIN;
+  /** List of more details of the screening from vendor response. */
+  details: ScreeningResultDetail[];
+  alertId: Record<string, unknown>;
+}

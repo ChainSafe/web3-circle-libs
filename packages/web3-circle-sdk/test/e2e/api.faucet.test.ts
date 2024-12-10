@@ -1,9 +1,9 @@
-import { FaucetApi, BLOCKCHAIN, BASE_URL } from '../../src';
+import { BASE_URL, BLOCKCHAIN, FaucetApi } from '../../src';
 
 import { ETH_SEPOLIA_WALLET_ADDRESS } from './fixtures/fixtures';
 
 const apikey = process.env.API_KEY as string;
-// skip because of rate limit
+// skipped because of rate limit
 describe.skip('Faucet Api', () => {
   const faucetApi = new FaucetApi(apikey, BASE_URL);
 
@@ -13,7 +13,7 @@ describe.skip('Faucet Api', () => {
       address: ETH_SEPOLIA_WALLET_ADDRESS,
       native: true,
     });
-    expect(res).toBe(true);
+    expect(res).toBe(undefined);
   });
 
   it('Request eurc token', async () => {
@@ -22,7 +22,7 @@ describe.skip('Faucet Api', () => {
       address: ETH_SEPOLIA_WALLET_ADDRESS,
       eurc: true,
     });
-    expect(res).toBe(true);
+    expect(res).toBe(undefined);
   });
 
   it('Request usdc token', async () => {
@@ -31,6 +31,6 @@ describe.skip('Faucet Api', () => {
       address: ETH_SEPOLIA_WALLET_ADDRESS,
       usdc: true,
     });
-    expect(res).toBe(true);
+    expect(res).toBe(undefined);
   });
 });
