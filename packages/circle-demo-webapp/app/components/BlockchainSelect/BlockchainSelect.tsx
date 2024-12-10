@@ -33,9 +33,9 @@ export function BlockchainSelect({ ...props }: BlockchainSelectProps) {
         <SelectValue placeholder="Select Blockchain" />
       </SelectTrigger>
       <SelectContent>
-        {Object.values(BLOCKCHAIN).map((blockchain) => (
+        {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (
           <SelectItem key={blockchain} value={blockchain}>
-            {BLOCKCHAIN_LABELS[blockchain]} {/* Display human-friendly labels */}
+            {BLOCKCHAIN_LABELS[blockchain]}
           </SelectItem>
         ))}
       </SelectContent>

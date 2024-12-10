@@ -5,7 +5,7 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
-import { WalletHeader } from '~/components/WalletHeader';
+import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 
 import { FaucetButton } from './components/FaucetButton';
@@ -50,7 +50,7 @@ export default function WalletBalancePage() {
       </header>
 
       <Card className="p-4">
-        <WalletHeader wallet={wallet}>
+        <WalletDetails wallet={wallet}>
           <div className="flex space-x-3">
             <Button variant="outline">
               <ArrowDown /> Receive
@@ -59,13 +59,15 @@ export default function WalletBalancePage() {
               <ArrowUp /> Send
             </Button>
           </div>
-        </WalletHeader>
+        </WalletDetails>
       </Card>
 
       <Card className="p-4">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Balances</h2>
 
         <div className="space-y-4">
+          {balances.length === 0 && <p>Wallet is empty</p>}
+
           {balances.map((balance) => (
             <div key={balance.token.id}>
               <WalletBalance balance={balance} />

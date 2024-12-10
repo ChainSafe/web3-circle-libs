@@ -2,6 +2,7 @@ import { ActionFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams } from '@remix-run/react';
 
 import { Button } from '~/components/ui/button';
+import { Card } from '~/components/ui/card';
 import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 
@@ -49,12 +50,13 @@ export default function Page() {
       <div className="space-y-6">
         <header className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">Wallet Set {id}</h1>
+            <h1 className="text-2xl font-semibold text-gray-900">Wallet Set</h1>
+            <p>ID: {id}</p>
           </div>
+          <NewWalletDialog walletSetId={id} />
         </header>
 
         <h2>No wallets found</h2>
-        <NewWalletDialog walletSetId={id} />
       </div>
     );
   }
@@ -64,7 +66,7 @@ export default function Page() {
       <header className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Wallet Set</h1>
-          <p>{id}</p>
+          <p>ID: {id}</p>
         </div>
         <NewWalletDialog walletSetId={id} />
       </header>
@@ -72,11 +74,13 @@ export default function Page() {
       <div className="flex flex-wrap items-center gap-6">
         {wallets.map((wallet) => (
           <div key={wallet.id} className="flex-1 min-w-[360px]">
-            <WalletDetails wallet={wallet}>
-              <Button variant="outline" asChild>
-                <Link to={`/wallet/${wallet.id}`}>Show wallet page</Link>
-              </Button>
-            </WalletDetails>
+            <Card className="p-4">
+              <WalletDetails wallet={wallet}>
+                <Button variant="outline" asChild>
+                  <Link to={`/wallet/${wallet.id}`}>Wallet Details</Link>
+                </Button>
+              </WalletDetails>
+            </Card>
           </div>
         ))}
       </div>

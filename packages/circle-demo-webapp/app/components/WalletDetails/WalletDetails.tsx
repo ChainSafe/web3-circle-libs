@@ -1,53 +1,75 @@
-import type { Wallet } from 'web3-circle-sdk';
-
-import { Badge } from '../ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Label } from '../ui/label';
+import { NetworkIcon } from '@web3icons/react';
+import makeBlockie from 'ethereum-blockies-base64';
+import { useMemo } from 'react';
+import { BLOCKCHAIN, type Wallet } from 'web3-circle-sdk';
 
 export interface WalletDetailsProps {
   wallet: Wallet;
   children?: React.ReactNode;
 }
 
+function shortenAddress(address: string): string {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
+const BLOCKCHAIN_TO_ICON_MAP = {
+  [BLOCKCHAIN.ETH]: 'ethereum',
+  [BLOCKCHAIN.ETH_SEPOLIA]: 'ethereum',
+  [BLOCKCHAIN.AVAX]: 'avalanche',
+  [BLOCKCHAIN.AVAX_FUJI]: 'avalanche',
+  [BLOCKCHAIN.MATIC]: 'polygon',
+  [BLOCKCHAIN.MATIC_AMOY]: 'polygon',
+  [BLOCKCHAIN.SOL]: 'solana',
+  [BLOCKCHAIN.SOL_DEVNET]: 'solana',
+  [BLOCKCHAIN.ARB]: 'arbitrum',
+  [BLOCKCHAIN.ARB_SEPOLIA]: 'arbitrum',
+  [BLOCKCHAIN.NEAR]: 'near',
+  [BLOCKCHAIN.NEAR_TESTNET]: 'near',
+};
+
+const BLOCKCHAIN_LABELS = {
+  [BLOCKCHAIN.ETH]: 'Ethereum Mainnet',
+  [BLOCKCHAIN.ETH_SEPOLIA]: 'Ethereum Sepolia Testnet',
+  [BLOCKCHAIN.AVAX]: 'Avalanche Mainnet',
+  [BLOCKCHAIN.AVAX_FUJI]: 'Avalanche Fuji Testnet',
+  [BLOCKCHAIN.MATIC]: 'Polygon Mainnet',
+  [BLOCKCHAIN.MATIC_AMOY]: 'Polygon Amoy',
+  [BLOCKCHAIN.SOL]: 'Solana Mainnet',
+  [BLOCKCHAIN.SOL_DEVNET]: 'Solana Devnet',
+  [BLOCKCHAIN.ARB]: 'Arbitrum Mainnet',
+  [BLOCKCHAIN.ARB_SEPOLIA]: 'Arbitrum Sepolia Testnet',
+  [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
+  [BLOCKCHAIN.NEAR_TESTNET]: 'NEAR Testnet',
+};
+
 export function WalletDetails({ wallet, children }: WalletDetailsProps) {
+  const shortAddress = useMemo(() => shortenAddress(wallet.address), [wallet]);
+  const walletImage = useMemo(() => makeBlockie(wallet.address), [wallet]);
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg">Wallet Details</CardTitle>
-      </CardHeader>
+    <div className="flex items-center space-x-4">
+      <img src={walletImage} alt="Wallet Avatar" className="w-16 h-16 rounded-full" />
 
-      <CardContent className="space-y-4">
-        <div>
-          <Label className="text-sm">Name</Label>
-          <p className="text-base font-medium">{wallet.name}</p>
-        </div>
+      <div className="flex-1">
+        <p className="text-m font-medium text-gray-900">
+          {wallet.name || 'Unnamed Wallet'}
+        </p>
 
-        <div>
-          <Label className="text-sm">Blockchain</Label>
-          <p className="text-base">{wallet.blockchain}</p>
-        </div>
+        <p className="text-sm text-gray-900 mb-1" title={wallet.address}>
+          {shortAddress}
+        </p>
 
-        <div>
-          <Label className="text-sm">Address</Label>
-          <p className="text-sm break-all">{wallet.address}</p>
-        </div>
+        <p className="text-sm text-gray-500 flex items-center space-x-2">
+          <NetworkIcon
+            network={BLOCKCHAIN_TO_ICON_MAP[wallet.blockchain]}
+            size={16}
+            variant="branded"
+          />
+          <span>{BLOCKCHAIN_LABELS[wallet.blockchain]}</span>
+        </p>
+      </div>
 
-        <div>
-          <Label className="text-sm">State</Label>{' '}
-          <Badge variant={wallet.state === 'LIVE' ? 'default' : 'secondary'}>
-            {wallet.state}
-          </Badge>
-        </div>
-
-        <div>
-          <Label className="text-sm">Account Type</Label>{' '}
-          <Badge variant={wallet.accountType === 'EOA' ? 'default' : 'secondary'}>
-            {wallet.accountType}
-          </Badge>
-        </div>
-
-        {children ?? <div>{children}</div>}
-      </CardContent>
-    </Card>
+      {children && <div>{children}</div>}
+    </div>
   );
 }
