@@ -1,8 +1,11 @@
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useParams } from '@remix-run/react';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 
+import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
+import { WalletHeader } from '~/components/WalletHeader';
 import { sdk } from '~/lib/sdk';
 
 import { FaucetButton } from './components/FaucetButton';
@@ -41,13 +44,23 @@ export default function WalletBalancePage() {
       <header className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Wallet</h1>
-          <p>{id}</p>
-          <p>
-            {wallet.blockchain} {wallet.address}
-          </p>
-          <FaucetButton wallet={wallet} />
+          <p>ID: {id}</p>
         </div>
+        <FaucetButton wallet={wallet} />
       </header>
+
+      <Card className="p-4">
+        <WalletHeader wallet={wallet}>
+          <div className="flex space-x-3">
+            <Button variant="outline">
+              <ArrowDown /> Receive
+            </Button>
+            <Button>
+              <ArrowUp /> Send
+            </Button>
+          </div>
+        </WalletHeader>
+      </Card>
 
       <Card className="p-4">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Balances</h2>

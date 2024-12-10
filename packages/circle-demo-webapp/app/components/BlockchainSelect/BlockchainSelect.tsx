@@ -22,8 +22,6 @@ const BLOCKCHAIN_LABELS = {
   [BLOCKCHAIN.ARB_SEPOLIA]: 'Arbitrum Sepolia Testnet',
   [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
   [BLOCKCHAIN.NEAR_TESTNET]: 'NEAR Testnet',
-  [BLOCKCHAIN.EVM]: 'EVM Compatible',
-  [BLOCKCHAIN.EVM_TESTNET]: 'EVM Testnet',
 };
 
 export type BlockchainSelectProps = Omit<SelectProps, 'children'>;

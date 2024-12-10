@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react';
-import { WalletSet } from 'web3-circle-sdk';
+import type { WalletSet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
