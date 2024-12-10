@@ -1,18 +1,18 @@
 {
-  "name": "web3-circle-react-components",
+  "name": "circle-react-components",
   "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/ChainSafe/web3-circle-libs/"
   },
-  "main": "./dist/web3-circle-react-components.umd.js",
-  "module": "./dist/web3-circle-react-components.es.js",
+  "main": "./dist/circle-react-components.umd.js",
+  "module": "./dist/circle-react-components.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/web3-circle-react-components.es.js",
-      "require": "./dist/web3-circle-react-components.umd.js"
+      "import": "./dist/circle-react-components.es.js",
+      "require": "./dist/circle-react-components.umd.js"
     },
     "./dist/style.css": "./dist/style.css"
   },

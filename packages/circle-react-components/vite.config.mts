@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config.js'
 import dts from 'vite-plugin-dts'
 import tailwindcss from 'tailwindcss'
 import { UserConfigExport } from 'vite'
@@ -10,7 +10,7 @@ const app = async (): Promise<UserConfigExport> => {
   /**
    * Removes everything before the last
    * @octocat/library-repo -> library-repo
-   * web3-circle-react-components -> web3-circle-react-components
+   * circle-react-components -> circle-react-components
    */
   const formattedName = name.match(/[^/]+$/)?.[0] ?? name
 
