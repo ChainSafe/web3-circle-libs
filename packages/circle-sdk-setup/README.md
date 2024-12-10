@@ -22,13 +22,3 @@ The tool will:
 4. Generate a recovery file (`recovery_file_YYYY-MM-DD.dat`)
 
 ⚠️ **Important**: After setup, store the `recovery_file_YYYY-MM-DD.dat` file in a secure location and remove it from your project directory.
-
-## Development
-
-```bash
-# Build the package
-yarn build
-
-# Run in development mode
-yarn dev
-```

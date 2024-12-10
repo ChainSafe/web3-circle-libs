@@ -21,12 +21,12 @@ class CircleSdkSetup {
     };
   }
 
-  async checkExistingConfig(): Promise<boolean> {
+  checkExistingConfig(): boolean {
     console.log('Checking existing configuration...');
     try {
       if (fs.existsSync(this.options.envPath)) {
         const envContent = dotenv.parse(fs.readFileSync(this.options.envPath));
-        return !!(envContent.CIRCLE_SECRET && envContent.CIRCLE_APP_ID);
+        return !!(envContent.CIRCLE_SECRET && envContent.CIRCLE_API_KEY);
       }
       return false;
     } catch (error) {
@@ -35,36 +35,22 @@ class CircleSdkSetup {
     }
   }
 
-  async generateSecret(): Promise<string> {
+  generateSecret(): string {
     console.log('Generating secret...');
     const secret = SecretApi.generateSecret();
     console.log('Secret generated:', secret);
     return secret;
   }
 
-  async initializeSdk(apiKey: string, secret: string): Promise<CircleSdk> {
-    console.log('Initializing Circle SDK...');
-    return new CircleSdk(apiKey, secret);
-  }
-
-  async fetchConfiguration(sdk: CircleSdk) {
-    console.log('Fetching configuration...');
-    const config = await sdk.secret.getConfig();
-    console.log('Configuration fetched:', JSON.stringify(config, null, 2));
-    return config;
-  }
-
   async fetchPublicKey(sdk: CircleSdk) {
     console.log('Fetching public key...');
     const publicKey = await sdk.secret.getPublicKey();
-    console.log('Public key retrieved');
     return publicKey;
   }
 
   generateCiphertext(secret: string, publicKey: string) {
     console.log('Generating entity secret ciphertext...');
     const cipherText = SecretApi.getEntitySecretCiphertext(secret, publicKey);
-    console.log('Ciphertext generated');
     return cipherText;
   }
 
@@ -91,17 +77,15 @@ class CircleSdkSetup {
     }
   }
 
-  prepareEnvFile(config: any, secret: string, apiKey: string) {
+  prepareEnvFile(secret: string, apiKey: string) {
     console.log('Preparing .env file...');
     let envContent = '';
+
+    // Read existing content if file exists (it shouldn't)
     if (fs.existsSync(this.options.envPath)) {
       envContent = fs.readFileSync(this.options.envPath, 'utf-8');
-      // Remove existing Circle config if any
-      envContent = envContent
-        .split('\n')
-        .filter((line) => !line.startsWith('CIRCLE_'))
-        .join('\n');
-      if (envContent && !envContent.endsWith('\n')) {
+      // Ensure there's a newline at the end
+      if (!envContent.endsWith('\n')) {
         envContent += '\n';
       }
     }
@@ -109,9 +93,9 @@ class CircleSdkSetup {
     // Add new Circle config
     console.log('Adding new configuration to .env...');
     const newConfig = `CIRCLE_API_KEY=${apiKey}
-CIRCLE_SECRET=${secret}
-CIRCLE_APP_ID=${config.appId}\n`;
+CIRCLE_SECRET=${secret}\n`;
 
+    // Append new config to existing content
     fs.writeFileSync(this.options.envPath, envContent + newConfig);
     console.log('.env file updated successfully');
   }
@@ -136,24 +120,19 @@ CIRCLE_APP_ID=${config.appId}\n`;
 
   async run() {
     // Check if config already exists
-    const configExists = await this.checkExistingConfig();
+    const configExists = this.checkExistingConfig();
     if (configExists) {
       console.error('Circle SDK configuration already exists in .env file.');
-      console.error(
-        'Please remove the existing configuration before setting up a new one.',
-      );
+      console.error('Please check your existing configuration in the Circle Console.');
       process.exit(1);
     }
 
     try {
       // Generate secret
-      const secret = await this.generateSecret();
+      const secret = this.generateSecret();
 
       // Initialize SDK
-      const sdk = await this.initializeSdk(this.options.apiKey, secret);
-
-      // Fetch configuration
-      const config = await this.fetchConfiguration(sdk);
+      const sdk = new CircleSdk(this.options.apiKey, secret);
 
       // Fetch public key
       const publicKey = await this.fetchPublicKey(sdk);
@@ -165,7 +144,7 @@ CIRCLE_APP_ID=${config.appId}\n`;
       const registration = await this.registerCiphertext(sdk, cipherText);
 
       // Prepare .env file
-      this.prepareEnvFile(config, secret, this.options.apiKey);
+      this.prepareEnvFile(secret, this.options.apiKey);
 
       // Save recovery file
       this.saveRecoveryFile(registration);
