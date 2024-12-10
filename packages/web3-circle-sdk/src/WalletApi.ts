@@ -6,7 +6,7 @@ import type {
   WalletUpdateParameters,
   WalletBalanceParameters,
   WalletNftsParameters,
-  WalletTokenBalances,
+  WalletTokenBalance,
   WalletNft,
 } from './types';
 
@@ -63,9 +63,9 @@ export class WalletApi extends DeveloperApi {
    * @param params the parameters for the wallet token balance request
    * @returns the token balances for the specified wallet
    */
-  async balance(params: WalletBalanceParameters): Promise<WalletTokenBalances[]> {
+  async balance(params: WalletBalanceParameters): Promise<WalletTokenBalance[]> {
     const { id, ...rest } = params;
-    return this.getRequest<WalletTokenBalances[]>(
+    return this.getRequest<WalletTokenBalance[]>(
       `/w3s/wallets/${id}/balances`,
       rest,
       'tokenBalances',

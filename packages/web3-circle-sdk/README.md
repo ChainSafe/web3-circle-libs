@@ -14,6 +14,10 @@ API:
   - This is a convenience class for working with all the other classes described below.
   - Instantiate with `const circle: CircleSdk = new CircleSdk(apiKey, secret);` then
     initialize with `await circle.init();`.
+- [`ComplianceApi`](https://chainsafe.github.io/web3-circle-libs/classes/ComplianceApi.html)
+  - Exposed by the `CircleSdk` class as the `compliance` property (i.e. `CircleSdk.compliance`).
+  - Supports the following Circle Web3 Services REST API endpoints:
+    - [Screen a blockchain address](https://developers.circle.com/api-reference/w3s/compliance/screen-address) (`ComplianceApi.screenAddress`)
 - [`FaucetApi`](https://chainsafe.github.io/web3-circle-libs/classes/FaucetApi.html)
   - Exposed by the `CircleSdk` class as the `faucet` property (i.e. `CircleSdk.faucet`).
   - Supports the following Circle Web3 Services REST API endpoints:
