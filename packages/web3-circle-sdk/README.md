@@ -10,19 +10,19 @@ Keep reading for more information or refer to the comprehensive
 This SDK exposes the following classes for interacting with the Circle Web3 Services REST
 API:
 
-- [`CircleSDK`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/index.ts)
+- [`CircleSdk`](https://chainsafe.github.io/web3-circle-libs/classes/CircleSdk.html)
   - This is a convenience class for working with all the other classes described below.
-  - Instantiate with `const circle: CircleSDK = new CircleSDK(apiKey, secret);` then
+  - Instantiate with `const circle: CircleSdk = new CircleSdk(apiKey, secret);` then
     initialize with `await circle.init();`.
-- [`SecretApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/SecretApi.ts)
-  - Exposed by the `CircleSDK` class as the `secret` property (i.e. `CircleSDK.secret`).
+- [`SecretApi`](https://chainsafe.github.io/web3-circle-libs/classes/SecretApi.html)
+  - Exposed by the `CircleSdk` class as the `secret` property (i.e. `CircleSdk.secret`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Get public key for entity](https://developers.circle.com/api-reference/w3s/programmable-wallets/get-public-key)
       (`SecretApi.getPublicKey`)
     - [Get configuration for entity](https://developers.circle.com/api-reference/w3s/programmable-wallets/get-entity-config)
       (`SecretApi.getConfig`)
-- [`SignApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/SignApi.ts)
-  - Exposed by the `CircleSDK` class as the `sign` property (i.e. `CircleSDK.sign`).
+- [`SignApi`](https://chainsafe.github.io/web3-circle-libs/classes/SignApi.html)
+  - Exposed by the `CircleSdk` class as the `sign` property (i.e. `CircleSdk.sign`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Sign message](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-message)
       (`SignApi.signMessage`)
@@ -32,9 +32,9 @@ API:
       (`SignApi.signTransaction`)
     - [Sign delegate action](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-delegate-action)
       (`SignApi.signDelegateAction`)
-- [`SmartContractApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/SmartContractApi.ts)
-  - Exposed by the `CircleSDK` class as the `smartContract` property (i.e.
-    `CircleSDK.smartContract`).
+- [`SmartContractApi`](https://chainsafe.github.io/web3-circle-libs/classes/SmartContractApi.html)
+  - Exposed by the `CircleSdk` class as the `smartContract` property (i.e.
+    `CircleSdk.smartContract`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [List contracts](https://developers.circle.com/api-reference/w3s/smart-contract-platform/list-contracts)
       (`SmartContractApi.list`)
@@ -43,44 +43,44 @@ API:
     - [Update a contract](https://developers.circle.com/api-reference/w3s/smart-contract-platform/update-contract)
       (`SmartContractApi.update`)
     - [Import a contract](https://developers.circle.com/api-reference/w3s/smart-contract-platform/import-contract)
-      (`SmartContractApi.importContract`)
+      (`SmartContractApi.import`)
     - [Estimate a contract deployment](https://developers.circle.com/api-reference/w3s/smart-contract-platform/estimate-contract-deploy)
-      (`SmartContractApi.estimateDeployment`)
+      (`SmartContractApi.estimateDeploymentFee`)
     - [Deploy a contract](https://developers.circle.com/api-reference/w3s/smart-contract-platform/deploy-contract)
       (`SmartContractApi.deploy`)
     - [Execute a query function on a contract](https://developers.circle.com/api-reference/w3s/smart-contract-platform/query-contract)
       (`SmartContractApi.query`)
-- [`SmartContractEventMonitorApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/SmartContractEventMonitorApi.ts)
-  - Exposed by the `CircleSDK` class as the `smartContractEventMonitor` property (i.e.
-    `CircleSDK.smartContractEventMonitor`).
+- [`SmartContractEventMonitorApi`](https://chainsafe.github.io/web3-circle-libs/classes/SmartContractEventMonitorApi.html)
+  - Exposed by the `CircleSdk` class as the `smartContractEventMonitor` property (i.e.
+    `CircleSdk.smartContractEventMonitor`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Get event monitors](https://developers.circle.com/api-reference/w3s/smart-contract-platform/get-event-monitors)
-      (`SmartContractEventMonitorApi.getEventMonitors`)
+      (`SmartContractEventMonitorApi.get`)
     - [Create event monitor](https://developers.circle.com/api-reference/w3s/smart-contract-platform/create-event-monitor)
-      (`SmartContractEventMonitorApi.createEventMonitor`)
+      (`SmartContractEventMonitorApi.create`)
     - [Update an event monitor](https://developers.circle.com/api-reference/w3s/smart-contract-platform/update-event-monitor)
-      (`SmartContractEventMonitorApi.updateEventMonitor`)
+      (`SmartContractEventMonitorApi.update`)
     - [Delete event monitor](https://developers.circle.com/api-reference/w3s/smart-contract-platform/delete-event-monitor)
-      (`SmartContractEventMonitorApi.deleteEventMonitor`)
+      (`SmartContractEventMonitorApi.delete`)
     - [Get event logs](https://developers.circle.com/api-reference/w3s/smart-contract-platform/list-event-logs)
       (`SmartContractEventMonitorApi.getEventLogs`)
-- [`SmartContractTemplateApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/SmartContractTemplateApi.ts)
-  - Exposed by the `CircleSDK` class as the `smartContractTemplate` property (i.e.
-    `CircleSDK.smartContractTemplate`).
+- [`SmartContractTemplateApi`](https://chainsafe.github.io/web3-circle-libs/classes/SmartContractTemplateApi.html)
+  - Exposed by the `CircleSdk` class as the `smartContractTemplate` property (i.e.
+    `CircleSdk.smartContractTemplate`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Estimate fee for a contract template deployment](https://developers.circle.com/api-reference/w3s/smart-contract-platform/estimate-contract-template-deploy)
       (`SmartContractTemplateApi.estimateDeploymentFee`)
     - [Deploy a contract from a template](https://developers.circle.com/api-reference/w3s/smart-contract-platform/deploy-contract-template)
-      (`SmartContractTemplateApi.deployContract`)
-- [`TokenLookupApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/TokenLookupApi.ts)
-  - Exposed by the `CircleSDK` class as the `tokenLookup` property (i.e.
-    `CircleSDK.tokenLookup`).
+      (`SmartContractTemplateApi.deploy`)
+- [`TokenLookupApi`](https://chainsafe.github.io/web3-circle-libs/classes/TokenLookupApi.html)
+  - Exposed by the `CircleSdk` class as the `tokenLookup` property (i.e.
+    `CircleSdk.tokenLookup`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Get token details](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-token-id)
       (`TokenLookupApi.get`)
-- [`TransactionApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/TransactionApi.ts)
-  - Exposed by the `CircleSDK` class as the `transaction` property (i.e.
-    `CircleSDK.transaction`).
+- [`TransactionApi`](https://chainsafe.github.io/web3-circle-libs/classes/TransactionApi.html)
+  - Exposed by the `CircleSdk` class as the `transaction` property (i.e.
+    `CircleSdk.transaction`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [List transactions](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-transactions)
       (`TransactionApi.list`)
@@ -97,11 +97,11 @@ API:
     - [Create a contract execution transaction](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-contract-execution)
       (`TransactionApi.createContractExecutionTransaction`)
     - [Cancel a transaction](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-cancel)
-      (`TransactionApi.cancelTransaction`)
+      (`TransactionApi.cancel`)
     - [Accelerate a transaction](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-accelerate)
-      (`TransactionApi.accelerateTransaction`)
-- [`WalletApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/WalletApi.ts)
-  - Exposed by the `CircleSDK` class as the `wallet` property (i.e. `CircleSDK.wallet`).
+      (`TransactionApi.accelerate`)
+- [`WalletApi`](https://chainsafe.github.io/web3-circle-libs/classes/WalletApi.html)
+  - Exposed by the `CircleSdk` class as the `wallet` property (i.e. `CircleSdk.wallet`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Create wallets](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet)
       (`WalletApi.create`)
@@ -115,9 +115,9 @@ API:
       (`WalletApi.balance`)
     - [Get NFTs for a wallet](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-wallet-nfts)
       (`WalletApi.nfts`)
-- [`WalletSetApi`](https://github.com/ChainSafe/web3-circle-libs/blob/main/packages/web3-circle-sdk/src/WalletSetApi.ts)
-  - Exposed by the `CircleSDK` class as the `walletSet` property (i.e.
-    `CircleSDK.walletSet`).
+- [`WalletSetApi`](https://chainsafe.github.io/web3-circle-libs/classes/WalletSetApi.html)
+  - Exposed by the `CircleSdk` class as the `walletSet` property (i.e.
+    `CircleSdk.walletSet`).
   - Supports the following Circle Web3 Services REST API endpoints:
     - [Create a new wallet set](https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet-set)
       (`WalletSetApi.create`)

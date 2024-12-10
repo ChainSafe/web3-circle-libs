@@ -48,6 +48,14 @@ export type FilterOptions = {
   to?: string;
 } & FilterPagesOptions;
 
+export type FaucetRequestParameters = {
+  blockchain: string;
+  address: string;
+  native?: boolean;
+  usdc?: boolean;
+  eurc?: boolean;
+};
+
 /**
  * Parameters for a create wallet request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet
@@ -1100,7 +1108,7 @@ export type Wallet = {
   /**
    * Unique system generated identifier for the user.
    */
-  userId: string;
+  userId?: string;
   /**
    * System-generated unique identifier of the resource.
    */
@@ -1108,7 +1116,7 @@ export type Wallet = {
   /**
    * For NEAR blockchains only, the originally assigned public key of a wallet at the time of its creation.
    */
-  initialPublicKey: string;
+  initialPublicKey?: string;
   /**
    * An account can be a Smart Contract Account (SCA) or an Externally Owned Account (EOA).
    * To learn more, see the account types guide (https://developers.circle.com/w3s/programmable-wallets-account-types).

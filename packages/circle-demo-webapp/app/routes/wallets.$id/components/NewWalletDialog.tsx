@@ -2,6 +2,7 @@ import { Form } from '@remix-run/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
+import { BlockchainSelect } from '~/components/BlockchainSelect';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -32,7 +33,7 @@ export function NewWalletDialog({ walletSetId }: NewWalletDialogProps) {
         <DialogHeader>
           <DialogTitle>Create a New Wallet</DialogTitle>
           <DialogDescription>
-            Generate a new address with no previous history
+            Generate a new address with no previous history on selected blockchain
           </DialogDescription>
         </DialogHeader>
 
@@ -42,13 +43,23 @@ export function NewWalletDialog({ walletSetId }: NewWalletDialogProps) {
             setOpen(false);
           }}
         >
-          <div className="w-full max-w-md mt-6">
+          <div className="space-y-4">
             <input type="hidden" name="walletSetId" value={walletSetId} />
-            <Input type="text" name="name" placeholder="Name" className="col-span-3" />
+
+            <Input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Enter wallet name"
+              className="w-full"
+            />
+
+            <BlockchainSelect name="blockchain" />
+
+            <Button type="submit" className="w-full">
+              Create Wallet
+            </Button>
           </div>
-          <Button type="submit" className="mt-6 w-full max-w-md">
-            Create
-          </Button>
         </Form>
       </DialogContent>
     </Dialog>

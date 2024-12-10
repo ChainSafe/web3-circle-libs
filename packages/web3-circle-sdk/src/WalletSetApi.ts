@@ -21,7 +21,7 @@ export class WalletSetApi extends DeveloperApi {
     if (params.name) {
       data.name = params.name;
     }
-    return this.postRequest<WalletSet>('/developer/walletSets', data, 'walletSet');
+    return this.postRequest<WalletSet>('/w3s/developer/walletSets', data, 'walletSet');
   }
 
   /**
@@ -31,7 +31,7 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the updated wallet set
    */
   async update(params: WalletSetUpdateParameters): Promise<WalletSet> {
-    return this.putRequest<WalletSet>(`/developer/walletSets`, params, 'walletSet');
+    return this.putRequest<WalletSet>(`/w3s/developer/walletSets`, params, 'walletSet');
   }
 
   /**
@@ -41,7 +41,7 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the list of wallet sets
    */
   async list(params?: WalletSetListParameters): Promise<WalletSet[]> {
-    return this.getRequest<WalletSet[]>('/walletSets', params, 'walletSets');
+    return this.getRequest<WalletSet[]>('/w3s/walletSets', params, 'walletSets');
   }
 
   /**
@@ -51,6 +51,6 @@ export class WalletSetApi extends DeveloperApi {
    * @returns the requested wallet set
    */
   async get(id: string): Promise<WalletSet> {
-    return this.getRequest<WalletSet>(`/walletSets/${id}`, undefined, 'walletSet');
+    return this.getRequest<WalletSet>(`/w3s/walletSets/${id}`, undefined, 'walletSet');
   }
 }

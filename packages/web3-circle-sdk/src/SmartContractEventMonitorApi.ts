@@ -18,7 +18,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    */
   async get(params?: GetEventMonitorsParameters): Promise<EventMonitor[]> {
     return this.getRequest<EventMonitor[]>(
-      '/contracts/monitors',
+      '/w3s/contracts/monitors',
       params,
       'eventMonitors',
     );
@@ -32,7 +32,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    */
   async create(params: CreateEventMonitorParameters): Promise<EventMonitor[]> {
     return this.postRequest<EventMonitor[]>(
-      '/contracts/monitors',
+      '/w3s/contracts/monitors',
       this.addIdempotencyKeyToParams<CreateEventMonitorParameters>(params),
       'eventMonitors',
     );
@@ -46,7 +46,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    */
   async update(params: UpdateEventMonitorParameters): Promise<EventMonitor[]> {
     return this.putRequest<EventMonitor[]>(
-      '/contracts/monitors/',
+      '/w3s/contracts/monitors/',
       params,
       'eventMonitors',
     );
@@ -59,7 +59,7 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @returns an empty Promise
    */
   async delete(params: DeleteEventMonitorParameters): Promise<void> {
-    return this.deleteRequest<void>(`/contracts/monitors`, params);
+    return this.deleteRequest<void>(`/w3s/contracts/monitors`, params);
   }
 
   /**
@@ -69,6 +69,6 @@ export class SmartContractEventMonitorApi extends BaseApi {
    * @returns the list of event logs
    */
   async getEventLogs(params?: GetEventLogsParameters): Promise<EventLog[]> {
-    return this.getRequest<EventLog[]>('/contracts/events', params, 'eventLogs');
+    return this.getRequest<EventLog[]>('/w3s/contracts/events', params, 'eventLogs');
   }
 }
