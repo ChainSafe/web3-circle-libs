@@ -2,7 +2,7 @@
  * Request types
  */
 
-import {
+import type {
   BLOCKCHAIN,
   FEE_LEVEL,
   MONITORED_TOKENS_SCOPE,
@@ -10,6 +10,8 @@ import {
   TRANSFER_STATE,
   WALLET_STATE,
 } from './constants';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
  * Options for pagination filters
