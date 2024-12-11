@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useParams } from '@remix-run/react';
-import { ArrowDown, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
@@ -9,6 +9,7 @@ import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 
 import { FaucetButton } from './components/FaucetButton';
+import { WalletReceiveDialog } from './components/WalletReceiveDialog';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { id } = params;
@@ -52,9 +53,7 @@ export default function WalletBalancePage() {
       <Card className="p-4">
         <WalletDetails wallet={wallet}>
           <div className="flex space-x-3">
-            <Button variant="outline">
-              <ArrowDown /> Receive
-            </Button>
+            <WalletReceiveDialog wallet={wallet} />
             <Button>
               <ArrowUp /> Send
             </Button>
