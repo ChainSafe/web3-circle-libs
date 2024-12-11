@@ -2,7 +2,7 @@ import { Form } from '@remix-run/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
-import { BlockchainSelect } from '~/components/BlockchainSelect';
+import { ChainSelect } from '~/components/ChainSelect';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -54,7 +54,7 @@ export function NewWalletDialog({ walletSetId }: NewWalletDialogProps) {
               className="w-full"
             />
 
-            <BlockchainSelect name="blockchain" />
+            <ChainSelect name="blockchain" />
 
             <Button type="submit" className="w-full">
               Create Wallet
