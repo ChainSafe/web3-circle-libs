@@ -1,4 +1,4 @@
- name: 'Install and test'
+ name: 'build'
  on:
      pull_request:
          types: [opened, reopened, synchronize]
@@ -25,3 +25,17 @@
                   API_KEY: ${{ secrets.API_KEY }}
                   SECRET: ${{ secrets.SECRET }}
                run: cd packages/web3-circle-sdk && yarn test:e2e
+    lint:
+         strategy:
+             matrix:
+                 node: [20]
+         name: lint
+         runs-on: ubuntu-latest
+
+         steps:
+             - uses: actions/checkout@v4
+             - uses: actions/setup-node@v4
+               with:
+                   node-version: ${{ matrix.node }}
+                   cache: yarn
+             - run: yarn lint

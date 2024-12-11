@@ -1,5 +1,5 @@
 import { BaseApi } from './BaseApi';
-import {
+import type {
   GetMonitoredTokensParameters,
   MonitoredTokenEntity,
   MonitoredTokensParameters,
