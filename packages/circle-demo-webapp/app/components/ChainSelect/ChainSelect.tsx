@@ -9,24 +9,24 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 
-const BLOCKCHAIN_LABELS = {
-  [BLOCKCHAIN.ETH]: 'Ethereum Mainnet',
-  [BLOCKCHAIN.ETH_SEPOLIA]: 'Ethereum Sepolia Testnet',
-  [BLOCKCHAIN.AVAX]: 'Avalanche Mainnet',
-  [BLOCKCHAIN.AVAX_FUJI]: 'Avalanche Fuji Testnet',
-  [BLOCKCHAIN.MATIC]: 'Polygon Mainnet',
-  [BLOCKCHAIN.MATIC_AMOY]: 'Polygon Amoy',
-  [BLOCKCHAIN.SOL]: 'Solana Mainnet',
-  [BLOCKCHAIN.SOL_DEVNET]: 'Solana Devnet',
-  [BLOCKCHAIN.ARB]: 'Arbitrum Mainnet',
+const BLOCKCHAIN_LABELS: Record<string, string> = {
   [BLOCKCHAIN.ARB_SEPOLIA]: 'Arbitrum Sepolia Testnet',
-  [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
+  [BLOCKCHAIN.ARB]: 'Arbitrum Mainnet',
+  [BLOCKCHAIN.AVAX_FUJI]: 'Avalanche Fuji Testnet',
+  [BLOCKCHAIN.AVAX]: 'Avalanche Mainnet',
+  [BLOCKCHAIN.ETH_SEPOLIA]: 'Ethereum Sepolia Testnet',
+  [BLOCKCHAIN.ETH]: 'Ethereum Mainnet',
+  [BLOCKCHAIN.MATIC_AMOY]: 'Polygon Amoy',
+  [BLOCKCHAIN.MATIC]: 'Polygon Mainnet',
   [BLOCKCHAIN.NEAR_TESTNET]: 'NEAR Testnet',
+  [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
+  [BLOCKCHAIN.SOL_DEVNET]: 'Solana Devnet',
+  [BLOCKCHAIN.SOL]: 'Solana Mainnet',
 };
 
-export type BlockchainSelectProps = Omit<SelectProps, 'children'>;
+export type ChainSelectProps = Omit<SelectProps, 'children'>;
 
-export function BlockchainSelect({ ...props }: BlockchainSelectProps) {
+export function ChainSelect({ ...props }: ChainSelectProps) {
   return (
     <Select {...props}>
       <SelectTrigger className="w-full max-w-md">
