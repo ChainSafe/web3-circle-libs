@@ -1,5 +1,5 @@
 import { Link, NavLink } from '@remix-run/react';
-import { User, Box, LayoutDashboard, Database } from 'lucide-react';
+import { LayoutDashboard, Database } from 'lucide-react';
 import React from 'react';
 import type { WalletSet } from 'web3-circle-sdk';
 

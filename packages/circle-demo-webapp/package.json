@@ -7,10 +7,9 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "lint": "eslint .",
+    "lint": "tsc && eslint .",
     "prettier": "prettier . --write",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

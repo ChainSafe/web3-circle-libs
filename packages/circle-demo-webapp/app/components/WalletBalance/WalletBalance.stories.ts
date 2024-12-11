@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { BLOCKCHAIN } from 'web3-circle-sdk';
 
 import { WalletBalance } from './WalletBalance';
 
@@ -20,7 +21,7 @@ export const Usdc: Story = {
     balance: {
       token: {
         id: '5797fbd6-3795-519d-84ca-ec4c5f80c3b1',
-        blockchain: 'ETH-SEPOLIA',
+        blockchain: 'ETH_SEPOLIA' as BLOCKCHAIN,
         tokenAddress: '0x1c7d4b196cb0c7b01d743fbc6116a902379c7238',
         standard: 'ERC20',
         name: 'USDC',
@@ -41,7 +42,7 @@ export const Eth: Story = {
     balance: {
       token: {
         id: '979869da-9115-5f7d-917d-12d434e56ae7',
-        blockchain: 'ETH-SEPOLIA',
+        blockchain: 'ETH_SEPOLIA' as BLOCKCHAIN,
         name: 'Ethereum-Sepolia',
         symbol: 'ETH-SEPOLIA',
         decimals: 18,
