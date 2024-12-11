@@ -3,14 +3,11 @@ import { useMemo } from 'react';
 import type { Wallet } from 'web3-circle-sdk';
 
 import { ChainLabel } from '~/components/ChainLabel';
+import { shortenAddress } from '~/lib/format';
 
 export interface WalletDetailsProps {
   wallet: Wallet;
   children?: React.ReactNode;
-}
-
-function shortenAddress(address: string): string {
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
 export function WalletDetails({ wallet, children }: WalletDetailsProps) {
