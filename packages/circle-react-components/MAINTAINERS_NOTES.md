@@ -1,5 +1,7 @@
 # Notes for maintainers
 
+Built and tested with node v20.
+
 ## Features
 
 - ⚛️ [React 18](https://reactjs.org/)
