@@ -25,7 +25,7 @@
                   API_KEY: ${{ secrets.API_KEY }}
                   SECRET: ${{ secrets.SECRET }}
                run: cd packages/web3-circle-sdk && yarn test:e2e
-    lint:
+     lint:
          strategy:
              matrix:
                  node: [20]
