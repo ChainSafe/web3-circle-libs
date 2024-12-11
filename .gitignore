@@ -3,3 +3,6 @@ node_modules
 .idea
 .vscode
 tmp
+.history
+.yarn/install-state.gz
+packages/circle-demo-webapp/storybook-static
