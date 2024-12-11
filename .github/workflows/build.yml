@@ -37,6 +37,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
+      - run: yarn install --ignore-scripts --frozen-lockfile
       - name: Run tests
         env:
           API_KEY: ${{ secrets.API_KEY }}
@@ -57,5 +58,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
+      - run: cd /
+      - run: yarn install --ignore-scripts --frozen-lockfile
       - name: Run linter
         run: yarn lint
