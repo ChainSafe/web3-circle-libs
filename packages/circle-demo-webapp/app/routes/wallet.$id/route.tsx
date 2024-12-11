@@ -2,6 +2,7 @@ import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useParams } from '@remix-run/react';
 import { ArrowUp } from 'lucide-react';
 
+import { TransactionDetails } from '~/components/TransactionDetails';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
@@ -18,23 +19,25 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Error('Wallet ID is required');
   }
 
-  const [balances, wallet] = await Promise.all([
+  const [balances, wallet, transactions] = await Promise.all([
     sdk.wallet.balance({
       id,
       includeAll: true,
     }),
     sdk.wallet.get(id),
+    sdk.transaction.list({ walletIds: id }),
   ]);
 
   return {
     balances,
     wallet,
+    transactions,
   };
 }
 
 export default function WalletBalancePage() {
   const { id } = useParams();
-  const { balances, wallet } = useLoaderData<typeof loader>();
+  const { balances, wallet, transactions } = useLoaderData<typeof loader>();
 
   if (!id) {
     return null;
@@ -70,6 +73,20 @@ export default function WalletBalancePage() {
           {balances.map((balance) => (
             <div key={balance.token.id}>
               <WalletBalance balance={balance} />
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card className="p-4">
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Transactions</h2>
+
+        <div className="space-y-4">
+          {transactions.length === 0 && <p>No transactions</p>}
+
+          {transactions.map((tx) => (
+            <div key={tx.id}>
+              <TransactionDetails transaction={tx} />
             </div>
           ))}
         </div>
