@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.22.10",
-    "@chainsafe/eslint-config": "^2.0.0",
+    "@chainsafe/eslint-config": "^2.2.4",
     "@storybook/addon-essentials": "8.4.6",
     "@storybook/addon-interactions": "8.4.6",
     "@storybook/addon-links": "8.4.6",

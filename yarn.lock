@@ -580,7 +580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chainsafe/eslint-config@npm:^2.0.0":
+"@chainsafe/eslint-config@npm:^2.2.4":
   version: 2.2.4
   resolution: "@chainsafe/eslint-config@npm:2.2.4"
   dependencies:
@@ -6374,7 +6374,7 @@ __metadata:
   resolution: "circle-react-components@workspace:packages/circle-react-components"
   dependencies:
     "@babel/core": "npm:7.22.10"
-    "@chainsafe/eslint-config": "npm:^2.0.0"
+    "@chainsafe/eslint-config": "npm:^2.2.4"
     "@storybook/addon-essentials": "npm:8.4.6"
     "@storybook/addon-interactions": "npm:8.4.6"
     "@storybook/addon-links": "npm:8.4.6"
@@ -16461,7 +16461,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web3-circle-sdk@workspace:packages/web3-circle-sdk"
   dependencies:
-    "@chainsafe/eslint-config": "npm:^2.0.0"
+    "@chainsafe/eslint-config": "npm:^2.2.4"
     "@types/jest": "npm:^29.5.2"
     "@types/node": "npm:^20.2.6"
     "@types/node-forge": "npm:^1.3.11"
