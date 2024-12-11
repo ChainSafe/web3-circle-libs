@@ -1043,10 +1043,10 @@ export type WalletSet = {
 };
 
 /**
- * The token balances of a wallet
+ * The token balance
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-wallet-balance
  */
-export type WalletTokenBalances = {
+export type WalletTokenBalance = {
   /** The token balance amount */
   amount: string;
   token: {
@@ -1054,7 +1054,7 @@ export type WalletTokenBalances = {
     id: string;
     /** Blockchain name of the specified token. */
     name: string;
-    standard: string;
+    standard?: string;
     /** The blockchain network that the resource is to be created on or is currently on. */
     blockchain: BLOCKCHAIN;
     /** Number of decimal places shown in the token amount. */
@@ -1067,7 +1067,7 @@ export type WalletTokenBalances = {
      * Blockchain generated unique identifier, associated with wallet (account),
      * smart contract or other blockchain objects.
      */
-    tokenAddress: string;
+    tokenAddress?: string;
     /** Date and time the resource was last updated, in ISO-8601 UTC format. */
     updateDate: string;
     /** Date and time the resource was created, in ISO-8601 UTC format. */

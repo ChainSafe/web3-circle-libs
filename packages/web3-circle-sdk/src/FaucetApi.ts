@@ -9,8 +9,6 @@ export class FaucetApi extends BaseApi {
    * @returns a boolean that indicates if the faucet request was successful
    */
   async request(params: FaucetRequestParameters): Promise<boolean> {
-    return (
-      (await this.postRequest<void>('/faucet/drips', params, 'wallets')) === undefined
-    );
+    return (await this.postRequest<void>('/faucet/drips', params)) === undefined;
   }
 }

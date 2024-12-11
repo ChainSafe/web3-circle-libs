@@ -2812,6 +2812,19 @@
   resolved "https://registry.yarnpkg.com/@web3-storage/multipart-parser/-/multipart-parser-1.0.0.tgz#6b69dc2a32a5b207ba43e556c25cc136a56659c4"
   integrity sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==
 
+"@web3icons/common@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.7.2.tgz#c375232d8d0273479bcf899dfd15acc57bfa7ead"
+  integrity sha512-zgk15pcLKNM+3ve35vOnFvOLOfEb+7+WhgjyNQQfJSM9AsuLAQIgcDV1r5GCJqzjRrFIinS1eI3z8xuYVWHaiQ==
+
+"@web3icons/react@^3.13.2":
+  version "3.13.2"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-3.13.2.tgz#ec7d18673eb037aac44d4f15f0c40a1bc8b60095"
+  integrity sha512-d7CKIBCOglWpCIPMee3nSxK6Af5Xc274F+N78VBt2cKqVy++koifr9uF97qKQt0v0z3XSFP6NLFHWCZLyHpivg==
+  dependencies:
+    "@web3icons/common" "0.7.2"
+    react "^18.2.0"
+
 "@zxing/text-encoding@0.9.0":
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/@zxing/text-encoding/-/text-encoding-0.9.0.tgz#fb50ffabc6c7c66a0c96b4c03e3d9be74864b70b"
@@ -4624,6 +4637,13 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
+
+ethereum-blockies-base64@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ethereum-blockies-base64/-/ethereum-blockies-base64-1.0.2.tgz#4aebca52142bf4d16a3144e6e2b59303e39ed2b3"
+  integrity sha512-Vg2HTm7slcWNKaRhCUl/L3b4KrB8ohQXdd5Pu3OI897EcR6tVRvUqdTwAyx+dnmoDzj8e2bwBLDQ50ByFmcz6w==
+  dependencies:
+    pnglib "0.0.1"
 
 ethereum-cryptography@^2.0.0:
   version "2.2.1"
@@ -7569,6 +7589,11 @@ pkg-types@^1.2.1:
     confbox "^0.1.8"
     mlly "^1.7.2"
     pathe "^1.1.2"
+
+pnglib@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/pnglib/-/pnglib-0.0.1.tgz#f9ab6f9c688f4a9d579ad8be28878a716e30c096"
+  integrity sha512-95ChzOoYLOPIyVmL+Y6X+abKGXUJlvOVLkB1QQkyXl7Uczc6FElUy/x01NS7r2GX6GRezloO/ecCX9h4U9KadA==
 
 polished@^4.2.2:
   version "4.3.1"

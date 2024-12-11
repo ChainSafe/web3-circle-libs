@@ -1,4 +1,5 @@
 import { SelectProps } from '@radix-ui/react-select';
+import { BLOCKCHAIN } from 'web3-circle-sdk';
 
 import {
   Select,
@@ -7,9 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import { BLOCKCHAIN } from '~/lib/types';
 
-const BLOCKCHAIN_LABELS: Record<BLOCKCHAIN, string> = {
+const BLOCKCHAIN_LABELS = {
   [BLOCKCHAIN.ETH]: 'Ethereum Mainnet',
   [BLOCKCHAIN.ETH_SEPOLIA]: 'Ethereum Sepolia Testnet',
   [BLOCKCHAIN.AVAX]: 'Avalanche Mainnet',
@@ -22,9 +22,6 @@ const BLOCKCHAIN_LABELS: Record<BLOCKCHAIN, string> = {
   [BLOCKCHAIN.ARB_SEPOLIA]: 'Arbitrum Sepolia Testnet',
   [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
   [BLOCKCHAIN.NEAR_TESTNET]: 'NEAR Testnet',
-  [BLOCKCHAIN.EVM]: 'EVM Compatible',
-  [BLOCKCHAIN.EVM_TESTNET]: 'EVM Testnet',
-  [BLOCKCHAIN.UNI_SEPOLIA]: 'Uniswap Sepolia Testnet',
 };
 
 export type BlockchainSelectProps = Omit<SelectProps, 'children'>;
@@ -36,9 +33,9 @@ export function BlockchainSelect({ ...props }: BlockchainSelectProps) {
         <SelectValue placeholder="Select Blockchain" />
       </SelectTrigger>
       <SelectContent>
-        {Object.values(BLOCKCHAIN).map((blockchain) => (
+        {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (
           <SelectItem key={blockchain} value={blockchain}>
-            {BLOCKCHAIN_LABELS[blockchain]} {/* Display human-friendly labels */}
+            {BLOCKCHAIN_LABELS[blockchain]}
           </SelectItem>
         ))}
       </SelectContent>
