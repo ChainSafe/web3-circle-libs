@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
+    "examples/*",
     "packages/*"
   ],
   "description": "Web3.js circle plugin and web3 circle UI components lib",
