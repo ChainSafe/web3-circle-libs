@@ -5,3 +5,4 @@ node_modules
 tmp
 .history
 .yarn/install-state.gz
+packages/circle-demo-webapp/storybook-static
