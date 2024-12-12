@@ -22,7 +22,7 @@
     "lint": "yarn workspace web3-circle-sdk lint",
     "build": "yarn workspace web3-circle-sdk build",
     "build:docs": "yarn workspace web3-circle-sdk build:docs",
-    "build:storybook": "yarn workspace web3-circle-sdk build-storybook",
+    "build:storybook": "yarn workspace circle-demo-webapp build-storybook",
     "test": "yarn workspace web3-circle-sdk test"
   },
   "packageManager": "yarn@1.22.22"
