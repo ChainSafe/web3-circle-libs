@@ -2,7 +2,7 @@ name: Deploy Storybook pages to CloudFlare
 on:
     push:
         branches:
-            - 'main'
+            - '66-publish-the-storybook-that-contains-the-components-catalog'
 
 jobs:
     deploy:
@@ -23,6 +23,6 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: 2238a825c5aca59233eab1f221f7aefb
-                  projectName: ENTER_PROJECT_NAME
+                  projectName: web3circle-wiki
                   directory: ./circle-demo-webapp/storybook-static
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
