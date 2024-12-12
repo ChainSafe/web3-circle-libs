@@ -1,3 +1,3 @@
 module.exports = {
-    extends: "@chainsafe",
-  }
+  extends: '@chainsafe',
+};

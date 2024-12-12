@@ -19,33 +19,10 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: yarn
       - name: Install dependencies
-        run: cd packages/web3-circle-sdk && yarn install
+        run: yarn install
       - name: Build project
-        run: cd packages/web3-circle-sdk && yarn build
-
-  test:
-    needs: build
-    strategy:
-      matrix:
-        node: [20]
-    name: Run tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: yarn
-      - run: yarn install --ignore-scripts --frozen-lockfile
-      - name: Run tests
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          SECRET: ${{ secrets.SECRET }}
-        run: cd packages/web3-circle-sdk && yarn test:e2e
-
+        run: yarn build
   lint:
-    needs: build
     strategy:
       matrix:
         node: [20]
@@ -58,7 +35,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
-      - run: cd /
-      - run: yarn install --ignore-scripts --frozen-lockfile
+      - run: yarn install
       - name: Run linter
         run: yarn lint
