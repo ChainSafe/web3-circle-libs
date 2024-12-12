@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Publish Docs
+name: Publish Storybook Components
 
 on:
   # Runs on pushes targeting the main branch
@@ -27,7 +27,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    name: Build & Deploy Docs
+    name: Build & Deploy Storybook
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,15 +35,15 @@ jobs:
         with:
           node-version: 18
           cache: yarn
-      - run: yarn workspace web3-circle-sdk install
-      - run: yarn workspace web3-circle-sdk build:docs
+      - run: yarn workspace circle-demo-webapp install
+      - run: yarn workspace circle-demo-webapp build-storybook
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload docs
-          path: 'packages/web3-circle-sdk/docs'
+          # Upload Storybook
+          path: 'packages/circle-demo-webapp/storybook-static'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
