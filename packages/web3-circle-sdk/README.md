@@ -2,8 +2,7 @@
 
 This is a TypeScript SDK for interacting with the
 [Circle Web3 Services REST API](https://developers.circle.com/api-reference/w3s/common/ping).
-Keep reading for more information or refer to the comprehensive
-[API documentation](https://chainsafe.github.io/web3-circle-libs/).
+Keep reading for more information.
 
 ## Classes
 
