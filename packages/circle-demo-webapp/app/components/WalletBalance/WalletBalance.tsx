@@ -2,9 +2,11 @@ import { TokenIcon } from '@web3icons/react';
 import type { WalletTokenBalance } from 'web3-circle-sdk';
 
 export interface WalletBalanceProps {
+  /** The balance details */
   balance: WalletTokenBalance;
 }
 
+/** A token balance for an on-chain account */
 export function WalletBalance({ balance }: WalletBalanceProps) {
   return (
     <div className="flex items-center space-x-4">

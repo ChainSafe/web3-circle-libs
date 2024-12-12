@@ -3,10 +3,13 @@ import { WalletSet } from 'web3-circle-sdk';
 import { formatDate } from '~/lib/format';
 
 export interface WalletSetDetailsProps {
+  /** The wallet set */
   walletSet: WalletSet;
+  /** Child components to associate with the wallet set */
   children?: React.ReactNode;
 }
 
+/** The details of a wallet set */
 export function WalletSetDetails({ walletSet, children }: WalletSetDetailsProps) {
   return (
     <div className="flex items-center space-x-4">
