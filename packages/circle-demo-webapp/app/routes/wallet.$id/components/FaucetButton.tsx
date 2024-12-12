@@ -16,7 +16,7 @@ export function FaucetButton({ wallet }: FaucetButtonProps) {
       <input type="hidden" name="address" value={wallet.address} />
       <input type="hidden" name="blockchain" value={wallet.blockchain} />
       <Button type="submit" variant="outline">
-        {fetcher.state === 'submitting' && <LoaderCircle />}
+        {fetcher.state === 'submitting' && <LoaderCircle className="animate-spin" />}
         Use Faucet
       </Button>
     </fetcher.Form>

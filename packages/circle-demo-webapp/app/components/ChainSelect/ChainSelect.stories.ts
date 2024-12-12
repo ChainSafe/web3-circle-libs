@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { BlockchainSelect } from './BlockchainSelect';
+import { ChainSelect } from './ChainSelect';
 
 const meta = {
-  title: 'BlockchainSelect',
-  component: BlockchainSelect,
+  title: 'ChainSelect',
+  component: ChainSelect,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof BlockchainSelect>;
+} satisfies Meta<typeof ChainSelect>;
 
 export default meta;
 
