@@ -35,6 +35,10 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+      - run: yarn workspace web3-circle-sdk install
+      - run: yarn workspace web3-circle-sdk build
+      - run: cd packages/web3-circle-sdk && yarn link
+      - run: cd packages/circle-demo-webapp && yarn link web3-circle-sdk
       - run: yarn workspace circle-demo-webapp install
       - run: yarn workspace circle-demo-webapp build-storybook
       - name: Setup Pages
