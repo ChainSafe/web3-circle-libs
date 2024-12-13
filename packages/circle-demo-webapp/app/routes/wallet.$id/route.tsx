@@ -10,7 +10,7 @@ import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 
 import { FaucetButton } from './components/FaucetButton';
-import { WalletAddressDialog } from './components/WalletAddressDialog';
+import { WalletReceiveDialog } from './components/WalletReceiveDialog';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { id } = params;
@@ -56,7 +56,7 @@ export default function WalletBalancePage() {
       <Card className="p-4">
         <WalletDetails wallet={wallet}>
           <div className="flex space-x-3">
-            <WalletAddressDialog wallet={wallet} />
+            <WalletReceiveDialog wallet={wallet} />
             <Button>
               <ArrowUp /> Send
             </Button>

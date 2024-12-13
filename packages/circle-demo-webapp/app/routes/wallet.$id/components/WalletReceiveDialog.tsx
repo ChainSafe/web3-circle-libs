@@ -4,25 +4,25 @@ import { Wallet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
-import { WalletAddressHelpers } from '~/components/WalletAddressHelpers';
+import { WalletReceive } from '~/components/WalletReceive';
 
-interface WalletAddressDialogProps {
+interface WalletReceiveDialogProps {
   wallet: Wallet;
 }
 
-export function WalletAddressDialog({ wallet }: WalletAddressDialogProps) {
+export function WalletReceiveDialog({ wallet }: WalletReceiveDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
-          <ArrowDown /> Address
+          <ArrowDown /> Receive
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
-        <WalletAddressHelpers wallet={wallet} />
+        <WalletReceive wallet={wallet} />
       </DialogContent>
     </Dialog>
   );

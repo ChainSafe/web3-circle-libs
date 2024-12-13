@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { BLOCKCHAIN, WALLET_STATE } from 'web3-circle-sdk';
 
-import { WalletAddressHelpers } from './WalletAddressHelpers';
+import { WalletReceive } from './WalletReceive';
 
 const meta = {
-  title: 'WalletAddressHelpers',
-  component: WalletAddressHelpers,
+  title: 'WalletReceive',
+  component: WalletReceive,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof WalletAddressHelpers>;
+} satisfies Meta<typeof WalletReceive>;
 
 export default meta;
 

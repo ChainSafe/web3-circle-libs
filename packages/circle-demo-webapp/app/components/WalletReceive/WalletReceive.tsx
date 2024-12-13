@@ -5,7 +5,7 @@ import type { Wallet } from 'web3-circle-sdk';
 import { ChainLabel } from '~/components/ChainLabel';
 import { Button } from '~/components/ui/button';
 
-export interface WalletAddressHelpersProps {
+export interface WalletReceiveProps {
   /** The wallet */
   wallet: Wallet;
 }
@@ -14,7 +14,7 @@ export interface WalletAddressHelpersProps {
  * Helpers for obtaining a wallet's on-chain address:
  * a QR code that encodes the address and elements for viewing the address and copying it to the clipboard
  */
-export function WalletAddressHelpers({ wallet }: WalletAddressHelpersProps) {
+export function WalletReceive({ wallet }: WalletReceiveProps) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
