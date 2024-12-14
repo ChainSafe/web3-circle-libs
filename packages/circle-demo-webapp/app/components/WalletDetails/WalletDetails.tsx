@@ -6,10 +6,13 @@ import { ChainLabel } from '~/components/ChainLabel';
 import { shortenAddress } from '~/lib/format';
 
 export interface WalletDetailsProps {
+  /** The wallet associated with the on-chain account */
   wallet: Wallet;
+  /** Child components to associate with the wallet */
   children?: React.ReactNode;
 }
 
+/** The details of an on-chain account */
 export function WalletDetails({ wallet, children }: WalletDetailsProps) {
   const shortAddress = useMemo(() => shortenAddress(wallet.address), [wallet]);
   const walletImage = useMemo(() => makeBlockie(wallet.address), [wallet]);

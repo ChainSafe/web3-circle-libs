@@ -26,6 +26,7 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
 
 export type ChainSelectProps = Omit<SelectProps, 'children'>;
 
+/** A dropdown select menu to choose a blockchain network */
 export function ChainSelect({ ...props }: ChainSelectProps) {
   return (
     <Select {...props}>

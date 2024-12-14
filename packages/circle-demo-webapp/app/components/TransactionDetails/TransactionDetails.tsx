@@ -5,9 +5,11 @@ import { Badge } from '~/components/ui/badge';
 import { formatDate, shortenAddress, shortenHash } from '~/lib/format';
 
 export interface TransactionDetailsProps {
+  /** The on-chain transaction */
   transaction: Transaction;
 }
 
+/** The details of an on-chain transaction */
 export function TransactionDetails({ transaction }: TransactionDetailsProps) {
   console.log(transaction);
 

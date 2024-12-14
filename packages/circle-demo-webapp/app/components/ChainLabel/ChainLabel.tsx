@@ -2,6 +2,7 @@ import { NetworkIcon } from '@web3icons/react';
 import { BLOCKCHAIN } from 'web3-circle-sdk';
 
 export interface ChainSelectProps {
+  /** The blockchain network */
   blockchain: BLOCKCHAIN;
 }
 
@@ -39,6 +40,7 @@ const BLOCKCHAIN_LABELS = {
   [BLOCKCHAIN.SOL]: 'Solana Mainnet',
 };
 
+/** A label with an icon and text to identify a blockchain network */
 export function ChainLabel({ blockchain }: ChainSelectProps) {
   return (
     <p className="text-sm text-gray-500 flex items-center space-x-2">
