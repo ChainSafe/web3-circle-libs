@@ -2,7 +2,8 @@ import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useParams } from '@remix-run/react';
 import { ArrowUp } from 'lucide-react';
 
-import { TransactionDetails } from '~/components/TransactionDetails';
+import { TransactionTableHead } from '~/components/TransactionTableHead';
+import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
@@ -84,11 +85,19 @@ export default function WalletBalancePage() {
         <div className="space-y-4">
           {transactions.length === 0 && <p>No transactions</p>}
 
-          {transactions.map((tx) => (
-            <div key={tx.id}>
-              <TransactionDetails transaction={tx} />
+          {transactions.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto">
+                <TransactionTableHead />
+
+                <tbody>
+                  {transactions.map((tx) => (
+                    <TransactionTableRow key={tx.id} transaction={tx} />
+                  ))}
+                </tbody>
+              </table>
             </div>
-          ))}
+          )}
         </div>
       </Card>
     </div>
