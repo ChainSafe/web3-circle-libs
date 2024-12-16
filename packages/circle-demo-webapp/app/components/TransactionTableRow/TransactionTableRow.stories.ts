@@ -8,9 +8,6 @@ import { TransactionTableRow } from './TransactionTableRow';
 const meta = {
   title: 'TransactionTableRow',
   component: TransactionTableRow,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
 } satisfies Meta<typeof TransactionTableRow>;
 

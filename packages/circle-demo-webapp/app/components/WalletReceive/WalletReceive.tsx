@@ -25,7 +25,7 @@ export function WalletReceive({ wallet }: WalletReceiveProps) {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+      <h2 className="text-lg font-semibold text-foreground mb-4">
         {wallet.name ?? 'Unnamed Wallet'}
       </h2>
 
@@ -41,8 +41,8 @@ export function WalletReceive({ wallet }: WalletReceiveProps) {
         <QRCodeCanvas value={wallet.address} size={160} />
       </div>
 
-      <div className="w-full bg-gray-100 rounded-md p-2 mb-4 text-center">
-        <p className="text-sm text-gray-800">{wallet.address}</p>
+      <div className="w-full bg-secondary rounded-md p-2 mb-4 text-center">
+        <p className="text-sm text-muted-foreground">{wallet.address}</p>
       </div>
 
       <div className="w-full text-center">

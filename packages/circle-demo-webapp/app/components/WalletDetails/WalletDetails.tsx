@@ -22,11 +22,11 @@ export function WalletDetails({ wallet, children }: WalletDetailsProps) {
       <img src={walletImage} alt="Wallet Avatar" className="w-16 h-16 rounded-full" />
 
       <div className="flex-1">
-        <p className="text-m font-medium text-gray-900">
+        <p className="text-m font-medium text-foreground">
           {wallet.name || 'Unnamed Wallet'}
         </p>
 
-        <p className="text-sm text-gray-900 mb-1" title={wallet.address}>
+        <p className="text-sm text-foreground mb-1" title={wallet.address}>
           {shortAddress}
         </p>
 

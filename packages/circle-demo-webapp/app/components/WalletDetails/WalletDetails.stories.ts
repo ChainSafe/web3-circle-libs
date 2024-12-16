@@ -8,9 +8,6 @@ import { WalletDetails } from './WalletDetails';
 const meta = {
   title: 'WalletDetails',
   component: WalletDetails,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
 } satisfies Meta<typeof WalletDetails>;
 

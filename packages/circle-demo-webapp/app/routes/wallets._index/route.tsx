@@ -39,7 +39,7 @@ function Header() {
   return (
     <header className="flex justify-between items-center mb-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">Wallet Sets</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Wallet Sets</h1>
         <p>All wallet sets</p>
       </div>
       <NewWalletSetDialog />
