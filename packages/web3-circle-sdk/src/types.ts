@@ -2,7 +2,7 @@
  * Request types
  */
 
-import {
+import type {
   BLOCKCHAIN,
   FEE_LEVEL,
   MONITORED_TOKENS_SCOPE,
