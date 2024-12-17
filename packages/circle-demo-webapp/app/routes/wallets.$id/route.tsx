@@ -1,12 +1,11 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams } from '@remix-run/react';
-import type { WalletSet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
-import { TypeBlockchain, Wallet } from '~/lib/types';
+import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
 
 import { NewWalletDialog } from './components/NewWalletDialog';
 
@@ -23,8 +22,8 @@ export async function loader({ params }: { params: { id: string } }) {
   ]);
 
   return {
-    wallets: walletsResp?.data?.wallets,
-    walletSet: walletSetResp?.data?.walletSet,
+    wallets: walletsResp?.data?.wallets as Wallet,
+    walletSet: walletSetResp?.data?.walletSet as WalletSet,
   };
 }
 
@@ -51,7 +50,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return null;
 }
 
-function Header({ walletSet }: { walletSet: WalletSet }) {
+function Header({ walletSet }: { walletSet }) {
   return (
     <header className="flex justify-between items-center mb-6">
       <div>
@@ -84,7 +83,7 @@ export default function Page() {
 
   return (
     <div className="space-y-6">
-      <Header walletSet={walletSet as WalletSet} />
+      <Header walletSet={walletSet} />
 
       <div className="flex flex-wrap items-center gap-6">
         {wallets.map((wallet) => (

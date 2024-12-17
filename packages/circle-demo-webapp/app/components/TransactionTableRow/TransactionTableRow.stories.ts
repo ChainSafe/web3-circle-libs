@@ -29,7 +29,7 @@ export const Default: Story = {
       destinationAddress: '0xf6c9efc84080217ccd13ef6d4a7f26a680f2c713',
       transactionType: 'INBOUND',
       custodyType: 'DEVELOPER',
-      state: 'COMPLETE' as TransactionState,
+      state: TransactionState.Complete,
       transactionScreeningEvaluation: { screeningDate: '2024-12-10T13:52:57Z' },
       amounts: ['30'],
       nfts: null,
