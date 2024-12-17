@@ -1,12 +1,12 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 
-import { TestnetBlockchain } from '~/lib/constants';
 import { sdk } from '~/lib/sdk';
+import { TypeTestnetBlockchain } from '~/lib/types';
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  const blockchain = String(formData.get('blockchain')) as TestnetBlockchain;
+  const blockchain = String(formData.get('blockchain')) as TypeTestnetBlockchain;
   // eslint-disable-next-line @typescript-eslint/no-base-to-string
   const address = String(formData.get('address'));
 
@@ -17,7 +17,6 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   await sdk.requestTestnetTokens({
-    // @ts-expect-error blockchain type fix
     blockchain,
     address,
     native: true,

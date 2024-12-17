@@ -2,10 +2,9 @@ export const TestnetBlockchain = {
   ArbSepolia: 'ARB-SEPOLIA',
   AvaxFuji: 'AVAX-FUJI',
   EthSepolia: 'ETH-SEPOLIA',
-  EvmTestnet: 'EVM-TESTNET',
   MaticAmoy: 'MATIC-AMOY',
-  NearTestnet: 'NEAR-TESTNET',
   SolDevnet: 'SOL-DEVNET',
+  UniSepolia: 'UNI-SEPOLIA',
 } as const;
 
 export const Blockchain = {
