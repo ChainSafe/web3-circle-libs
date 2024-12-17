@@ -1,21 +1,20 @@
 import { ActionFunctionArgs } from '@remix-run/node';
-import type { BLOCKCHAIN } from 'web3-circle-sdk';
 
 import { sdk } from '~/lib/sdk';
+import { TypeTestnetBlockchain } from '~/lib/types';
+import { isValidString } from '~/lib/utils';
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const blockchain = String(formData.get('blockchain')) as BLOCKCHAIN;
-  const address = String(formData.get('address'));
+  const blockchain = formData.get('blockchain');
+  const address = formData.get('address');
 
-  console.log('action faucet', blockchain, address);
-
-  if (!blockchain || !address) {
-    return null;
+  if (!isValidString(blockchain) || !isValidString(address)) {
+    throw new Error('Invalid blockchain or address');
   }
 
-  await sdk.faucet.request({
-    blockchain,
+  await sdk.requestTestnetTokens({
+    blockchain: blockchain as TypeTestnetBlockchain,
     address,
     native: true,
     usdc: true,

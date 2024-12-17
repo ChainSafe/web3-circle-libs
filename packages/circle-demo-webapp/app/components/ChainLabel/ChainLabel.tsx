@@ -1,43 +1,44 @@
 import { NetworkIcon } from '@web3icons/react';
-import { BLOCKCHAIN } from 'web3-circle-sdk';
+
+import { Blockchain } from '~/lib/constants';
 
 export interface ChainSelectProps {
   /** The blockchain network */
-  blockchain: BLOCKCHAIN;
+  blockchain: string;
 }
 
 const BLOCKCHAIN_TO_ICON_MAP = {
-  [BLOCKCHAIN.ARB_SEPOLIA]: 'arbitrum',
-  [BLOCKCHAIN.ARB]: 'arbitrum',
-  [BLOCKCHAIN.AVAX_FUJI]: 'avalanche',
-  [BLOCKCHAIN.AVAX]: 'avalanche',
-  [BLOCKCHAIN.ETH_SEPOLIA]: 'ethereum',
-  [BLOCKCHAIN.ETH]: 'ethereum',
-  [BLOCKCHAIN.EVM_TESTNET]: '',
-  [BLOCKCHAIN.EVM]: '',
-  [BLOCKCHAIN.MATIC_AMOY]: 'polygon',
-  [BLOCKCHAIN.MATIC]: 'polygon',
-  [BLOCKCHAIN.NEAR_TESTNET]: 'near-protocol',
-  [BLOCKCHAIN.NEAR]: 'near-protocol',
-  [BLOCKCHAIN.SOL_DEVNET]: 'solana',
-  [BLOCKCHAIN.SOL]: 'solana',
+  [Blockchain.ArbSepolia]: 'arbitrum',
+  [Blockchain.Arb]: 'arbitrum',
+  [Blockchain.AvaxFuji]: 'avalanche',
+  [Blockchain.Avax]: 'avalanche',
+  [Blockchain.EthSepolia]: 'ethereum',
+  [Blockchain.Eth]: 'ethereum',
+  [Blockchain.EvmTestnet]: '',
+  [Blockchain.Evm]: '',
+  [Blockchain.MaticAmoy]: 'polygon',
+  [Blockchain.Matic]: 'polygon',
+  [Blockchain.NearTestnet]: 'near-protocol',
+  [Blockchain.Near]: 'near-protocol',
+  [Blockchain.SolDevnet]: 'solana',
+  [Blockchain.Sol]: 'solana',
 };
 
 const BLOCKCHAIN_LABELS = {
-  [BLOCKCHAIN.ARB_SEPOLIA]: 'Arbitrum Sepolia Testnet',
-  [BLOCKCHAIN.ARB]: 'Arbitrum Mainnet',
-  [BLOCKCHAIN.AVAX_FUJI]: 'Avalanche Fuji Testnet',
-  [BLOCKCHAIN.AVAX]: 'Avalanche Mainnet',
-  [BLOCKCHAIN.ETH_SEPOLIA]: 'Ethereum Sepolia Testnet',
-  [BLOCKCHAIN.ETH]: 'Ethereum Mainnet',
-  [BLOCKCHAIN.EVM_TESTNET]: '',
-  [BLOCKCHAIN.EVM]: '',
-  [BLOCKCHAIN.MATIC_AMOY]: 'Polygon Amoy',
-  [BLOCKCHAIN.MATIC]: 'Polygon Mainnet',
-  [BLOCKCHAIN.NEAR_TESTNET]: 'NEAR Testnet',
-  [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
-  [BLOCKCHAIN.SOL_DEVNET]: 'Solana Devnet',
-  [BLOCKCHAIN.SOL]: 'Solana Mainnet',
+  [Blockchain.ArbSepolia]: 'Arbitrum Sepolia Testnet',
+  [Blockchain.Arb]: 'Arbitrum Mainnet',
+  [Blockchain.AvaxFuji]: 'Avalanche Fuji Testnet',
+  [Blockchain.Avax]: 'Avalanche Mainnet',
+  [Blockchain.EthSepolia]: 'Ethereum Sepolia Testnet',
+  [Blockchain.Eth]: 'Ethereum Mainnet',
+  [Blockchain.EvmTestnet]: '',
+  [Blockchain.Evm]: '',
+  [Blockchain.MaticAmoy]: 'Polygon Amoy',
+  [Blockchain.Matic]: 'Polygon Mainnet',
+  [Blockchain.NearTestnet]: 'NEAR Testnet',
+  [Blockchain.Near]: 'NEAR Mainnet',
+  [Blockchain.SolDevnet]: 'Solana Devnet',
+  [Blockchain.Sol]: 'Solana Mainnet',
 };
 
 /** A label with an icon and text to identify a blockchain network */

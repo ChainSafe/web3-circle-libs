@@ -1,5 +1,4 @@
 import { SelectProps } from '@radix-ui/react-select';
-import { BLOCKCHAIN } from 'web3-circle-sdk';
 
 import {
   Select,
@@ -8,20 +7,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
+import { Blockchain } from '~/lib/constants';
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
-  [BLOCKCHAIN.ARB_SEPOLIA]: 'Arbitrum Sepolia Testnet',
-  [BLOCKCHAIN.ARB]: 'Arbitrum Mainnet',
-  [BLOCKCHAIN.AVAX_FUJI]: 'Avalanche Fuji Testnet',
-  [BLOCKCHAIN.AVAX]: 'Avalanche Mainnet',
-  [BLOCKCHAIN.ETH_SEPOLIA]: 'Ethereum Sepolia Testnet',
-  [BLOCKCHAIN.ETH]: 'Ethereum Mainnet',
-  [BLOCKCHAIN.MATIC_AMOY]: 'Polygon Amoy',
-  [BLOCKCHAIN.MATIC]: 'Polygon Mainnet',
-  [BLOCKCHAIN.NEAR_TESTNET]: 'NEAR Testnet',
-  [BLOCKCHAIN.NEAR]: 'NEAR Mainnet',
-  [BLOCKCHAIN.SOL_DEVNET]: 'Solana Devnet',
-  [BLOCKCHAIN.SOL]: 'Solana Mainnet',
+  [Blockchain.ArbSepolia]: 'Arbitrum Sepolia Testnet',
+  [Blockchain.Arb]: 'Arbitrum Mainnet',
+  [Blockchain.AvaxFuji]: 'Avalanche Fuji Testnet',
+  [Blockchain.Avax]: 'Avalanche Mainnet',
+  [Blockchain.EthSepolia]: 'Ethereum Sepolia Testnet',
+  [Blockchain.Eth]: 'Ethereum Mainnet',
+  [Blockchain.MaticAmoy]: 'Polygon Amoy',
+  [Blockchain.Matic]: 'Polygon Mainnet',
+  [Blockchain.NearTestnet]: 'NEAR Testnet',
+  [Blockchain.Near]: 'NEAR Mainnet',
+  [Blockchain.SolDevnet]: 'Solana Devnet',
+  [Blockchain.Sol]: 'Solana Mainnet',
 };
 
 export type ChainSelectProps = Omit<SelectProps, 'children'>;

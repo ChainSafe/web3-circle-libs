@@ -1,7 +1,8 @@
 import { Link, NavLink } from '@remix-run/react';
-import { LayoutDashboard, Database } from 'lucide-react';
+import { Database, LayoutDashboard } from 'lucide-react';
 import React from 'react';
-import type { WalletSet } from 'web3-circle-sdk';
+
+import { WalletSet } from '~/lib/types';
 
 import circleLogo from './circle-logo.svg';
 

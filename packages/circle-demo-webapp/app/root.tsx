@@ -16,13 +16,17 @@ import { sdk } from '~/lib/sdk';
 import { Sidebar } from './components/Sidebar';
 
 import './tailwind.css';
+import { WalletSet } from '~/lib/types';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Circle SDK Demo' }];
 };
 
 export async function loader() {
-  return cachedLoader('walletSets', () => sdk.walletSet.list());
+  return cachedLoader('walletSets', async () => {
+    const res = await sdk.listWalletSets();
+    return res?.data?.walletSets as WalletSet[];
+  });
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {

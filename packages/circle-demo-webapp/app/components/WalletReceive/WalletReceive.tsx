@@ -1,9 +1,9 @@
 import { QRCodeCanvas } from 'qrcode.react';
 import { useState } from 'react';
-import type { Wallet } from 'web3-circle-sdk';
 
 import { ChainLabel } from '~/components/ChainLabel';
 import { Button } from '~/components/ui/button';
+import { Wallet } from '~/lib/types';
 
 export interface WalletReceiveProps {
   /** The wallet */

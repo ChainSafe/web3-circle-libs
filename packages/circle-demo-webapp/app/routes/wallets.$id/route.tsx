@@ -1,11 +1,12 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams } from '@remix-run/react';
-import type { BLOCKCHAIN, WalletSet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
+import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
+import { isValidString } from '~/lib/utils';
 
 import { NewWalletDialog } from './components/NewWalletDialog';
 
@@ -16,26 +17,37 @@ export async function loader({ params }: { params: { id: string } }) {
     throw new Error('Wallet Set ID is required');
   }
 
-  const [wallets, walletSet] = await Promise.all([
-    sdk.wallet.list({ walletSetId: id }),
-    sdk.walletSet.get(id),
+  const [walletsResp, walletSetResp] = await Promise.all([
+    sdk.listWallets({ walletSetId: id }),
+    sdk.getWalletSet({ id }),
   ]);
 
   return {
-    wallets,
-    walletSet,
+    wallets: walletsResp?.data?.wallets as Wallet,
+    walletSet: walletSetResp?.data?.walletSet as WalletSet,
   };
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const body = await request.formData();
-  const name = String(body.get('name'));
-  const walletSetId = String(body.get('walletSetId'));
-  const blockchain = String(body.get('blockchain')) as BLOCKCHAIN;
+  const formData = await request.formData();
+  const name = formData.get('name');
+  const walletSetId = formData.get('walletSetId');
+  const blockchain = formData.get('blockchain');
 
-  await sdk.wallet.create({
+  if (!isValidString(name)) {
+    throw new Error('Invalid name');
+  }
+  if (!isValidString(walletSetId)) {
+    throw new Error('Invalid walletSetId');
+  }
+  if (!isValidString(blockchain)) {
+    throw new Error('Invalid blockchain');
+  }
+
+  await sdk.createWallets({
     walletSetId,
-    blockchains: [blockchain],
+    count: 1, // @todo: allow user to specify count
+    blockchains: [blockchain as TypeBlockchain],
     metadata: [
       {
         name,
@@ -46,7 +58,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return null;
 }
 
-function Header({ walletSet }: { walletSet: WalletSet }) {
+function Header({ walletSet }: { walletSet }) {
   return (
     <header className="flex justify-between items-center mb-6">
       <div>
@@ -67,10 +79,10 @@ export default function Page() {
     return null;
   }
 
-  if (!wallets.length) {
+  if (!wallets?.length) {
     return (
       <div className="space-y-6">
-        <Header walletSet={walletSet} />
+        <Header walletSet={walletSet as WalletSet} />
 
         <h2>No wallets found</h2>
       </div>
@@ -85,7 +97,7 @@ export default function Page() {
         {wallets.map((wallet) => (
           <div key={wallet.id} className="flex-1 min-w-[360px]">
             <Card className="p-4">
-              <WalletDetails wallet={wallet}>
+              <WalletDetails wallet={wallet as Wallet}>
                 <Button variant="outline" asChild>
                   <Link to={`/wallet/${wallet.id}`}>Wallet Details</Link>
                 </Button>

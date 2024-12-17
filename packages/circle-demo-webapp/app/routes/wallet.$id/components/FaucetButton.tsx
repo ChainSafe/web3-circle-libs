@@ -1,8 +1,8 @@
 import { useFetcher } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
-import type { Wallet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
+import { Wallet } from '~/lib/types';
 
 interface FaucetButtonProps {
   wallet: Wallet;

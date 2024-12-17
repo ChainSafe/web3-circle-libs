@@ -6,18 +6,27 @@ import { Card } from '~/components/ui/card';
 import { WalletSetDetails } from '~/components/WalletSetDetails/WalletSetDetails';
 import { cachedLoader, invalidateCache } from '~/lib/cache';
 import { sdk } from '~/lib/sdk';
+import { WalletSet } from '~/lib/types';
+import { isValidString } from '~/lib/utils';
 
 import { NewWalletSetDialog } from './components/NewWalletSetDialog';
 
 export async function loader() {
-  return cachedLoader('walletSets', () => sdk.walletSet.list());
+  return cachedLoader('walletSets', async () => {
+    const resp = await sdk.listWalletSets();
+    return resp?.data?.walletSets as WalletSet[];
+  });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const body = await request.formData();
-  const name = String(body.get('name'));
+  const formData = await request.formData();
+  const name = formData.get('name');
 
-  await sdk.walletSet.create({
+  if (!isValidString(name)) {
+    throw new Error('Invalid name');
+  }
+
+  await sdk.createWalletSet({
     name,
   });
 
