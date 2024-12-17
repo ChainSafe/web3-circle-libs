@@ -1,11 +1,13 @@
 import { ActionFunctionArgs } from '@remix-run/node';
-import type { BLOCKCHAIN } from 'web3-circle-sdk';
 
+import { TestnetBlockchain } from '~/lib/constants';
 import { sdk } from '~/lib/sdk';
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const blockchain = String(formData.get('blockchain')) as BLOCKCHAIN;
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
+  const blockchain = String(formData.get('blockchain')) as TestnetBlockchain;
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   const address = String(formData.get('address'));
 
   console.log('action faucet', blockchain, address);
@@ -14,7 +16,8 @@ export async function action({ request }: ActionFunctionArgs) {
     return null;
   }
 
-  await sdk.faucet.request({
+  await sdk.requestTestnetTokens({
+    // @ts-expect-error blockchain type fix
     blockchain,
     address,
     native: true,

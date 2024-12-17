@@ -1,14 +1,14 @@
-import type { Transaction } from 'web3-circle-sdk';
-
 import { Badge } from '~/components/ui/badge';
+import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress } from '~/lib/format';
+import { Transaction } from '~/lib/types';
 
 export interface TransactionTableRowProps {
   transaction: Transaction;
 }
 
 export function TransactionTableRow({ transaction }: TransactionTableRowProps) {
-  const isInbound = transaction.transactionType === 'INBOUND';
+  const isInbound = transaction.transactionType === TransactionType.Inbound;
 
   return (
     <tr className="text-sm text-gray-500">

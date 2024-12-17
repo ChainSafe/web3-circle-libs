@@ -1,8 +1,8 @@
 import { TokenIcon } from '@web3icons/react';
-import type { WalletTokenBalance } from 'web3-circle-sdk';
+
+import { WalletTokenBalance } from '~/lib/types';
 
 export interface WalletBalanceProps {
-  /** The balance details */
   balance: WalletTokenBalance;
 }
 

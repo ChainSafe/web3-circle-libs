@@ -9,6 +9,7 @@ import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
+import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 
 import { FaucetButton } from './components/FaucetButton';
 import { WalletReceiveDialog } from './components/WalletReceiveDialog';
@@ -20,19 +21,19 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Error('Wallet ID is required');
   }
 
-  const [balances, wallet, transactions] = await Promise.all([
-    sdk.wallet.balance({
+  const [balancesRes, walletRes, transactionsRes] = await Promise.all([
+    sdk.getWalletTokenBalance({
       id,
       includeAll: true,
     }),
-    sdk.wallet.get(id),
-    sdk.transaction.list({ walletIds: id }),
+    sdk.getWallet({ id }),
+    sdk.listTransactions({ walletIds: [id] }),
   ]);
 
   return {
-    balances,
-    wallet,
-    transactions,
+    balances: (balancesRes?.data?.tokenBalances ?? []) as WalletTokenBalance[],
+    wallet: walletRes?.data?.wallet as Wallet,
+    transactions: (transactionsRes?.data?.transactions ?? []) as Transaction[],
   };
 }
 

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { BLOCKCHAIN } from 'web3-circle-sdk';
+
+import { Blockchain } from '~/lib/constants';
 
 import { ChainLabel } from './ChainLabel';
 
@@ -18,72 +19,72 @@ type Story = StoryObj<typeof meta>;
 
 export const EthSepolia: Story = {
   args: {
-    blockchain: BLOCKCHAIN.ETH_SEPOLIA,
+    blockchain: Blockchain.EthSepolia,
   },
 };
 
 export const EthMainnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.ETH,
+    blockchain: Blockchain.Eth,
   },
 };
 
 export const ArbSepolia: Story = {
   args: {
-    blockchain: BLOCKCHAIN.ARB_SEPOLIA,
+    blockchain: Blockchain.ArbSepolia,
   },
 };
 
 export const ArbMainnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.ARB,
+    blockchain: Blockchain.Arb,
   },
 };
 
 export const AvaxFuji: Story = {
   args: {
-    blockchain: BLOCKCHAIN.AVAX_FUJI,
+    blockchain: Blockchain.AvaxFuji,
   },
 };
 
 export const AvaxMainnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.AVAX,
+    blockchain: Blockchain.Avax,
   },
 };
 
 export const PolygonAmoy: Story = {
   args: {
-    blockchain: BLOCKCHAIN.MATIC_AMOY,
+    blockchain: Blockchain.MaticAmoy,
   },
 };
 
 export const PolygonMainnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.MATIC,
+    blockchain: Blockchain.Matic,
   },
 };
 
 export const SolanaDevnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.SOL_DEVNET,
+    blockchain: Blockchain.SolDevnet,
   },
 };
 
 export const SolanaMainnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.SOL,
+    blockchain: Blockchain.Sol,
   },
 };
 
 export const NearTestnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.NEAR_TESTNET,
+    blockchain: Blockchain.NearTestnet,
   },
 };
 
 export const NearMainnet: Story = {
   args: {
-    blockchain: BLOCKCHAIN.NEAR,
+    blockchain: Blockchain.Near,
   },
 };

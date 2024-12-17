@@ -1,6 +1,5 @@
-import { WalletSet } from 'web3-circle-sdk';
-
 import { formatDate } from '~/lib/format';
+import { WalletSet } from '~/lib/types';
 
 export interface WalletSetDetailsProps {
   /** The wallet set */

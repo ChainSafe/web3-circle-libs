@@ -1,10 +1,10 @@
 import { ArrowDown } from 'lucide-react';
 import { useState } from 'react';
-import { Wallet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
 import { WalletReceive } from '~/components/WalletReceive';
+import { Wallet } from '~/lib/types';
 
 interface WalletReceiveDialogProps {
   wallet: Wallet;

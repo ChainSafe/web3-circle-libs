@@ -1,5 +1,7 @@
+import { TransactionState } from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { BLOCKCHAIN, TRANSACTION_STATE } from 'web3-circle-sdk';
+
+import { Blockchain } from '~/lib/constants';
 
 import { TransactionTableRow } from './TransactionTableRow';
 
@@ -20,14 +22,14 @@ export const Default: Story = {
   args: {
     transaction: {
       id: 'c0d471be-f36f-5e26-8962-9ebd38ec8a62',
-      blockchain: 'MATIC-AMOY' as BLOCKCHAIN,
+      blockchain: Blockchain.MaticAmoy,
       tokenId: '36b6931a-873a-56a8-8a27-b706b17104ee',
       walletId: '24d1ad14-cf0c-5d7d-96d1-aca6447d0fdc',
       sourceAddress: '0x2da2bf0a07b015ffa80821df8b2203d473964d95',
       destinationAddress: '0xf6c9efc84080217ccd13ef6d4a7f26a680f2c713',
       transactionType: 'INBOUND',
       custodyType: 'DEVELOPER',
-      state: 'COMPLETE' as TRANSACTION_STATE,
+      state: 'COMPLETE' as TransactionState,
       transactionScreeningEvaluation: { screeningDate: '2024-12-10T13:52:57Z' },
       amounts: ['30'],
       nfts: null,

@@ -1,9 +1,9 @@
 import makeBlockie from 'ethereum-blockies-base64';
 import { useMemo } from 'react';
-import type { Wallet } from 'web3-circle-sdk';
 
 import { ChainLabel } from '~/components/ChainLabel';
 import { shortenAddress } from '~/lib/format';
+import { Wallet } from '~/lib/types';
 
 export interface WalletDetailsProps {
   /** The wallet associated with the on-chain account */
