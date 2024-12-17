@@ -7,6 +7,7 @@ import { WalletSetDetails } from '~/components/WalletSetDetails/WalletSetDetails
 import { cachedLoader, invalidateCache } from '~/lib/cache';
 import { sdk } from '~/lib/sdk';
 import { WalletSet } from '~/lib/types';
+import { isValidString } from '~/lib/utils';
 
 import { NewWalletSetDialog } from './components/NewWalletSetDialog';
 
@@ -18,9 +19,12 @@ export async function loader() {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const body = await request.formData();
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  const name = String(body.get('name'));
+  const formData = await request.formData();
+  const name = formData.get('name');
+
+  if (!isValidString(name)) {
+    throw new Error('Invalid name');
+  }
 
   await sdk.createWalletSet({
     name,

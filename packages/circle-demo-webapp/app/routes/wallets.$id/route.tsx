@@ -6,6 +6,7 @@ import { Card } from '~/components/ui/card';
 import { WalletDetails } from '~/components/WalletDetails';
 import { sdk } from '~/lib/sdk';
 import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
+import { isValidString } from '~/lib/utils';
 
 import { NewWalletDialog } from './components/NewWalletDialog';
 
@@ -28,18 +29,25 @@ export async function loader({ params }: { params: { id: string } }) {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const body = await request.formData();
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  const name = String(body.get('name'));
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  const walletSetId = String(body.get('walletSetId'));
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  const blockchain = String(body.get('blockchain')) as TypeBlockchain;
+  const formData = await request.formData();
+  const name = formData.get('name');
+  const walletSetId = formData.get('walletSetId');
+  const blockchain = formData.get('blockchain');
+
+  if (!isValidString(name)) {
+    throw new Error('Invalid name');
+  }
+  if (!isValidString(walletSetId)) {
+    throw new Error('Invalid walletSetId');
+  }
+  if (!isValidString(blockchain)) {
+    throw new Error('Invalid blockchain');
+  }
 
   await sdk.createWallets({
     walletSetId,
     count: 1, // @todo: allow user to specify count
-    blockchains: [blockchain],
+    blockchains: [blockchain as TypeBlockchain],
     metadata: [
       {
         name,
