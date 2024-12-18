@@ -23,7 +23,7 @@ export async function loader({ params }: { params: { id: string } }) {
   ]);
 
   return {
-    wallets: walletsResp?.data?.wallets as Wallet,
+    wallets: walletsResp?.data?.wallets as Wallet[],
     walletSet: walletSetResp?.data?.walletSet as WalletSet,
   };
 }
@@ -58,7 +58,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return null;
 }
 
-function Header({ walletSet }: { walletSet }) {
+function Header({ walletSet }: { walletSet: WalletSet }) {
   return (
     <header className="flex justify-between items-center mb-6">
       <div>
@@ -82,7 +82,7 @@ export default function Page() {
   if (!wallets?.length) {
     return (
       <div className="space-y-6">
-        <Header walletSet={walletSet as WalletSet} />
+        <Header walletSet={walletSet} />
 
         <h2>No wallets found</h2>
       </div>
