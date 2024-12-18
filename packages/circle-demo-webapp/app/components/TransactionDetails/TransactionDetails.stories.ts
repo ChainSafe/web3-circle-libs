@@ -1,4 +1,3 @@
-import { TransactionState } from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Blockchain, TransactionType } from '~/lib/constants';
@@ -26,7 +25,7 @@ export const Default: Story = {
       destinationAddress: '0xf6c9efc84080217ccd13ef6d4a7f26a680f2c713',
       transactionType: TransactionType.Inbound,
       custodyType: 'DEVELOPER',
-      state: TransactionState.Complete,
+      state: 'COMPLETE',
       transactionScreeningEvaluation: { screeningDate: '2024-12-10T13:52:57Z' },
       amounts: ['30'],
       nfts: null,

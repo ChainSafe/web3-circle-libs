@@ -14,9 +14,9 @@ import { LoaderCircle } from 'lucide-react';
 import { Sidebar } from '~/components/Sidebar';
 import { cachedLoader } from '~/lib/cache';
 import { sdk } from '~/lib/sdk';
+import { WalletSet } from '~/lib/types';
 
 import './tailwind.css';
-import { WalletSet } from '~/lib/types';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Circle SDK Demo' }];

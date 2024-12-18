@@ -2,9 +2,8 @@ import { Link, NavLink } from '@remix-run/react';
 import { Database, LayoutDashboard } from 'lucide-react';
 import React from 'react';
 
-import { WalletSet } from '~/lib/types';
-
 import { DarkModeToggle } from '~/components/DarkModeToggle';
+import { WalletSet } from '~/lib/types';
 
 import circleLogoWhite from './circle-logo-white.svg';
 import circleLogo from './circle-logo.svg';
