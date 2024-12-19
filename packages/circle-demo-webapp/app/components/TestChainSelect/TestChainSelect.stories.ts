@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ChainSelect } from './ChainSelect';
+import { TestChainSelect } from './TestChainSelect';
 
 const meta = {
-  title: 'ChainSelect',
-  component: ChainSelect,
+  title: 'TestChainSelect',
+  component: TestChainSelect,
   tags: ['autodocs'],
-} satisfies Meta<typeof ChainSelect>;
+} satisfies Meta<typeof TestChainSelect>;
 
 export default meta;
 

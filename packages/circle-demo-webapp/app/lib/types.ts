@@ -610,6 +610,7 @@ export interface DeployContract {
  */
 export interface QueryContract {
   /** Output for the ABI interaction. */
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   outputValues: any[];
   /** OutputData is output in hex format. */
   outputData: string;
@@ -686,6 +687,7 @@ export interface Contract {
     stateMutability: string;
     type: string;
     inputs: {
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       components?: any[];
       indexed: boolean;
       name: string;
@@ -693,6 +695,7 @@ export interface Contract {
       flattenedType?: string;
     }[];
     outputs?: {
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       components?: any[];
       indexed: boolean;
       name: string;
@@ -706,6 +709,7 @@ export interface Contract {
     type: string;
     anonymous: boolean;
     inputs: {
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       components?: any[];
       indexed: boolean;
       name: string;
@@ -714,6 +718,7 @@ export interface Contract {
     }[];
   }[];
   /** Object of the implementation contract. */
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   implementationContract?: any;
 }
 

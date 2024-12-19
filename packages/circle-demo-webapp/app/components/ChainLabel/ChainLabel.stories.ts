@@ -7,9 +7,6 @@ import { ChainLabel } from './ChainLabel';
 const meta = {
   title: 'ChainLabel',
   component: ChainLabel,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
 } satisfies Meta<typeof ChainLabel>;
 

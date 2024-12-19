@@ -1,14 +1,14 @@
-name: 'Install and test'
+name: 'Lint and build demo webapp'
 on:
   pull_request:
-    types: [ opened, reopened, synchronize ]
+    types: [opened, reopened, synchronize]
 
 jobs:
   test:
     strategy:
       matrix:
-        node: [ 20 ]
-    name: Install and test
+        node: [20]
+    name: Install, lint and build
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +17,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
-      - run: cd packages/circle-demo-webapp
       - run: yarn install
-      - run: yarn build
+      - run: yarn workspace circle-demo-webapp lint
+      - run: yarn workspace circle-demo-webapp build

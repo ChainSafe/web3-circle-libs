@@ -1,4 +1,3 @@
-import { WalletState } from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Blockchain } from '~/lib/constants';
@@ -8,9 +7,6 @@ import { WalletReceive } from './WalletReceive';
 const meta = {
   title: 'WalletReceive',
   component: WalletReceive,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
 } satisfies Meta<typeof WalletReceive>;
 
@@ -22,7 +18,7 @@ export const Default: Story = {
   args: {
     wallet: {
       id: 'f5576d55-4432-5dcc-8b3c-582bd530b46b',
-      state: WalletState.Live,
+      state: 'LIVE',
       walletSetId: '2adf744c-2d31-58ca-85eb-d432ecc7611c',
       custodyType: 'DEVELOPER',
       refId: '',
