@@ -22,7 +22,6 @@
     "lint": "yarn workspace circle-demo-webapp lint",
     "build": "yarn workspace circle-demo-webapp build",
     "dev": "yarn workspace circle-demo-webapp dev",
-    "test": "yarn workspace web3-circle-sdk test",
     "start": "yarn workspace circle-demo-webapp start"
   },
   "packageManager": "yarn@1.22.22"
