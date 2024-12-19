@@ -19,10 +19,10 @@
     "url": "git@github.com:ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
-    "lint": "yarn workspace web3-circle-sdk lint",
-    "build": "yarn workspace web3-circle-sdk build",
-    "build:docs": "yarn workspace web3-circle-sdk build:docs",
-    "test": "yarn workspace web3-circle-sdk test"
+    "lint": "yarn workspace circle-demo-webapp lint",
+    "build": "yarn workspace circle-demo-webapp build",
+    "dev": "yarn workspace circle-demo-webapp dev",
+    "start": "yarn workspace circle-demo-webapp start"
   },
   "packageManager": "yarn@1.22.22"
 }
