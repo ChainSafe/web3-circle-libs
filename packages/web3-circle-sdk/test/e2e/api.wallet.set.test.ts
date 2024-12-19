@@ -2,8 +2,8 @@ import { v4 } from 'uuid';
 
 import { WalletSetApi } from '../../src';
 
-const apikey = process.env.API_KEY as string;
-const secret = process.env.SECRET as string;
+const apikey = process.env.API_KEY!;
+const secret = process.env.SECRET!;
 
 describe('Wallet Sets', () => {
   const walletSetApi = new WalletSetApi(apikey, secret);

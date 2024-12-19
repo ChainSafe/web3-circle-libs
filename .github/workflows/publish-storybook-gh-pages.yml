@@ -35,6 +35,7 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+      - run: corepack enable
       - run: yarn install
       - run: yarn workspace circle-demo-webapp build-storybook
       - name: Setup Pages

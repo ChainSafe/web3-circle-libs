@@ -1,6 +1,6 @@
 import { SecretApi, BASE_URL } from '../../src';
 
-const apikey = process.env.API_KEY as string;
+const apikey = process.env.API_KEY!;
 
 describe('Api Secret Tests', () => {
   let publicKey = '';

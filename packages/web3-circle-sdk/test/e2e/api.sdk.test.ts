@@ -2,8 +2,8 @@ import { v4 } from 'uuid';
 
 import { CircleSdk, BLOCKCHAIN } from '../../src';
 
-const apikey = process.env.API_KEY as string;
-const secret = process.env.SECRET as string;
+const apikey = process.env.API_KEY!;
+const secret = process.env.SECRET!;
 
 describe('Api SDK Tests', () => {
   const sdk = new CircleSdk(apikey, secret);

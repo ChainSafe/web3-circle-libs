@@ -1,3 +1,4 @@
+import { BASE_URL } from './constants';
 import { FaucetApi } from './FaucetApi';
 import { MonitoredTokensApi } from './MonitoredTokensApi';
 import { SecretApi } from './SecretApi';
@@ -9,7 +10,6 @@ import { TokenLookupApi } from './TokenLookupApi';
 import { TransactionApi } from './TransactionApi';
 import { WalletApi } from './WalletApi';
 import { WalletSetApi } from './WalletSetApi';
-import { BASE_URL } from './constants';
 
 // types and constants
 export * from './constants';

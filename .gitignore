@@ -3,3 +3,5 @@ node_modules
 .idea
 .vscode
 tmp
+.history
+.yarn/install-state.gz
