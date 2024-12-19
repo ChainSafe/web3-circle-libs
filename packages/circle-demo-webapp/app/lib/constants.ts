@@ -28,3 +28,8 @@ export const TransactionType = {
   Inbound: 'INBOUND',
   Outbound: 'OUTBOUND',
 };
+export const FeeLevel = {
+  High: 'HIGH',
+  Medium: 'MEDIUM',
+  Low: 'LOW',
+} as const;
