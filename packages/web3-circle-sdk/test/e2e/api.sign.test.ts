@@ -1,9 +1,8 @@
 import { SignApi } from '../../src';
-
 import { ETH_SEPOLIA_WALLET_ID, EVM_TESTNET_WALLET_ID } from './fixtures/fixtures';
 
-const apikey = process.env.API_KEY as string;
-const secret = process.env.SECRET as string;
+const apikey = process.env.API_KEY!;
+const secret = process.env.SECRET!;
 
 function jsonToBase64(jsonObject: object): string {
   // Convert the JSON object to a string

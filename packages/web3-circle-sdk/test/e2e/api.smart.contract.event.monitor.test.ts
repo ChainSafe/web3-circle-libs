@@ -1,8 +1,7 @@
 import { BLOCKCHAIN, SmartContractEventMonitorApi } from '../../src';
-
 import { ETH_SEPOLIA_USDC_CONTRACT_ADDRESS } from './fixtures/fixtures';
 
-const apikey = process.env.API_KEY as string;
+const apikey = process.env.API_KEY!;
 
 // @todo: all event monitors requires webhook to be set up. All requests return forbidden
 describe.skip('SmartContractEventMonitorApi Tests', () => {

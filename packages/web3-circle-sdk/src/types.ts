@@ -11,10 +11,12 @@ import {
   WALLET_STATE,
 } from './constants';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  * Options for pagination filters
  */
-export type FilterPagesOptions = {
+export interface FilterPagesOptions {
   /**
    *  A collection ID value used for pagination.
    *  It marks the exclusive end of a page.
@@ -44,7 +46,7 @@ export type FilterPagesOptions = {
    * If avoided, the collection will determine the page size itself.
    */
   pageSize?: number;
-};
+}
 
 /**
  * Filtering options
@@ -60,7 +62,7 @@ export type FilterOptions = {
  * Parameters for a faucet request
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/request-testnet-tokens
  */
-export type FaucetRequestParameters = {
+export interface FaucetRequestParameters {
   /**
    * The testnet blockchain network the resource will be created on or is currently on.
    * Allowed values: ETH-SEPOLIA, AVAX-FUJI, MATIC-AMOY, SOL-DEVNET, ARB-SEPOLIA, UNI-SEPOLIA
@@ -77,7 +79,7 @@ export type FaucetRequestParameters = {
   usdc?: boolean;
   /** Request EURC testnet tokens. */
   eurc?: boolean;
-};
+}
 
 /**
  * Parameters for a get monitored tokens request
@@ -102,24 +104,24 @@ export type GetMonitoredTokensParameters = {
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/delete-monitored-tokens
  */
-export type MonitoredTokensParameters = {
+export interface MonitoredTokensParameters {
   /** List of token IDs */
   tokenIds: string[];
-};
+}
 
 /**
  * Parameters for a update monitored tokens scope request
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens-scope
  */
-export type UpdateMonitoredTokensScopeParameters = {
+export interface UpdateMonitoredTokensScopeParameters {
   /** Scope for monitoring tokens */
   scope: MONITORED_TOKENS_SCOPE;
-};
+}
 /**
  * Parameters for a create wallet request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet
  */
-export type WalletCreateParameters = {
+export interface WalletCreateParameters {
   /** System-generated unique identifier of the resource. */
   walletSetId: string;
   /** Blockchain(s) the requested wallets will be created on. */
@@ -151,8 +153,8 @@ export type WalletCreateParameters = {
    * List of metadata fields to associate with the corresponding wallet.
    * If count is specified, the amount of items in the array should match the count field.
    */
-  metadata?: { [key: string]: any }[];
-};
+  metadata?: Record<string, any>[];
+}
 
 /**
  * Parameters for a list wallets request
@@ -173,14 +175,14 @@ export type WalletListParameters = {
  * Parameters for an update wallet request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/update-wallet
  */
-export type WalletUpdateParameters = {
+export interface WalletUpdateParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /** Name or description associated with the wallet or walletSet. */
   name?: string;
   /** Reference or description used to identify the object. */
   refId?: string;
-};
+}
 
 /**
  * Parameters for a wallet token balance request
@@ -234,7 +236,7 @@ export type WalletSetListParameters = FilterOptions;
  * Parameters for a create wallet set request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-wallet-set
  */
-export type WalletSetCreateParameters = {
+export interface WalletSetCreateParameters {
   /**
    * Universally unique identifier (UUID v4) idempotency key.
    * This key is utilized to ensure exactly-once execution of mutating requests.
@@ -250,24 +252,24 @@ export type WalletSetCreateParameters = {
    * Circle mandates that the entity secret ciphertext is unique for each API request.
    */
   entitySecretCiphertext?: string;
-};
+}
 
 /**
  * Parameters for an update wallet set request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/update-wallet-set
  */
-export type WalletSetUpdateParameters = {
+export interface WalletSetUpdateParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /** Name or description associated with the wallet or walletSet. */
   name: string;
-};
+}
 
 /**
  * Parameters for a sign message request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-message
  */
-export type SignMessageParameters = {
+export interface SignMessageParameters {
   /**
    * The user friendly message that needs to be signed.
    * If it is a hex string, encodedByHex needs to be TRUE.
@@ -287,13 +289,13 @@ export type SignMessageParameters = {
    * Useful for presenting with extra information.
    */
   memo?: string;
-};
+}
 
 /**
  * Parameters for a sign typed data request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-typed-data
  */
-export type SignTypedDataParameters = {
+export interface SignTypedDataParameters {
   /** A string represents the typed structured data in EIP-712 */
   data: string;
   /** System-generated unique identifier of the resource. */
@@ -303,13 +305,13 @@ export type SignTypedDataParameters = {
    * Useful for presenting with extra information.
    */
   memo?: string;
-};
+}
 
 /**
  * Parameters for a sign transaction request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-transaction
  */
-export type SignTransactionParameters = {
+export interface SignTransactionParameters {
   /** System-generated unique identifier of the resource. */
   walletId: string;
   /**
@@ -330,13 +332,13 @@ export type SignTransactionParameters = {
    * Useful for presenting with extra information.
    */
   memo?: string;
-};
+}
 
 /**
  * Parameters for a sign delegate action request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-delegate-action
  */
-export type SignDelegateActionParameters = {
+export interface SignDelegateActionParameters {
   /**
    * Unsigned delegate action string that needs to be signed.
    * Must be base64 encoded.
@@ -344,7 +346,7 @@ export type SignDelegateActionParameters = {
   unsignedDelegateAction: string;
   /** System-generated unique identifier of the resource. */
   walletId: string;
-};
+}
 
 /**
  * Parameters for a list transactions request
@@ -375,12 +377,12 @@ export type ListTransactionsParameters = {
  * Parameters for a get transaction request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-transaction
  */
-export type GetTransactionParameters = {
+export interface GetTransactionParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /** Filter by on the transaction type. */
   txType?: string;
-};
+}
 
 /**
  * Parameters for a create transfer transaction request
@@ -428,7 +430,7 @@ export type CreateTransferTransactionParameters = {
  * Parameters for an estimate
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/estimate-contract-template-deploy
  */
-export type EstimateContractDeploymentFeeParameters = {
+export interface EstimateContractDeploymentFeeParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /**
@@ -443,7 +445,7 @@ export type EstimateContractDeploymentFeeParameters = {
    */
   sourceAddress?: string;
   /** JSON object that contains the template deployment parameters used to initialize the contract(s) on-chain. */
-  templateParameters?: { [key: string]: any };
+  templateParameters?: Record<string, any>;
   /**
    * Unique system generated identifier of the wallet.
    * Required when sourceAddress and blockchain are not provided.
@@ -451,7 +453,7 @@ export type EstimateContractDeploymentFeeParameters = {
    * For contract deploys this wallet ID will be used as the source.
    */
   walletId?: string;
-};
+}
 
 /**
  * Parameters for a deploy contract from template request
@@ -486,7 +488,7 @@ export type DeployContractTemplateParameters = {
   /** Description of the contract. */
   description?: string;
   /** JSON object that contains the template deployment parameters used to initialize the contract(s) on-chain. */
-  templateParameters?: { [key: string]: any };
+  templateParameters?: Record<string, any>;
   /** RefID is a custom label field. */
   refId?: string;
 } & FeeType;
@@ -516,7 +518,7 @@ export type ListContractsParameters = {
  * Parameters for an update contract request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/update-contract
  */
-export type UpdateContractParameters = {
+export interface UpdateContractParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /** The name for a contract. Must be alphanumeric [a-zA-Z0-9]. */
@@ -528,13 +530,13 @@ export type UpdateContractParameters = {
    * If true, the contract will not be visible in your dashboard.
    */
   archived?: boolean;
-};
+}
 
 /**
  * Parameters for an import contract request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/import-contract
  */
-export type ImportContractParameters = {
+export interface ImportContractParameters {
   /**
    * The blockchain network that the resource is to be created on or is currently on.
    * Required along with sourceAddress if you don't provide walletId.
@@ -554,7 +556,7 @@ export type ImportContractParameters = {
   idempotencyKey?: string;
   /** The description for a contract. */
   description?: string;
-};
+}
 
 type ContractDeploymentRequiredParams =
   | {
@@ -722,7 +724,7 @@ export type DeployContractParameters = {
  * Parameters for a query contract request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/query-contract
  */
-export type QueryContractParameters = {
+export interface QueryContractParameters {
   /**
    * The blockchain network that the resource is to be created on or is currently on.
    * Required along with sourceAddress if you don't provide walletId.
@@ -748,7 +750,7 @@ export type QueryContractParameters = {
   callData?: string;
   /** FromAddress is the address that will populate msg.sender in the contract call. */
   fromAddress?: string;
-};
+}
 
 /**
  * Parameters for a get event monitors request
@@ -771,7 +773,7 @@ export type GetEventMonitorsParameters = {
  * Parameters for a create event monitor request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/create-event-monitor
  */
-export type CreateEventMonitorParameters = {
+export interface CreateEventMonitorParameters {
   /**
    * Universally unique identifier (UUID v4) idempotency key.
    * This key is utilized to ensure exactly-once execution of mutating requests.
@@ -784,27 +786,27 @@ export type CreateEventMonitorParameters = {
   /** The on-chain address of this contract. */
   contractAddress: string;
   blockchain: BLOCKCHAIN;
-};
+}
 
 /**
  * Parameters for an update event monitor request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/update-event-monitor
  */
-export type UpdateEventMonitorParameters = {
+export interface UpdateEventMonitorParameters {
   /** Event Monitor ID. */
   id: string;
   /** Indicates whether the event monitor should be active (true) or inactive (false). */
   isEnabled: boolean;
-};
+}
 
 /**
  * Parameters for a delete event monitor request
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/delete-event-monitor
  */
-export type DeleteEventMonitorParameters = {
+export interface DeleteEventMonitorParameters {
   /** Event Monitor ID. */
   id: string;
-};
+}
 
 /**
  * Parameters for a get event logs request
@@ -825,7 +827,7 @@ export type GetEventLogsParameters = {
  * Parameters for a validate address request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-validate-address
  */
-export type ValidateAddressParameters = {
+export interface ValidateAddressParameters {
   /** The blockchain network that the resource is to be created on or is currently on. */
   blockchain: BLOCKCHAIN;
   /**
@@ -833,13 +835,13 @@ export type ValidateAddressParameters = {
    * smart contract or other blockchain objects.
    */
   address: string;
-};
+}
 
 /**
  * Parameters for a estimate contract execution transaction request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-transaction-estimate-fee
  */
-export type EstimateContractExecutionFeeParameters = {
+export interface EstimateContractExecutionFeeParameters {
   /** The blockchain address of the contract to be executed. */
   contractAddress: string;
   /**
@@ -881,13 +883,13 @@ export type EstimateContractExecutionFeeParameters = {
    * Mutually exclusive with sourceAddress and blockchain.
    */
   walletId?: string;
-};
+}
 
 /**
  * Parameters for an estimate transfer transaction request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-transfer-estimate-fee
  */
-export type EstimateTransferFeeParameters = {
+export interface EstimateTransferFeeParameters {
   /**
    * Blockchain generated unique identifier, associated with wallet (account),
    * smart contract or other blockchain objects.
@@ -924,7 +926,7 @@ export type EstimateTransferFeeParameters = {
    * Mutually exclusive with sourceAddress and blockchain.
    */
   walletId?: string;
-};
+}
 
 /**
  * Parameters for a create contract execution transaction request
@@ -983,7 +985,7 @@ export type CreateContractExecutionTransactionParameters = {
  * Parameters for a cancel transaction request
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-cancel
  */
-export type CancelTransactionParameters = {
+export interface CancelTransactionParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /**
@@ -999,9 +1001,9 @@ export type CancelTransactionParameters = {
    * it will be treated as the same request and the original response will be returned.
    */
   idempotencyKey?: string;
-};
+}
 
-export type AccelerateTransactionParameters = {
+export interface AccelerateTransactionParameters {
   /** The universally unique identifier of the resource. */
   id: string;
   /**
@@ -1017,7 +1019,7 @@ export type AccelerateTransactionParameters = {
    * it will be treated as the same request and the original response will be returned.
    */
   idempotencyKey?: string;
-};
+}
 
 /**
  * Response types
@@ -1030,7 +1032,7 @@ export type AccelerateTransactionParameters = {
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-wallet-sets
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-wallet-set
  */
-export type WalletSet = {
+export interface WalletSet {
   /** System-generated unique identifier of the resource. */
   id: string;
   /** Date and time the resource was created, in ISO-8601 UTC format. */
@@ -1040,13 +1042,13 @@ export type WalletSet = {
   custodyType: string;
   /** Name or description associated with the wallet or walletSet. */
   name?: string;
-};
+}
 
 /**
  * The token balance
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-wallet-balance
  */
-export type WalletTokenBalance = {
+export interface WalletTokenBalance {
   /** The token balance amount */
   amount: string;
   token: {
@@ -1075,13 +1077,13 @@ export type WalletTokenBalance = {
   };
   /** Date and time the resource was last updated, in ISO-8601 UTC format. */
   updateDate: string;
-};
+}
 
 /**
  * NFTs for a wallet
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-wallet-nfts
  */
-export type WalletNft = {
+export interface WalletNft {
   /**
    * Amount of NFTs on a wallet. For non-fungible token standards, like ERC721, NonFungible, NonFungibleEdition,
    * ProgrammableNonFungible, ProgrammableNonFungibleEdition, amount will always be “1”;
@@ -1119,7 +1121,7 @@ export type WalletNft = {
   };
   /** Date and time the resource was last updated, in ISO-8601 UTC format. */
   updateDate: string;
-};
+}
 
 /**
  * A wallet
@@ -1128,7 +1130,7 @@ export type WalletNft = {
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-wallets
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/update-wallet
  */
-export type Wallet = {
+export interface Wallet {
   /** System-generated unique identifier of the resource. */
   id: string;
   /**
@@ -1184,13 +1186,13 @@ export type Wallet = {
    * Note that Solana doesn't support Smart Contract Account (SCA).
    */
   accountType: string; // Use string literal if there are multiple fixed types
-};
+}
 
 /**
  * A signed transaction
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/sign-transaction
  */
-export type SignedTransaction = {
+export interface SignedTransaction {
   /** The signature of the signed transaction. */
   signature: string;
   /**
@@ -1203,7 +1205,7 @@ export type SignedTransaction = {
    * Present if the wallet blockchain is not Solana.
    */
   txHash: string;
-};
+}
 
 /**
  * A signed delegate action
@@ -1219,7 +1221,7 @@ export type SignedTransactionDelegate = SignedTransaction & {
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-transaction
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/list-transactions
  */
-export type Transaction = {
+export interface Transaction {
   /** System-generated unique identifier of the resource. */
   id: string;
   /**
@@ -1377,7 +1379,7 @@ export type Transaction = {
       type: string;
     }[];
   };
-};
+}
 
 /**
  * A transfer transaction
@@ -1386,12 +1388,12 @@ export type Transaction = {
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-cancel
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-accelerate
  */
-export type Transfer = {
+export interface Transfer {
   /** System-generated unique identifier of the resource. */
   id: string;
   /** Current state of the transaction. */
   state?: TRANSFER_STATE;
-};
+}
 
 /**
  * An estimate of a fee
@@ -1400,7 +1402,7 @@ export type Transfer = {
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-transaction-estimate-fee
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-transfer-estimate-fee
  */
-export type EstimateFee = {
+export interface EstimateFee {
   high: {
     /**
      * The maximum units of gas to use for the transaction.
@@ -1545,13 +1547,13 @@ export type EstimateFee = {
   callGasLimit: string;
   verificationGasLimit: string;
   preVerificationGas: string;
-};
+}
 
 /**
  * A token
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/get-token-id
  */
-export type Token = {
+export interface Token {
   /** System-generated unique identifier of the resource. */
   id: string;
   /** Blockchain name of the specified token. */
@@ -1577,40 +1579,40 @@ export type Token = {
   updateDate: string;
   /** Date and time the resource was created, in ISO-8601 UTC format. */
   createDate: string;
-};
+}
 
 /**
  * A response from a request to deploy a contract from a template
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/deploy-contract-template
  */
-export type DeployContractFromTemplate = {
+export interface DeployContractFromTemplate {
   /** Unique identifiers of the created smart contracts. */
   contractIds: string[];
   /** Unique identifier of the pending deployment transaction. transaction. */
   transactionId: string;
-};
+}
 
 /**
  * A deployed contract
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/deploy-contract
  */
-export type DeployContract = {
+export interface DeployContract {
   /** Unique identifier of the created smart contract. */
   contractId: string;
   /** Unique identifier of the deployment transaction. */
   transactionId: string;
-};
+}
 
 /**
  * The result of querying a contract
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/query-contract
  */
-export type QueryContract = {
+export interface QueryContract {
   /** Output for the ABI interaction. */
   outputValues: any[];
   /** OutputData is output in hex format. */
   outputData: string;
-};
+}
 
 /**
  * Information about a smart contract
@@ -1619,7 +1621,7 @@ export type QueryContract = {
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/update-contract
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/import-contract
  */
-export type Contract = {
+export interface Contract {
   /** System-generated unique identifier of the resource. */
   id: string;
   /** The id of the Programmable Wallet that deployed this contract. */
@@ -1712,7 +1714,7 @@ export type Contract = {
   }[];
   /** Object of the implementation contract. */
   implementationContract?: any;
-};
+}
 
 /**
  * An event monitor
@@ -1720,7 +1722,7 @@ export type Contract = {
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/create-event-monitor
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/update-event-monitor
  */
-export type EventMonitor = {
+export interface EventMonitor {
   id: string;
   blockchain: BLOCKCHAIN;
   /** The on-chain address of this contract. */
@@ -1730,13 +1732,13 @@ export type EventMonitor = {
   isEnabled: boolean;
   createDate: string;
   updateDate: string;
-};
+}
 
 /**
  * An event log
  * https://developers.circle.com/api-reference/w3s/smart-contract-platform/list-event-logs
  */
-export type EventLog = {
+export interface EventLog {
   blockHash: string;
   blockHeight: number;
   blockchain: BLOCKCHAIN;
@@ -1751,20 +1753,20 @@ export type EventLog = {
   topics: string[];
   txHash: string;
   userOpHash: string;
-};
+}
 
 /**
  * An entity's configuration
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/get-entity-config
  */
-export type ConfigEntity = {
+export interface ConfigEntity {
   /** System-generated unique identifier of the entity's app. */
   appId: string;
-};
-export type RegisteredEntity = {
+}
+export interface RegisteredEntity {
   /** System-generated unique identifier of the entity's app. */
   recoveryFile: string;
-};
+}
 
 /**
  * A list of monitored token
@@ -1772,7 +1774,7 @@ export type RegisteredEntity = {
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/update-monitored-tokens
  * https://developers.circle.com/api-reference/w3s/programmable-wallets/list-monitored-tokens
  */
-export type MonitoredTokenEntity = {
+export interface MonitoredTokenEntity {
   /**
    * List of monitored tokens.
    * When fetching wallet balances, only these tokens will be shown by default.
@@ -1780,4 +1782,4 @@ export type MonitoredTokenEntity = {
   tokens: Token[];
   /** Scope for monitoring tokens */
   scope: MONITORED_TOKENS_SCOPE;
-};
+}
