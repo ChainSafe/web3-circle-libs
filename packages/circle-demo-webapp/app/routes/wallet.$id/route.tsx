@@ -15,9 +15,9 @@ import { FaucetButton } from './components/FaucetButton';
 import { WalletReceiveDialog } from './components/WalletReceiveDialog';
 import { WalletSendDialog } from './components/WalletSendDialog';
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader(all: LoaderFunctionArgs) {
+  const { params } = all;
   const { id } = params;
-
   if (!id) {
     throw new Error('Wallet ID is required');
   }
@@ -28,7 +28,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       includeAll: true,
     }),
     sdk.getWallet({ id }),
-    sdk.listTransactions({ walletIds: [id] }),
+    sdk.listTransactions({ walletIds: [id], includeAll: true }),
   ]);
 
   return {
@@ -83,7 +83,6 @@ export default function WalletBalancePage() {
   if (!id) {
     return null;
   }
-
   return (
     <div className="space-y-6">
       <header className="flex justify-between items-center mb-6">

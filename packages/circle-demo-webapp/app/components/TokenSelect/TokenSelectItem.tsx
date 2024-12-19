@@ -2,13 +2,13 @@ import { TokenIcon } from '@web3icons/react';
 
 import { WalletTokenBalance } from '~/lib/types';
 
-export interface WalletBalanceProps {
+export interface TokenSelectItemProps {
   /** The balance details */
   balance: WalletTokenBalance;
 }
 
 /** A token balance for an on-chain account */
-export function WalletBalance({ balance }: WalletBalanceProps) {
+export function TokenSelectItem({ balance }: TokenSelectItemProps) {
   return (
     <div className="flex items-center space-x-4">
       <TokenIcon
@@ -22,7 +22,6 @@ export function WalletBalance({ balance }: WalletBalanceProps) {
         <p className="text-base font-medium text-gray-900">
           {balance.amount} {balance.token.symbol}
         </p>
-        <p className="text-sm text-gray-500">{balance.token.name}</p>
       </div>
     </div>
   );

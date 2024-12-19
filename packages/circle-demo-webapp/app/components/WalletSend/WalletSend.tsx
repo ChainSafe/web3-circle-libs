@@ -1,5 +1,5 @@
 import { Form } from '@remix-run/react';
-import { useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
 
 import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
@@ -19,14 +19,6 @@ export interface WalletSendProps {
  * a QR code that encodes the address and elements for viewing the address and copying it to the clipboard
  */
 export function WalletSend({ wallet, balances, transactionData }: WalletSendProps) {
-  const [decimals, setDecimals] = useState(18);
-  const onChangeToken = (tokenId: string) => {
-    const token = balances.find((b) => b.token.id === tokenId);
-    if (token) {
-      setDecimals(token.token.decimals);
-    }
-  };
-
   return (
     <div className="items-center w-full">
       <Form method="post" className="w-full">
@@ -39,7 +31,7 @@ export function WalletSend({ wallet, balances, transactionData }: WalletSendProp
           />
         </div>
         <div className="w-full mt-6">
-          <TokenSelect name="tokenId" balances={balances} onValueChange={onChangeToken} />
+          <TokenSelect name="tokenId" balances={balances} />
         </div>
         <div className="w-full mt-6">
           <Input type="text" name="amount" placeholder="Amount" className="col-span-3" />
@@ -53,9 +45,17 @@ export function WalletSend({ wallet, balances, transactionData }: WalletSendProp
           />
         </div>
         <Input type="hidden" name="walletId" value={wallet.id} />
-        <Input type="hidden" name="decimals" value={decimals} />
-        <Button type="submit" className="mt-6 w-full" disabled={!!transactionData}>
-          {transactionData?.state ? 'Transaction was successfully Sent' : 'Send'}
+        <Button
+          type="submit"
+          className="mt-6 w-full"
+          disabled={
+            transactionData?.state && !['COMPLETE'].includes(transactionData?.state)
+          }
+        >
+          {transactionData?.state === 'INITIATED' && (
+            <LoaderCircle className="animate-spin" />
+          )}
+          Send
         </Button>
       </Form>
     </div>

@@ -1,5 +1,6 @@
 import { SelectProps } from '@radix-ui/react-select';
 
+import { TokenSelectItem } from '~/components/TokenSelect/TokenSelectItem';
 import {
   Select,
   SelectContent,
@@ -7,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import { WalletBalance } from '~/components/WalletBalance';
 import { WalletTokenBalance } from '~/lib/types';
 
 export type TokenSelectProps = Omit<SelectProps, 'children'> & {
@@ -26,7 +26,7 @@ export function TokenSelect({ ...props }: TokenSelectProps) {
       <SelectContent>
         {balances.map((balance) => (
           <SelectItem key={balance.token.id} value={balance.token.id}>
-            <WalletBalance balance={balance} isShowBlockchainName={false} />
+            <TokenSelectItem balance={balance} />
           </SelectItem>
         ))}
       </SelectContent>
