@@ -1,6 +1,8 @@
-import { CircleSdk } from 'web3-circle-sdk';
+import { initiateDeveloperControlledWalletsClient } from '@circle-fin/developer-controlled-wallets';
 
 const apiKey = process.env.CIRCLE_API_KEY!;
-const secret = process.env.CIRCLE_SECRET!;
-
-export const sdk = new CircleSdk(apiKey, secret);
+const entitySecret = process.env.CIRCLE_SECRET!;
+export const sdk = initiateDeveloperControlledWalletsClient({
+  apiKey,
+  entitySecret,
+});

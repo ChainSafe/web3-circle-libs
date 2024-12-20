@@ -1,8 +1,8 @@
 import { useFetcher } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
-import type { Wallet } from 'web3-circle-sdk';
 
 import { Button } from '~/components/ui/button';
+import { Wallet } from '~/lib/types';
 
 interface FaucetButtonProps {
   wallet: Wallet;
@@ -16,7 +16,7 @@ export function FaucetButton({ wallet }: FaucetButtonProps) {
       <input type="hidden" name="address" value={wallet.address} />
       <input type="hidden" name="blockchain" value={wallet.blockchain} />
       <Button type="submit" variant="outline">
-        {fetcher.state === 'submitting' && <LoaderCircle />}
+        {fetcher.state === 'submitting' && <LoaderCircle className="animate-spin" />}
         Use Faucet
       </Button>
     </fetcher.Form>

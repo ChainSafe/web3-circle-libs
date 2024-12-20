@@ -1234,7 +1234,7 @@ export type Transaction = {
    * Supported parameter types include string, integer, boolean, and array.
    * These parameters should be used exclusively with the abiFunctionSignature and cannot be used with callData.
    */
-  abiParameters?: (string | number)[];
+  abiParameters?: (string | number)[] | null;
   /**
    * Transfer amounts in decimal number format, at least one element is required for transfer.
    * For ERC721 token transfer, the amounts field is required to be ["1"] (array with "1" as the only element).
@@ -1253,12 +1253,12 @@ export type Transaction = {
   /** Date and time the resource was created, in ISO-8601 UTC format. */
   createDate: string;
   /** Describes who controls the digital assets in a wallet: either the end-user or the developer. */
-  custodyType: string;
+  custodyType: 'DEVELOPER' | 'ENDUSER';
   /**
    * Blockchain generated unique identifier, associated with wallet (account),
    * smart contract or other blockchain objects.
    */
-  destinationAddress?: string;
+  destinationAddress: string;
   /** Description of the error. Only present for transactions in FAILED state. */
   errorReason?: string;
   /** Additional detail associated with the corresponding transaction's error reason */
@@ -1328,21 +1328,22 @@ export type Transaction = {
   /** Gas fee, in USD, paid to the network for the transaction. */
   networkFeeInUSD?: string;
   /** List of Nfts, in JSON string format, associated with the transaction. */
-  nfts?: string[];
+  nfts?: string[] | null; // TODO: SDK or API returns null when no NFTs so the type is incorrect
+
   /** Operation type of the transaction. */
-  operation: string;
+  operation: 'TRANSFER' | 'CONTRACT_EXECUTION' | 'CONTRACT_DEPLOYMENT';
   /** Optional reference or description used to identify the transaction. */
   refId?: string;
   /**
    * Blockchain generated unique identifier, associated with wallet (account),
    * smart contract or other blockchain objects.
    */
-  sourceAddress?: string;
+  sourceAddress: string;
   /** Current state of the transaction. */
   state: TRANSACTION_STATE;
   /** System-generated unique identifier of the resource. */
   tokenId?: string;
-  transactionType: string;
+  transactionType: 'INBOUND' | 'OUTBOUND';
   /** Blockchain generated identifier of the transaction. */
   txHash?: string;
   /** Date and time the resource was last updated, in ISO-8601 UTC format. */

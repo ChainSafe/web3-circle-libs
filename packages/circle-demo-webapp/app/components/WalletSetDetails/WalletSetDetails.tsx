@@ -1,30 +1,29 @@
-import { useMemo } from 'react';
-import { WalletSet } from 'web3-circle-sdk';
+import { formatDate } from '~/lib/format';
+import { WalletSet } from '~/lib/types';
 
 export interface WalletSetDetailsProps {
+  /** The wallet set */
   walletSet: WalletSet;
+  /** Child components to associate with the wallet set */
   children?: React.ReactNode;
 }
 
+/** The details of a wallet set */
 export function WalletSetDetails({ walletSet, children }: WalletSetDetailsProps) {
-  const formattedCreateDate = useMemo(() => {
-    return new Date(walletSet.createDate).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  }, [walletSet]);
-
   return (
     <div className="flex items-center space-x-4">
       <div className="flex-1">
-        <p className="text-sm font-medium text-gray-900">
+        <p className="text-sm font-medium text-foreground">
           Name: {walletSet.name ?? 'Unnamed Wallet Set'}
         </p>
 
-        <p className="text-sm text-gray-500">Custody Type: {walletSet.custodyType}</p>
+        <p className="text-sm text-muted-foreground">
+          Custody Type: {walletSet.custodyType}
+        </p>
 
-        <p className="text-sm text-gray-500">Created: {formattedCreateDate}</p>
+        <p className="text-sm text-muted-foreground">
+          Created: {formatDate(walletSet.createDate)}
+        </p>
       </div>
 
       {children && <div>{children}</div>}
