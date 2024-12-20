@@ -1,6 +1,6 @@
 import { BaseApi } from './BaseApi';
-import { SecretApi } from './SecretApi';
 import { BASE_URL } from './constants';
+import { SecretApi } from './SecretApi';
 
 export class DeveloperApi extends BaseApi {
   protected secret?: string;
@@ -23,7 +23,7 @@ export class DeveloperApi extends BaseApi {
     }
     return SecretApi.getEntitySecretCiphertext(this.secret, this.publicKey);
   }
-  protected async addCipherTextToParams<Param extends { [key: string]: unknown }>(
+  protected async addCipherTextToParams<Param extends Record<string, unknown>>(
     params: Param,
   ): Promise<Param & { entitySecretCiphertext: string }> {
     return {
@@ -33,9 +33,7 @@ export class DeveloperApi extends BaseApi {
         : await this.generateCipherText(),
     };
   }
-  protected addCipherTextAndIdempotencyKeyToParams<
-    Param extends { [key: string]: unknown },
-  >(
+  protected addCipherTextAndIdempotencyKeyToParams<Param extends Record<string, unknown>>(
     params: Param,
   ): Promise<Param & { entitySecretCiphertext: string; idempotencyKey: string }> {
     return this.addCipherTextToParams<Param & { idempotencyKey: string }>(
