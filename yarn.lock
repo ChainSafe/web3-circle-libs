@@ -7637,6 +7637,15 @@
           languageName: node
           linkType: hard
         
+        "husky@npm:^8.0.3":
+          version: 8.0.3
+          resolution: "husky@npm:8.0.3"
+          bin:
+            husky: lib/bin.js
+          checksum: 10c0/6722591771c657b91a1abb082e07f6547eca79144d678e586828ae806499d90dce2a6aee08b66183fd8b085f19d20e0990a2ad396961746b4c8bd5bdb619d668
+          languageName: node
+          linkType: hard
+        
         "iconv-lite@npm:0.4.24":
           version: 0.4.24
           resolution: "iconv-lite@npm:0.4.24"
@@ -13385,6 +13394,8 @@
         "web3-circle-libs@workspace:.":
           version: 0.0.0-use.local
           resolution: "web3-circle-libs@workspace:."
+          dependencies:
+            husky: "npm:^8.0.3"
           languageName: unknown
           linkType: soft
         

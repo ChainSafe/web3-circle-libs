@@ -22,7 +22,11 @@
     "lint": "yarn workspace circle-demo-webapp lint",
     "build": "yarn workspace circle-demo-webapp build",
     "dev": "yarn workspace circle-demo-webapp dev",
-    "start": "yarn workspace circle-demo-webapp start"
+    "start": "yarn workspace circle-demo-webapp start",
+    "prepare": "npx husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
   },
   "packageManager": "yarn@4.5.3"
 }
