@@ -87,8 +87,6 @@ export class SmartContractApi extends DeveloperApi {
     ) {
       {
         formattedParams.abiJson = JSON.stringify(formattedParams.abiJson);
-      }
-    }
     return formattedParams;
   }
   /**
