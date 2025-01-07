@@ -28,14 +28,15 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
   [Blockchain.Sol]: 'Solana',
 };
 
-export type ChainSelectProps = Omit<SelectProps, 'children'>;
+export type ChainSelectProps = Omit<SelectProps, 'children'> & { placeholder?: string };
 
 /** A dropdown select menu to choose a mainnet blockchain network */
 export function ChainSelect({ ...props }: ChainSelectProps) {
+  const { placeholder = 'Select Network', ...other } = props;
   return (
-    <Select {...props}>
+    <Select {...other}>
       <SelectTrigger className="w-full max-w-md">
-        <SelectValue placeholder="Select Network" />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (

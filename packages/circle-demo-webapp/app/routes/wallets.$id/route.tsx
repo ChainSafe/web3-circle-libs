@@ -82,7 +82,7 @@ export default function Page() {
   if (!wallets?.length) {
     return (
       <div className="space-y-6">
-        <Header walletSet={walletSet as WalletSet} />
+        <Header walletSet={walletSet} />
 
         <h2>No wallets found</h2>
       </div>
