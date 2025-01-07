@@ -78,21 +78,30 @@ export function WalletSend({
     });
     setTransactionData({ state: res.state } as Transaction);
     if (res.id) {
-      const interval = setInterval(async () => {
-        const { transaction } = await onGetTransaction({ id: res.id });
-        setTransactionData(transaction);
-        if (transaction && !isTransactionPending(transaction)) {
-          clearInterval(interval);
-          if (typeof onConfirmed === 'function') {
-            await onConfirmed(transaction);
+      const interval = setInterval(() => {
+        const run = async () => {
+          const { transaction } = await onGetTransaction({ id: res.id });
+          setTransactionData(transaction);
+          if (transaction && !isTransactionPending(transaction)) {
+            clearInterval(interval);
+            if (typeof onConfirmed === 'function') {
+              await onConfirmed(transaction);
+            }
           }
-        }
+        };
+        run().catch(console.error);
       }, 1000);
     }
   };
   return (
     <div className="items-center w-full">
-      <Form method="post" className="w-full" onSubmit={handleSubmit}>
+      <Form
+        method="post"
+        className="w-full"
+        onSubmit={(e) => {
+          handleSubmit(e).catch(console.error);
+        }}
+      >
         <div className="w-ful mt-6">
           <Input
             type="text"

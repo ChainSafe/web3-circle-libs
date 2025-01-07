@@ -1,7 +1,12 @@
-import { WalletState } from '@circle-fin/developer-controlled-wallets';
+import {
+  CreateTransactionInput,
+  GetTransactionInput,
+  WalletState,
+} from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Blockchain } from '~/lib/constants';
+import { Transaction } from '~/lib/types';
 
 import { WalletSend } from './WalletSend';
 
@@ -20,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    balances: [],
     wallet: {
       id: 'f5576d55-4432-5dcc-8b3c-582bd530b46b',
       state: WalletState.Live,
@@ -33,5 +39,9 @@ export const Default: Story = {
       updateDate: '2024-12-09T14:38:51Z',
       createDate: '2024-12-09T14:38:51Z',
     },
+    onSendTransaction: (data: CreateTransactionInput) =>
+      Promise.resolve(data as unknown as Transaction),
+    onGetTransaction: (data: GetTransactionInput) =>
+      Promise.resolve({ transaction: data as unknown as Transaction }),
   },
 };

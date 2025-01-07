@@ -53,6 +53,7 @@ export default function WalletBalancePage() {
   };
   useEffect(() => {
     loadTransactions().catch(console.error);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!id) {
