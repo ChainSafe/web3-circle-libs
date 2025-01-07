@@ -1,29 +1,28 @@
 {
-      "name": "web3-circle-libs",
-      "version": "0.1.0",
-      "private": true,
-      "workspaces": [
-        "packages/*"
-      ],
-      "description": "Web3.js circle plugin and web3 circle UI components lib",
-      "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
-      "bugs": {
-        "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
-      },
-      "contributors": [
-        "ChainSafe <info@chainsafe.io>"
-      ],
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git@github.com:ChainSafe/web3-circle-libs.git"
-      },
-      "scripts": {
-        "lint": "yarn workspace circle-demo-webapp lint",
-        "build": "yarn workspace circle-demo-webapp build",
-        "dev": "yarn workspace circle-demo-webapp dev",
-        "start": "yarn workspace circle-demo-webapp start"
-      },
-      "packageManager": "yarn@4.5.3"
-    }
-        
+  "name": "web3-circle-libs",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "description": "Web3.js circle plugin and web3 circle UI components lib",
+  "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
+  "bugs": {
+    "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
+  },
+  "contributors": [
+    "ChainSafe <info@chainsafe.io>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ChainSafe/web3-circle-libs.git"
+  },
+  "scripts": {
+    "lint": "yarn workspace circle-demo-webapp lint",
+    "build": "yarn workspace circle-demo-webapp build",
+    "dev": "yarn workspace circle-demo-webapp dev",
+    "start": "yarn workspace circle-demo-webapp start"
+  },
+  "packageManager": "yarn@4.5.3"
+}
