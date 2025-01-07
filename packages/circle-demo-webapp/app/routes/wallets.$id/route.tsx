@@ -8,6 +8,7 @@ import { sdk } from '~/lib/sdk';
 import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
 
+import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';
 
 export async function loader({ params }: { params: { id: string } }) {
@@ -62,7 +63,10 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
   return (
     <header className="flex justify-between items-center mb-6">
       <div>
-        <h1 className="text-2xl font-semibold text-foreground">Wallet Set</h1>
+        <div className="flex items-center space-x-4">
+          <h1 className="text-2xl font-semibold text-foreground">Wallet Set</h1>
+          <EditWalletSetDialog walletSet={walletSet} />
+        </div>
         <p>Name: {walletSet.name}</p>
         <p>ID: {walletSet.id}</p>
       </div>

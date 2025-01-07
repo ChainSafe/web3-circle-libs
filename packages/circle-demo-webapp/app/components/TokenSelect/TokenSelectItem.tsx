@@ -17,11 +17,8 @@ export function TokenSelectItem({ balance }: TokenSelectItemProps) {
         variant="branded"
         className="flex-shrink-0"
       />
-
-      <div>
-        <p className="text-base font-medium text-muted-foreground">
-          {balance.amount} {balance.token.symbol}
-        </p>
+      <div className="text-sm text-muted-foreground">
+        {balance.amount} {balance.token.symbol}
       </div>
     </div>
   );
