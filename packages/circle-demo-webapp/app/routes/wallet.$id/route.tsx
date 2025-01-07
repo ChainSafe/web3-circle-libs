@@ -62,7 +62,7 @@ export default function WalletBalancePage() {
     <div className="space-y-6">
       <header className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Wallet</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Wallet</h1>
           <p>ID: {id}</p>
         </div>
         <FaucetButton wallet={wallet} />
@@ -88,21 +88,19 @@ export default function WalletBalancePage() {
       </Card>
 
       <Card className="p-4">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Balances</h2>
+        <h2 className="text-xl font-semibold text-foreground mb-4">Balances</h2>
 
         <div className="space-y-4">
           {balances.length === 0 && <p>Wallet is empty</p>}
 
           {balances.map((balance) => (
-            <div key={balance.token.id}>
-              <WalletBalance balance={balance} />
-            </div>
+            <WalletBalance key={balance.token.id} balance={balance} />
           ))}
         </div>
       </Card>
 
       <Card className="p-4">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Transactions</h2>
+        <h2 className="text-xl font-semibold text-foreground mb-4">Transactions</h2>
 
         <div className="space-y-4">
           {transactions.length === 0 && <p>No transactions</p>}

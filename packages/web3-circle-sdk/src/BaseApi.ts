@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 import { BASE_URL } from './constants';
 import { objectToUrlParams } from './utils';
 
-type ResponseData<ReturnType> = {
+interface ResponseData<ReturnType> {
   code: number;
   message?: string;
   data: ReturnType;
@@ -14,12 +14,13 @@ type ResponseData<ReturnType> = {
     invalidValue: string;
     error: string;
   }[];
-};
-type RequestData = { headers: HeadersInit; body: BodyInit };
-
-interface BaseParams {
-  [key: string]: unknown; // Allows any other properties
 }
+interface RequestData {
+  headers: HeadersInit;
+  body: BodyInit;
+}
+
+type BaseParams = Record<string, unknown>;
 
 /**
  * Methods for sending requests to the Circle REST API
@@ -50,7 +51,7 @@ export class BaseApi {
     };
   }
 
-  protected addIdempotencyKeyToParams<Param extends { [key: string]: unknown }>(
+  protected addIdempotencyKeyToParams<Param extends Record<string, unknown>>(
     params: Param,
   ): Param & { idempotencyKey: string } {
     return {

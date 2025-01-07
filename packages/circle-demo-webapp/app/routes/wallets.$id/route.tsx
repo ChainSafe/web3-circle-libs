@@ -62,7 +62,7 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
   return (
     <header className="flex justify-between items-center mb-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">Wallet Set</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Wallet Set</h1>
         <p>Name: {walletSet.name}</p>
         <p>ID: {walletSet.id}</p>
       </div>
@@ -93,17 +93,15 @@ export default function Page() {
     <div className="space-y-6">
       <Header walletSet={walletSet} />
 
-      <div className="flex flex-wrap items-center gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
         {wallets.map((wallet) => (
-          <div key={wallet.id} className="flex-1 min-w-[360px]">
-            <Card className="p-4">
-              <WalletDetails wallet={wallet as Wallet}>
-                <Button variant="outline" asChild>
-                  <Link to={`/wallet/${wallet.id}`}>Wallet Details</Link>
-                </Button>
-              </WalletDetails>
-            </Card>
-          </div>
+          <Card key={wallet.id} className="p-4">
+            <WalletDetails wallet={wallet}>
+              <Button variant="outline" asChild>
+                <Link to={`/wallet/${wallet.id}`}>Wallet Details</Link>
+              </Button>
+            </WalletDetails>
+          </Card>
         ))}
       </div>
     </div>

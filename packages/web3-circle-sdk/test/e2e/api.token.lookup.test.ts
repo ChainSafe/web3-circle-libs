@@ -1,8 +1,7 @@
 import { TokenLookupApi } from '../../src';
-
 import { ETH_SEPOLIA_EURC_TOKEN_ID } from './fixtures/fixtures';
 
-const apikey = process.env.API_KEY as string;
+const apikey = process.env.API_KEY!;
 
 describe('TokenLookupApi Tests', () => {
   const tokenLookupApi = new TokenLookupApi(apikey);

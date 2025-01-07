@@ -8,7 +8,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['build', '.storybook', 'storybook-static'] },
+  { ignores: ['lib'] },
   {
     extends: [
       js.configs.recommended,

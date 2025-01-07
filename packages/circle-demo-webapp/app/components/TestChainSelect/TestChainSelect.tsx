@@ -11,32 +11,31 @@ import {
 import { Blockchain } from '~/lib/constants';
 
 const BLOCKCHAIN_TO_ICON_MAP: Record<string, string> = {
-  [Blockchain.Arb]: 'arbitrum',
-  [Blockchain.Avax]: 'avalanche',
-  [Blockchain.Eth]: 'ethereum',
-  [Blockchain.Matic]: 'polygon',
-  [Blockchain.Near]: 'near-protocol',
-  [Blockchain.Sol]: 'solana',
+  [Blockchain.ArbSepolia]: 'arbitrum',
+  [Blockchain.AvaxFuji]: 'avalanche',
+  [Blockchain.EthSepolia]: 'ethereum',
+  [Blockchain.MaticAmoy]: 'polygon',
+  [Blockchain.NearTestnet]: 'near-protocol',
+  [Blockchain.SolDevnet]: 'solana',
 };
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
-  [Blockchain.Arb]: 'Arbitrum',
-  [Blockchain.Avax]: 'Avalanche',
-  [Blockchain.Eth]: 'Ethereum',
-  [Blockchain.Matic]: 'Polygon',
-  [Blockchain.Near]: 'NEAR',
-  [Blockchain.Sol]: 'Solana',
+  [Blockchain.ArbSepolia]: 'Arbitrum Sepolia',
+  [Blockchain.AvaxFuji]: 'Avalanche Fuji',
+  [Blockchain.EthSepolia]: 'Ethereum Sepolia',
+  [Blockchain.MaticAmoy]: 'Polygon Amoy',
+  [Blockchain.NearTestnet]: 'NEAR Testnet',
+  [Blockchain.SolDevnet]: 'Solana Devnet',
 };
 
-export type ChainSelectProps = Omit<SelectProps, 'children'> & { placeholder?: string };
+export type TestChainSelectProps = Omit<SelectProps, 'children'>;
 
-/** A dropdown select menu to choose a mainnet blockchain network */
-export function ChainSelect({ ...props }: ChainSelectProps) {
-  const { placeholder = 'Select Network', ...other } = props;
+/** A dropdown select menu to choose a test blockchain network */
+export function TestChainSelect({ ...props }: TestChainSelectProps) {
   return (
-    <Select {...other}>
+    <Select {...props}>
       <SelectTrigger className="w-full max-w-md">
-        <SelectValue placeholder={placeholder} />
+        <SelectValue placeholder="Select Test Network" />
       </SelectTrigger>
       <SelectContent>
         {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (

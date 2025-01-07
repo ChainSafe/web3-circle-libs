@@ -13,13 +13,15 @@ export function WalletSetDetails({ walletSet, children }: WalletSetDetailsProps)
   return (
     <div className="flex items-center space-x-4">
       <div className="flex-1">
-        <p className="text-sm font-medium text-gray-900">
+        <p className="text-sm font-medium text-foreground">
           Name: {walletSet.name ?? 'Unnamed Wallet Set'}
         </p>
 
-        <p className="text-sm text-gray-500">Custody Type: {walletSet.custodyType}</p>
+        <p className="text-sm text-muted-foreground">
+          Custody Type: {walletSet.custodyType}
+        </p>
 
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           Created: {formatDate(walletSet.createDate)}
         </p>
       </div>

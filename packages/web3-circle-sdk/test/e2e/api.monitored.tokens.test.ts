@@ -1,8 +1,7 @@
 import { BLOCKCHAIN, MONITORED_TOKENS_SCOPE, MonitoredTokensApi } from '../../src';
-
 import { ETH_SEPOLIA_EURC_TOKEN_ID, wait } from './fixtures/fixtures';
 
-const apikey = process.env.API_KEY as string;
+const apikey = process.env.API_KEY!;
 describe('Monitored tokens Api', () => {
   const monitoredTokensApi = new MonitoredTokensApi(apikey);
 

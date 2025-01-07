@@ -1,3 +1,4 @@
+import { LinksFunction } from '@remix-run/node';
 import {
   Links,
   Meta,
@@ -10,17 +11,20 @@ import {
 } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
 
+import { Sidebar } from '~/components/Sidebar';
 import { cachedLoader } from '~/lib/cache';
 import { sdk } from '~/lib/sdk';
-
-import { Sidebar } from './components/Sidebar';
+import { WalletSet } from '~/lib/types';
 
 import './tailwind.css';
-import { WalletSet } from '~/lib/types';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Circle SDK Demo' }];
 };
+
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: 'https://fonts.cdnfonts.com/css/sf-pro-display' },
+];
 
 export async function loader() {
   return cachedLoader('walletSets', async () => {
@@ -55,9 +59,9 @@ export default function App() {
     <div className="flex h-screen">
       <Sidebar walletSets={walletSets} />
 
-      <div className="flex-1 p-12 overflow-y-auto bg-gray-50 relative">
+      <div className="flex-1 p-12 overflow-y-auto bg-secondary relative">
         {navigation.state === 'loading' && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-50">
+          <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-50">
             <LoaderCircle className="animate-spin" strokeWidth={1} size={64} />
           </div>
         )}

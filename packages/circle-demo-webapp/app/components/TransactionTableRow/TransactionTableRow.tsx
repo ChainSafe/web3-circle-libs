@@ -11,7 +11,7 @@ export function TransactionTableRow({ transaction }: TransactionTableRowProps) {
   const isInbound = transaction.transactionType === TransactionType.Inbound;
 
   return (
-    <tr className="text-sm text-gray-500">
+    <tr className="text-sm text-muted-foreground">
       <td className="py-2">
         <Badge variant="outline">{transaction.operation}</Badge>
       </td>
@@ -26,7 +26,7 @@ export function TransactionTableRow({ transaction }: TransactionTableRowProps) {
 
       <td
         className={`px-4 py-2 text-right font-medium ${
-          isInbound ? 'text-green-500' : 'text-red-500'
+          isInbound ? 'text-green-600' : 'text-destructive'
         }`}
       >
         {isInbound ? '+' : '-'} {transaction.amounts?.[0] ?? '0.00'}
