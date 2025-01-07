@@ -3,20 +3,19 @@ import { useState } from 'react';
 
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
-import { WalletSend } from '~/components/WalletSend';
-import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
+import { WalletSend, WalletSendProps } from '~/components/WalletSend';
+import { Wallet, WalletTokenBalance } from '~/lib/types';
 
-interface WalletSendDialogProps {
+export interface WalletSendDialogProps {
   wallet: Wallet;
   balances: WalletTokenBalance[];
-  transactionData?: Transaction;
+  onSendTransaction: WalletSendProps['onSendTransaction'];
+  onGetTransaction: WalletSendProps['onGetTransaction'];
+  onConfirmed?: WalletSendProps['onConfirmed'];
 }
 
-export function WalletSendDialog({
-  wallet,
-  balances,
-  transactionData,
-}: WalletSendDialogProps) {
+export function WalletSendDialog(props: WalletSendDialogProps) {
+  const { wallet, balances, onConfirmed, ...other } = props;
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,13 +26,21 @@ export function WalletSendDialog({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[600px]">
-        <WalletSend
-          wallet={wallet}
-          balances={balances}
-          transactionData={transactionData}
-        />
-      </DialogContent>
+      {open && (
+        <DialogContent className="sm:max-w-[600px]">
+          <WalletSend
+            wallet={wallet}
+            balances={balances}
+            {...other}
+            onConfirmed={async (tx) => {
+              setOpen(false);
+              if (typeof onConfirmed === 'function') {
+                await onConfirmed(tx);
+              }
+            }}
+          />
+        </DialogContent>
+      )}
     </Dialog>
   );
 }
