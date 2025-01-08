@@ -1,11 +1,11 @@
 {
-  "name": "web3-circle-libs",
+  "name": "circle-libs",
   "version": "0.1.0",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
-  "description": "Web3.js circle plugin and web3 circle UI components lib",
+  "description": "Circle UI components and utilities",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
