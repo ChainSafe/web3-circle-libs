@@ -10,6 +10,7 @@ import {
   useNavigation,
 } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
+import { SWRConfig } from 'swr';
 
 import { Sidebar } from '~/components/Sidebar';
 import { cachedLoader } from '~/lib/cache';
@@ -66,7 +67,14 @@ export default function App() {
           </div>
         )}
 
-        <Outlet />
+        <SWRConfig
+          value={{
+            fetcher: (resource: string | URL | Request, init?: RequestInit) =>
+              fetch(resource, init).then((res) => res.json()),
+          }}
+        >
+          <Outlet />
+        </SWRConfig>
       </div>
     </div>
   );

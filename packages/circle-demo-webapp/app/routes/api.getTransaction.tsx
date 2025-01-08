@@ -1,9 +1,17 @@
 import { GetTransactionInput } from '@circle-fin/developer-controlled-wallets';
-import { ActionFunction } from '@remix-run/node';
+import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
 
-export const action: ActionFunction = async ({ request }) => {
+/**
+ * @deprecated Use `loader` instead
+ */
+export async function action({ request }: ActionFunctionArgs) {
   const res = await sdk.getTransaction((await request.json()) as GetTransactionInput);
   return Response.json(res.data);
-};
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const res = await sdk.getTransaction((await request.json()) as GetTransactionInput);
+  return Response.json(res.data);
+}
