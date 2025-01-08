@@ -29,13 +29,9 @@ export const isHexStrict = (hex: ValidInputTypes) =>
   typeof hex === 'string' && /^((-)?0x[0-9a-f]+|(0x))$/i.test(hex);
 
 export const isAddress = (value: string): boolean => {
-  if (typeof value !== 'string') {
-    return false;
-  }
-
   let valueToCheck: string;
 
-  if (typeof value === 'string' && !isHexStrict(value)) {
+  if (!isHexStrict(value)) {
     valueToCheck = value.toLowerCase().startsWith('0x') ? value : `0x${value}`;
   } else {
     valueToCheck = value;
