@@ -1373,6 +1373,15 @@
           languageName: node
           linkType: hard
         
+        "@hookform/resolvers@npm:^3.10.0":
+          version: 3.10.0
+          resolution: "@hookform/resolvers@npm:3.10.0"
+          peerDependencies:
+            react-hook-form: ^7.0.0
+          checksum: 10c0/7ee44533b4cdc28c4fa2a94894c735411e5a1f830f4a617c580533321a9b901df0cc8c1e2fad81ad8d55154ebc5cb844cf9c116a3148ffae2bc48758c33cbb8e
+          languageName: node
+          linkType: hard
+        
         "@humanfs/core@npm:^0.19.1":
           version: 0.19.1
           resolution: "@humanfs/core@npm:0.19.1"
@@ -4420,6 +4429,7 @@
           dependencies:
             "@chainsafe/eslint-config": "npm:^2.2.4"
             "@circle-fin/developer-controlled-wallets": "npm:^7.0.0"
+            "@hookform/resolvers": "npm:^3.10.0"
             "@radix-ui/react-avatar": "npm:^1.1.1"
             "@radix-ui/react-dialog": "npm:^1.1.2"
             "@radix-ui/react-label": "npm:^2.1.0"
@@ -4461,6 +4471,7 @@
             quick-lru: "npm:^7.0.0"
             react: "npm:^18.2.0"
             react-dom: "npm:^18.2.0"
+            react-hook-form: "npm:^7.54.2"
             storybook: "npm:^8.4.7"
             storybook-dark-mode: "npm:^4.0.2"
             tailwind-merge: "npm:^2.5.5"
@@ -4470,6 +4481,7 @@
             typescript-eslint: "npm:^8.11.0"
             vite: "npm:^5.1.0"
             vite-tsconfig-paths: "npm:^4.2.1"
+            zod: "npm:^3.24.1"
           languageName: unknown
           linkType: soft
         
@@ -9661,6 +9673,15 @@
           languageName: node
           linkType: hard
         
+        "react-hook-form@npm:^7.54.2":
+          version: 7.54.2
+          resolution: "react-hook-form@npm:7.54.2"
+          peerDependencies:
+            react: ^16.8.0 || ^17 || ^18 || ^19
+          checksum: 10c0/6eebead2900e3d369a989e7a20429f390dc75b3897142aa3107f1f6dabb9ae64fed201ea98cdcd8676e40466c97748aeb0c0d83264f5bd3a84dbc0b8e4863415
+          languageName: node
+          linkType: hard
+        
         "react-is@npm:^16.13.1":
           version: 16.13.1
           resolution: "react-is@npm:16.13.1"
@@ -9987,7 +10008,7 @@
             supports-preserve-symlinks-flag: "npm:^1.0.0"
           bin:
             resolve: bin/resolve
-          checksum: 10c0/0446f024439cd2e50c6c8fa8ba77eaa8370b4180f401a96abf3d1ebc770ac51c1955e12764cde449fde3fff480a61f84388e3505ecdbab778f4bef5f8212c729
+          checksum: 10c0/7a2f394b33c93a3f1ca90a4863037856d9c44d5b1c3edc8355aca2b9a94ffc063f0c70010a7eab00b7c69e96f9761811dfbda69a35482183b1f67f369d951712
           languageName: node
           linkType: hard
         
@@ -10000,7 +10021,7 @@
             supports-preserve-symlinks-flag: "npm:^1.0.0"
           bin:
             resolve: bin/resolve
-          checksum: 10c0/78ad6edb8309a2bfb720c2c1898f7907a37f858866ce11a5974643af1203a6a6e05b2fa9c53d8064a673a447b83d42569260c306d43628bff5bb101969708355
+          checksum: 10c0/b6d9b860049289ad2854f36ccf4e82ff30089dc4632c50e2490ba5284966338f6357ae3d192b157950c90c56c4216d7364603f6587c0631b20d274e0becddb09
           languageName: node
           linkType: hard
         
@@ -11806,6 +11827,13 @@
           version: 0.1.0
           resolution: "yocto-queue@npm:0.1.0"
           checksum: 10c0/dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+          languageName: node
+          linkType: hard
+        
+        "zod@npm:^3.24.1":
+          version: 3.24.1
+          resolution: "zod@npm:3.24.1"
+          checksum: 10c0/0223d21dbaa15d8928fe0da3b54696391d8e3e1e2d0283a1a070b5980a1dbba945ce631c2d1eccc088fdbad0f2dfa40155590bf83732d3ac4fcca2cc9237591b
           languageName: node
           linkType: hard
         

@@ -760,3 +760,19 @@ export interface EventLog {
   txHash: string;
   userOpHash: string;
 }
+
+export interface ErrorResponse {
+  error: {
+    code: number;
+    message: string;
+    errors: {
+      message: string;
+    }[];
+  };
+}
+
+export interface ErrorResponseObject {
+  response: {
+    data: ErrorResponse;
+  };
+}

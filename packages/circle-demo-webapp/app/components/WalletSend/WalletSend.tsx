@@ -2,26 +2,49 @@ import {
   CreateTransactionInput,
   GetTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
-import { Form } from '@remix-run/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import z from 'zod';
 
+import { FormErrorText } from '~/components/FormErrorText';
 import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { FeeLevel } from '~/lib/constants';
-import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
-import { isValidString } from '~/lib/utils';
+import { ErrorResponse, Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
+import { isAddress, isNumber } from '~/lib/utils';
 
 export interface WalletSendProps {
   /** The wallet */
   wallet: Wallet;
   balances: WalletTokenBalance[];
-  onSendTransaction: (data: CreateTransactionInput) => Promise<Transaction>;
+  onSendTransaction: (
+    data: CreateTransactionInput,
+  ) => Promise<Transaction | ErrorResponse>;
   onGetTransaction: (data: GetTransactionInput) => Promise<{ transaction: Transaction }>;
   onConfirmed?: (data: Transaction) => Promise<void>;
 }
+
+// @todo: use constant exported from sdk
+const isTransactionPending = (tx: Transaction) =>
+  Boolean(tx?.state && !['CONFIRMED', 'CONFIRMED'].includes(tx?.state));
+
+interface IFormInput {
+  destinationAddress: string;
+  amount: string;
+  tokenId: string;
+  note: string;
+}
+
+const formSchema = z.object({
+  destinationAddress: z.string().refine(isAddress, 'Address is not valid'),
+  amount: z.string().refine(isNumber, 'Amount is not valid'),
+  tokenId: z.string(),
+  note: z.string().optional(),
+});
 
 /**
  * Helpers for obtaining a wallet's on-chain address:
@@ -34,40 +57,23 @@ export function WalletSend({
   onGetTransaction,
   onConfirmed,
 }: WalletSendProps) {
+  const [requestError, setRequestError] = useState<string>('');
   const [transactionData, setTransactionData] = useState({} as Transaction);
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    resolver: zodResolver(formSchema),
+  });
 
-  // @todo: use constant exported from sdk
-  const isTransactionPending = (tx: Transaction) =>
-    Boolean(tx?.state && !['CONFIRMED', 'CONFIRMED'].includes(tx?.state));
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    if (!isValidString(data.recipientAddress)) {
-      throw new Error('Invalid recipient address');
-    }
-    if (!isValidString(data.amount) || !(Number(data.amount) > 0)) {
-      throw new Error('Invalid amount');
-    }
-    if (!isValidString(data.tokenId)) {
-      throw new Error('Invalid token');
-    }
-    if (!isValidString(data.walletId)) {
-      throw new Error('Invalid wallet');
-    }
-
-    if (data.note && !isValidString(data.note)) {
-      throw new Error('Invalid note');
-    }
-
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const res = await onSendTransaction({
-      destinationAddress: data.recipientAddress,
+      destinationAddress: data.destinationAddress,
       amounts: [data.amount],
       tokenId: data.tokenId,
-      walletId: data.walletId,
+      walletId: wallet.id,
       refId: data.note,
       fee: {
         type: 'level',
@@ -75,12 +81,18 @@ export function WalletSend({
           feeLevel: FeeLevel.Medium,
         },
       },
-    });
-    setTransactionData({ state: res.state } as Transaction);
-    if (res.id) {
+    } as CreateTransactionInput);
+    if ((res as ErrorResponse).error) {
+      setRequestError((res as ErrorResponse).error.message);
+      return;
+    }
+    const tx = res as Transaction;
+
+    setTransactionData({ state: tx.state } as Transaction);
+    if (tx.id) {
       const interval = setInterval(() => {
         const run = async () => {
-          const { transaction } = await onGetTransaction({ id: res.id });
+          const { transaction } = await onGetTransaction({ id: tx.id });
           setTransactionData(transaction);
           if (transaction && !isTransactionPending(transaction)) {
             clearInterval(interval);
@@ -93,38 +105,40 @@ export function WalletSend({
       }, 1000);
     }
   };
+
   return (
     <div className="items-center w-full">
-      <Form
-        method="post"
-        className="w-full"
-        onSubmit={(e) => {
-          handleSubmit(e).catch(console.error);
-        }}
-      >
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-ful mt-6">
           <Input
-            type="text"
-            name="recipientAddress"
             placeholder="Recipient Address"
             className="col-span-3"
+            {...register('destinationAddress')}
           />
+          <FormErrorText value={errors.destinationAddress?.message} />
         </div>
-        <div className="w-full mt-6">
-          <TokenSelect name="tokenId" balances={balances} />
+        <div className="mt-6">
+          <Controller
+            name="tokenId"
+            control={control}
+            render={({ field }) => (
+              <TokenSelect balances={balances} onValueChange={field.onChange} />
+            )}
+          />
+          <FormErrorText value={errors.tokenId?.message} />
         </div>
-        <div className="w-full mt-6">
-          <Input type="text" name="amount" placeholder="Amount" className="col-span-3" />
+        <div className="mt-6">
+          <Input placeholder="Amount" className="col-span-3" {...register('amount')} />
+          <FormErrorText value={errors.amount?.message} />
         </div>
-        <div className="w-full mt-6">
+        <div className="mt-6">
           <Textarea
-            type="text"
-            name="note"
             placeholder="Note(optional)"
             className="col-span-3 min-h-[100px]"
+            {...register('note')}
           />
         </div>
-        <Input type="hidden" name="walletId" value={wallet.id} />
         <Button
           type="submit"
           className="mt-6 w-full"
@@ -135,7 +149,8 @@ export function WalletSend({
           )}
           Send
         </Button>
-      </Form>
+        <FormErrorText value={requestError} />
+      </form>
     </div>
   );
 }

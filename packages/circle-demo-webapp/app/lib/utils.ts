@@ -22,3 +22,59 @@ export async function callFetch<ReturnType extends object>(
   });
   return (await res.json()) as ReturnType;
 }
+
+export type ValidInputTypes = Uint8Array | bigint | string | number | boolean;
+
+export const isHexStrict = (hex: ValidInputTypes) =>
+  typeof hex === 'string' && /^((-)?0x[0-9a-f]+|(0x))$/i.test(hex);
+
+export const isAddress = (value: string): boolean => {
+  let valueToCheck: string;
+
+  if (!isHexStrict(value)) {
+    valueToCheck = value.toLowerCase().startsWith('0x') ? value : `0x${value}`;
+  } else {
+    valueToCheck = value;
+  }
+
+  // check if it has the basic requirements of an address
+  if (!/^(0x)?[0-9a-f]{40}$/i.test(valueToCheck)) {
+    return false;
+  }
+  // If it's ALL lowercase or ALL upppercase
+  if (
+    /^(0x|0X)?[0-9a-f]{40}$/.test(valueToCheck) ||
+    /^(0x|0X)?[0-9A-F]{40}$/.test(valueToCheck)
+  ) {
+    return true;
+    // Otherwise check each case
+  }
+  return true;
+};
+
+/**
+ * Determines whether the given value is a floating-point number.
+ *
+ * @param value - The value to check.
+ * @returns `true` if the value is a float, `false` otherwise.
+ */
+export const isNumber = (value: string): boolean => {
+  // If the value is a string, attempt to parse it to a number
+  if (typeof value === 'string') {
+    // Trim the string to remove leading and trailing whitespace
+    const trimmedValue = value.trim();
+
+    // Regular expression to match valid numeric formats (integer and float)
+    const numberRegex = /^[+-]?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
+
+    if (!numberRegex.test(trimmedValue)) {
+      return false;
+    }
+
+    const parsedNumber = Number(trimmedValue);
+    return Number.isFinite(parsedNumber);
+  }
+
+  // For all other types, return false
+  return false;
+};
