@@ -24,33 +24,18 @@ export async function callFetch<ReturnType extends object>(
 }
 
 export type ValidInputTypes = Uint8Array | bigint | string | number | boolean;
-export const isUint8Array = (data: ValidInputTypes): data is Uint8Array =>
-  data instanceof Uint8Array ||
-  data?.constructor?.name === 'Uint8Array' ||
-  data?.constructor?.name === 'Buffer';
-
-export function uint8ArrayToHexString(uint8Array: Uint8Array): string {
-  let hexString = '0x';
-  for (const e of uint8Array) {
-    const hex = e.toString(16);
-    hexString += hex.length === 1 ? `0${hex}` : hex;
-  }
-  return hexString;
-}
 
 export const isHexStrict = (hex: ValidInputTypes) =>
   typeof hex === 'string' && /^((-)?0x[0-9a-f]+|(0x))$/i.test(hex);
 
 export const isAddress = (value: string): boolean => {
-  if (typeof value !== 'string' && !isUint8Array(value)) {
+  if (typeof value !== 'string') {
     return false;
   }
 
   let valueToCheck: string;
 
-  if (isUint8Array(value)) {
-    valueToCheck = uint8ArrayToHexString(value);
-  } else if (typeof value === 'string' && !isHexStrict(value)) {
+  if (typeof value === 'string' && !isHexStrict(value)) {
     valueToCheck = value.toLowerCase().startsWith('0x') ? value : `0x${value}`;
   } else {
     valueToCheck = value;
