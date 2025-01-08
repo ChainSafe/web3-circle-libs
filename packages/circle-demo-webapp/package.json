@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@chainsafe/eslint-config": "^2.2.4",
-    "@circle-fin/developer-controlled-wallets": "^6.0.0",
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
