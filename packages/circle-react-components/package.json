@@ -1,0 +1,38 @@
+{
+  "name": "circle-react-components",
+  "version": "0.0.1",
+  "packageManager": "yarn@1.22.22",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChainSafe/web3-circle-libs/"
+  },
+  "type":"module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build:storybook": "storybook build",
+    "build": "rollup -c",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
+    "test": "vitest",
+    "test:cov": "vitest run --coverage",
+    "ci-prepublish": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@web3icons/react": "^3.13.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "5.7.2"
+  }
+}
