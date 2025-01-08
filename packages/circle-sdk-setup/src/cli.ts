@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-import { CircleSdk, RegisteredEntity, SecretApi } from 'web3-circle-sdk';
+import {
+  initiateDeveloperControlledWalletsClient,
+  ModelError,
+  registerEntitySecretCiphertext,
+  RegisterEntitySecretCipherTextInput,
+} from '@circle-fin/developer-controlled-wallets';
+import crypto from 'crypto';
 import { Command } from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -37,35 +43,28 @@ class CircleSdkSetup {
 
   generateSecret(): string {
     console.log('Generating secret...');
-    const secret = SecretApi.generateSecret();
+    const secret = crypto.randomBytes(32).toString('hex');
+
     console.log('Secret generated:', secret);
     return secret;
   }
 
-  async fetchPublicKey(sdk: CircleSdk) {
-    console.log('Fetching public key...');
-    const publicKey = await sdk.secret.getPublicKey();
-    return publicKey;
-  }
-
-  generateCiphertext(secret: string, publicKey: string) {
-    console.log('Generating entity secret ciphertext...');
-    const cipherText = SecretApi.getEntitySecretCiphertext(secret, publicKey);
-    return cipherText;
-  }
-
-  async registerCiphertext(sdk: CircleSdk, cipherText: string) {
+  async registerCiphertext(input: RegisterEntitySecretCipherTextInput) {
     try {
       console.log('Registering entity secret ciphertext...');
-      const registration = await sdk.secret.registerEntitySecretCiphertext(cipherText);
+      const registration = await registerEntitySecretCiphertext(input);
       console.log('Entity secret ciphertext registered');
-      return registration;
+      return registration.data?.recoveryFile || '';
     } catch (error: unknown) {
       if (
-        (typeof error === 'object' && (error as any).code === -1) ||
-        ((error as Error).message &&
-          (error as Error).message.includes('Something went wrong'))
+        error instanceof Error &&
+        'response' in error &&
+        error.response &&
+        typeof error.response === 'object' &&
+        'data' in error.response
       ) {
+        const data = error.response.data as ModelError;
+
         console.error('\n🚫 Error: Unable to register entity secret ciphertext.');
         console.error('This might be due to the ciphertext already being registered.');
         console.error('Please check your existing configuration in the Circle Console.');
@@ -100,7 +99,7 @@ CIRCLE_SECRET=${secret}\n`;
     console.log('.env file updated successfully');
   }
 
-  saveRecoveryFile(registration: RegisteredEntity) {
+  saveRecoveryFile(recoveryFile: string) {
     const currentDate = new Date().toISOString().split('T')[0];
     const recoveryFilePath = path.resolve(
       process.cwd(),
@@ -108,10 +107,10 @@ CIRCLE_SECRET=${secret}\n`;
     );
 
     try {
-      fs.writeFileSync(recoveryFilePath, registration.recoveryFile, 'utf-8');
+      fs.writeFileSync(recoveryFilePath, recoveryFile, 'utf-8');
       console.log(`Recovery file saved to: ${recoveryFilePath}`);
       console.log(
-        '\nIMPORTANT: Keep the recovery file in a secure location and then remove it from this directory',
+        '\nIMPORTANT: Keep the recovery file in a secure location and then remove it from this directory!\n',
       );
     } catch (error) {
       console.error('Error saving recovery file:', error);
@@ -132,22 +131,22 @@ CIRCLE_SECRET=${secret}\n`;
       const secret = this.generateSecret();
 
       // Initialize SDK
-      const sdk = new CircleSdk(this.options.apiKey, secret);
-
-      // Fetch public key
-      const publicKey = await this.fetchPublicKey(sdk);
-
-      // Generate ciphertext
-      const cipherText = this.generateCiphertext(secret, publicKey);
+      const sdk = initiateDeveloperControlledWalletsClient({
+        apiKey: this.options.apiKey,
+        entitySecret: secret,
+      });
 
       // Register ciphertext
-      const registration = await this.registerCiphertext(sdk, cipherText);
+      const recoveryFile = await this.registerCiphertext({
+        apiKey: this.options.apiKey,
+        entitySecret: secret,
+      });
 
       // Prepare .env file
       this.prepareEnvFile(secret, this.options.apiKey);
 
       // Save recovery file
-      this.saveRecoveryFile(registration);
+      this.saveRecoveryFile(recoveryFile);
 
       console.log('Circle SDK setup completed successfully!');
     } catch (error) {

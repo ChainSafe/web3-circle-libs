@@ -21,9 +21,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
     "commander": "^11.0.0",
-    "dotenv": "^16.3.1",
-    "web3-circle-sdk": "*"
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
