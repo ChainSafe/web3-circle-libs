@@ -68,14 +68,13 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
 
   return (
     <header className="flex justify-between items-center mb-6">
-      <div>
-        <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-semibold text-foreground">Wallet Set</h1>
-          <EditWalletSetDialog walletSet={walletSet} onSuccess={refreshWalletSet} />
-        </div>
-        <p>Name: {walletSet.name}</p>
-        <p>ID: {walletSet.id}</p>
+      <div className="flex items-center space-x-2">
+        <h1 className="text-2xl font-semibold text-foreground">
+          {walletSet.name ?? 'No Name'}
+        </h1>
+        <EditWalletSetDialog walletSet={walletSet} onSuccess={refreshWalletSet} />
       </div>
+
       <NewWalletDialog walletSetId={walletSet.id} />
     </header>
   );

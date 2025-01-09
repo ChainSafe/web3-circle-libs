@@ -11,17 +11,17 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
-import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
-import { WalletSet } from '~/lib/types';
+import { useUpdateWallet } from '~/hooks/useUpdateWallet';
+import { Wallet } from '~/lib/types';
 
-interface EditWalletSetDialogProps {
-  walletSet: WalletSet;
+interface EditWalletDialogProps {
+  wallet: Wallet;
   onSuccess: () => void;
 }
 
-export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialogProps) {
+export function EditWalletDialog({ wallet, onSuccess }: EditWalletDialogProps) {
   const [open, setOpen] = useState(false);
-  const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
+  const { updateWallet, isLoading, error } = useUpdateWallet();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,7 +30,7 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
     const id = formData.get('id') as string;
     const name = formData.get('name') as string;
 
-    await updateWalletSet({ id, name });
+    await updateWallet({ id, name });
 
     if (!isLoading && !error) {
       setOpen(false);
@@ -50,10 +50,8 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Wallet Set</DialogTitle>
-          <DialogDescription>
-            You can change the name of the wallet set.
-          </DialogDescription>
+          <DialogTitle>Edit Wallet</DialogTitle>
+          <DialogDescription>You can change the name of the wallet.</DialogDescription>
         </DialogHeader>
 
         <form
@@ -63,12 +61,12 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
           className="space-y-8"
         >
           <div className="w-full mt-4">
-            <input type="hidden" name="id" value={walletSet.id} />
+            <input type="hidden" name="id" value={wallet.id} />
             <Input
               type="text"
               name="name"
-              placeholder="Name"
-              defaultValue={walletSet.name}
+              placeholder="Wallet name"
+              defaultValue={wallet.name}
             />
           </div>
           <Button type="submit" className="w-full">

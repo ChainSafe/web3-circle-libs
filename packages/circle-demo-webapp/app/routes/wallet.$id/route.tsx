@@ -3,7 +3,7 @@ import {
   GetTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData, useParams } from '@remix-run/react';
+import { useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 
 import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
@@ -15,6 +15,7 @@ import { sdk } from '~/lib/sdk';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
 
+import { EditWalletDialog } from './components/EditWalletDialog';
 import { FaucetButton } from './components/FaucetButton';
 import { WalletReceiveDialog } from './components/WalletReceiveDialog';
 import { WalletSendDialog } from './components/WalletSendDialog';
@@ -45,9 +46,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function WalletBalancePage() {
+  const revalidator = useRevalidator();
   const { id } = useParams();
   const { balances, wallet, transactions } = useLoaderData<typeof loader>();
   const { refetch: refetchTransactions } = useTransactions(id ?? '');
+
+  const refreshWalletSet = () => {
+    revalidator.revalidate();
+  };
 
   if (!id) {
     throw new Error('Wallet ID is required');
@@ -56,10 +62,11 @@ export default function WalletBalancePage() {
   return (
     <div className="space-y-6">
       <header className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-semibold text-foreground">Wallet</h1>
-          <p>ID: {id}</p>
+        <div className="flex items-center space-x-2">
+          <h1 className="text-2xl font-semibold text-foreground">{wallet.name}</h1>
+          <EditWalletDialog wallet={wallet} onSuccess={refreshWalletSet} />
         </div>
+
         <FaucetButton wallet={wallet} />
       </header>
 
