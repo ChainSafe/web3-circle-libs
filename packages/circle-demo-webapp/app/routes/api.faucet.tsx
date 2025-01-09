@@ -1,7 +1,12 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
-import { ErrorResponseObject, TypeTestnetBlockchain } from '~/lib/types';
+import {
+  assertCircleErrorResponse,
+  errorResponse,
+  successResponse,
+} from '~/lib/server.responses';
+import { TypeTestnetBlockchain } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
 
 interface RequestBody {
@@ -13,11 +18,11 @@ export async function action({ request }: ActionFunctionArgs) {
   const { blockchain, address } = (await request.json()) as RequestBody;
 
   if (!isValidString(blockchain)) {
-    return Response.json({ error: 'Invalid blockchain' });
+    return errorResponse('Invalid blockchain');
   }
 
   if (!isValidString(address)) {
-    return Response.json({ error: 'Invalid address' });
+    return errorResponse('Invalid address');
   }
 
   try {
@@ -27,8 +32,10 @@ export async function action({ request }: ActionFunctionArgs) {
       native: true,
       usdc: true,
     });
-    return Response.json({ message: 'Success' });
+    return successResponse('Success');
   } catch (e: unknown) {
-    return Response.json({ error: (e as ErrorResponseObject)?.response?.data });
+    assertCircleErrorResponse(e);
+
+    return errorResponse(e.response.data.error.message);
   }
 }
