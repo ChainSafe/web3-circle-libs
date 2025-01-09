@@ -4,4 +4,4 @@ node_modules
 .vscode
 tmp
 .history
-.yarn/install-state.gz
+.github/copilot-instructions.md
