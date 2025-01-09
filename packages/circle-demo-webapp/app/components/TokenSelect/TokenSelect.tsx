@@ -13,14 +13,15 @@ import { WalletTokenBalance } from '~/lib/types';
 export type TokenSelectProps = Omit<SelectProps, 'children'> & {
   placeholder?: string;
   balances: WalletTokenBalance[];
+  className?: string;
 };
 
 /** A dropdown select menu to choose a token */
-export function TokenSelect({ ...props }: TokenSelectProps) {
+export function TokenSelect({ className, ...props }: TokenSelectProps) {
   const { placeholder = 'Select Token', balances = [], ...other } = props;
   return (
     <Select {...other}>
-      <SelectTrigger className="w-full">
+      <SelectTrigger className={`w-full ${className}`}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

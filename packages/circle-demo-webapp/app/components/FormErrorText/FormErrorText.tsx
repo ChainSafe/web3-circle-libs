@@ -1,6 +1,6 @@
 export function FormErrorText({ value }: { value?: unknown }) {
   return (
-    <p className="text-sm text-destructive" style={{ minHeight: 20, paddingLeft: 13 }}>
+    <p className="text-sm error-text">
       {typeof value === 'object'
         ? JSON.stringify(value)
         : typeof value === 'string'
