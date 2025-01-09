@@ -1,5 +1,4 @@
 import { ActionFunctionArgs } from '@remix-run/node';
-import { json } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
 import { ErrorResponseObject, TypeTestnetBlockchain } from '~/lib/types';
@@ -28,7 +27,7 @@ export async function action({ request }: ActionFunctionArgs) {
       native: true,
       usdc: true,
     });
-    return json({ message: 'Tokens requested successfully' });
+    return Response.json({ message: 'Success' });
   } catch (e: unknown) {
     return Response.json({ error: (e as ErrorResponseObject)?.response?.data });
   }

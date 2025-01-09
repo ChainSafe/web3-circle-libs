@@ -4,3 +4,4 @@ node_modules
 .vscode
 tmp
 .history
+.github/copilot-instructions.md

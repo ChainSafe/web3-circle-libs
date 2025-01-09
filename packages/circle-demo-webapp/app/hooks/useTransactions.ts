@@ -9,12 +9,12 @@ interface UseTransactionsResult {
   refetch: () => Promise<void>;
 }
 
-export const useTransactions = (walletId: string): UseTransactionsResult => {
-  const { data, error, isLoading } = useSWR<Transaction[], Error>(
-    `/api/listTransactions/${walletId}`,
-  );
+const url = '/api/listTransactions';
 
-  const refetch = () => mutate(`/api/listTransactions/${walletId}`);
+export const useTransactions = (walletId: string): UseTransactionsResult => {
+  const { data, error, isLoading } = useSWR<Transaction[], Error>(`${url}/${walletId}`);
+
+  const refetch = () => mutate(`${url}/${walletId}`);
 
   return {
     data,

@@ -1,6 +1,5 @@
-import { useFetcher } from '@remix-run/react';
 import { FilePenLine, LoaderCircle } from 'lucide-react';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -12,15 +11,34 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
+import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
 import { WalletSet } from '~/lib/types';
 
 interface EditWalletSetDialogProps {
   walletSet: WalletSet;
+  onSuccess: () => void;
 }
 
-export function EditWalletSetDialog({ walletSet }: EditWalletSetDialogProps) {
+export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialogProps) {
   const [open, setOpen] = useState(false);
-  const fetcher = useFetcher();
+  const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const id = formData.get('id') as string;
+    const name = formData.get('name') as string;
+
+    await updateWalletSet({ id, name });
+
+    if (!isLoading && !error) {
+      setOpen(false);
+      if (typeof onSuccess === 'function') {
+        onSuccess();
+      }
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -36,12 +54,11 @@ export function EditWalletSetDialog({ walletSet }: EditWalletSetDialogProps) {
           <DialogDescription>Edit wallet set</DialogDescription>
         </DialogHeader>
 
-        <fetcher.Form
-          method="post"
-          action="/api/updateWalletSet"
-          onSubmit={() => {
-            setOpen(false);
+        <form
+          onSubmit={(event) => {
+            void handleSubmit(event);
           }}
+          className="space-y-4"
         >
           <div className="w-full max-w-md mt-6">
             <input type="hidden" name="id" value={walletSet.id} />
@@ -54,10 +71,11 @@ export function EditWalletSetDialog({ walletSet }: EditWalletSetDialogProps) {
             />
           </div>
           <Button type="submit" className="mt-6 w-full max-w-md">
-            {fetcher.state === 'submitting' && <LoaderCircle className="animate-spin" />}
+            {isLoading && <LoaderCircle className="animate-spin" />}
             Update
           </Button>
-        </fetcher.Form>
+          {error && <p className="text-red-500">{error.message}</p>}
+        </form>
       </DialogContent>
     </Dialog>
   );
