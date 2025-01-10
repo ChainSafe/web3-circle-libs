@@ -1,4 +1,5 @@
 import { ChainLabel } from 'circle-react-components';
+
 import { Badge } from '~/components/ui/badge';
 import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress, shortenHash } from '~/lib/format';
