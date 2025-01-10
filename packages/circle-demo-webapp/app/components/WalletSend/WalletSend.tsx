@@ -132,14 +132,16 @@ export function WalletSend({
   return (
     <div className="items-center w-full">
       <WalletDetails wallet={wallet} />
-      <h1 className="dialog-title">Send Transaction</h1>
-      <p className="dialog-description">Send transaction to any blockchain address</p>
+      <h1 className="text-xl text-black mt-8">Send Transaction</h1>
+      <p className="text-base text-gray-600">
+        Send transaction to any blockchain address
+      </p>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form className="w-full mt-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-ful">
           <Input
             placeholder="Recipient Address"
-            className={`col-span-3 ${screeningAddressResult.result === undefined && errors.destinationAddress?.message ? 'input-error' : ''}`}
+            className={`col-span-3 ${screeningAddressResult.result === undefined && errors.destinationAddress?.message ? 'border border-red-600' : ''}`}
             {...register('destinationAddress')}
             onChange={onChangeAddress}
           />
@@ -157,7 +159,7 @@ export function WalletSend({
               <TokenSelect
                 balances={balances}
                 onValueChange={field.onChange}
-                className={`${errors.tokenId?.message ? 'input-error' : ''}`}
+                className={`${errors.tokenId?.message ? 'border border-red-600' : ''}`}
               />
             )}
           />
@@ -166,7 +168,7 @@ export function WalletSend({
         <div className="w-full">
           <Input
             placeholder="Amount"
-            className={`col-span-3 ${errors.amount?.message ? 'input-error' : ''}`}
+            className={`col-span-3 ${errors.amount?.message ? 'border border-red-600' : ''}`}
             {...register('amount')}
           />
           <FormErrorText value={errors.amount?.message} />
