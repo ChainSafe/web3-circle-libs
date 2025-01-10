@@ -1,7 +1,6 @@
-import {
+import type {
   CreateTransactionInput,
   GetTransactionInput,
-  WalletState,
 } from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -28,7 +27,7 @@ export const Default: Story = {
     balances: [],
     wallet: {
       id: 'f5576d55-4432-5dcc-8b3c-582bd530b46b',
-      state: WalletState.Live,
+      state: 'LIVE',
       walletSetId: '2adf744c-2d31-58ca-85eb-d432ecc7611c',
       custodyType: 'DEVELOPER',
       refId: '',

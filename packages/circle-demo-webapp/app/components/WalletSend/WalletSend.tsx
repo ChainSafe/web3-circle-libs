@@ -16,7 +16,8 @@ import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { WalletDetails } from '~/components/WalletDetails';
 import { FeeLevel } from '~/lib/constants';
-import { ErrorResponse, Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
+import { CircleError } from '~/lib/responses';
+import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
 
 export interface ScreenAddressResult {
@@ -27,9 +28,7 @@ export interface WalletSendProps {
   /** The wallet */
   wallet: Wallet;
   balances: WalletTokenBalance[];
-  onSendTransaction: (
-    data: CreateTransactionInput,
-  ) => Promise<Transaction | ErrorResponse>;
+  onSendTransaction: (data: CreateTransactionInput) => Promise<Transaction | CircleError>;
   onGetTransaction: (data: GetTransactionInput) => Promise<{ transaction: Transaction }>;
   onScreenAddress?: (address: string) => Promise<ScreenAddressResult>;
   onConfirmed?: (data: Transaction) => Promise<void>;
@@ -92,8 +91,8 @@ export function WalletSend({
         },
       },
     } as CreateTransactionInput);
-    if ((res as ErrorResponse).error) {
-      setRequestError((res as ErrorResponse).error.message);
+    if ((res as CircleError).error) {
+      setRequestError((res as CircleError).error.message);
       return;
     }
     const tx = res as Transaction;

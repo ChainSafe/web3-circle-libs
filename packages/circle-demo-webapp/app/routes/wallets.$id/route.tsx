@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from '@remix-run/node';
-import { Link, useLoaderData, useParams } from '@remix-run/react';
+import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
@@ -8,6 +8,7 @@ import { sdk } from '~/lib/sdk';
 import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
 
+import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';
 
 export async function loader({ params }: { params: { id: string } }) {
@@ -46,7 +47,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   await sdk.createWallets({
     walletSetId,
-    count: 1, // @todo: allow user to specify count
+    count: 1,
     blockchains: [blockchain as TypeBlockchain],
     metadata: [
       {
@@ -59,13 +60,21 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 function Header({ walletSet }: { walletSet: WalletSet }) {
+  const revalidator = useRevalidator();
+
+  const refreshWalletSet = () => {
+    revalidator.revalidate();
+  };
+
   return (
     <header className="flex justify-between items-center mb-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-foreground">Wallet Set</h1>
-        <p>Name: {walletSet.name}</p>
-        <p>ID: {walletSet.id}</p>
+      <div className="flex items-center space-x-2">
+        <h1 className="text-2xl font-semibold text-foreground">
+          {walletSet.name ?? 'No Name'}
+        </h1>
+        <EditWalletSetDialog walletSet={walletSet} onSuccess={refreshWalletSet} />
       </div>
+
       <NewWalletDialog walletSetId={walletSet.id} />
     </header>
   );
