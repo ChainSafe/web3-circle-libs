@@ -44,6 +44,8 @@
 
         /* Radius for rounded corners */
         --radius: 0.5rem;
+
+        --error: #D66262;
     }
 
     .dark {

@@ -2,7 +2,7 @@ import { ActionFunction } from '@remix-run/node';
 
 import { ErrorResponseObject } from '~/lib/types';
 
-export const action: ActionFunction = async () => {
+export const action: ActionFunction = () => {
   try {
     return Response.json({
       result: 'APPROVED',

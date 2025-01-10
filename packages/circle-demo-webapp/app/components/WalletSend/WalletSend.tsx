@@ -141,7 +141,7 @@ export function WalletSend({
         <div className="w-ful">
           <Input
             placeholder="Recipient Address"
-            className={`col-span-3 ${screeningAddressResult.result === undefined && errors.destinationAddress?.message ? 'border border-red-600' : ''}`}
+            className={`col-span-3 ${screeningAddressResult.result === undefined && errors.destinationAddress?.message ? 'border border-error' : ''}`}
             {...register('destinationAddress')}
             onChange={onChangeAddress}
           />
@@ -159,7 +159,7 @@ export function WalletSend({
               <TokenSelect
                 balances={balances}
                 onValueChange={field.onChange}
-                className={`${errors.tokenId?.message ? 'border border-red-600' : ''}`}
+                className={`${errors.tokenId?.message ? 'border border-error' : ''}`}
               />
             )}
           />
@@ -168,7 +168,7 @@ export function WalletSend({
         <div className="w-full">
           <Input
             placeholder="Amount"
-            className={`col-span-3 ${errors.amount?.message ? 'border border-red-600' : ''}`}
+            className={`col-span-3 ${errors.amount?.message ? 'border border-error' : ''}`}
             {...register('amount')}
           />
           <FormErrorText value={errors.amount?.message} />
