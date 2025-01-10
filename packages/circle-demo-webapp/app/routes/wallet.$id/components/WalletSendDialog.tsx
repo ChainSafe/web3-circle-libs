@@ -26,21 +26,19 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
         </Button>
       </DialogTrigger>
 
-      {open && (
-        <DialogContent className="sm:max-w-[600px]">
-          <WalletSend
-            wallet={wallet}
-            balances={balances}
-            {...other}
-            onConfirmed={async (tx) => {
-              setOpen(false);
-              if (typeof onConfirmed === 'function') {
-                await onConfirmed(tx);
-              }
-            }}
-          />
-        </DialogContent>
-      )}
+      <DialogContent className="sm:max-w-[600px]">
+        <WalletSend
+          wallet={wallet}
+          balances={balances}
+          {...other}
+          onConfirmed={async (tx) => {
+            setOpen(false);
+            if (typeof onConfirmed === 'function') {
+              await onConfirmed(tx);
+            }
+          }}
+        />
+      </DialogContent>
     </Dialog>
   );
 }

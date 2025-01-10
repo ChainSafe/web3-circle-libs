@@ -6,32 +6,30 @@ import {
   errorResponse,
   successResponse,
 } from '~/lib/server.responses';
-import { TypeTestnetBlockchain } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
 
 interface RequestBody {
-  blockchain: string;
-  address: string;
+  id: string;
+  name: string;
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const { blockchain, address } = (await request.json()) as RequestBody;
+  const { id, name } = (await request.json()) as RequestBody;
 
-  if (!isValidString(blockchain)) {
-    return errorResponse('Invalid blockchain');
+  if (!isValidString(id)) {
+    return errorResponse('Invalid wallet id');
   }
 
-  if (!isValidString(address)) {
-    return errorResponse('Invalid address');
+  if (!isValidString(name)) {
+    return errorResponse('Invalid name');
   }
 
   try {
-    await sdk.requestTestnetTokens({
-      blockchain: blockchain as TypeTestnetBlockchain,
-      address,
-      native: true,
-      usdc: true,
+    await sdk.updateWalletSet({
+      id,
+      name,
     });
+
     return successResponse('Success');
   } catch (e: unknown) {
     assertCircleErrorResponse(e);

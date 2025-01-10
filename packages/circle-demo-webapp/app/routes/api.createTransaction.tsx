@@ -2,7 +2,7 @@ import { CreateTransferTransactionInput } from '@circle-fin/developer-controlled
 import { ActionFunction } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
-import { ErrorResponseObject } from '~/lib/types';
+import { assertCircleErrorResponse, errorResponse } from '~/lib/server.responses';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -11,6 +11,8 @@ export const action: ActionFunction = async ({ request }) => {
     );
     return Response.json(res.data);
   } catch (e: unknown) {
-    return Response.json({ error: (e as ErrorResponseObject)?.response?.data });
+    assertCircleErrorResponse(e);
+
+    return errorResponse(e.response.data.error.message);
   }
 };
