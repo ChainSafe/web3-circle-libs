@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ComplianceEngineText } from './ComplianceEngineText';
 
 const meta = {
-  title: 'FormErrorText',
+  title: 'ComplianceEngineText',
   component: ComplianceEngineText,
   tags: ['autodocs'],
 } satisfies Meta<typeof ComplianceEngineText>;
