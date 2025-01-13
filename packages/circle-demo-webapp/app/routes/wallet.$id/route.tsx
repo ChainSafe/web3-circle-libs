@@ -10,6 +10,7 @@ import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
+import { ScreenAddressResult } from '~/components/WalletSend';
 import { useTransactions } from '~/hooks/useTransactions';
 import { sdk } from '~/lib/sdk';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
@@ -84,6 +85,11 @@ export default function WalletBalancePage() {
                 callFetch<{ transaction: Transaction }>('/api/getTransaction', data)
               }
               onConfirmed={() => refetchTransactions()}
+              onScreenAddress={(address: string) =>
+                callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
+                  address,
+                })
+              }
             />
           </div>
         </WalletDetails>

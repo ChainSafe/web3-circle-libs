@@ -8,15 +8,21 @@ import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
 
+import { ComplianceEngineText } from '~/components/ComplianceEngineText';
 import { FormErrorText } from '~/components/FormErrorText';
 import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
+import { WalletDetails } from '~/components/WalletDetails';
 import { FeeLevel } from '~/lib/constants';
 import { CircleError } from '~/lib/responses';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
+
+export interface ScreenAddressResult {
+  result?: boolean;
+}
 
 export interface WalletSendProps {
   /** The wallet */
@@ -24,6 +30,7 @@ export interface WalletSendProps {
   balances: WalletTokenBalance[];
   onSendTransaction: (data: CreateTransactionInput) => Promise<Transaction | CircleError>;
   onGetTransaction: (data: GetTransactionInput) => Promise<{ transaction: Transaction }>;
+  onScreenAddress?: (address: string) => Promise<ScreenAddressResult>;
   onConfirmed?: (data: Transaction) => Promise<void>;
 }
 
@@ -55,7 +62,10 @@ export function WalletSend({
   onSendTransaction,
   onGetTransaction,
   onConfirmed,
+  onScreenAddress,
 }: WalletSendProps) {
+  const [screeningAddressResult, setScreeningAddressResult] =
+    useState<ScreenAddressResult>({});
   const [requestError, setRequestError] = useState<string>('');
   const [transactionData, setTransactionData] = useState({} as Transaction);
   const {
@@ -104,34 +114,66 @@ export function WalletSend({
       }, 1000);
     }
   };
+  const onChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const address = e.target.value;
+    if (typeof onScreenAddress === 'function') {
+      if (isAddress(address)) {
+        onScreenAddress(address)
+          .then((res: ScreenAddressResult) => {
+            setScreeningAddressResult(res);
+          })
+          .catch(console.error);
+      } else {
+        setScreeningAddressResult({});
+      }
+    }
+  };
 
   return (
     <div className="items-center w-full">
+      <WalletDetails wallet={wallet} />
+      <h1 className="text-xl text-black mt-8">Send Transaction</h1>
+      <p className="text-base text-gray-600">
+        Send transaction to any blockchain address
+      </p>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-ful mt-6">
+      <form className="w-full mt-6" onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-ful">
           <Input
             placeholder="Recipient Address"
-            className="col-span-3"
+            className={`col-span-3 ${screeningAddressResult.result === undefined && errors.destinationAddress?.message ? 'border border-error' : ''}`}
             {...register('destinationAddress')}
+            onChange={onChangeAddress}
           />
-          <FormErrorText value={errors.destinationAddress?.message} />
+          {screeningAddressResult.result !== undefined ? (
+            <ComplianceEngineText result={screeningAddressResult.result} />
+          ) : (
+            <FormErrorText value={errors.destinationAddress?.message} />
+          )}
         </div>
-        <div className="mt-6">
+        <div className="w-full">
           <Controller
             name="tokenId"
             control={control}
             render={({ field }) => (
-              <TokenSelect balances={balances} onValueChange={field.onChange} />
+              <TokenSelect
+                balances={balances}
+                onValueChange={field.onChange}
+                className={`${errors.tokenId?.message ? 'border border-error' : ''}`}
+              />
             )}
           />
           <FormErrorText value={errors.tokenId?.message} />
         </div>
-        <div className="mt-6">
-          <Input placeholder="Amount" className="col-span-3" {...register('amount')} />
+        <div className="w-full">
+          <Input
+            placeholder="Amount"
+            className={`col-span-3 ${errors.amount?.message ? 'border border-error' : ''}`}
+            {...register('amount')}
+          />
           <FormErrorText value={errors.amount?.message} />
         </div>
-        <div className="mt-6">
+        <div className="w-full">
           <Textarea
             placeholder="Note(optional)"
             className="col-span-3 min-h-[100px]"
@@ -140,7 +182,7 @@ export function WalletSend({
         </div>
         <Button
           type="submit"
-          className="mt-6 w-full"
+          className="w-full mt-6"
           disabled={isTransactionPending(transactionData)}
         >
           {isTransactionPending(transactionData) && (
@@ -148,7 +190,7 @@ export function WalletSend({
           )}
           Send
         </Button>
-        <FormErrorText value={requestError} />
+        {requestError && <FormErrorText value={requestError} />}
       </form>
     </div>
   );

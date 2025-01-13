@@ -12,6 +12,7 @@ export interface WalletSendDialogProps {
   onSendTransaction: WalletSendProps['onSendTransaction'];
   onGetTransaction: WalletSendProps['onGetTransaction'];
   onConfirmed?: WalletSendProps['onConfirmed'];
+  onScreenAddress?: WalletSendProps['onScreenAddress'];
 }
 
 export function WalletSendDialog(props: WalletSendDialogProps) {
