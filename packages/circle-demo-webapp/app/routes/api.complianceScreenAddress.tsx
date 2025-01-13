@@ -1,6 +1,6 @@
 import { ActionFunction } from '@remix-run/node';
 
-import { ErrorResponseObject } from '~/lib/types';
+import { assertCircleErrorResponse, errorResponse } from '~/lib/server.responses';
 
 export const action: ActionFunction = () => {
   try {
@@ -20,6 +20,8 @@ export const action: ActionFunction = () => {
       alertId: {},
     });
   } catch (e: unknown) {
-    return Response.json({ error: (e as ErrorResponseObject)?.response?.data });
+    assertCircleErrorResponse(e);
+
+    return errorResponse(e.response.data.error.message);
   }
 };
