@@ -6,6 +6,7 @@ import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletDetails } from '~/components/WalletDetails';
+import { useToast } from '~/hooks/useToast';
 import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
 import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
@@ -104,6 +105,7 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
 export default function Page() {
   const { id } = useParams();
   const { wallets, walletSet } = useLoaderData<typeof loader>();
+  const { toast } = useToast();
 
   if (!id) {
     return null;
@@ -129,7 +131,14 @@ export default function Page() {
         <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
           {wallets.map((wallet) => (
             <Card key={wallet.id} className="p-4">
-              <WalletDetails wallet={wallet}>
+              <WalletDetails
+                wallet={wallet}
+                onAddressCopy={(address: string) => {
+                  toast({
+                    description: `Address ${address} copied to clipboard.`,
+                  });
+                }}
+              >
                 <Button variant="outline" size="sm" asChild>
                   <Link to={`/wallet/${wallet.id}`}>
                     Wallet Details <ArrowUpRight />

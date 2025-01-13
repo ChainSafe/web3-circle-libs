@@ -11,6 +11,7 @@ import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
 import { ScreenAddressResult } from '~/components/WalletSend';
+import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
 import { sdk } from '~/lib/sdk';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
@@ -50,6 +51,7 @@ export default function WalletBalancePage() {
   const revalidator = useRevalidator();
   const { id } = useParams();
   const { balances, wallet, transactions } = useLoaderData<typeof loader>();
+  const { toast } = useToast();
   const { refetch: refetchTransactions } = useTransactions(id ?? '');
 
   const refreshWalletSet = () => {
@@ -73,7 +75,14 @@ export default function WalletBalancePage() {
 
       <div className="p-8 space-y-6">
         <Card className="p-4">
-          <WalletDetails wallet={wallet}>
+          <WalletDetails
+            wallet={wallet}
+            onAddressCopy={(address: string) => {
+              toast({
+                description: `Address ${address} copied to clipboard.`,
+              });
+            }}
+          >
             <div className="flex space-x-3">
               <WalletReceiveDialog wallet={wallet} />
               <WalletSendDialog
