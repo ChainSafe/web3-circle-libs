@@ -1,5 +1,6 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
+import { ArrowUpRight } from 'lucide-react';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
@@ -37,10 +38,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
 function Header() {
   return (
-    <header className="flex justify-between items-center mb-6">
+    <header className="flex justify-between items-center bg-background px-8 py-4">
       <div>
         <h1 className="text-2xl font-semibold text-foreground">Wallet Sets</h1>
-        <p>All wallet sets</p>
       </div>
       <NewWalletSetDialog />
     </header>
@@ -52,28 +52,34 @@ export default function Page() {
 
   if (!walletSets.length) {
     return (
-      <div className="space-y-6">
+      <div>
         <Header />
 
-        <h2>No wallet sets found</h2>
+        <div className="p-8">
+          <h2>No wallet sets found</h2>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div>
       <Header />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
-        {walletSets.map((set) => (
-          <Card key={set.id} className="p-4">
-            <WalletSetDetails walletSet={set}>
-              <Button variant="outline" asChild>
-                <Link to={`/wallets/${set.id}`}>Show Wallets</Link>
-              </Button>
-            </WalletSetDetails>
-          </Card>
-        ))}
+      <div className="p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
+          {walletSets.map((set) => (
+            <Card key={set.id} className="p-4">
+              <WalletSetDetails walletSet={set}>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to={`/wallets/${set.id}`}>
+                    Show Wallets <ArrowUpRight />
+                  </Link>
+                </Button>
+              </WalletSetDetails>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

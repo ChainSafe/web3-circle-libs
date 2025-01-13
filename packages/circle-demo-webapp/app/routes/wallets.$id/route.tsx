@@ -1,9 +1,12 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
+import { ArrowUpRight } from 'lucide-react';
 
+import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletDetails } from '~/components/WalletDetails';
+import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
 import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
@@ -67,16 +70,34 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
   };
 
   return (
-    <header className="flex justify-between items-center mb-6">
-      <div className="flex items-center space-x-2">
-        <h1 className="text-2xl font-semibold text-foreground">
-          {walletSet.name ?? 'No Name'}
-        </h1>
-        <EditWalletSetDialog walletSet={walletSet} onSuccess={refreshWalletSet} />
-      </div>
+    <div>
+      <header className="flex justify-between items-center bg-background px-8 py-4">
+        <div className="flex items-center space-x-2">
+          <h1 className="text-2xl font-semibold text-foreground">
+            {walletSet.name ?? 'No Name'}
+          </h1>
+          <EditWalletSetDialog walletSet={walletSet} onSuccess={refreshWalletSet} />
+        </div>
 
-      <NewWalletDialog walletSetId={walletSet.id} />
-    </header>
+        <NewWalletDialog walletSetId={walletSet.id} />
+      </header>
+
+      <div className="flex justify-between items-center px-8 pt-8">
+        <Badge
+          variant="secondary"
+          className="font-normal text-blue-600 dark:text-blue-500"
+        >
+          Created: {formatDate(walletSet.createDate)}
+        </Badge>
+
+        <Badge
+          variant="secondary"
+          className="font-normal text-blue-600 dark:text-blue-500"
+        >
+          Updated: {formatDate(walletSet.updateDate)}
+        </Badge>
+      </div>
+    </div>
   );
 }
 
@@ -90,28 +111,34 @@ export default function Page() {
 
   if (!wallets?.length) {
     return (
-      <div className="space-y-6">
+      <div>
         <Header walletSet={walletSet} />
 
-        <h2>No wallets found</h2>
+        <div className="p-8">
+          <h2>No wallets found</h2>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div>
       <Header walletSet={walletSet} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
-        {wallets.map((wallet) => (
-          <Card key={wallet.id} className="p-4">
-            <WalletDetails wallet={wallet}>
-              <Button variant="outline" asChild>
-                <Link to={`/wallet/${wallet.id}`}>Wallet Details</Link>
-              </Button>
-            </WalletDetails>
-          </Card>
-        ))}
+      <div className="p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
+          {wallets.map((wallet) => (
+            <Card key={wallet.id} className="p-4">
+              <WalletDetails wallet={wallet}>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to={`/wallet/${wallet.id}`}>
+                    Wallet Details <ArrowUpRight />
+                  </Link>
+                </Button>
+              </WalletDetails>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

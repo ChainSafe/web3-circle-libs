@@ -43,13 +43,18 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
 
 /** A label with an icon and text to identify a blockchain network */
 export function ChainLabel({ blockchain }: ChainSelectProps) {
+  const network = BLOCKCHAIN_TO_ICON_MAP[blockchain];
+
+  const icon = <NetworkIcon network={network} size={20} variant="branded" />;
+
   return (
     <p className="text-sm text-muted-foreground flex items-center space-x-2">
-      <NetworkIcon
-        network={BLOCKCHAIN_TO_ICON_MAP[blockchain]}
-        size={20}
-        variant="branded"
-      />
+      {network === 'arbitrum' ? (
+        <span className="rounded-full bg-[#2D3649]">{icon}</span>
+      ) : (
+        icon
+      )}
+
       <span>{BLOCKCHAIN_LABELS[blockchain]}</span>
     </p>
   );

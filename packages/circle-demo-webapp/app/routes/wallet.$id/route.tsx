@@ -61,8 +61,8 @@ export default function WalletBalancePage() {
   }
 
   return (
-    <div className="space-y-6">
-      <header className="flex justify-between items-center mb-6">
+    <div>
+      <header className="flex justify-between items-center bg-background px-8 py-4">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl font-semibold text-foreground">{wallet.name}</h1>
           <EditWalletDialog wallet={wallet} onSuccess={refreshWalletSet} />
@@ -71,63 +71,65 @@ export default function WalletBalancePage() {
         <FaucetButton wallet={wallet} />
       </header>
 
-      <Card className="p-4">
-        <WalletDetails wallet={wallet}>
-          <div className="flex space-x-3">
-            <WalletReceiveDialog wallet={wallet} />
-            <WalletSendDialog
-              wallet={wallet}
-              balances={balances}
-              onSendTransaction={(data: CreateTransactionInput) =>
-                callFetch<Transaction>('/api/createTransaction', data)
-              }
-              onGetTransaction={(data: GetTransactionInput) =>
-                callFetch<{ transaction: Transaction }>('/api/getTransaction', data)
-              }
-              onConfirmed={() => refetchTransactions()}
-              onScreenAddress={(address: string) =>
-                callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
-                  address,
-                })
-              }
-            />
-          </div>
-        </WalletDetails>
-      </Card>
-
-      <Card className="p-4">
-        <h2 className="text-xl font-semibold text-foreground mb-4">Balances</h2>
-
-        <div className="space-y-4">
-          {balances.length === 0 && <p>Wallet is empty</p>}
-
-          {balances.map((balance) => (
-            <WalletBalance key={balance.token.id} balance={balance} />
-          ))}
-        </div>
-      </Card>
-
-      <Card className="p-4">
-        <h2 className="text-xl font-semibold text-foreground mb-4">Transactions</h2>
-
-        <div className="space-y-4">
-          {transactions.length === 0 && <p>No transactions</p>}
-
-          {transactions.length > 0 && (
-            <div className="overflow-x-auto">
-              <table className="min-w-full table-auto">
-                <TransactionTableHead />
-
-                <tbody>
-                  {transactions.map((tx) => (
-                    <TransactionTableRow key={tx.id} transaction={tx} />
-                  ))}
-                </tbody>
-              </table>
+      <div className="p-8 space-y-6">
+        <Card className="p-4">
+          <WalletDetails wallet={wallet}>
+            <div className="flex space-x-3">
+              <WalletReceiveDialog wallet={wallet} />
+              <WalletSendDialog
+                wallet={wallet}
+                balances={balances}
+                onSendTransaction={(data: CreateTransactionInput) =>
+                  callFetch<Transaction>('/api/createTransaction', data)
+                }
+                onGetTransaction={(data: GetTransactionInput) =>
+                  callFetch<{ transaction: Transaction }>('/api/getTransaction', data)
+                }
+                onConfirmed={() => refetchTransactions()}
+                onScreenAddress={(address: string) =>
+                  callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
+                    address,
+                  })
+                }
+              />
             </div>
-          )}
-        </div>
-      </Card>
+          </WalletDetails>
+        </Card>
+
+        <Card className="p-4">
+          <h2 className="text-xl font-semibold text-foreground mb-4">Balances</h2>
+
+          <div className="space-y-4">
+            {balances.length === 0 && <p>Wallet is empty</p>}
+
+            {balances.map((balance) => (
+              <WalletBalance key={balance.token.id} balance={balance} />
+            ))}
+          </div>
+        </Card>
+
+        <Card className="p-4">
+          <h2 className="text-xl font-semibold text-foreground mb-4">Transactions</h2>
+
+          <div className="space-y-4">
+            {transactions.length === 0 && <p>No transactions</p>}
+
+            {transactions.length > 0 && (
+              <div className="overflow-x-auto">
+                <table className="min-w-full table-auto">
+                  <TransactionTableHead />
+
+                  <tbody>
+                    {transactions.map((tx) => (
+                      <TransactionTableRow key={tx.id} transaction={tx} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </Card>
+      </div>
     </div>
   );
 }

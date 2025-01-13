@@ -1,3 +1,4 @@
+import { Badge } from '~/components/ui/badge';
 import { formatDate } from '~/lib/format';
 import { WalletSet } from '~/lib/types';
 
@@ -12,18 +13,21 @@ export interface WalletSetDetailsProps {
 export function WalletSetDetails({ walletSet, children }: WalletSetDetailsProps) {
   return (
     <div className="flex items-center space-x-4">
-      <div className="flex-1">
-        <p className="text-sm font-medium text-foreground">
-          Name: {walletSet.name ?? 'Unnamed Wallet Set'}
+      <div className="flex-1 space-y-4">
+        <p className="text-lg font-medium text-foreground">
+          {walletSet.name ?? 'Unnamed Wallet Set'}
         </p>
 
-        <p className="text-sm text-muted-foreground">
-          Custody Type: {walletSet.custodyType}
+        <p className="text-xs text-muted-foreground">
+          Created Date: {formatDate(walletSet.createDate)}
         </p>
 
-        <p className="text-sm text-muted-foreground">
-          Created: {formatDate(walletSet.createDate)}
-        </p>
+        <Badge
+          variant="secondary"
+          className="font-normal text-green-600 dark:text-green-500"
+        >
+          Updated Date: {formatDate(walletSet.updateDate)}
+        </Badge>
       </div>
 
       {children && <div>{children}</div>}
