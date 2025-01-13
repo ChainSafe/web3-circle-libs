@@ -4,9 +4,11 @@ import {
 } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData, useParams, useRevalidator } from '@remix-run/react';
+import { ArrowUpRight } from 'lucide-react';
 
 import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
+import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
@@ -105,39 +107,47 @@ export default function WalletBalancePage() {
           </WalletDetails>
         </Card>
 
-        <Card className="p-4">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Balances</h2>
+        <div className="space-y-6 xl:space-y-0 xl:flex xl:space-x-6">
+          <Card className="p-4 min-w-[360px]">
+            <h2 className="text-xl font-semibold text-foreground mb-4">Balances</h2>
 
-          <div className="space-y-4">
-            {balances.length === 0 && <p>Wallet is empty</p>}
+            <div className="space-y-4">
+              {balances.length === 0 && <p>Wallet is empty</p>}
 
-            {balances.map((balance) => (
-              <WalletBalance key={balance.token.id} balance={balance} />
-            ))}
-          </div>
-        </Card>
+              {balances.map((balance) => (
+                <WalletBalance key={balance.token.id} balance={balance} />
+              ))}
+            </div>
+          </Card>
 
-        <Card className="p-4">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Transactions</h2>
+          <Card className="p-4 flex-1">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold text-foreground">Transactions</h2>
 
-          <div className="space-y-4">
-            {transactions.length === 0 && <p>No transactions</p>}
+              <Button variant="outline" size="sm">
+                See more <ArrowUpRight />
+              </Button>
+            </div>
 
-            {transactions.length > 0 && (
-              <div className="overflow-x-auto">
-                <table className="min-w-full table-auto">
-                  <TransactionTableHead />
+            <div className="space-y-4">
+              {transactions.length === 0 && <p>No transactions</p>}
 
-                  <tbody>
-                    {transactions.map((tx) => (
-                      <TransactionTableRow key={tx.id} transaction={tx} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </Card>
+              {transactions.length > 0 && (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full table-auto">
+                    <TransactionTableHead />
+
+                    <tbody>
+                      {transactions.map((tx) => (
+                        <TransactionTableRow key={tx.id} transaction={tx} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   );
