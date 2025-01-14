@@ -13,6 +13,7 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
+import { Textarea } from '~/components/ui/textarea';
 
 interface NewWalletDialogProps {
   walletSetId: string;
@@ -47,11 +48,16 @@ export function NewWalletDialog({ walletSetId }: NewWalletDialogProps) {
             <input type="hidden" name="walletSetId" value={walletSetId} />
 
             <Input
-              id="name"
               type="text"
               name="name"
               placeholder="Enter wallet name"
               className="w-full"
+            />
+
+            <Textarea
+              name="description"
+              placeholder="Enter description (optional)"
+              className="w-full min-h-[100px]"
             />
 
             <TestChainSelect name="blockchain" />

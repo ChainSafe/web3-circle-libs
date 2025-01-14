@@ -38,7 +38,7 @@ export interface SidebarProps {
 
 export function Sidebar({ walletSets = [] }: SidebarProps) {
   return (
-    <aside className="bg-background w-64 h-full shadow-md flex flex-col overflow-y-auto">
+    <aside className="bg-background w-64 h-full flex flex-col overflow-y-auto">
       <div className="p-6 max-w-[180px]">
         <Link to="/">
           <img src={circleLogo} alt="Circle Logo" className="block dark:hidden" />

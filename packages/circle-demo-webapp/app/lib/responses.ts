@@ -7,11 +7,13 @@ export interface ErrorResponse {
 }
 
 export interface CircleError extends Error {
-  error: {
-    code: number;
+  code: number;
+  message: string;
+  errors: {
     message: string;
-    errors: {
-      message: string;
-    }[];
-  };
+    constraints: unknown;
+    error: string;
+    invalidValue: string;
+    location: string;
+  }[];
 }

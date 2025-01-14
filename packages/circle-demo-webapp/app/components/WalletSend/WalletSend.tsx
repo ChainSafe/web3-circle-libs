@@ -91,8 +91,8 @@ export function WalletSend({
         },
       },
     } as CreateTransactionInput);
-    if ((res as CircleError).error) {
-      setRequestError((res as CircleError).error.message);
+    if (res as CircleError) {
+      setRequestError((res as CircleError).message);
       return;
     }
     const tx = res as Transaction;

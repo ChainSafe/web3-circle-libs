@@ -15,8 +15,6 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
-        error: '#D66262',
-        success: '#039855',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -46,6 +44,10 @@ export default {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        positive: {
+          DEFAULT: 'hsl(var(--positive))',
+          foreground: 'hsl(var(--positive-foreground))',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

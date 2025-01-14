@@ -13,6 +13,6 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (e: unknown) {
     assertCircleErrorResponse(e);
 
-    return errorResponse(e.response.data.error.message);
+    return errorResponse(e.response.data.message);
   }
 };

@@ -22,7 +22,7 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="default" size="sm">
           <ArrowUp /> Send
         </Button>
       </DialogTrigger>

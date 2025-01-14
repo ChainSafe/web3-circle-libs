@@ -34,6 +34,6 @@ export async function action({ request }: ActionFunctionArgs) {
   } catch (e: unknown) {
     assertCircleErrorResponse(e);
 
-    return errorResponse(e.response.data.error.message);
+    return errorResponse(e.response.data.message);
   }
 }
