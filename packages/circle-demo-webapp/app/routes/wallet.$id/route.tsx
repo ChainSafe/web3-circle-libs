@@ -8,6 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
+import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
@@ -15,6 +16,7 @@ import { WalletDetails } from '~/components/WalletDetails';
 import { ScreenAddressResult } from '~/components/WalletSend';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
+import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
@@ -86,7 +88,6 @@ export default function WalletBalancePage() {
             }}
           >
             <div className="flex space-x-3">
-              {wallet.refId && <p>{wallet.refId}</p>}
               <WalletReceiveDialog wallet={wallet} />
               <WalletSendDialog
                 wallet={wallet}
@@ -106,6 +107,26 @@ export default function WalletBalancePage() {
               />
             </div>
           </WalletDetails>
+
+          <div className="mt-8">
+            {wallet.refId && (
+              <p className="text-sm text-muted-foreground mb-6">{wallet.refId}</p>
+            )}
+
+            <Badge
+              variant="secondary"
+              className="font-normal text-blue-600 dark:text-blue-500"
+            >
+              Created: {formatDate(wallet.createDate)}
+            </Badge>
+
+            <Badge
+              variant="secondary"
+              className="font-normal text-blue-600 dark:text-blue-500"
+            >
+              Updated: {formatDate(wallet.updateDate)}
+            </Badge>
+          </div>
         </Card>
 
         <div className="space-y-6 xl:space-y-0 xl:flex xl:space-x-6">
