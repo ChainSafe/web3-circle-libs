@@ -86,6 +86,7 @@ export default function WalletBalancePage() {
             }}
           >
             <div className="flex space-x-3">
+              {wallet.refId && <p>{wallet.refId}</p>}
               <WalletReceiveDialog wallet={wallet} />
               <WalletSendDialog
                 wallet={wallet}

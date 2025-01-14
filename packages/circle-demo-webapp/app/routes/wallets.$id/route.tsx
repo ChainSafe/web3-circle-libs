@@ -1,3 +1,4 @@
+import { AccountType } from '@circle-fin/developer-controlled-wallets';
 import { ActionFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
@@ -32,12 +33,29 @@ export async function loader({ params }: { params: { id: string } }) {
     walletSet: walletSetResp?.data?.walletSet as WalletSet,
   };
 }
+const CHAIN_TO_ACCOUNT_TYPE: Record<TypeBlockchain, AccountType> = {
+  ARB: 'SCA',
+  AVAX: 'EOA',
+  ETH: 'SCA',
+  EVM: 'SCA',
+  MATIC: 'SCA',
+  NEAR: 'EOA',
+  SOL: 'EOA',
+  'ARB-SEPOLIA': 'SCA',
+  'AVAX-FUJI': 'EOA',
+  'ETH-SEPOLIA': 'SCA',
+  'EVM-TESTNET': 'SCA',
+  'MATIC-AMOY': 'SCA',
+  'NEAR-TESTNET': 'EOA',
+  'SOL-DEVNET': 'EOA',
+};
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const name = formData.get('name');
   const walletSetId = formData.get('walletSetId');
   const blockchain = formData.get('blockchain');
+  const description = formData.get('description');
 
   if (!isValidString(name)) {
     throw new Error('Invalid name');
@@ -48,14 +66,19 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!isValidString(blockchain)) {
     throw new Error('Invalid blockchain');
   }
+  if (description && !isValidString(description)) {
+    throw new Error('Invalid description');
+  }
 
   await sdk.createWallets({
     walletSetId,
     count: 1,
+    accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain as TypeBlockchain],
     blockchains: [blockchain as TypeBlockchain],
     metadata: [
       {
         name,
+        ...(description ? { refId: description } : {}),
       },
     ],
   });

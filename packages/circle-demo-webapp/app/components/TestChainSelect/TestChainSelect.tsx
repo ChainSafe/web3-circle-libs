@@ -35,7 +35,7 @@ export function TestChainSelect({ ...props }: TestChainSelectProps) {
   return (
     <Select {...props}>
       <SelectTrigger className="w-full max-w-md">
-        <SelectValue placeholder="Select Test Network" />
+        <SelectValue placeholder="Select test network" />
       </SelectTrigger>
       <SelectContent>
         {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (

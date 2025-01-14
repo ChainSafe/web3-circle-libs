@@ -32,7 +32,7 @@ export type ChainSelectProps = Omit<SelectProps, 'children'> & { placeholder?: s
 
 /** A dropdown select menu to choose a mainnet blockchain network */
 export function ChainSelect({ ...props }: ChainSelectProps) {
-  const { placeholder = 'Select Network', ...other } = props;
+  const { placeholder = 'Select network', ...other } = props;
   return (
     <Select {...other}>
       <SelectTrigger className="w-full max-w-md">

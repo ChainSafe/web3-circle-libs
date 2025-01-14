@@ -11,10 +11,11 @@ import { isValidString } from '~/lib/utils';
 interface RequestBody {
   id: string;
   name: string;
+  description?: string;
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const { id, name } = (await request.json()) as RequestBody;
+  const { id, name, description } = (await request.json()) as RequestBody;
 
   if (!isValidString(id)) {
     return errorResponse('Invalid wallet id');
@@ -24,10 +25,15 @@ export async function action({ request }: ActionFunctionArgs) {
     return errorResponse('Invalid name');
   }
 
+  if (description && !isValidString(description)) {
+    throw new Error('Invalid description');
+  }
+
   try {
     await sdk.updateWallet({
       id,
       name,
+      ...(description ? { refId: description } : {}),
     });
 
     return successResponse('Success');

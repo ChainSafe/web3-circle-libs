@@ -1,8 +1,10 @@
+import { AccountType } from '@circle-fin/developer-controlled-wallets';
 import makeBlockie from 'ethereum-blockies-base64';
 import { Copy } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { ChainLabel } from '~/components/ChainLabel';
+import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { shortenAddress } from '~/lib/format';
 import { Wallet } from '~/lib/types';
@@ -15,6 +17,11 @@ export interface WalletDetailsProps {
   /** Copy the wallet address to the clipboard */
   onAddressCopy?: (address: string) => void;
 }
+
+const ACCOUNT_TYPE_TO_TEXT: Record<AccountType, string> = {
+  SCA: 'Smart Contract',
+  EOA: 'Externally Owned',
+};
 
 /** The details of an on-chain account */
 export function WalletDetails({ wallet, onAddressCopy, children }: WalletDetailsProps) {
@@ -33,9 +40,14 @@ export function WalletDetails({ wallet, onAddressCopy, children }: WalletDetails
       <img src={walletImage} alt="Wallet Avatar" className="w-16 h-16 rounded-full" />
 
       <div className="flex-1">
-        <p className="text-m font-medium text-foreground">
-          {wallet.name || 'Unnamed Wallet'}
-        </p>
+        <div className="flex items-center space-x-2">
+          <span className="text-m font-medium text-foreground">{wallet.name}</span>
+          {wallet.accountType === 'SCA' && (
+            <Badge variant="secondary">
+              {ACCOUNT_TYPE_TO_TEXT[wallet.accountType as AccountType]}
+            </Badge>
+          )}
+        </div>
 
         <p className="flex items-center space-x-2 mb-1">
           <span className="text-sm text-foreground" title={wallet.address}>

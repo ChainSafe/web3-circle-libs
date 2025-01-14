@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
+import { Textarea } from '~/components/ui/textarea';
 import { useUpdateWallet } from '~/hooks/useUpdateWallet';
 import { Wallet } from '~/lib/types';
 
@@ -20,8 +21,9 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
     const formData = new FormData(event.currentTarget);
     const id = formData.get('id') as string;
     const name = formData.get('name') as string;
+    const description = formData.get('description') as string;
 
-    const success = await updateWallet({ id, name });
+    const success = await updateWallet({ id, name, description });
 
     if (!success) {
       return;
@@ -39,7 +41,7 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
       }}
       className="space-y-8"
     >
-      <div className="w-full mt-4">
+      <div className="space-y-4">
         <input type="hidden" name="id" value={wallet.id} />
         <Input
           type="text"
@@ -47,11 +49,19 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
           placeholder="Wallet name"
           defaultValue={wallet.name}
         />
+        <Textarea
+          name="description"
+          placeholder="Enter description (optional)"
+          className="min-h-[100px]"
+          defaultValue={wallet.refId}
+        />
       </div>
+
       <Button type="submit" className="w-full">
         {isLoading && <LoaderCircle className="animate-spin" />}
         Update
       </Button>
+
       {error && <p className="text-red-500">{error.message}</p>}
     </form>
   );
