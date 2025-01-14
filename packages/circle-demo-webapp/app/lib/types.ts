@@ -7,6 +7,9 @@ import {
   WalletState,
 } from '@circle-fin/developer-controlled-wallets';
 
+// this is possible now with latest version of the Circle SDK
+// import { WalletSet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
+
 import { Blockchain, TestnetBlockchain, TransactionType } from '~/lib/constants';
 
 export type TypeBlockchain = (typeof Blockchain)[keyof typeof Blockchain];

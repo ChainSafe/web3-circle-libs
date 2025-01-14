@@ -27,8 +27,12 @@
     --accent-foreground: 240 5.9% 10%;
 
     /* Destructive and Error Colors */
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 59% 61%;
     --destructive-foreground: 0 0% 98%;
+
+    /* Positive and Success Colors */
+    --positive: 153 96% 30%;
+    --positive-foreground: 0 0% 98%;
 
     /* Utility Colors */
     --border: 240 5.9% 90%;

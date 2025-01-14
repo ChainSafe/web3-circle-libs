@@ -13,6 +13,7 @@ import { LoaderCircle } from 'lucide-react';
 import { SWRConfig } from 'swr';
 
 import { Sidebar } from '~/components/Sidebar';
+import { Toaster } from '~/components/ui/toaster';
 import { cachedLoader } from '~/lib/cache';
 import { sdk } from '~/lib/sdk';
 import { WalletSet } from '~/lib/types';
@@ -60,7 +61,7 @@ export default function App() {
     <div className="flex h-screen">
       <Sidebar walletSets={walletSets} />
 
-      <div className="flex-1 p-12 overflow-y-auto bg-secondary relative">
+      <div className="flex-1 overflow-y-auto bg-secondary/40 relative">
         {navigation.state === 'loading' && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-50">
             <LoaderCircle className="animate-spin" strokeWidth={1} size={64} />
@@ -76,6 +77,8 @@ export default function App() {
           <Outlet />
         </SWRConfig>
       </div>
+
+      <Toaster />
     </div>
   );
 }

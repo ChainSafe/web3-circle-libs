@@ -1,6 +1,6 @@
 import { SelectProps } from '@radix-ui/react-select';
-import { NetworkIcon } from '@web3icons/react';
 
+import { ChainIcon } from '~/components/ChainIcon';
 import {
   Select,
   SelectContent,
@@ -9,15 +9,6 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 import { Blockchain } from '~/lib/constants';
-
-const BLOCKCHAIN_TO_ICON_MAP: Record<string, string> = {
-  [Blockchain.Arb]: 'arbitrum',
-  [Blockchain.Avax]: 'avalanche',
-  [Blockchain.Eth]: 'ethereum',
-  [Blockchain.Matic]: 'polygon',
-  [Blockchain.Near]: 'near-protocol',
-  [Blockchain.Sol]: 'solana',
-};
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
   [Blockchain.Arb]: 'Arbitrum',
@@ -32,7 +23,7 @@ export type ChainSelectProps = Omit<SelectProps, 'children'> & { placeholder?: s
 
 /** A dropdown select menu to choose a mainnet blockchain network */
 export function ChainSelect({ ...props }: ChainSelectProps) {
-  const { placeholder = 'Select Network', ...other } = props;
+  const { placeholder = 'Select network', ...other } = props;
   return (
     <Select {...other}>
       <SelectTrigger className="w-full max-w-md">
@@ -42,11 +33,7 @@ export function ChainSelect({ ...props }: ChainSelectProps) {
         {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (
           <SelectItem key={blockchain} value={blockchain}>
             <div className="text-sm text-muted-foreground flex items-center space-x-2 pr-4">
-              <NetworkIcon
-                network={BLOCKCHAIN_TO_ICON_MAP[blockchain]}
-                size={20}
-                variant="branded"
-              />
+              <ChainIcon blockchain={blockchain} />
               <span>{BLOCKCHAIN_LABELS[blockchain]}</span>
             </div>
           </SelectItem>

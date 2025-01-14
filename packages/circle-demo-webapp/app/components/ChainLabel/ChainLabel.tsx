@@ -1,28 +1,10 @@
-import { NetworkIcon } from '@web3icons/react';
-
+import { ChainIcon } from '~/components/ChainIcon';
 import { Blockchain } from '~/lib/constants';
 
 export interface ChainSelectProps {
   /** The blockchain network */
   blockchain: string;
 }
-
-const BLOCKCHAIN_TO_ICON_MAP: Record<string, string> = {
-  [Blockchain.ArbSepolia]: 'arbitrum',
-  [Blockchain.Arb]: 'arbitrum',
-  [Blockchain.AvaxFuji]: 'avalanche',
-  [Blockchain.Avax]: 'avalanche',
-  [Blockchain.EthSepolia]: 'ethereum',
-  [Blockchain.Eth]: 'ethereum',
-  [Blockchain.EvmTestnet]: '',
-  [Blockchain.Evm]: '',
-  [Blockchain.MaticAmoy]: 'polygon',
-  [Blockchain.Matic]: 'polygon',
-  [Blockchain.NearTestnet]: 'near-protocol',
-  [Blockchain.Near]: 'near-protocol',
-  [Blockchain.SolDevnet]: 'solana',
-  [Blockchain.Sol]: 'solana',
-};
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
   [Blockchain.ArbSepolia]: 'Arbitrum Sepolia',
@@ -45,11 +27,8 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
 export function ChainLabel({ blockchain }: ChainSelectProps) {
   return (
     <p className="text-sm text-muted-foreground flex items-center space-x-2">
-      <NetworkIcon
-        network={BLOCKCHAIN_TO_ICON_MAP[blockchain]}
-        size={20}
-        variant="branded"
-      />
+      <ChainIcon blockchain={blockchain} />
+
       <span>{BLOCKCHAIN_LABELS[blockchain]}</span>
     </p>
   );

@@ -1,4 +1,4 @@
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, Plus } from 'lucide-react';
 import { FormEvent } from 'react';
 
 import { Button } from '~/components/ui/button';
@@ -25,8 +25,8 @@ export function FaucetButton({ wallet }: FaucetButtonProps) {
     <form onSubmit={handleSubmit}>
       <input type="hidden" name="address" value={wallet.address} />
       <input type="hidden" name="blockchain" value={wallet.blockchain} />
-      <Button type="submit" variant="outline">
-        {isLoading && <LoaderCircle className="animate-spin" />}
+      <Button type="submit" variant="default">
+        {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
         Use Faucet
       </Button>
     </form>

@@ -24,27 +24,13 @@ export function assertCircleErrorResponse(
   error: unknown,
 ): asserts error is CircleErrorResponse {
   if (
-    typeof error === 'object' &&
-    error !== null &&
-    'response' in error &&
-    typeof (error as { response: unknown }).response === 'object' &&
-    'data' in (error as { response: { data: unknown } }).response &&
-    typeof (error as { response: { data: unknown } }).response.data === 'object' &&
-    'error' in (error as { response: { data: { error: unknown } } }).response.data &&
-    typeof (error as { response: { data: { error: unknown } } }).response.data.error ===
-      'object' &&
-    'code' in
-      (error as { response: { data: { error: { code: unknown } } } }).response.data
-        .error &&
-    'message' in
-      (error as { response: { data: { error: { message: unknown } } } }).response.data
-        .error &&
-    Array.isArray(
-      (error as { response: { data: { error: { errors: unknown[] } } } }).response.data
-        .error.errors,
-    )
+    typeof error !== 'object' ||
+    error === null ||
+    !('response' in error) ||
+    typeof (error as { response: unknown }).response !== 'object' ||
+    !('data' in (error as { response: { data: unknown } }).response) ||
+    typeof (error as { response: { data: unknown } }).response.data !== 'object'
   ) {
-    return;
+    throw new Error('Not a CircleErrorResponse');
   }
-  throw new Error('Not a CircleErrorResponse');
 }

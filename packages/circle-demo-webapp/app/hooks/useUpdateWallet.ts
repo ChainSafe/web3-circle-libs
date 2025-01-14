@@ -5,6 +5,7 @@ import { ErrorResponse } from '~/lib/responses';
 interface UpdateWalletArgs {
   id: string;
   name: string;
+  description?: string;
 }
 
 interface UseUpdateWalletResult {
@@ -17,7 +18,7 @@ export const useUpdateWallet = (): UseUpdateWalletResult => {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const updateWallet = async ({ id, name }: UpdateWalletArgs) => {
+  const updateWallet = async (args: UpdateWalletArgs) => {
     setIsLoading(true);
     setError(undefined);
     try {
@@ -26,7 +27,7 @@ export const useUpdateWallet = (): UseUpdateWalletResult => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, name }),
+        body: JSON.stringify(args),
       });
 
       if (response.status !== 200) {

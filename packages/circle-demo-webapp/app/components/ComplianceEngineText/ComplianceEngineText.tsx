@@ -1,15 +1,17 @@
-export function ComplianceEngineText({ result }: { result: boolean }) {
-  return (
-    <div className="flex">
-      {result ? (
-        <p className="bg-teal-600/10 rounded-lg py-1 px-3 my-2 text-xs text-success">
-          Approved by Circle Compliance Engine ✓
-        </p>
-      ) : (
-        <p className="bg-teal-600/10 rounded-lg py-1 px-3 my-2 text-xs text-error denied">
-          Denied by Circle Compliance Engine ✘
-        </p>
-      )}
-    </div>
+import { Badge } from '~/components/ui/badge';
+
+export interface ComplianceEngineTextProps {
+  result: boolean;
+}
+
+export function ComplianceEngineText({ result }: ComplianceEngineTextProps) {
+  return result ? (
+    <Badge variant="accent" className="font-normal text-green-600 dark:text-green-500">
+      Approved by Circle Compliance Engine ✓
+    </Badge>
+  ) : (
+    <Badge variant="accent" className="font-normal text-red-500 dark:text-red-400">
+      Denied by Circle Compliance Engine ✘
+    </Badge>
   );
 }
