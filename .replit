@@ -3,6 +3,10 @@ run = "npm run dev"
 [nix]
 channel = "stable-24_05"
 
+[[ports]]
+localPort = 3000
+externalPort = 80
+
 [deployment]
 deploymentTarget = "cloudrun"
-run = ["sh", "-c", "PORT=80 && npm run build && npm run start"]
+run = ["sh", "-c", "npm run build && npm run start"]
