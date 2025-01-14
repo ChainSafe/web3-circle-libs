@@ -3,7 +3,7 @@ import {
   GetTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData, useParams, useRevalidator } from '@remix-run/react';
+import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 
 import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
@@ -108,8 +108,12 @@ export default function WalletBalancePage() {
       </Card>
 
       <Card className="p-4">
-        <h2 className="text-xl font-semibold text-foreground mb-4">Transactions</h2>
-
+        <div className="flex justify-between">
+          <h2 className="text-xl font-semibold text-foreground mb-4">Transactions</h2>
+          <Link to={`/transactions/${id}`} className={'text-primary'}>
+            See more ↗
+          </Link>
+        </div>
         <div className="space-y-4">
           {transactions.length === 0 && <p>No transactions</p>}
 

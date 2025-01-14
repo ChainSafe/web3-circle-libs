@@ -382,6 +382,10 @@ export interface Transaction {
   };
 }
 
+export interface TransactionWithToken extends Transaction {
+  token?: Token;
+}
+
 /**
  * A transfer transaction
  * https://developers.circle.com/api-reference/w3s/developer-controlled-wallets/create-developer-transaction-transfer

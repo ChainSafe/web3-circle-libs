@@ -9,12 +9,24 @@ interface UseTransactionsResult {
   refetch: () => Promise<void>;
 }
 
+export interface UseTransactionsOptions {
+  filter: {
+    address: string;
+  };
+}
+
 const url = '/api/listTransactions';
 
-export const useTransactions = (walletId: string): UseTransactionsResult => {
-  const { data, error, isLoading } = useSWR<Transaction[], Error>(`${url}/${walletId}`);
+export const useTransactions = (
+  walletId: string,
+  options?: UseTransactionsOptions,
+): UseTransactionsResult => {
+  const address = options?.filter?.address;
+  const fullUrl = `${url}/${walletId}${address ? `?address=${String(address).trim()}` : ''}`;
 
-  const refetch = () => mutate(`${url}/${walletId}`);
+  const { data, error, isLoading } = useSWR<Transaction[], Error>(fullUrl);
+
+  const refetch = () => mutate(fullUrl);
 
   return {
     data,
