@@ -14,6 +14,10 @@ declare module '@remix-run/node' {
 const isStorybook = process.argv[1]?.includes('storybook');
 
 export default defineConfig({
+  server: {
+    host: '0.0.0.0',
+    port: 80,
+  },
   plugins: [
     !isStorybook
       ? remix({
