@@ -31,7 +31,7 @@ export interface TransactionDetailsProps {
 
 /** The details of an on-chain account */
 export function TransactionDetails({ transaction, onClose }: TransactionDetailsProps) {
-  const shortHash = useMemo(() => shortenHash(transaction.txHash), [transaction]);
+  const shortHash = useMemo(() => shortenHash(transaction.txHash!), [transaction]);
   const isInbound = transaction.transactionType === TransactionType.Inbound;
   return (
     <Dialog open onOpenChange={onClose}>

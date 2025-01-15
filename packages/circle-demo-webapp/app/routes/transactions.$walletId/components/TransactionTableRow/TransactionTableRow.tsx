@@ -45,7 +45,14 @@ export function TransactionTableRow({
       </td>
       <td className="py-2">
         <div className="flex justify-between">
-          <button className="text-primary" onClick={() => onClickDetails(transaction)}>
+          <button
+            className="text-primary"
+            onClick={() => {
+              if (typeof onClickDetails === 'function') {
+                onClickDetails(transaction);
+              }
+            }}
+          >
             Details
           </button>
           <Link className="text-primary" to={explorerLink} target="_blank">

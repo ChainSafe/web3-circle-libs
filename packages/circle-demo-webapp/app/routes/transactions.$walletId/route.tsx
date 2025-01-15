@@ -10,7 +10,7 @@ import { TransactionDetails } from './components/TransactionDetails';
 import { TransactionTableHead } from './components/TransactionTableHead';
 import { TransactionTableRow } from './components/TransactionTableRow';
 
-let timeout;
+let timeout: NodeJS.Timeout;
 
 export default function Page() {
   const { walletId } = useParams();
@@ -25,10 +25,11 @@ export default function Page() {
     },
   );
   useEffect(() => {
-    reFetchTransactions(walletId);
+    reFetchTransactions().catch(console.error);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
-  const handleChangeSearchAddress = (e) => {
+  const handleChangeSearchAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     const addr = e?.target?.value;
     if (timeout) {
       clearTimeout(timeout);
