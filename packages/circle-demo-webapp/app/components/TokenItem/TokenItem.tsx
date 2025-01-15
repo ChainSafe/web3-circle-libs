@@ -10,7 +10,7 @@ export interface TokenItemProps {
 /** A token balance for an on-chain account */
 export function TokenItem({ token }: TokenItemProps) {
   return (
-    <div className="flex items-center space-x-2 pr-4">
+    <div className="flex items-center space-x-2">
       <TokenIcon
         symbol={token.symbol.split('-')[0]}
         size={24}

@@ -33,3 +33,15 @@ export const FeeLevel = {
   Medium: 'MEDIUM',
   Low: 'LOW',
 } as const;
+
+export const TransactionState = {
+  Cancelled: 'CANCELLED',
+  Confirmed: 'CONFIRMED',
+  Complete: 'COMPLETE',
+  Denied: 'DENIED',
+  Failed: 'FAILED',
+  Initiated: 'INITIATED',
+  PendingRiskScreening: 'PENDING_RISK_SCREENING',
+  Queued: 'QUEUED',
+  Sent: 'SENT',
+};

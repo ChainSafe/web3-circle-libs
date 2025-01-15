@@ -2,6 +2,7 @@ import { Link } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { TokenItem } from '~/components/TokenItem';
+import { TransactionStateText } from '~/components/TransactionStatusText';
 import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress } from '~/lib/format';
 import { TransactionWithToken } from '~/lib/types';
@@ -9,9 +10,13 @@ import { getExplorerUrl } from '~/lib/utils';
 
 export interface TransactionTableRowProps {
   transaction: TransactionWithToken;
+  onClickDetails?: (tx: TransactionWithToken) => void;
 }
 
-export function TransactionTableRow({ transaction }: TransactionTableRowProps) {
+export function TransactionTableRow({
+  transaction,
+  onClickDetails,
+}: TransactionTableRowProps) {
   const isInbound = transaction.transactionType === TransactionType.Inbound;
   const explorerLink = getExplorerUrl(transaction.blockchain, transaction.txHash);
   return (
@@ -23,7 +28,7 @@ export function TransactionTableRow({ transaction }: TransactionTableRowProps) {
         {shortenAddress(transaction.destinationAddress)}
       </td>
       <td className="px-4 py-2" title={transaction.state}>
-        {transaction.state}
+        <TransactionStateText state={transaction.state} />
       </td>
       <td className="px-4 py-2" title={transaction.tokenId}>
         {transaction?.token ? <TokenItem token={transaction.token} /> : '-'}
@@ -40,7 +45,9 @@ export function TransactionTableRow({ transaction }: TransactionTableRowProps) {
       </td>
       <td className="py-2">
         <div className="flex justify-between">
-          <button className="text-primary">Details</button>
+          <button className="text-primary" onClick={() => onClickDetails(transaction)}>
+            Details
+          </button>
           <Link className="text-primary" to={explorerLink} target="_blank">
             <ArrowUpRight />
           </Link>
