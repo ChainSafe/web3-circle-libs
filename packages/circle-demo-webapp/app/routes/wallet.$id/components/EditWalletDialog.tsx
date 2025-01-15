@@ -30,7 +30,7 @@ export function EditWalletDialog({ wallet, onSuccess }: EditWalletDialogProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="min-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Wallet</DialogTitle>
           <DialogDescription>You can change the name of the wallet.</DialogDescription>

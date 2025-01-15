@@ -48,7 +48,7 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="min-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Wallet Set</DialogTitle>
           <DialogDescription>

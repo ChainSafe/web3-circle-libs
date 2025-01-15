@@ -35,7 +35,7 @@ export function TransactionDetails({ transaction, onClose }: TransactionDetailsP
   const isInbound = transaction.transactionType === TransactionType.Inbound;
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="min-w-[480px]">
         <DialogTitle>Transaction Details</DialogTitle>
         <div>
           <OneLine label="Hash" value={shortHash} />

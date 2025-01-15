@@ -21,7 +21,7 @@ export function WalletReceiveDialog({ wallet }: WalletReceiveDialogProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[325px] py-10">
         <WalletReceive wallet={wallet} />
       </DialogContent>
     </Dialog>
