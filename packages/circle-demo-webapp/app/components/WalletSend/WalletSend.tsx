@@ -131,8 +131,8 @@ export function WalletSend({
   return (
     <div className="items-center w-full">
       <WalletDetails wallet={wallet} />
-      <h1 className="text-xl text-black mt-8">Send Transaction</h1>
-      <p className="text-base text-gray-600">
+      <h1 className="text-lg font-semibold mt-8">Send Transaction</h1>
+      <p className="text-sm text-muted-foreground">
         Send transaction to any blockchain address
       </p>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
