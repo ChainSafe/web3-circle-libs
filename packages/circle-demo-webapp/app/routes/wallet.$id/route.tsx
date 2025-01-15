@@ -3,13 +3,12 @@ import {
   GetTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData, useParams, useRevalidator } from '@remix-run/react';
+import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Badge } from '~/components/ui/badge';
-import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
@@ -145,10 +144,9 @@ export default function WalletBalancePage() {
           <Card className="p-4 flex-1">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold text-foreground">Transactions</h2>
-
-              <Button variant="outline" size="sm">
+              <Link to={`/transactions/${id}`} className={'text-primary flex'}>
                 See more <ArrowUpRight />
-              </Button>
+              </Link>
             </div>
 
             <div className="space-y-4">

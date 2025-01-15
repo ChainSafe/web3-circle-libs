@@ -16,7 +16,7 @@ import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { WalletDetails } from '~/components/WalletDetails';
 import { FeeLevel } from '~/lib/constants';
-import { CircleError } from '~/lib/responses';
+import { CircleError, ErrorResponse } from '~/lib/responses';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
 
@@ -91,12 +91,11 @@ export function WalletSend({
         },
       },
     } as CreateTransactionInput);
-    if (res as CircleError) {
-      setRequestError((res as CircleError).message);
+    if ((res as unknown as ErrorResponse)?.error) {
+      setRequestError((res as unknown as ErrorResponse).error);
       return;
     }
     const tx = res as Transaction;
-
     setTransactionData({ state: tx.state } as Transaction);
     if (tx.id) {
       const interval = setInterval(() => {

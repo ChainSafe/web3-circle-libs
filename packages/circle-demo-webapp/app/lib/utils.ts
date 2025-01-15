@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import { Blockchain } from '~/lib/constants';
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -77,4 +79,29 @@ export const isNumber = (value: string): boolean => {
 
   // For all other types, return false
   return false;
+};
+
+export const chainIdExplorerMap: Record<string, string> = {
+  [Blockchain.Sol]: 'https://explorer.solana.com',
+  [Blockchain.SolDevnet]: 'https://explorer.solana.com',
+  [Blockchain.Eth]: 'https://etherscan.io',
+  [Blockchain.EthSepolia]: 'https://sepolia.etherscan.io',
+  [Blockchain.Arb]: 'https://arbiscan.io',
+  [Blockchain.ArbSepolia]: 'https://sepolia.arbiscan.io',
+  [Blockchain.Matic]: 'https://polygonscan.com',
+  [Blockchain.MaticAmoy]: 'https://www.oklink.com/amoy',
+  [Blockchain.Near]: 'https://explorer.near.org',
+  [Blockchain.NearTestnet]: 'https://explorer.testnet.near.org',
+  [Blockchain.Evm]: '',
+  [Blockchain.EvmTestnet]: '',
+  [Blockchain.Avax]: 'https://cchain.explorer.avax.network',
+  [Blockchain.AvaxFuji]: 'https://cchain.explorer.avax-test.network',
+};
+
+export const getExplorerUrl = (chain: string, txHash?: string): string => {
+  const explorer = chainIdExplorerMap[chain];
+  if (!explorer) {
+    return '';
+  }
+  return `${explorer}/tx/${txHash}`;
 };
