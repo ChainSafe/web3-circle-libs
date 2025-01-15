@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
 
-import { ComplianceEngineText } from '~/components/ComplianceEngineText';
 import { FormErrorText } from '~/components/FormErrorText';
 import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
@@ -144,11 +143,12 @@ export function WalletSend({
             {...register('destinationAddress')}
             onChange={onChangeAddress}
           />
-          {screeningAddressResult.result !== undefined ? (
-            <ComplianceEngineText result={screeningAddressResult.result} />
-          ) : (
-            <FormErrorText value={errors.destinationAddress?.message} />
-          )}
+          {/*{screeningAddressResult.result !== undefined ? (*/}
+          {/*  <ComplianceEngineText result={screeningAddressResult.result} />*/}
+          {/*) : (*/}
+          {/*  <FormErrorText value={errors.destinationAddress?.message} />*/}
+          {/*)}*/}
+          <FormErrorText value={errors.destinationAddress?.message} />
         </div>
         <div className="w-full">
           <Controller
