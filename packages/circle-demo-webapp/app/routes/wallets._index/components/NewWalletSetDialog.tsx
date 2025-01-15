@@ -24,7 +24,7 @@ export function NewWalletSetDialog() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="min-w-[425px]">
         <DialogHeader>
           <DialogTitle>New Wallet Set</DialogTitle>
           <DialogDescription>Generate a new wallet set</DialogDescription>

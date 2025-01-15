@@ -1,3 +1,4 @@
+import { Copy } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useState } from 'react';
 
@@ -24,30 +25,20 @@ export function WalletReceive({ wallet }: WalletReceiveProps) {
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <h2 className="text-lg font-semibold text-foreground mb-4">
-        {wallet.name ?? 'Unnamed Wallet'}
-      </h2>
-
-      <div className="mb-2">
-        <ChainLabel blockchain={wallet.blockchain} />
-      </div>
-
-      <p className="text-sm text-orange-600 text-center">
-        Assets can only be sent within the same network
-      </p>
-
-      <div className="m-6">
+    <div className="flex flex-col items-center">
+      <div className="bg-foreground p-6 rounded-2xl mb-6">
         <QRCodeCanvas value={wallet.address} size={160} />
       </div>
 
-      <div className="w-full bg-secondary rounded-md p-2 mb-4 text-center">
-        <p className="text-sm text-muted-foreground">{wallet.address}</p>
+      <p className="text-2xl font-medium break-all text-center mb-2">{wallet.address}</p>
+
+      <div className="mb-8">
+        <ChainLabel blockchain={wallet.blockchain} />
       </div>
 
-      <div className="w-full text-center">
-        <Button onClick={copyToClipboard} variant="outline" size="sm">
-          {copied ? 'Copied!' : 'Copy'}
+      <div className="text-center">
+        <Button onClick={copyToClipboard}>
+          <Copy /> {copied ? 'Copied!' : 'Copy Address'}
         </Button>
       </div>
     </div>

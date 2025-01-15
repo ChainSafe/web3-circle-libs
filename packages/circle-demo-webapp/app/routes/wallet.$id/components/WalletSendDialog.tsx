@@ -27,7 +27,7 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="min-w-[425px]">
         <WalletSend
           wallet={wallet}
           balances={balances}
