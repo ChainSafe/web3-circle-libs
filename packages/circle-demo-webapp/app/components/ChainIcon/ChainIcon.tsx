@@ -26,13 +26,11 @@ const BLOCKCHAIN_TO_ICON_MAP: Record<string, string> = {
 
 /** A label with an icon and text to identify a blockchain network */
 export function ChainIcon({ blockchain }: ChainIconProps) {
-  const network = BLOCKCHAIN_TO_ICON_MAP[blockchain];
-
-  const icon = <NetworkIcon network={network} size={20} variant="branded" />;
-
-  return network === 'arbitrum' ? (
-    <span className="rounded-full bg-[#2D3649]">{icon}</span>
-  ) : (
-    icon
+  return (
+    <NetworkIcon
+      network={BLOCKCHAIN_TO_ICON_MAP[blockchain]}
+      size={20}
+      variant="branded"
+    />
   );
 }
