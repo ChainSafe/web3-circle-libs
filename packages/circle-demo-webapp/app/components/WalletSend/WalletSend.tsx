@@ -38,13 +38,6 @@ export interface WalletSendProps {
 const isTransactionPending = (tx: Transaction) =>
   Boolean(tx?.state && !['CONFIRMED', 'CONFIRMED'].includes(tx?.state));
 
-interface IFormInput {
-  destinationAddress: string;
-  amount: string;
-  tokenId: string;
-  note: string;
-}
-
 const formSchema = z.object({
   destinationAddress: z.string().refine(isAddress, 'Address is not valid'),
   amount: z.string().refine(isNumber, 'Amount is not valid'),
@@ -52,10 +45,8 @@ const formSchema = z.object({
   note: z.string().optional(),
 });
 
-/**
- * Helpers for obtaining a wallet's on-chain address:
- * a QR code that encodes the address and elements for viewing the address and copying it to the clipboard
- */
+type IFormInput = z.infer<typeof formSchema>;
+
 export function WalletSend({
   wallet,
   balances,
@@ -113,6 +104,7 @@ export function WalletSend({
       }, 1000);
     }
   };
+
   const onChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     const address = e.target.value;
     if (typeof onScreenAddress === 'function') {
@@ -135,21 +127,22 @@ export function WalletSend({
       <p className="text-sm text-muted-foreground">
         Send transaction to any blockchain address
       </p>
-      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-      <form className="w-full mt-6" onSubmit={handleSubmit(onSubmit)}>
+
+      <form className="w-full mt-6" onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
         <div className="w-ful">
           <Input
             placeholder="Recipient Address"
-            className={`col-span-3 ${screeningAddressResult.result === undefined && errors.destinationAddress?.message ? 'border border-error' : ''}`}
+            error={errors.destinationAddress}
             {...register('destinationAddress')}
             onChange={onChangeAddress}
           />
           {screeningAddressResult.result !== undefined ? (
             <ComplianceEngineText result={screeningAddressResult.result} />
           ) : (
-            <FormErrorText value={errors.destinationAddress?.message} />
+            <FormErrorText message={errors.destinationAddress?.message} />
           )}
         </div>
+
         <div className="w-full">
           <Controller
             name="tokenId"
@@ -158,27 +151,26 @@ export function WalletSend({
               <TokenSelect
                 balances={balances}
                 onValueChange={field.onChange}
-                className={`${errors.tokenId?.message ? 'border border-error' : ''}`}
+                className={`${errors.tokenId?.message ? 'border border-destructive' : ''}`}
               />
             )}
           />
-          <FormErrorText value={errors.tokenId?.message} />
+          <FormErrorText message={errors.tokenId?.message} />
         </div>
+
         <div className="w-full">
-          <Input
-            placeholder="Amount"
-            className={`col-span-3 ${errors.amount?.message ? 'border border-error' : ''}`}
-            {...register('amount')}
-          />
-          <FormErrorText value={errors.amount?.message} />
+          <Input placeholder="Amount" error={errors.amount} {...register('amount')} />
+          <FormErrorText message={errors.amount?.message} />
         </div>
+
         <div className="w-full">
           <Textarea
             placeholder="Note(optional)"
-            className="col-span-3 min-h-[100px]"
+            className="min-h-[100px]"
             {...register('note')}
           />
         </div>
+
         <Button
           type="submit"
           className="w-full mt-6"
@@ -189,7 +181,8 @@ export function WalletSend({
           )}
           Send
         </Button>
-        {requestError && <FormErrorText value={requestError} />}
+
+        <FormErrorText message={requestError} />
       </form>
     </div>
   );
