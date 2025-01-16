@@ -43,12 +43,12 @@ export function NewWalletSetForm({ onSuccess }: NewWalletSetFormProps) {
 
   return (
     <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} className="space-y-8">
-      <div className="w-full mt-4">
+      <div className="mt-4">
         <Input type="text" placeholder="Name" error={errors.name} {...register('name')} />
         <FormErrorText message={errors.name?.message} />
       </div>
 
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
         Create
       </Button>

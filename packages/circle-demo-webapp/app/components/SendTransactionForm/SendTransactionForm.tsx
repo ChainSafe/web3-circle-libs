@@ -58,6 +58,7 @@ export function SendTransactionForm({
     useState<ScreenAddressResult>({});
   const [requestError, setRequestError] = useState<string>('');
   const [transactionData, setTransactionData] = useState({} as Transaction);
+
   const {
     register,
     control,
@@ -123,8 +124,8 @@ export function SendTransactionForm({
   };
 
   return (
-    <form className="w-full mt-6" onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
-      <div className="w-ful">
+    <form className="space-y-4" onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
+      <div>
         <Input
           placeholder="Recipient Address"
           error={errors.destinationAddress}
@@ -138,7 +139,7 @@ export function SendTransactionForm({
         )}
       </div>
 
-      <div className="w-full">
+      <div>
         <Controller
           name="tokenId"
           control={control}
@@ -153,14 +154,14 @@ export function SendTransactionForm({
         <FormErrorText message={errors.tokenId?.message} />
       </div>
 
-      <div className="w-full">
+      <div>
         <Input placeholder="Amount" error={errors.amount} {...register('amount')} />
         <FormErrorText message={errors.amount?.message} />
       </div>
 
-      <div className="w-full">
+      <div>
         <Textarea
-          placeholder="Note(optional)"
+          placeholder="Note (optional)"
           className="min-h-[100px]"
           {...register('note')}
         />
@@ -168,7 +169,7 @@ export function SendTransactionForm({
 
       <Button
         type="submit"
-        className="w-full mt-6"
+        className="w-full"
         disabled={isTransactionPending(transactionData)}
       >
         {isTransactionPending(transactionData) && (

@@ -57,7 +57,7 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
         />
       </div>
 
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading && <LoaderCircle className="animate-spin" />}
         Update
       </Button>

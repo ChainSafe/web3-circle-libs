@@ -44,23 +44,18 @@ export function NewWalletForm({ walletSetId, onSuccess }: NewWalletFormProps) {
       <div className="space-y-4">
         <input type="hidden" name="walletSetId" value={walletSetId} />
 
-        <Input
-          type="text"
-          name="name"
-          placeholder="Enter wallet name"
-          className="w-full"
-        />
+        <Input type="text" name="name" placeholder="Enter wallet name" />
 
         <Textarea
           name="description"
           placeholder="Enter description (optional)"
-          className="w-full min-h-[100px]"
+          className="min-h-[100px]"
         />
 
         <TestChainSelect name="blockchain" />
       </div>
 
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
         Create Wallet
       </Button>

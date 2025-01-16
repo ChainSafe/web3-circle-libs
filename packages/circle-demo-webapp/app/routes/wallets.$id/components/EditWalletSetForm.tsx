@@ -39,12 +39,12 @@ export function EditWalletSetForm({ walletSet, onSuccess }: EditWalletSetFormPro
       }}
       className="space-y-8"
     >
-      <div className="w-full mt-4">
+      <div className="mt-4">
         <input type="hidden" name="id" value={walletSet.id} />
         <Input type="text" name="name" placeholder="Name" defaultValue={walletSet.name} />
       </div>
 
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading && <LoaderCircle className="animate-spin" />}
         Update
       </Button>
