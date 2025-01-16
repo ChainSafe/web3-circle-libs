@@ -1,6 +1,8 @@
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
+import { NewWalletSetForm, NewWalletSetFormInput } from '~/components/NewWalletSetForm';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -10,8 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-
-import { NewWalletSetForm } from './NewWalletSetForm';
+import { useCreateWalletSet } from '~/hooks/useCreateWalletSet';
 
 interface NewWalletSetDialogProps {
   onSuccess?: () => void;
@@ -19,6 +20,21 @@ interface NewWalletSetDialogProps {
 
 export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
   const [open, setOpen] = useState(false);
+
+  const { createWalletSet, isLoading, error } = useCreateWalletSet();
+
+  const onSubmit: SubmitHandler<NewWalletSetFormInput> = async ({ name }) => {
+    const success = await createWalletSet({ name });
+
+    if (!success) {
+      return;
+    }
+
+    setOpen(false);
+    if (typeof onSuccess === 'function') {
+      onSuccess();
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -35,12 +51,9 @@ export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
         </DialogHeader>
 
         <NewWalletSetForm
-          onSuccess={() => {
-            setOpen(false);
-            if (typeof onSuccess === 'function') {
-              onSuccess();
-            }
-          }}
+          isSubmitting={isLoading}
+          onSubmit={onSubmit}
+          serverError={error}
         />
       </DialogContent>
     </Dialog>

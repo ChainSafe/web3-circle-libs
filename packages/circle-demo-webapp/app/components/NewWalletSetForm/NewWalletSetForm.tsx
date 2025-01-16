@@ -6,50 +6,41 @@ import { z } from 'zod';
 import { FormErrorText } from '~/components/FormErrorText';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-import { useCreateWalletSet } from '~/hooks/useCreateWalletSet';
 
 const formSchema = z.object({
   name: z.string().nonempty('Name must not be empty'),
 });
 
-type FormInput = z.infer<typeof formSchema>;
+export type NewWalletSetFormInput = z.infer<typeof formSchema>;
 
-interface NewWalletSetFormProps {
-  onSuccess?: () => void;
+export interface NewWalletSetFormProps {
+  isSubmitting?: boolean;
+  onSubmit: SubmitHandler<NewWalletSetFormInput>;
+  serverError?: Error;
 }
 
-export function NewWalletSetForm({ onSuccess }: NewWalletSetFormProps) {
-  const { createWalletSet, isLoading, error: serverError } = useCreateWalletSet();
-
+export function NewWalletSetForm({
+  isSubmitting,
+  onSubmit,
+  serverError,
+}: NewWalletSetFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInput>({
+  } = useForm<NewWalletSetFormInput>({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<FormInput> = async ({ name }) => {
-    const success = await createWalletSet({ name });
-
-    if (!success) {
-      return;
-    }
-
-    if (typeof onSuccess === 'function') {
-      onSuccess();
-    }
-  };
-
   return (
     <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} className="space-y-8">
-      <div className="mt-4">
+      <div>
         <Input type="text" placeholder="Name" error={errors.name} {...register('name')} />
         <FormErrorText message={errors.name?.message} />
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? <LoaderCircle className="animate-spin" /> : <Plus />}
         Create
       </Button>
 
