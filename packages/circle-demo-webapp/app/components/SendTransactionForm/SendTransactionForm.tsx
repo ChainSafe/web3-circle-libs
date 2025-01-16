@@ -14,7 +14,6 @@ import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
-import { WalletDetails } from '~/components/WalletDetails';
 import { FeeLevel } from '~/lib/constants';
 import { CircleError, ErrorResponse } from '~/lib/responses';
 import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
@@ -24,7 +23,7 @@ export interface ScreenAddressResult {
   result?: boolean;
 }
 
-export interface WalletSendProps {
+export interface SendTransactionFormProps {
   /** The wallet */
   wallet: Wallet;
   balances: WalletTokenBalance[];
@@ -47,14 +46,14 @@ const formSchema = z.object({
 
 type IFormInput = z.infer<typeof formSchema>;
 
-export function WalletSend({
+export function SendTransactionForm({
   wallet,
   balances,
   onSendTransaction,
   onGetTransaction,
   onConfirmed,
   onScreenAddress,
-}: WalletSendProps) {
+}: SendTransactionFormProps) {
   const [screeningAddressResult, setScreeningAddressResult] =
     useState<ScreenAddressResult>({});
   const [requestError, setRequestError] = useState<string>('');
@@ -82,12 +81,15 @@ export function WalletSend({
         },
       },
     } as CreateTransactionInput);
+
     if ((res as unknown as ErrorResponse)?.error) {
       setRequestError((res as unknown as ErrorResponse).error);
       return;
     }
+
     const tx = res as Transaction;
     setTransactionData({ state: tx.state } as Transaction);
+
     if (tx.id) {
       const interval = setInterval(() => {
         const run = async () => {
@@ -121,69 +123,61 @@ export function WalletSend({
   };
 
   return (
-    <div className="items-center w-full">
-      <WalletDetails wallet={wallet} />
-      <h1 className="text-lg font-semibold mt-8">Send Transaction</h1>
-      <p className="text-sm text-muted-foreground">
-        Send transaction to any blockchain address
-      </p>
+    <form className="w-full mt-6" onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
+      <div className="w-ful">
+        <Input
+          placeholder="Recipient Address"
+          error={errors.destinationAddress}
+          {...register('destinationAddress')}
+          onChange={onChangeAddress}
+        />
+        {screeningAddressResult.result !== undefined ? (
+          <ComplianceEngineText result={screeningAddressResult.result} />
+        ) : (
+          <FormErrorText message={errors.destinationAddress?.message} />
+        )}
+      </div>
 
-      <form className="w-full mt-6" onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
-        <div className="w-ful">
-          <Input
-            placeholder="Recipient Address"
-            error={errors.destinationAddress}
-            {...register('destinationAddress')}
-            onChange={onChangeAddress}
-          />
-          {screeningAddressResult.result !== undefined ? (
-            <ComplianceEngineText result={screeningAddressResult.result} />
-          ) : (
-            <FormErrorText message={errors.destinationAddress?.message} />
+      <div className="w-full">
+        <Controller
+          name="tokenId"
+          control={control}
+          render={({ field }) => (
+            <TokenSelect
+              balances={balances}
+              onValueChange={field.onChange}
+              className={`${errors.tokenId?.message ? 'border border-destructive' : ''}`}
+            />
           )}
-        </div>
+        />
+        <FormErrorText message={errors.tokenId?.message} />
+      </div>
 
-        <div className="w-full">
-          <Controller
-            name="tokenId"
-            control={control}
-            render={({ field }) => (
-              <TokenSelect
-                balances={balances}
-                onValueChange={field.onChange}
-                className={`${errors.tokenId?.message ? 'border border-destructive' : ''}`}
-              />
-            )}
-          />
-          <FormErrorText message={errors.tokenId?.message} />
-        </div>
+      <div className="w-full">
+        <Input placeholder="Amount" error={errors.amount} {...register('amount')} />
+        <FormErrorText message={errors.amount?.message} />
+      </div>
 
-        <div className="w-full">
-          <Input placeholder="Amount" error={errors.amount} {...register('amount')} />
-          <FormErrorText message={errors.amount?.message} />
-        </div>
+      <div className="w-full">
+        <Textarea
+          placeholder="Note(optional)"
+          className="min-h-[100px]"
+          {...register('note')}
+        />
+      </div>
 
-        <div className="w-full">
-          <Textarea
-            placeholder="Note(optional)"
-            className="min-h-[100px]"
-            {...register('note')}
-          />
-        </div>
+      <Button
+        type="submit"
+        className="w-full mt-6"
+        disabled={isTransactionPending(transactionData)}
+      >
+        {isTransactionPending(transactionData) && (
+          <LoaderCircle className="animate-spin" />
+        )}
+        Send
+      </Button>
 
-        <Button
-          type="submit"
-          className="w-full mt-6"
-          disabled={isTransactionPending(transactionData)}
-        >
-          {isTransactionPending(transactionData) && (
-            <LoaderCircle className="animate-spin" />
-          )}
-          Send
-        </Button>
-
-        <FormErrorText message={requestError} />
-      </form>
-    </div>
+      <FormErrorText message={requestError} />
+    </form>
   );
 }
