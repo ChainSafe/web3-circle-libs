@@ -4,7 +4,7 @@ run = "npm run dev"
 channel = "stable-24_05"
 
 [[ports]]
-localPort = 80
+localPort = 3000
 externalPort = 80
 
 [deployment]
