@@ -57,7 +57,7 @@ export default function WalletBalancePage() {
   const { toast } = useToast();
   const { refetch: refetchTransactions } = useTransactions(id ?? '');
 
-  const refreshWalletSet = () => {
+  const revalidate = () => {
     revalidator.revalidate();
   };
 
@@ -70,7 +70,7 @@ export default function WalletBalancePage() {
       <header className="flex justify-between items-center bg-background px-8 py-4">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl font-semibold text-foreground">{wallet.name}</h1>
-          <EditWalletDialog wallet={wallet} onSuccess={refreshWalletSet} />
+          <EditWalletDialog wallet={wallet} onSuccess={revalidate} />
         </div>
 
         <FaucetButton wallet={wallet} />

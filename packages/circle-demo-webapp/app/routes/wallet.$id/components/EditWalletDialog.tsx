@@ -16,7 +16,7 @@ import { EditWalletForm } from './EditWalletForm';
 
 interface EditWalletDialogProps {
   wallet: Wallet;
-  onSuccess: () => void;
+  onSuccess?: () => void;
 }
 
 export function EditWalletDialog({ wallet, onSuccess }: EditWalletDialogProps) {
@@ -40,7 +40,9 @@ export function EditWalletDialog({ wallet, onSuccess }: EditWalletDialogProps) {
           wallet={wallet}
           onSuccess={() => {
             setOpen(false);
-            onSuccess();
+            if (typeof onSuccess === 'function') {
+              onSuccess();
+            }
           }}
         />
       </DialogContent>

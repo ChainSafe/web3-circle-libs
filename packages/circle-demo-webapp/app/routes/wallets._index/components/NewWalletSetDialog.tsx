@@ -1,4 +1,3 @@
-import { Form } from '@remix-run/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -11,9 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-import { Input } from '~/components/ui/input';
 
-export function NewWalletSetDialog() {
+import { NewWalletSetForm } from './NewWalletSetForm';
+
+interface NewWalletSetDialogProps {
+  onSuccess?: () => void;
+}
+
+export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -30,19 +34,14 @@ export function NewWalletSetDialog() {
           <DialogDescription>Generate a new wallet set</DialogDescription>
         </DialogHeader>
 
-        <Form
-          method="post"
-          onSubmit={() => {
+        <NewWalletSetForm
+          onSuccess={() => {
             setOpen(false);
+            if (typeof onSuccess === 'function') {
+              onSuccess();
+            }
           }}
-        >
-          <div className="w-full max-w-md mt-6">
-            <Input type="text" name="name" placeholder="Name" className="col-span-3" />
-          </div>
-          <Button type="submit" className="mt-6 w-full max-w-md">
-            Create
-          </Button>
-        </Form>
+        />
       </DialogContent>
     </Dialog>
   );

@@ -1,8 +1,6 @@
-import { Form } from '@remix-run/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
-import { TestChainSelect } from '~/components/TestChainSelect';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -12,14 +10,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-import { Input } from '~/components/ui/input';
-import { Textarea } from '~/components/ui/textarea';
+
+import { NewWalletForm } from './NewWalletForm';
 
 interface NewWalletDialogProps {
   walletSetId: string;
+  onSuccess?: () => void;
 }
 
-export function NewWalletDialog({ walletSetId }: NewWalletDialogProps) {
+export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -38,35 +37,15 @@ export function NewWalletDialog({ walletSetId }: NewWalletDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <Form
-          method="post"
-          onSubmit={() => {
+        <NewWalletForm
+          walletSetId={walletSetId}
+          onSuccess={() => {
             setOpen(false);
+            if (typeof onSuccess === 'function') {
+              onSuccess();
+            }
           }}
-        >
-          <div className="space-y-4">
-            <input type="hidden" name="walletSetId" value={walletSetId} />
-
-            <Input
-              type="text"
-              name="name"
-              placeholder="Enter wallet name"
-              className="w-full"
-            />
-
-            <Textarea
-              name="description"
-              placeholder="Enter description (optional)"
-              className="w-full min-h-[100px]"
-            />
-
-            <TestChainSelect name="blockchain" />
-
-            <Button type="submit" className="w-full">
-              Create Wallet
-            </Button>
-          </div>
-        </Form>
+        />
       </DialogContent>
     </Dialog>
   );

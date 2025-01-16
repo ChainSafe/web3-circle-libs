@@ -2,26 +2,28 @@ import { useState } from 'react';
 
 import { ErrorResponse } from '~/lib/responses';
 
-interface UpdateWalletSetArgs {
-  id: string;
+interface CreateWalletArgs {
+  walletSetId: string;
   name: string;
+  blockchain: string;
+  description?: string;
 }
 
-interface UseUpdateWalletSetResult {
+interface UseCreateWalletResult {
   error: Error | undefined;
   isLoading: boolean;
-  updateWalletSet: (args: UpdateWalletSetArgs) => Promise<boolean>;
+  createWallet: (args: CreateWalletArgs) => Promise<boolean>;
 }
 
-export const useUpdateWalletSet = (): UseUpdateWalletSetResult => {
+export const useCreateWallet = (): UseCreateWalletResult => {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const updateWalletSet = async (args: UpdateWalletSetArgs) => {
+  const createWallet = async (args: CreateWalletArgs) => {
     setIsLoading(true);
     setError(undefined);
     try {
-      const response = await fetch('/api/updateWalletSet', {
+      const response = await fetch('/api/createWallet', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,6 +49,6 @@ export const useUpdateWalletSet = (): UseUpdateWalletSetResult => {
   return {
     error,
     isLoading,
-    updateWalletSet,
+    createWallet,
   };
 };
