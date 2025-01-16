@@ -7,16 +7,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Blockchain } from '~/lib/constants';
 import { Transaction } from '~/lib/types';
 
-import { WalletSend } from './WalletSend';
+import { SendTransactionForm } from './SendTransactionForm';
 
 const meta = {
-  title: 'WalletSend',
-  component: WalletSend,
+  title: 'SendTransactionForm',
+  component: SendTransactionForm,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof WalletSend>;
+} satisfies Meta<typeof SendTransactionForm>;
 
 export default meta;
 

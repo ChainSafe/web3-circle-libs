@@ -1,29 +1,29 @@
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, Plus } from 'lucide-react';
 import { FormEvent } from 'react';
 
+import { TestChainSelect } from '~/components/TestChainSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
-import { useUpdateWallet } from '~/hooks/useUpdateWallet';
-import { Wallet } from '~/lib/types';
+import { useCreateWallet } from '~/hooks/useCreateWallet';
 
-interface EditWalletFormProps {
-  wallet: Wallet;
+interface NewWalletFormProps {
+  walletSetId: string;
   onSuccess?: () => void;
 }
 
-export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
-  const { updateWallet, isLoading, error } = useUpdateWallet();
+export function NewWalletForm({ walletSetId, onSuccess }: NewWalletFormProps) {
+  const { createWallet, isLoading, error } = useCreateWallet();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const id = formData.get('id') as string;
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
+    const blockchain = formData.get('blockchain') as string;
 
-    const success = await updateWallet({ id, name, description });
+    const success = await createWallet({ walletSetId, name, description, blockchain });
 
     if (!success) {
       return;
@@ -42,24 +42,22 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
       className="space-y-8"
     >
       <div className="space-y-4">
-        <input type="hidden" name="id" value={wallet.id} />
-        <Input
-          type="text"
-          name="name"
-          placeholder="Wallet name"
-          defaultValue={wallet.name}
-        />
+        <input type="hidden" name="walletSetId" value={walletSetId} />
+
+        <Input type="text" name="name" placeholder="Enter wallet name" />
+
         <Textarea
           name="description"
           placeholder="Enter description (optional)"
           className="min-h-[100px]"
-          defaultValue={wallet.refId}
         />
+
+        <TestChainSelect name="blockchain" />
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading && <LoaderCircle className="animate-spin" />}
-        Update
+        {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
+        Create Wallet
       </Button>
 
       {error && <p className="text-red-500">{error.message}</p>}

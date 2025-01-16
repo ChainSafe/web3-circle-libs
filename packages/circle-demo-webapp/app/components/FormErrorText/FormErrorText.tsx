@@ -1,11 +1,13 @@
-export function FormErrorText({ value }: { value?: unknown }) {
+interface FormErrorTextProps {
+  message?: string;
+}
+
+export function FormErrorText({ message }: FormErrorTextProps) {
   return (
-    <p className="text-sm min-h-6 mt-1 mb-2 text-error">
-      {typeof value === 'object'
-        ? JSON.stringify(value)
-        : typeof value === 'string'
-          ? String(value)
-          : ' '}
-    </p>
+    message && (
+      <p role="alert" className="text-sm text-destructive mt-1">
+        {message}
+      </p>
+    )
   );
 }

@@ -25,7 +25,7 @@ export function FaucetButton({ wallet }: FaucetButtonProps) {
     <form onSubmit={handleSubmit}>
       <input type="hidden" name="address" value={wallet.address} />
       <input type="hidden" name="blockchain" value={wallet.blockchain} />
-      <Button type="submit" variant="default">
+      <Button type="submit" variant="default" disabled={isLoading}>
         {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
         Use Faucet
       </Button>

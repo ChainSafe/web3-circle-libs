@@ -19,8 +19,8 @@ export interface WalletDetailsProps {
 }
 
 const ACCOUNT_TYPE_TO_TEXT: Record<AccountType, string> = {
-  SCA: 'Smart Contract',
-  EOA: 'Externally Owned',
+  SCA: 'SCA',
+  EOA: 'EOA',
 };
 
 /** The details of an on-chain account */

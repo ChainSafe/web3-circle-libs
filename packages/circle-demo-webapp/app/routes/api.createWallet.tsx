@@ -1,0 +1,75 @@
+import { AccountType } from '@circle-fin/developer-controlled-wallets';
+import { ActionFunctionArgs } from '@remix-run/node';
+
+import { sdk } from '~/lib/sdk';
+import {
+  assertCircleErrorResponse,
+  errorResponse,
+  successResponse,
+} from '~/lib/server.responses';
+import { TypeBlockchain } from '~/lib/types';
+import { isValidString } from '~/lib/utils';
+
+const CHAIN_TO_ACCOUNT_TYPE: Record<TypeBlockchain, AccountType> = {
+  ARB: 'SCA',
+  AVAX: 'EOA',
+  ETH: 'SCA',
+  EVM: 'SCA',
+  MATIC: 'SCA',
+  NEAR: 'EOA',
+  SOL: 'EOA',
+  'ARB-SEPOLIA': 'SCA',
+  'AVAX-FUJI': 'EOA',
+  'ETH-SEPOLIA': 'SCA',
+  'EVM-TESTNET': 'SCA',
+  'MATIC-AMOY': 'SCA',
+  'NEAR-TESTNET': 'EOA',
+  'SOL-DEVNET': 'EOA',
+};
+
+interface RequestBody {
+  walletSetId: string;
+  name: string;
+  blockchain: string;
+  description?: string;
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const { walletSetId, name, blockchain, description } =
+    (await request.json()) as RequestBody;
+
+  if (!isValidString(walletSetId)) {
+    return errorResponse('Invalid walletSetId');
+  }
+
+  if (!isValidString(name)) {
+    return errorResponse('Invalid name');
+  }
+
+  if (description && !isValidString(description)) {
+    throw new Error('Invalid description');
+  }
+
+  try {
+    await sdk.createWallets({
+      walletSetId,
+      count: 1,
+      accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain as TypeBlockchain],
+      blockchains: [blockchain as TypeBlockchain],
+      metadata: [
+        {
+          name,
+          ...(description ? { refId: description } : {}),
+        },
+      ],
+    });
+
+    return successResponse('Success');
+  } catch (e: unknown) {
+    assertCircleErrorResponse(e);
+
+    return errorResponse(
+      `${e.response.data.message}: ${e.response.data.errors[0].message}`,
+    );
+  }
+}

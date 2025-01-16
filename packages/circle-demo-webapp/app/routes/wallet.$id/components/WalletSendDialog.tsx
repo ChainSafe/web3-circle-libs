@@ -1,18 +1,29 @@
 import { ArrowUp } from 'lucide-react';
 import { useState } from 'react';
 
+import {
+  SendTransactionForm,
+  SendTransactionFormProps,
+} from '~/components/SendTransactionForm';
 import { Button } from '~/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
-import { WalletSend, WalletSendProps } from '~/components/WalletSend';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '~/components/ui/dialog';
+import { WalletDetails } from '~/components/WalletDetails';
 import { Wallet, WalletTokenBalance } from '~/lib/types';
 
 export interface WalletSendDialogProps {
   wallet: Wallet;
   balances: WalletTokenBalance[];
-  onSendTransaction: WalletSendProps['onSendTransaction'];
-  onGetTransaction: WalletSendProps['onGetTransaction'];
-  onConfirmed?: WalletSendProps['onConfirmed'];
-  onScreenAddress?: WalletSendProps['onScreenAddress'];
+  onSendTransaction: SendTransactionFormProps['onSendTransaction'];
+  onGetTransaction: SendTransactionFormProps['onGetTransaction'];
+  onConfirmed?: SendTransactionFormProps['onConfirmed'];
+  onScreenAddress?: SendTransactionFormProps['onScreenAddress'];
 }
 
 export function WalletSendDialog(props: WalletSendDialogProps) {
@@ -28,7 +39,18 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
       </DialogTrigger>
 
       <DialogContent className="min-w-[425px]">
-        <WalletSend
+        <div className="mb-4">
+          <WalletDetails wallet={wallet} />
+        </div>
+
+        <DialogHeader>
+          <DialogTitle>Send Transaction</DialogTitle>
+          <DialogDescription>
+            Send transaction to any blockchain address.
+          </DialogDescription>
+        </DialogHeader>
+
+        <SendTransactionForm
           wallet={wallet}
           balances={balances}
           {...other}

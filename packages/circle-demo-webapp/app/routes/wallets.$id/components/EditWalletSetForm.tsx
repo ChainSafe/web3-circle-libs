@@ -3,17 +3,16 @@ import { FormEvent } from 'react';
 
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-import { Textarea } from '~/components/ui/textarea';
-import { useUpdateWallet } from '~/hooks/useUpdateWallet';
-import { Wallet } from '~/lib/types';
+import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
+import { WalletSet } from '~/lib/types';
 
-interface EditWalletFormProps {
-  wallet: Wallet;
+interface EditWalletSetFormProps {
+  walletSet: WalletSet;
   onSuccess?: () => void;
 }
 
-export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
-  const { updateWallet, isLoading, error } = useUpdateWallet();
+export function EditWalletSetForm({ walletSet, onSuccess }: EditWalletSetFormProps) {
+  const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,9 +20,8 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
     const formData = new FormData(event.currentTarget);
     const id = formData.get('id') as string;
     const name = formData.get('name') as string;
-    const description = formData.get('description') as string;
 
-    const success = await updateWallet({ id, name, description });
+    const success = await updateWalletSet({ id, name });
 
     if (!success) {
       return;
@@ -41,20 +39,9 @@ export function EditWalletForm({ wallet, onSuccess }: EditWalletFormProps) {
       }}
       className="space-y-8"
     >
-      <div className="space-y-4">
-        <input type="hidden" name="id" value={wallet.id} />
-        <Input
-          type="text"
-          name="name"
-          placeholder="Wallet name"
-          defaultValue={wallet.name}
-        />
-        <Textarea
-          name="description"
-          placeholder="Enter description (optional)"
-          className="min-h-[100px]"
-          defaultValue={wallet.refId}
-        />
+      <div className="mt-4">
+        <input type="hidden" name="id" value={walletSet.id} />
+        <Input type="text" name="name" placeholder="Name" defaultValue={walletSet.name} />
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
