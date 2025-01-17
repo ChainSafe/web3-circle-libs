@@ -21,13 +21,12 @@ export interface WalletSendDialogProps {
   wallet: Wallet;
   balances: WalletTokenBalance[];
   onSendTransaction: SendTransactionFormProps['onSendTransaction'];
-  onGetTransaction: SendTransactionFormProps['onGetTransaction'];
-  onConfirmed?: SendTransactionFormProps['onConfirmed'];
+  onSent?: SendTransactionFormProps['onSent'];
   onScreenAddress?: SendTransactionFormProps['onScreenAddress'];
 }
 
 export function WalletSendDialog(props: WalletSendDialogProps) {
-  const { wallet, balances, onConfirmed, ...other } = props;
+  const { wallet, balances, onSent, ...other } = props;
   const [open, setOpen] = useState(false);
 
   return (
@@ -54,10 +53,10 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
           wallet={wallet}
           balances={balances}
           {...other}
-          onConfirmed={async (tx) => {
+          onSent={(tx) => {
             setOpen(false);
-            if (typeof onConfirmed === 'function') {
-              await onConfirmed(tx);
+            if (typeof onSent === 'function') {
+              onSent(tx);
             }
           }}
         />

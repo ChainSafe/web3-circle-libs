@@ -1,7 +1,4 @@
-import {
-  CreateTransactionInput,
-  GetTransactionInput,
-} from '@circle-fin/developer-controlled-wallets';
+import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
@@ -94,10 +91,9 @@ export default function WalletBalancePage() {
                 onSendTransaction={(data: CreateTransactionInput) =>
                   callFetch<Transaction>('/api/createTransaction', data)
                 }
-                onGetTransaction={(data: GetTransactionInput) =>
-                  callFetch<{ transaction: Transaction }>('/api/getTransaction', data)
-                }
-                onConfirmed={() => refetchTransactions()}
+                onSent={() => {
+                  refetchTransactions().catch(console.error);
+                }}
                 onScreenAddress={(address: string) =>
                   callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
                     address,

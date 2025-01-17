@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
+
 import { Badge } from '~/components/ui/badge';
 import { TransactionState } from '~/lib/constants';
 
 export interface TransactionStateTextProps {
   state: (typeof TransactionState)[keyof typeof TransactionState];
+  getTransaction?: () => Promise<boolean>;
 }
 
 const greenStates = [TransactionState.Complete, TransactionState.Confirmed];
@@ -16,7 +19,19 @@ const yellowStates = [
 const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-export function TransactionStateText({ state }: TransactionStateTextProps) {
+export function TransactionStateText({
+  state,
+  getTransaction,
+}: TransactionStateTextProps) {
+  useEffect(() => {
+    if (!greenStates.includes(state) && typeof getTransaction === 'function') {
+      const interval = setInterval(() => {
+        getTransaction().catch(console.error);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [state]);
+
   return greenStates.includes(state) ? (
     <Badge variant="accent" className="font-normal text-green-600 dark:text-green-500">
       {capitalize(state)} ✓

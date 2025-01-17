@@ -1,7 +1,4 @@
-import {
-  CreateTransactionInput,
-  GetTransactionInput,
-} from '@circle-fin/developer-controlled-wallets';
+import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -28,9 +25,8 @@ export interface SendTransactionFormProps {
   wallet: Wallet;
   balances: WalletTokenBalance[];
   onSendTransaction: (data: CreateTransactionInput) => Promise<Transaction | CircleError>;
-  onGetTransaction: (data: GetTransactionInput) => Promise<{ transaction: Transaction }>;
   onScreenAddress?: (address: string) => Promise<ScreenAddressResult>;
-  onConfirmed?: (data: Transaction) => Promise<void>;
+  onSent?: (data: Transaction) => void;
 }
 
 // @todo: use constant exported from sdk
@@ -50,8 +46,7 @@ export function SendTransactionForm({
   wallet,
   balances,
   onSendTransaction,
-  onGetTransaction,
-  onConfirmed,
+  onSent,
   onScreenAddress,
 }: SendTransactionFormProps) {
   const [screeningAddressResult, setScreeningAddressResult] =
@@ -90,21 +85,8 @@ export function SendTransactionForm({
 
     const tx = res as Transaction;
     setTransactionData({ state: tx.state } as Transaction);
-
-    if (tx.id) {
-      const interval = setInterval(() => {
-        const run = async () => {
-          const { transaction } = await onGetTransaction({ id: tx.id });
-          setTransactionData(transaction);
-          if (transaction && !isTransactionPending(transaction)) {
-            clearInterval(interval);
-            if (typeof onConfirmed === 'function') {
-              await onConfirmed(transaction);
-            }
-          }
-        };
-        run().catch(console.error);
-      }, 1000);
+    if (typeof onSent === 'function') {
+      onSent(tx);
     }
   };
 
