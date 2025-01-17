@@ -24,5 +24,9 @@
     "dev": "yarn workspace circle-demo-webapp dev",
     "start": "yarn workspace circle-demo-webapp start"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "volta": {
+    "node": "20.18.1",
+    "yarn": "1.22.22"
+  }
 }
