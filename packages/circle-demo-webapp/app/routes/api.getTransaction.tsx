@@ -8,8 +8,8 @@ import { cachedCoins } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
 import { TransactionWithToken } from '~/lib/types';
 
-export async function loader(o: LoaderFunctionArgs) {
-  const url = new URL(o.request.url);
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
 
   const params: GetTransactionInput = {
     id: url.searchParams.get('id')!,

@@ -30,12 +30,10 @@ export function TransactionDetails(
         .loadTransactionById((props as ActiveTransactionDetailsProps).transactionId)
         .then((tx) => {
           setTransaction(tx);
-        });
+        })
+        .catch(console.error);
     }
-  }, [
-    (props as ActiveTransactionDetailsProps)?.transactionId,
-    (props as ActiveTransactionDetailsProps).loadTransactionById,
-  ]);
+  }, [props]);
 
   if (!transaction) {
     return null;

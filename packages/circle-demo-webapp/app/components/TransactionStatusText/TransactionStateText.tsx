@@ -30,7 +30,7 @@ export function TransactionStateText({
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [state]);
+  }, [state, getTransaction]);
 
   return greenStates.includes(state) ? (
     <Badge variant="accent" className="font-normal text-green-600 dark:text-green-500">

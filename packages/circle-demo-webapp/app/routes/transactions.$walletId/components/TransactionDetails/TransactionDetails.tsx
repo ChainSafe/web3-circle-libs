@@ -1,5 +1,5 @@
 import { LoaderCircle } from 'lucide-react';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import { ChainLabel } from '~/components/ChainLabel';
 import { TokenItem } from '~/components/TokenItem';
@@ -9,13 +9,7 @@ import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenHash } from '~/lib/format';
 import { TransactionWithToken } from '~/lib/types';
 
-const OneLine = ({
-  label,
-  value,
-}: {
-  label: string;
-  value: React.ReactNode | string;
-}) => (
+const OneLine = ({ label, value }: { label: string; value: ReactNode | string }) => (
   <div className="flex space-x-4 justify-between border-t py-2">
     <div className="flex-1">{label}</div>
     <div className="text-sm text-muted-foreground">{value}</div>
@@ -31,7 +25,7 @@ export interface TransactionLoadingDetailsProps {
 }
 
 export interface CommonTransactionDetailsProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   onClose?: () => void;
 }
 
@@ -42,11 +36,14 @@ export function TransactionDetails(
 ) {
   const transaction = (props as TransactionDetailsProps).transaction;
   const isLoading = (props as TransactionLoadingDetailsProps).isLoading;
+  const shortHash = useMemo(
+    () => (transaction.txHash ? shortenHash(transaction.txHash) : ''),
+    [transaction],
+  );
   if (!transaction && !isLoading) {
     return null;
   }
 
-  const shortHash = useMemo(() => shortenHash(transaction?.txHash!), [transaction]);
   const isInbound = transaction?.transactionType === TransactionType.Inbound;
   return (
     <Dialog open onOpenChange={props.onClose}>

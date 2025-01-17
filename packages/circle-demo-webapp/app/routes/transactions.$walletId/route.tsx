@@ -15,7 +15,8 @@ let timeout: NodeJS.Timeout;
 export default function Page() {
   const { walletId } = useParams();
   const [address, setAddress] = useState<string>('');
-  const { getTransaction, transaction, isLoading, setTransaction } = useGetTransaction();
+  const [txId, setTxId] = useState<string | undefined>('');
+  const { getTransaction, transaction, isLoading } = useGetTransaction();
   const { data: transactions = [], refetch: reFetchTransactions } = useTransactions(
     walletId ?? '',
     {
@@ -24,6 +25,12 @@ export default function Page() {
       },
     },
   );
+  useEffect(() => {
+    if (txId) {
+      getTransaction({ id: txId }).catch(console.error);
+    }
+  }, [txId, getTransaction]);
+
   useEffect(() => {
     reFetchTransactions().catch(console.error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +79,7 @@ export default function Page() {
                       <TransactionTableRow
                         key={tx.id}
                         transaction={tx}
-                        onClickDetails={(tx) => getTransaction({ id: tx.id })}
+                        onClickDetails={(tx) => setTxId(tx.id)}
                       />
                     ))}
                   </tbody>
@@ -85,7 +92,7 @@ export default function Page() {
           <TransactionDetails
             isLoading={isLoading}
             transaction={transaction}
-            onClose={() => setTransaction(undefined)}
+            onClose={() => setTxId(undefined)}
           />
         )}
       </div>
