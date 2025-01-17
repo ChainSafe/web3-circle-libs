@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 import { Blockchain } from '~/lib/constants';
+import { ErrorResponse } from '~/lib/responses';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -22,6 +23,27 @@ export async function callFetch<ReturnType extends object>(
     },
     body: JSON.stringify(body),
   });
+  if (res.status !== 200) {
+    const errorData = (await res.json()) as ErrorResponse;
+    throw new Error(errorData.error);
+  }
+  return (await res.json()) as ReturnType;
+}
+
+export async function callGetFetch<ReturnType extends object>(
+  url: string,
+  query: Record<string, string>,
+): Promise<ReturnType> {
+  const res = await fetch(`${url}?${new URLSearchParams(query)}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (res.status !== 200) {
+    const errorData = (await res.json()) as ErrorResponse;
+    throw new Error(errorData.error);
+  }
   return (await res.json()) as ReturnType;
 }
 

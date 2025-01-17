@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 import { Card } from '~/components/ui/card';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';
+import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { useTransactions } from '~/hooks/useTransactions';
-import { TransactionWithToken } from '~/lib/types';
 
 import { TransactionDetails } from './components/TransactionDetails';
 import { TransactionTableHead } from './components/TransactionTableHead';
@@ -14,8 +14,8 @@ let timeout: NodeJS.Timeout;
 
 export default function Page() {
   const { walletId } = useParams();
-  const [transaction, setTransaction] = useState<TransactionWithToken>();
   const [address, setAddress] = useState<string>('');
+  const { getTransaction, transaction, isLoading, setTransaction } = useGetTransaction();
   const { data: transactions = [], refetch: reFetchTransactions } = useTransactions(
     walletId ?? '',
     {
@@ -72,7 +72,7 @@ export default function Page() {
                       <TransactionTableRow
                         key={tx.id}
                         transaction={tx}
-                        onClickDetails={(tx) => setTransaction(tx)}
+                        onClickDetails={(tx) => getTransaction({ id: tx.id })}
                       />
                     ))}
                   </tbody>
@@ -81,8 +81,9 @@ export default function Page() {
             )}
           </div>
         </Card>
-        {transaction && (
+        {(isLoading || transaction) && (
           <TransactionDetails
+            isLoading={isLoading}
             transaction={transaction}
             onClose={() => setTransaction(undefined)}
           />

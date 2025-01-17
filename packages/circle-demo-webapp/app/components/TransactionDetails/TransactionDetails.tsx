@@ -1,6 +1,8 @@
+import { TransactionType } from '@circle-fin/developer-controlled-wallets';
+import { useEffect, useState } from 'react';
+
 import { ChainLabel } from '~/components/ChainLabel';
 import { Badge } from '~/components/ui/badge';
-import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress, shortenHash } from '~/lib/format';
 import { Transaction } from '~/lib/types';
 
@@ -9,8 +11,36 @@ export interface TransactionDetailsProps {
   transaction: Transaction;
 }
 
+export interface ActiveTransactionDetailsProps {
+  /** The on-chain transaction */
+  transactionId: string;
+  loadTransactionById: (transactionId: string) => Promise<Transaction>;
+}
+
 /** The details of an on-chain transaction */
-export function TransactionDetails({ transaction }: TransactionDetailsProps) {
+export function TransactionDetails(
+  props: TransactionDetailsProps | ActiveTransactionDetailsProps,
+) {
+  const [transaction, setTransaction] = useState<Transaction>(
+    (props as TransactionDetailsProps)?.transaction,
+  );
+  useEffect(() => {
+    if ((props as ActiveTransactionDetailsProps)?.transactionId) {
+      (props as ActiveTransactionDetailsProps)
+        .loadTransactionById((props as ActiveTransactionDetailsProps).transactionId)
+        .then((tx) => {
+          setTransaction(tx);
+        });
+    }
+  }, [
+    (props as ActiveTransactionDetailsProps)?.transactionId,
+    (props as ActiveTransactionDetailsProps).loadTransactionById,
+  ]);
+
+  if (!transaction) {
+    return null;
+  }
+
   const isInbound = transaction.transactionType === TransactionType.Inbound;
 
   return (

@@ -1,9 +1,9 @@
 export function shortenAddress(address: string): string {
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  return `${String(address).slice(0, 6)}...${String(address).slice(-4)}`;
 }
 
 export function shortenHash(hash: string): string {
-  return `${hash.slice(0, 10)}...${hash.slice(-10)}`;
+  return `${String(hash).slice(0, 10)}...${String(hash).slice(-10)}`;
 }
 
 export function formatDate(date: string): string {
