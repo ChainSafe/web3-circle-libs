@@ -1,19 +1,16 @@
 {
   "name": "circle-libs",
-  "version": "0.1.0",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "version": "0.0.1",
   "description": "Circle UI components and utilities",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
   },
+  "license": "MIT",
+  "author": "ChainSafe",
   "contributors": [
     "ChainSafe <info@chainsafe.io>"
   ],
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:ChainSafe/web3-circle-libs.git"
@@ -24,6 +21,17 @@
     "dev": "yarn workspace circle-demo-webapp dev",
     "start": "yarn workspace circle-demo-webapp start"
   },
+  "dependencies": {
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@web3icons/react": "^3.16.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.7.2"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "packageManager": "yarn@1.22.22",
   "volta": {
     "node": "20.18.1",

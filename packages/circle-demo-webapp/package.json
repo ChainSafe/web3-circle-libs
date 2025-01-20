@@ -1,9 +1,22 @@
 {
   "name": "circle-demo-webapp",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Demo application built with reusable components for building apps with Circle",
+  "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
+  "bugs": {
+    "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
+  },
+  "license": "MIT",
+  "author": "ChainSafe",
+  "contributors": [
+    "ChainSafe <info@chainsafe.io>"
+  ],
   "private": true,
-  "sideEffects": false,
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChainSafe/web3-circle-libs.git"
+  },
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
@@ -29,7 +42,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ethereum-blockies-base64": "^1.0.2",
-    "isbot": "^4",
+    "isbot": "^4.0.0",
     "lucide-react": "^0.462.0",
     "qrcode.react": "^4.1.0",
     "quick-lru": "^7.0.0",

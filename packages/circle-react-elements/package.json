@@ -1,0 +1,57 @@
+{
+  "name": "@circle-libs/circle-react-elements",
+  "version": "0.0.1",
+  "description": "Reusable React components for Circle Dev controlled wallets",
+  "keywords": [
+    "react",
+    "components",
+    "circle"
+  ],
+  "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
+  "bugs": {
+    "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
+  },
+  "license": "MIT",
+  "author": "ChainSafe",
+  "contributors": [
+    "ChainSafe <info@chainsafe.io>"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChainSafe/web3-circle-libs.git"
+  },
+  "scripts": {
+    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@web3icons/react": "^3.16.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.33.2",
+    "typescript": "^5.7.2",
+    "tsup": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@web3icons/react": "^3.16.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

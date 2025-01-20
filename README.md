@@ -6,3 +6,4 @@ Monorepo that contains the following packages:
   reusable components for building apps with [Circle](https://developers.circle.com/)
 - [`web3-circle-sdk`](packages/web3-circle-sdk) - TypeScript SDK for interacting with the
   [Circle Web3 Services REST API](https://developers.circle.com/api-reference/w3s/common/ping)
+- [`circle-react-elements`](packages/circle-react-elements) - Reusable React components for Circle Dev controlled wallets
