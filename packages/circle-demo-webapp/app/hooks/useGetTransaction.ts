@@ -13,8 +13,9 @@ interface UseGetTransactionResult {
 
 export const useGetTransaction = (
   options: GetTransactionInput,
+  initialData?: TransactionWithToken,
 ): UseGetTransactionResult => {
-  const [data, setData] = useState<TransactionWithToken | undefined>();
+  const [data, setData] = useState<TransactionWithToken | undefined>(initialData);
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

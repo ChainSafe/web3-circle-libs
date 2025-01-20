@@ -1,7 +1,9 @@
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
 import { useParams } from '@remix-run/react';
+import { LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
+import { TransactionDetails } from '~/components/TransactionDetails';
 import { Card } from '~/components/ui/card';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';
 import { useGetTransaction } from '~/hooks/useGetTransaction';
@@ -17,11 +19,15 @@ export default function Page() {
   const { walletId } = useParams();
   const [address, setAddress] = useState<string>('');
   const [txId, setTxId] = useState<string | undefined>('');
+
+  const getTransactionFilter = useMemo(() => ({ id: txId ?? '' }), [txId]);
+
   const {
     reFetch: getTransaction,
     data: transaction,
     isLoading,
-  } = useGetTransaction({ id: txId ?? '' });
+  } = useGetTransaction(getTransactionFilter);
+
   const getTransactionsFilter = useMemo(() => {
     const filter: ListTransactionsInput = {};
     if (walletId) {
@@ -32,13 +38,15 @@ export default function Page() {
     }
     return filter;
   }, [walletId, address]);
+
   const { data: transactions = [], reFetch: reFetchTransactions } =
     useTransactions(getTransactionsFilter);
+
   useEffect(() => {
     if (txId) {
       getTransaction().catch(console.error);
     }
-  }, [txId]);
+  }, [txId, getTransaction]);
 
   useEffect(() => {
     reFetchTransactions().catch(console.error);
@@ -97,11 +105,15 @@ export default function Page() {
           </div>
         </Card>
         {(isLoading || (txId && transaction)) && (
-          <TransactionDetailsDialog
-            isLoading={isLoading}
-            transaction={transaction}
-            onClose={() => setTxId(undefined)}
-          />
+          <TransactionDetailsDialog onClose={() => setTxId(undefined)}>
+            {isLoading ? (
+              <div className="flex justify-center items-center w-full h-40">
+                <LoaderCircle className="animate-spin" />
+              </div>
+            ) : transaction ? (
+              <TransactionDetails transaction={transaction} />
+            ) : null}
+          </TransactionDetailsDialog>
         )}
       </div>
     </div>

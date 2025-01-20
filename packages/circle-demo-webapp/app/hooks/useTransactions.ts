@@ -5,7 +5,7 @@ import { TransactionWithToken } from '~/lib/types';
 import { callGetFetch } from '~/lib/utils';
 
 interface UseTransactionsResult {
-  data: TransactionWithToken[] | undefined;
+  data: TransactionWithToken[];
   error: Error | undefined;
   isLoading: boolean;
   reFetch: () => Promise<boolean>;
@@ -14,7 +14,7 @@ interface UseTransactionsResult {
 export const useTransactions = (
   options: ListTransactionsInput,
 ): UseTransactionsResult => {
-  const [data, setData] = useState<TransactionWithToken[] | undefined>([]);
+  const [data, setData] = useState<TransactionWithToken[]>([]);
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const reFetch = useCallback(async () => {
@@ -37,7 +37,7 @@ export const useTransactions = (
       const res = await callGetFetch<{
         transactions: TransactionWithToken[];
       }>(`/api/listTransactions`, params);
-      setData(res.transactions);
+      setData(res.transactions ?? []);
       return true;
     } catch (err) {
       setError(err as Error);

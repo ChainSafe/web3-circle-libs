@@ -3,6 +3,7 @@ import { ReactNode, useMemo } from 'react';
 import { ChainLabel } from '~/components/ChainLabel';
 import { TokenItem } from '~/components/TokenItem';
 import { TransactionStateText } from '~/components/TransactionStatusText';
+import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenHash } from '~/lib/format';
 import { TransactionWithToken } from '~/lib/types';
@@ -21,9 +22,16 @@ const OneLine = ({ label, value }: { label: string; value: ReactNode | string })
 
 /** The details of an on-chain transaction */
 export function TransactionDetails(props: TransactionDetailsProps) {
-  const transaction = props.transaction;
+  const getTransactionFilter = useMemo(
+    () => ({ id: props.transaction?.id }),
+    [props.transaction],
+  );
+  const { data: transaction, reFetch } = useGetTransaction(
+    getTransactionFilter,
+    props.transaction,
+  );
   const shortHash = useMemo(
-    () => (transaction.txHash ? shortenHash(transaction.txHash) : ''),
+    () => (transaction?.txHash ? shortenHash(transaction.txHash) : ''),
     [transaction],
   );
   if (!transaction) {
@@ -37,7 +45,9 @@ export function TransactionDetails(props: TransactionDetailsProps) {
       <OneLine label="Hash" value={shortHash} />
       <OneLine
         label="Status"
-        value={<TransactionStateText state={transaction.state} />}
+        value={
+          <TransactionStateText state={transaction.state} getTransaction={reFetch} />
+        }
       />
       <OneLine label="From" value={transaction.sourceAddress} />
       <OneLine label="To" value={transaction.destinationAddress} />

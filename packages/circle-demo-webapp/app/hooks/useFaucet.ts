@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { ErrorResponse } from '~/lib/responses';
+import { callFetch } from '~/lib/utils';
 
 interface RequestFaucetArgs {
   blockchain: string;
@@ -17,32 +17,23 @@ export const useFaucet = (): UseFaucetResult => {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const requestFaucet = async ({ blockchain, address }: RequestFaucetArgs) => {
-    setIsLoading(true);
-    setError(undefined);
-    try {
-      const response = await fetch('/api/faucet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ blockchain, address }),
-      });
+  const requestFaucet = useCallback(
+    async ({ blockchain, address }: RequestFaucetArgs) => {
+      setIsLoading(true);
+      setError(undefined);
+      try {
+        await callFetch('/api/faucet', { blockchain, address });
+        return true;
+      } catch (err) {
+        setError(err as Error);
 
-      if (response.status !== 200) {
-        const errorData = (await response.json()) as ErrorResponse;
-        throw new Error(errorData.error);
+        return false;
+      } finally {
+        setIsLoading(false);
       }
-
-      return true;
-    } catch (err) {
-      setError(err as Error);
-
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    [setError, setIsLoading],
+  );
 
   return {
     error,
