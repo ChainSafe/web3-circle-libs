@@ -18,6 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         : [params.walletIds]
       : undefined,
   };
+
   const res = await sdk.listTransactions(filter);
   const txs = res.data?.transactions ?? [];
   const needToLoad: Record<string, boolean> = {};

@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { TokenItem } from '~/components/TokenItem';
 import { TransactionStateText } from '~/components/TransactionStatusText';
@@ -20,9 +20,14 @@ export function TransactionTableRow({
   onClickDetails,
 }: TransactionTableRowProps) {
   const [tx, setTx] = useState<TransactionWithToken>(transaction);
-  const { reFetch: getTransaction, data: latestTransaction } = useGetTransaction({
-    id: transaction.id,
-  });
+  const getTransactionFilter = useMemo(
+    () => ({
+      id: transaction.id,
+    }),
+    [transaction.id],
+  );
+  const { reFetch: getTransaction, data: latestTransaction } =
+    useGetTransaction(getTransactionFilter);
   useEffect(() => {
     if (latestTransaction) {
       setTx(latestTransaction);

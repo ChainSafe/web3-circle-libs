@@ -32,7 +32,7 @@ export async function callFetch<ReturnType, OptionsType = object>(
 
 export async function callGetFetch<ReturnType>(
   url: string,
-  query: Record<string, string>,
+  query: URLSearchParams | Record<string, string>,
 ): Promise<ReturnType> {
   const res = await fetch(`${url}?${new URLSearchParams(query)}`, {
     method: 'GET',

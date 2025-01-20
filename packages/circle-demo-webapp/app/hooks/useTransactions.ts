@@ -21,21 +21,22 @@ export const useTransactions = (
     setIsLoading(true);
     setError(undefined);
     try {
-      const filter: Record<string, string> = {
+      const params = new URLSearchParams({
         includeAll: 'true',
         pageSize: '10',
-      };
+      });
       if (options.destinationAddress) {
-        filter.destinationAddress = options.destinationAddress;
+        params.set('destinationAddress', options.destinationAddress);
       }
 
       if (options.walletIds) {
-        filter.walletIds = options.walletIds;
+        for (const walletId of options.walletIds) {
+          params.append('walletIds', walletId);
+        }
       }
-      console.log('filter', filter);
       const res = await callGetFetch<{
         transactions: TransactionWithToken[];
-      }>(`/api/listTransactions`, filter);
+      }>(`/api/listTransactions`, params);
       setData(res.transactions);
       return true;
     } catch (err) {
