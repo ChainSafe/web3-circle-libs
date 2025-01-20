@@ -1,7 +1,7 @@
 {
   "name": "circle-demo-webapp",
   "version": "0.0.1",
-  "description": "Demo application built with reusable components for building apps with Circle",
+  "description": "Demo application combining Circle React components and Circle SDK",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@circle-libs/circle-react-elements": "^0.0.1",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",

@@ -1,9 +1,7 @@
-# Web3 Circle Libs
+# Circle Wallet Elements
 
 Monorepo that contains the following packages:
 
-- [`circle-demo-webapp`](packages/circle-demo-webapp) - demo application built with
-  reusable components for building apps with [Circle](https://developers.circle.com/)
-- [`web3-circle-sdk`](packages/web3-circle-sdk) - TypeScript SDK for interacting with the
-  [Circle Web3 Services REST API](https://developers.circle.com/api-reference/w3s/common/ping)
-- [`circle-react-elements`](packages/circle-react-elements) - Reusable React components for Circle Dev controlled wallets
+- [`circle-demo-webapp`](packages/circle-demo-webapp) - Demo application combining Circle React components and [Circle SDK](https://developers.circle.com/)
+- [`circle-react-elements`](packages/circle-react-elements) - React components compatible with Circle SDK
+- [`circle-sdk-setup`](packages/circle-sdk-setup) - CLI tool for Circle SDK setup

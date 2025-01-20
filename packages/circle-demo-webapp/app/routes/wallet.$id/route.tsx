@@ -2,6 +2,7 @@ import {
   CreateTransactionInput,
   GetTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
+import { WalletBalance } from '@circle-libs/circle-react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
@@ -11,7 +12,6 @@ import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Badge } from '~/components/ui/badge';
 import { Card } from '~/components/ui/card';
-import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';

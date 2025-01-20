@@ -1,7 +1,7 @@
 {
   "name": "@circle-libs/circle-react-elements",
   "version": "0.0.1",
-  "description": "Reusable React components for Circle Dev controlled wallets",
+  "description": "React components compatible with Circle SDK",
   "keywords": [
     "react",
     "components",
