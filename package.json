@@ -1,5 +1,5 @@
 {
-  "name": "circle-libs",
+  "name": "circle-elements-monorepo",
   "version": "0.0.1",
   "description": "Circle UI components and utilities",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
@@ -16,10 +16,11 @@
     "url": "git@github.com:ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
-    "lint": "yarn workspace circle-demo-webapp lint",
-    "build": "yarn workspace circle-demo-webapp build",
-    "dev": "yarn workspace circle-demo-webapp dev",
-    "start": "yarn workspace circle-demo-webapp start"
+    "demo:dev": "yarn workspace circle-demo-webapp dev",
+    "demo:storybook": "yarn workspace circle-demo-webapp storybook",
+    "elements:build": "yarn workspace @circle-libs/circle-react-elements build",
+    "build": "yarn workspaces run build",
+    "lint": "yarn workspaces run lint"
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",

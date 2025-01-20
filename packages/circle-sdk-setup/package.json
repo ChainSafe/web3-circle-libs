@@ -28,7 +28,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/cli.js",
-    "dev": "tsx src/cli.ts"
+    "dev": "tsx src/cli.ts",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
