@@ -14,11 +14,9 @@ import { SWRConfig } from 'swr';
 
 import { Sidebar } from '~/components/Sidebar';
 import { Toaster } from '~/components/ui/toaster';
-import { cachedLoader } from '~/lib/cache';
-import { sdk } from '~/lib/sdk';
-import { WalletSet } from '~/lib/types';
 
 import './tailwind.css';
+import { cachedWalletSets } from '~/lib/memcache';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Circle SDK Demo' }];
@@ -29,10 +27,7 @@ export const links: LinksFunction = () => [
 ];
 
 export async function loader() {
-  return cachedLoader('walletSets', async () => {
-    const res = await sdk.listWalletSets();
-    return res?.data?.walletSets as WalletSet[];
-  });
+  return cachedWalletSets.loadAllAndSet();
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
