@@ -1,37 +1,55 @@
-import useSWR, { mutate } from 'swr';
+import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
+import { useCallback, useState } from 'react';
 
-import { Transaction } from '~/lib/types';
+import { TransactionWithToken } from '~/lib/types';
+import { callGetFetch } from '~/lib/utils';
 
 interface UseTransactionsResult {
-  data: Transaction[] | undefined;
+  data: TransactionWithToken[] | undefined;
   error: Error | undefined;
   isLoading: boolean;
-  refetch: () => Promise<void>;
+  reFetch: () => Promise<boolean>;
 }
-
-export interface UseTransactionsOptions {
-  filter: {
-    address: string;
-  };
-}
-
-const url = '/api/listTransactions';
 
 export const useTransactions = (
-  walletId: string,
-  options?: UseTransactionsOptions,
+  options: ListTransactionsInput,
 ): UseTransactionsResult => {
-  const address = options?.filter?.address;
-  const fullUrl = `${url}/${walletId}${address ? `?address=${String(address).trim()}` : ''}`;
+  const [data, setData] = useState<TransactionWithToken[] | undefined>([]);
+  const [error, setError] = useState<Error | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const reFetch = useCallback(async () => {
+    setIsLoading(true);
+    setError(undefined);
+    try {
+      const filter: Record<string, string> = {
+        includeAll: 'true',
+        pageSize: '10',
+      };
+      if (options.destinationAddress) {
+        filter.destinationAddress = options.destinationAddress;
+      }
 
-  const { data, error, isLoading } = useSWR<Transaction[], Error>(fullUrl);
-
-  const refetch = () => mutate(fullUrl);
+      if (options.walletIds) {
+        filter.walletIds = options.walletIds;
+      }
+      console.log('filter', filter);
+      const res = await callGetFetch<{
+        transactions: TransactionWithToken[];
+      }>(`/api/listTransactions`, filter);
+      setData(res.transactions);
+      return true;
+    } catch (err) {
+      setError(err as Error);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [setError, setIsLoading, setData, options]);
 
   return {
-    data,
     error,
     isLoading,
-    refetch,
+    data,
+    reFetch,
   };
 };

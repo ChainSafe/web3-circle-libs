@@ -10,11 +10,9 @@ import {
   useNavigation,
 } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
-import { SWRConfig } from 'swr';
 
 import { Sidebar } from '~/components/Sidebar';
 import { Toaster } from '~/components/ui/toaster';
-
 import './tailwind.css';
 import { cachedWalletSets } from '~/lib/memcache';
 
@@ -62,15 +60,7 @@ export default function App() {
             <LoaderCircle className="animate-spin" strokeWidth={1} size={64} />
           </div>
         )}
-
-        <SWRConfig
-          value={{
-            fetcher: (resource: string | URL | Request, init?: RequestInit) =>
-              fetch(resource, init).then((res) => res.json()),
-          }}
-        >
-          <Outlet />
-        </SWRConfig>
+        <Outlet />
       </div>
 
       <Toaster />

@@ -20,7 +20,9 @@ export function TransactionTableRow({
   onClickDetails,
 }: TransactionTableRowProps) {
   const [tx, setTx] = useState<TransactionWithToken>(transaction);
-  const { getTransaction, transaction: latestTransaction } = useGetTransaction();
+  const { reFetch: getTransaction, data: latestTransaction } = useGetTransaction({
+    id: transaction.id,
+  });
   useEffect(() => {
     if (latestTransaction) {
       setTx(latestTransaction);
@@ -37,10 +39,7 @@ export function TransactionTableRow({
         {shortenAddress(tx.destinationAddress)}
       </td>
       <td className="px-4 py-2" title={tx.state}>
-        <TransactionStateText
-          state={tx.state}
-          getTransaction={() => getTransaction({ id: tx.id })}
-        />
+        <TransactionStateText state={tx.state} getTransaction={getTransaction} />
       </td>
       <td className="px-4 py-2" title={tx.tokenId}>
         {tx?.token ? <TokenItem token={tx.token} /> : '-'}

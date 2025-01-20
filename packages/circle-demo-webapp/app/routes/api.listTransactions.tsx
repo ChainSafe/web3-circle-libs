@@ -5,20 +5,19 @@ import { cachedCoins } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
 import { TransactionWithToken } from '~/lib/types';
 
-export async function loader(o: LoaderFunctionArgs) {
-  const url = new URL(o.request.url);
-  const params = o.params;
-  if (!params.walletId) {
-    throw new Error('Wallet ID is required');
-  }
-  const filter: ListTransactionsInput = {
-    walletIds: [params.walletId],
-    includeAll: true,
-    pageSize: 10,
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const params: ListTransactionsInput = Object.fromEntries(
+    new URLSearchParams(url.searchParams),
+  );
+  const filter = {
+    ...params,
+    walletIds: params.walletIds
+      ? Array.isArray(params.walletIds)
+        ? params.walletIds
+        : [params.walletIds]
+      : undefined,
   };
-  if (url.searchParams.has('address')) {
-    filter.destinationAddress = String(url.searchParams.get('address'));
-  }
   const res = await sdk.listTransactions(filter);
   const txs = res.data?.transactions ?? [];
   const needToLoad: Record<string, boolean> = {};
@@ -44,5 +43,5 @@ export async function loader(o: LoaderFunctionArgs) {
     }
   }
 
-  return Response.json(txWithTokens);
+  return Response.json({ transactions: txWithTokens });
 }

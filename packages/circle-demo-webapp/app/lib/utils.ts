@@ -12,9 +12,9 @@ export function isValidString(value: unknown): value is string {
   return typeof value === 'string' && value.trim() !== '';
 }
 
-export async function callFetch<ReturnType extends object>(
+export async function callFetch<ReturnType, OptionsType = object>(
   url: string,
-  body: object,
+  body: OptionsType,
 ): Promise<ReturnType> {
   const res = await fetch(url, {
     method: 'POST',
@@ -30,7 +30,7 @@ export async function callFetch<ReturnType extends object>(
   return (await res.json()) as ReturnType;
 }
 
-export async function callGetFetch<ReturnType extends object>(
+export async function callGetFetch<ReturnType>(
   url: string,
   query: Record<string, string>,
 ): Promise<ReturnType> {

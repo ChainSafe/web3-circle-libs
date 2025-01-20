@@ -1,5 +1,6 @@
+import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
 import { useParams } from '@remix-run/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Card } from '~/components/ui/card';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';
@@ -16,25 +17,32 @@ export default function Page() {
   const { walletId } = useParams();
   const [address, setAddress] = useState<string>('');
   const [txId, setTxId] = useState<string | undefined>('');
-  const { getTransaction, transaction, isLoading } = useGetTransaction();
-  const { data: transactions = [], refetch: reFetchTransactions } = useTransactions(
-    walletId ?? '',
-    {
-      filter: {
-        address,
-      },
-    },
-  );
+  const {
+    reFetch: getTransaction,
+    data: transaction,
+    isLoading,
+  } = useGetTransaction({ id: txId ?? '' });
+  const getTransactionsFilter = useMemo(() => {
+    const filter: ListTransactionsInput = {};
+    if (walletId) {
+      filter.walletIds = [walletId];
+    }
+    if (address) {
+      filter.destinationAddress = address;
+    }
+    return filter;
+  }, [walletId, address]);
+  const { data: transactions = [], reFetch: reFetchTransactions } =
+    useTransactions(getTransactionsFilter);
   useEffect(() => {
     if (txId) {
-      getTransaction({ id: txId }).catch(console.error);
+      getTransaction().catch(console.error);
     }
-  }, [txId, getTransaction]);
+  }, [txId]);
 
   useEffect(() => {
     reFetchTransactions().catch(console.error);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+  }, [reFetchTransactions]);
 
   const handleChangeSearchAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     const addr = e?.target?.value;
@@ -88,7 +96,7 @@ export default function Page() {
             )}
           </div>
         </Card>
-        {(isLoading || transaction) && (
+        {(isLoading || (txId && transaction)) && (
           <TransactionDetailsDialog
             isLoading={isLoading}
             transaction={transaction}

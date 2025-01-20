@@ -6,41 +6,40 @@ import { callGetFetch } from '~/lib/utils';
 
 interface UseGetTransactionResult {
   error: Error | undefined;
-  transaction: TransactionWithToken | undefined;
+  data: TransactionWithToken | undefined;
   isLoading: boolean;
-  getTransaction: (args: GetTransactionInput) => Promise<boolean>;
+  reFetch: () => Promise<boolean>;
 }
 
-export const useGetTransaction = (): UseGetTransactionResult => {
-  const [transaction, setTransaction] = useState<TransactionWithToken | undefined>();
+export const useGetTransaction = (
+  options: GetTransactionInput,
+): UseGetTransactionResult => {
+  const [data, setData] = useState<TransactionWithToken | undefined>();
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getTransaction = useCallback(
-    async (args: GetTransactionInput) => {
-      setIsLoading(true);
-      setError(undefined);
-      try {
-        const res = await callGetFetch<{ transaction: TransactionWithToken }>(
-          `/api/getTransaction`,
-          args as unknown as Record<string, string>,
-        );
-        setTransaction(res.transaction);
-        return true;
-      } catch (err) {
-        setError(err as Error);
-        return false;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [setError, setIsLoading, setTransaction],
-  );
+  const reFetch = useCallback(async () => {
+    setIsLoading(true);
+    setError(undefined);
+    try {
+      const res = await callGetFetch<{ transaction: TransactionWithToken }>(
+        `/api/getTransaction`,
+        { ...options },
+      );
+      setData(res.transaction);
+      return true;
+    } catch (err) {
+      setError(err as Error);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [setError, setIsLoading, setData, options]);
 
   return {
     error,
     isLoading,
-    transaction,
-    getTransaction,
+    data,
+    reFetch,
   };
 };
