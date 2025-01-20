@@ -5,11 +5,11 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { TransactionDetails } from '~/components/TransactionDetails';
 import { Card } from '~/components/ui/card';
+import { Dialog, DialogContent, DialogTitle } from '~/components/ui/dialog';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';
 import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { useTransactions } from '~/hooks/useTransactions';
 
-import { TransactionDetailsDialog } from './components/TransactionDetailsDialog';
 import { TransactionTableHead } from './components/TransactionTableHead';
 import { TransactionTableRow } from './components/TransactionTableRow';
 
@@ -105,15 +105,18 @@ export default function Page() {
           </div>
         </Card>
         {(isLoading || (txId && transaction)) && (
-          <TransactionDetailsDialog onClose={() => setTxId(undefined)}>
-            {isLoading ? (
-              <div className="flex justify-center items-center w-full h-40">
-                <LoaderCircle className="animate-spin" />
-              </div>
-            ) : transaction ? (
-              <TransactionDetails transaction={transaction} />
-            ) : null}
-          </TransactionDetailsDialog>
+          <Dialog open onOpenChange={() => setTxId(undefined)}>
+            <DialogContent className="min-w-[480px]">
+              <DialogTitle>Transaction Details</DialogTitle>
+              {isLoading ? (
+                <div className="flex justify-center items-center w-full h-40">
+                  <LoaderCircle className="animate-spin" />
+                </div>
+              ) : transaction ? (
+                <TransactionDetails transaction={transaction} />
+              ) : null}
+            </DialogContent>
+          </Dialog>
         )}
       </div>
     </div>
