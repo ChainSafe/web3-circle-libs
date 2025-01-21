@@ -1,7 +1,12 @@
 {
-  "name": "circle-demo-webapp",
+  "name": "@circle-libs/circle-react-elements",
   "version": "0.0.1",
-  "description": "Demo application combining Circle React components and Circle SDK",
+  "description": "React components compatible with Circle SDK",
+  "keywords": [
+    "react",
+    "components",
+    "circle"
+  ],
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
@@ -11,61 +16,53 @@
   "contributors": [
     "ChainSafe <info@chainsafe.io>"
   ],
-  "private": true,
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
   "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "lint": "tsc --noEmit && eslint .",
-    "prettier": "prettier . --write",
-    "start": "remix-serve ./build/server/index.js",
+    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}'",
+    "watch": "tsup src/index.tsx --format cjs,esm --dts --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
-    "@circle-libs/circle-react-elements": "*",
-    "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.4",
-    "@remix-run/node": "^2.15.0",
-    "@remix-run/react": "^2.15.0",
-    "@remix-run/serve": "^2.15.0",
     "@web3icons/react": "^3.16.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "ethereum-blockies-base64": "^1.0.2",
-    "isbot": "^4.0.0",
     "lucide-react": "^0.462.0",
     "qrcode.react": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.54.2",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.24.1"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@remix-run/dev": "^2.15.0",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/blocks": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
-    "@types/node": "^22.9.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
     "@typescript-eslint/parser": "^8.18.1",
-    "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.17.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -80,10 +77,15 @@
     "storybook": "^8.4.7",
     "storybook-dark-mode": "^4.0.2",
     "tailwindcss": "^3.4.4",
+    "tsup": "^5.0.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.11.0",
-    "vite": "^5.1.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "typescript-eslint": "^8.11.0"
+  },
+  "peerDependencies": {
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@web3icons/react": "^3.16.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "engines": {
     "node": ">=20.0.0"

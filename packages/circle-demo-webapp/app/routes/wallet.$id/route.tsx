@@ -1,4 +1,5 @@
 import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import { WalletBalance } from '@circle-libs/circle-react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
@@ -9,7 +10,6 @@ import { TransactionTableHead } from '~/components/TransactionTableHead';
 import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Badge } from '~/components/ui/badge';
 import { Card } from '~/components/ui/card';
-import { WalletBalance } from '~/components/WalletBalance';
 import { WalletDetails } from '~/components/WalletDetails';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
@@ -38,7 +38,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   ]);
 
   return {
-    balances: (balancesRes?.data?.tokenBalances ?? []) as WalletTokenBalance[],
+    balances: balancesRes?.data?.tokenBalances ?? [],
     wallet: walletRes?.data?.wallet as Wallet,
   };
 }
@@ -91,7 +91,7 @@ export default function WalletBalancePage() {
               <WalletReceiveDialog wallet={wallet} />
               <WalletSendDialog
                 wallet={wallet}
-                balances={balances}
+                balances={balances as WalletTokenBalance[]}
                 onSendTransaction={(data: CreateTransactionInput) =>
                   callFetch<Transaction, CreateTransactionInput>(
                     '/api/createTransaction',
