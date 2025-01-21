@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { ErrorResponse } from '~/lib/responses';
+import { callFetch } from '~/lib/utils';
 
 interface CreateWalletArgs {
   walletSetId: string;
@@ -19,32 +19,23 @@ export const useCreateWallet = (): UseCreateWalletResult => {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const createWallet = async (args: CreateWalletArgs) => {
-    setIsLoading(true);
-    setError(undefined);
-    try {
-      const response = await fetch('/api/createWallet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(args),
-      });
+  const createWallet = useCallback(
+    async (args: CreateWalletArgs) => {
+      setIsLoading(true);
+      setError(undefined);
+      try {
+        await callFetch('/api/createWallet', args);
+        return true;
+      } catch (err) {
+        setError(err as Error);
 
-      if (response.status !== 200) {
-        const errorData = (await response.json()) as ErrorResponse;
-        throw new Error(errorData.error);
+        return false;
+      } finally {
+        setIsLoading(false);
       }
-
-      return true;
-    } catch (err) {
-      setError(err as Error);
-
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    [setError, setIsLoading],
+  );
 
   return {
     error,

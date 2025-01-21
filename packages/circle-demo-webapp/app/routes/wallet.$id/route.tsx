@@ -1,10 +1,8 @@
-import {
-  CreateTransactionInput,
-  GetTransactionInput,
-} from '@circle-fin/developer-controlled-wallets';
+import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
 
 import { ScreenAddressResult } from '~/components/SendTransactionForm';
 import { TransactionTableHead } from '~/components/TransactionTableHead';
@@ -31,31 +29,34 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Error('Wallet ID is required');
   }
 
-  const [balancesRes, walletRes, transactionsRes] = await Promise.all([
+  const [balancesRes, walletRes] = await Promise.all([
     sdk.getWalletTokenBalance({
       id,
       includeAll: true,
     }),
     sdk.getWallet({ id }),
-    sdk.listTransactions({
-      walletIds: [id],
-      includeAll: true,
-    }),
   ]);
 
   return {
     balances: (balancesRes?.data?.tokenBalances ?? []) as WalletTokenBalance[],
     wallet: walletRes?.data?.wallet as Wallet,
-    transactions: transactionsRes?.data?.transactions as Transaction[],
   };
 }
 
 export default function WalletBalancePage() {
   const revalidator = useRevalidator();
   const { id } = useParams();
-  const { balances, wallet, transactions } = useLoaderData<typeof loader>();
+  const { balances, wallet } = useLoaderData<typeof loader>();
   const { toast } = useToast();
-  const { refetch: refetchTransactions } = useTransactions(id ?? '');
+  const getTransactionFilter = useMemo(() => {
+    return { walletIds: [id ?? ''] };
+  }, [id]);
+  const { data: transactions, reFetch: reFetchTransactions } =
+    useTransactions(getTransactionFilter);
+
+  useEffect(() => {
+    reFetchTransactions().catch(console.error);
+  }, [reFetchTransactions]);
 
   const revalidate = () => {
     revalidator.revalidate();
@@ -92,12 +93,14 @@ export default function WalletBalancePage() {
                 wallet={wallet}
                 balances={balances}
                 onSendTransaction={(data: CreateTransactionInput) =>
-                  callFetch<Transaction>('/api/createTransaction', data)
+                  callFetch<Transaction, CreateTransactionInput>(
+                    '/api/createTransaction',
+                    data,
+                  )
                 }
-                onGetTransaction={(data: GetTransactionInput) =>
-                  callFetch<{ transaction: Transaction }>('/api/getTransaction', data)
-                }
-                onConfirmed={() => refetchTransactions()}
+                onSent={() => {
+                  reFetchTransactions().catch(console.error);
+                }}
                 onScreenAddress={(address: string) =>
                   callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
                     address,

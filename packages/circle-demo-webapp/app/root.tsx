@@ -10,15 +10,11 @@ import {
   useNavigation,
 } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
-import { SWRConfig } from 'swr';
 
 import { Sidebar } from '~/components/Sidebar';
 import { Toaster } from '~/components/ui/toaster';
-import { cachedLoader } from '~/lib/cache';
-import { sdk } from '~/lib/sdk';
-import { WalletSet } from '~/lib/types';
-
 import './tailwind.css';
+import { cachedWalletSets } from '~/lib/memcache';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Circle SDK Demo' }];
@@ -29,10 +25,7 @@ export const links: LinksFunction = () => [
 ];
 
 export async function loader() {
-  return cachedLoader('walletSets', async () => {
-    const res = await sdk.listWalletSets();
-    return res?.data?.walletSets as WalletSet[];
-  });
+  return cachedWalletSets.loadAllAndSet();
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -67,15 +60,7 @@ export default function App() {
             <LoaderCircle className="animate-spin" strokeWidth={1} size={64} />
           </div>
         )}
-
-        <SWRConfig
-          value={{
-            fetcher: (resource: string | URL | Request, init?: RequestInit) =>
-              fetch(resource, init).then((res) => res.json()),
-          }}
-        >
-          <Outlet />
-        </SWRConfig>
+        <Outlet />
       </div>
 
       <Toaster />

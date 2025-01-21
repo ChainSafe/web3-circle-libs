@@ -1,7 +1,4 @@
-import type {
-  CreateTransactionInput,
-  GetTransactionInput,
-} from '@circle-fin/developer-controlled-wallets';
+import type { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Blockchain } from '~/lib/constants';
@@ -40,7 +37,5 @@ export const Default: Story = {
     },
     onSendTransaction: (data: CreateTransactionInput) =>
       Promise.resolve(data as unknown as Transaction),
-    onGetTransaction: (data: GetTransactionInput) =>
-      Promise.resolve({ transaction: data as unknown as Transaction }),
   },
 };

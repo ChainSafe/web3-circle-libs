@@ -4,17 +4,12 @@ import { ArrowUpRight } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { WalletSetDetails } from '~/components/WalletSetDetails/WalletSetDetails';
-import { cachedLoader } from '~/lib/cache';
-import { sdk } from '~/lib/sdk';
-import { WalletSet } from '~/lib/types';
+import { cachedWalletSets } from '~/lib/memcache';
 
 import { NewWalletSetDialog } from './components/NewWalletSetDialog';
 
 export async function loader() {
-  return cachedLoader('walletSets', async () => {
-    const resp = await sdk.listWalletSets();
-    return resp?.data?.walletSets as WalletSet[];
-  });
+  return cachedWalletSets.loadAllAndSet();
 }
 
 function Header() {
