@@ -44,7 +44,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   ]);
 
   return {
-    balances: (balancesRes?.data?.tokenBalances ?? []) as WalletTokenBalance[],
+    balances: balancesRes?.data?.tokenBalances ?? [],
     wallet: walletRes?.data?.wallet as Wallet,
     transactions: transactionsRes?.data?.transactions as Transaction[],
   };
@@ -90,7 +90,7 @@ export default function WalletBalancePage() {
               <WalletReceiveDialog wallet={wallet} />
               <WalletSendDialog
                 wallet={wallet}
-                balances={balances}
+                balances={balances as WalletTokenBalance[]}
                 onSendTransaction={(data: CreateTransactionInput) =>
                   callFetch<Transaction>('/api/createTransaction', data)
                 }

@@ -1,10 +1,9 @@
+import type { Balance } from '@circle-fin/developer-controlled-wallets';
 import { TokenIcon } from '@web3icons/react';
-
-import { WalletTokenBalance } from '~/lib/types';
 
 export interface WalletBalanceProps {
   /** The balance details */
-  balance: WalletTokenBalance;
+  balance: Balance;
 }
 
 /** A token balance for an on-chain account */
@@ -13,7 +12,7 @@ export function WalletBalance({ balance }: WalletBalanceProps) {
     <div className="flex items-center justify-between space-x-8">
       <div className="flex items-center space-x-2">
         <TokenIcon
-          symbol={balance.token.symbol.split('-')[0]}
+          symbol={balance.token.symbol?.split('-')[0] ?? ''}
           size={40}
           variant="branded"
           className="flex-shrink-0"
