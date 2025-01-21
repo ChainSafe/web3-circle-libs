@@ -20,6 +20,7 @@
     "demo:storybook": "yarn workspace circle-demo-webapp storybook",
     "elements:build": "yarn workspace @circle-libs/circle-react-elements build",
     "elements:watch": "yarn workspace @circle-libs/circle-react-elements watch",
+    "elements:storybook": "yarn workspace @circle-libs/circle-react-elements storybook",
     "build": "yarn workspaces run build",
     "lint": "yarn workspaces run lint"
   },

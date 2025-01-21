@@ -30,20 +30,40 @@
   },
   "scripts": {
     "build": "tsup src/index.tsx --format cjs,esm --dts",
-    "lint": "tsc && eslint 'src/**/*.{ts,tsx}'",
-    "watch": "tsup src/index.tsx --format cjs,esm --dts --watch"
+    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}'",
+    "watch": "tsup src/index.tsx --format cjs,esm --dts --watch",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@radix-ui/react-avatar": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.4",
     "@web3icons/react": "^3.16.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.462.0",
+    "qrcode.react": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
     "@typescript-eslint/parser": "^8.18.1",
+    "autoprefixer": "^10.4.19",
     "eslint": "^9.17.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.28.1",
@@ -52,13 +72,22 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-storybook": "^0.11.1",
+    "postcss": "^8.4.38",
+    "prettier": "^3.4.1",
+    "storybook": "^8.4.7",
+    "storybook-dark-mode": "^4.0.2",
+    "tailwindcss": "^3.4.4",
+    "tsup": "^5.0.0",
     "typescript": "^5.7.2",
-    "tsup": "^5.0.0"
+    "typescript-eslint": "^8.11.0"
   },
   "peerDependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
     "@web3icons/react": "^3.16.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

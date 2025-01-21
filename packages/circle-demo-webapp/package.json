@@ -20,7 +20,7 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "lint": "tsc && eslint .",
+    "lint": "tsc --noEmit && eslint .",
     "prettier": "prettier . --write",
     "start": "remix-serve ./build/server/index.js",
     "storybook": "storybook dev -p 6006",
