@@ -1,25 +1,24 @@
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
 
+import { cachedCoins } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
-import { Token, TransactionWithToken } from '~/lib/types';
+import { TransactionWithToken } from '~/lib/types';
 
-const cachedCoins = new Map<string, Token>();
-
-export async function loader(o: LoaderFunctionArgs) {
-  const url = new URL(o.request.url);
-  const params = o.params;
-  if (!params.walletId) {
-    throw new Error('Wallet ID is required');
-  }
-  const filter: ListTransactionsInput = {
-    walletIds: [params.walletId],
-    includeAll: true,
-    pageSize: 10,
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const params: ListTransactionsInput = Object.fromEntries(
+    new URLSearchParams(url.searchParams),
+  );
+  const filter = {
+    ...params,
+    walletIds: params.walletIds
+      ? Array.isArray(params.walletIds)
+        ? params.walletIds
+        : [params.walletIds]
+      : undefined,
   };
-  if (url.searchParams.has('address')) {
-    filter.destinationAddress = String(url.searchParams.get('address'));
-  }
+
   const res = await sdk.listTransactions(filter);
   const txs = res.data?.transactions ?? [];
   const needToLoad: Record<string, boolean> = {};
@@ -27,17 +26,12 @@ export async function loader(o: LoaderFunctionArgs) {
   for (const tx of txs) {
     if (tx.tokenId && !needToLoad[String(tx.tokenId)] && !cachedCoins.has(tx.tokenId)) {
       needToLoad[tx.tokenId] = true;
-      prs.push(sdk.getToken({ id: tx.tokenId }));
+      prs.push(cachedCoins.loadAndSet(tx.tokenId));
     }
   }
 
   if (prs.length > 0) {
-    const tokens = await Promise.all(prs);
-    for (const token of tokens) {
-      if (token.data?.token) {
-        cachedCoins.set(token.data.token.id, token.data.token as Token);
-      }
-    }
+    await Promise.all(prs);
   }
   const txWithTokens: TransactionWithToken[] = [];
 
@@ -50,5 +44,5 @@ export async function loader(o: LoaderFunctionArgs) {
     }
   }
 
-  return Response.json(txWithTokens);
+  return Response.json({ transactions: txWithTokens });
 }

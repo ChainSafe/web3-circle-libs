@@ -1,8 +1,10 @@
 import { Link } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { TokenItem } from '~/components/TokenItem';
 import { TransactionStateText } from '~/components/TransactionStatusText';
+import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress } from '~/lib/format';
 import { TransactionWithToken } from '~/lib/types';
@@ -17,31 +19,45 @@ export function TransactionTableRow({
   transaction,
   onClickDetails,
 }: TransactionTableRowProps) {
-  const isInbound = transaction.transactionType === TransactionType.Inbound;
-  const explorerLink = getExplorerUrl(transaction.blockchain, transaction.txHash);
+  const [tx, setTx] = useState<TransactionWithToken>(transaction);
+  const getTransactionFilter = useMemo(
+    () => ({
+      id: transaction.id,
+    }),
+    [transaction.id],
+  );
+  const { reFetch: getTransaction, data: latestTransaction } =
+    useGetTransaction(getTransactionFilter);
+  useEffect(() => {
+    if (latestTransaction) {
+      setTx(latestTransaction);
+    }
+  }, [latestTransaction]);
+  const isInbound = tx.transactionType === TransactionType.Inbound;
+  const explorerLink = getExplorerUrl(tx.blockchain, tx.txHash);
   return (
     <tr className="text-sm text-muted-foreground">
-      <td className="px-4 py-2" title={transaction.sourceAddress}>
-        {shortenAddress(transaction.sourceAddress)}
+      <td className="px-4 py-2" title={tx.sourceAddress}>
+        {shortenAddress(tx.sourceAddress)}
       </td>
-      <td className="px-4 py-2" title={transaction.destinationAddress}>
-        {shortenAddress(transaction.destinationAddress)}
+      <td className="px-4 py-2" title={tx.destinationAddress}>
+        {shortenAddress(tx.destinationAddress)}
       </td>
-      <td className="px-4 py-2" title={transaction.state}>
-        <TransactionStateText state={transaction.state} />
+      <td className="px-4 py-2" title={tx.state}>
+        <TransactionStateText state={tx.state} getTransaction={getTransaction} />
       </td>
-      <td className="px-4 py-2" title={transaction.tokenId}>
-        {transaction?.token ? <TokenItem token={transaction.token} /> : '-'}
+      <td className="px-4 py-2" title={tx.tokenId}>
+        {tx?.token ? <TokenItem token={tx.token} /> : '-'}
       </td>
       <td
         className={`px-4 py-2 text-right font-medium ${
           isInbound ? 'text-green-600' : 'text-destructive'
         }`}
       >
-        {isInbound ? '+' : '-'} {transaction.amounts?.[0] ?? '0.00'}
+        {isInbound ? '+' : '-'} {tx.amounts?.[0] ?? '0.00'}
       </td>
       <td className="px-4 py-2 text-right">
-        {formatDate(transaction.firstConfirmDate ?? transaction.createDate)}
+        {formatDate(tx.firstConfirmDate ?? tx.createDate)}
       </td>
       <td className="py-2">
         <div className="flex justify-between">
@@ -49,7 +65,7 @@ export function TransactionTableRow({
             className="text-primary"
             onClick={() => {
               if (typeof onClickDetails === 'function') {
-                onClickDetails(transaction);
+                onClickDetails(tx);
               }
             }}
           >
