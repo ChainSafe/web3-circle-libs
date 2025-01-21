@@ -30,7 +30,8 @@
   },
   "scripts": {
     "build": "tsup src/index.tsx --format cjs,esm --dts",
-    "lint": "tsc && eslint 'src/**/*.{ts,tsx}'"
+    "lint": "tsc && eslint 'src/**/*.{ts,tsx}'",
+    "watch": "tsup src/index.tsx --format cjs,esm --dts --watch"
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
