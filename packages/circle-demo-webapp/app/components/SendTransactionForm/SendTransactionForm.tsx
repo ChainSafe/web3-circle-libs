@@ -128,6 +128,7 @@ export function SendTransactionForm({
         <Controller
           name="tokenId"
           control={control}
+          defaultValue={balances.find((b) => b.token.symbol === 'USDC')?.token.id ?? ''}
           render={({ field }) => (
             <TokenSelect
               balances={balances}

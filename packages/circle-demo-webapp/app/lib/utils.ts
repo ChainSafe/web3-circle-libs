@@ -47,33 +47,16 @@ export async function callGetFetch<ReturnType>(
   return (await res.json()) as ReturnType;
 }
 
-export type ValidInputTypes = Uint8Array | bigint | string | number | boolean;
+export const isSolanaAddress = (value: string): boolean => {
+  return /^[1-9A-HJ-NP-Za-km-z]{43,44}$/.test(value);
+};
 
-export const isHexStrict = (hex: ValidInputTypes) =>
-  typeof hex === 'string' && /^((-)?0x[0-9a-f]+|(0x))$/i.test(hex);
+const isEthAddress = (address: string): boolean => {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+};
 
 export const isAddress = (value: string): boolean => {
-  let valueToCheck: string;
-
-  if (!isHexStrict(value)) {
-    valueToCheck = value.toLowerCase().startsWith('0x') ? value : `0x${value}`;
-  } else {
-    valueToCheck = value;
-  }
-
-  // check if it has the basic requirements of an address
-  if (!/^(0x)?[0-9a-f]{40}$/i.test(valueToCheck)) {
-    return false;
-  }
-  // If it's ALL lowercase or ALL upppercase
-  if (
-    /^(0x|0X)?[0-9a-f]{40}$/.test(valueToCheck) ||
-    /^(0x|0X)?[0-9A-F]{40}$/.test(valueToCheck)
-  ) {
-    return true;
-    // Otherwise check each case
-  }
-  return true;
+  return isSolanaAddress(value) || isEthAddress(value);
 };
 
 /**
