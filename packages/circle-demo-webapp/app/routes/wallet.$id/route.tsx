@@ -104,6 +104,7 @@ export default function WalletBalancePage() {
                 onScreenAddress={(address: string) =>
                   callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
                     address,
+                    blockchain: wallet.blockchain,
                   })
                 }
               />

@@ -20,7 +20,7 @@ import { Transaction, Wallet } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
 
 export interface ScreenAddressResult {
-  result?: boolean;
+  result: 'APPROVED' | 'DENIED';
 }
 
 export interface SendTransactionFormProps {
@@ -52,8 +52,9 @@ export function SendTransactionForm({
   onSent,
   onScreenAddress,
 }: SendTransactionFormProps) {
-  const [screeningAddressResult, setScreeningAddressResult] =
-    useState<ScreenAddressResult>({});
+  const [screeningAddressResult, setScreeningAddressResult] = useState<
+    'APPROVED' | 'DENIED'
+  >();
   const [requestError, setRequestError] = useState<string>('');
   const [transactionData, setTransactionData] = useState({} as Transaction);
 
@@ -99,11 +100,11 @@ export function SendTransactionForm({
       if (isAddress(address)) {
         onScreenAddress(address)
           .then((res: ScreenAddressResult) => {
-            setScreeningAddressResult(res);
+            setScreeningAddressResult(res.result);
           })
           .catch(console.error);
       } else {
-        setScreeningAddressResult({});
+        setScreeningAddressResult('DENIED');
       }
     }
   };
@@ -117,8 +118,8 @@ export function SendTransactionForm({
           {...register('destinationAddress')}
           onChange={onChangeAddress}
         />
-        {screeningAddressResult.result !== undefined ? (
-          <ComplianceEngineText result={screeningAddressResult.result} />
+        {screeningAddressResult !== undefined ? (
+          <ComplianceEngineText result={screeningAddressResult === 'APPROVED'} />
         ) : (
           <FormErrorText message={errors.destinationAddress?.message} />
         )}
