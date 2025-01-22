@@ -1,4 +1,8 @@
-import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import {
+  Balance,
+  CreateTransactionInput,
+} from '@circle-fin/developer-controlled-wallets';
+import { TokenSelect } from '@circle-libs/circle-react-elements';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -7,13 +11,12 @@ import z from 'zod';
 
 import { ComplianceEngineText } from '~/components/ComplianceEngineText';
 import { FormErrorText } from '~/components/FormErrorText';
-import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { FeeLevel } from '~/lib/constants';
 import { CircleError, ErrorResponse } from '~/lib/responses';
-import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
+import { Transaction, Wallet } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
 
 export interface ScreenAddressResult {
@@ -23,7 +26,7 @@ export interface ScreenAddressResult {
 export interface SendTransactionFormProps {
   /** The wallet */
   wallet: Wallet;
-  balances: WalletTokenBalance[];
+  balances: Balance[];
   onSendTransaction: (data: CreateTransactionInput) => Promise<Transaction | CircleError>;
   onScreenAddress?: (address: string) => Promise<ScreenAddressResult>;
   onSent?: (data: Transaction) => void;
@@ -129,7 +132,8 @@ export function SendTransactionForm({
             <TokenSelect
               balances={balances}
               onValueChange={field.onChange}
-              className={`${errors.tokenId?.message ? 'border border-destructive' : ''}`}
+              error={errors.tokenId}
+              defaultToUsdc
             />
           )}
         />

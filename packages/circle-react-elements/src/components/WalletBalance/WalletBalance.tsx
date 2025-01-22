@@ -4,11 +4,16 @@ import { TokenIcon } from '@web3icons/react';
 import { Amount } from '~/components/Amount';
 
 export interface WalletBalanceProps {
-  /** The balance details */
+  /**
+   * The Balance object returned from Circle's API.
+   */
   balance: Balance;
 }
 
-/** A token balance */
+/**
+ * Displays a detailed wallet balance with token information and amount.
+ * Shows a branded token icon, token name, symbol, and formatted balance amount.
+ */
 export function WalletBalance({ balance }: WalletBalanceProps) {
   return (
     <div className="flex items-center justify-between space-x-8">

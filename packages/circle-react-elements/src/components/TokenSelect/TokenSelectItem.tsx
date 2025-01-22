@@ -1,18 +1,18 @@
+import { Balance } from '@circle-fin/developer-controlled-wallets';
 import { TokenIcon } from '@web3icons/react';
 
-import { WalletTokenBalance } from '~/lib/types';
-
 export interface TokenSelectItemProps {
-  /** The balance details */
-  balance: WalletTokenBalance;
+  /**
+   * The Balance object returned from Circle's API.
+   */
+  balance: Balance;
 }
 
-/** A token balance for an on-chain account */
 export function TokenSelectItem({ balance }: TokenSelectItemProps) {
   return (
     <div className="flex items-center space-x-2 pr-4">
       <TokenIcon
-        symbol={balance.token.symbol.split('-')[0]}
+        symbol={balance.token.symbol?.split('-')[0] ?? ''}
         size={24}
         variant="branded"
         className="flex-shrink-0"

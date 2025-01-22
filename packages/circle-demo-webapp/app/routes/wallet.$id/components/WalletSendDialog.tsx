@@ -1,3 +1,4 @@
+import { Balance } from '@circle-fin/developer-controlled-wallets';
 import { ArrowUp } from 'lucide-react';
 import { useState } from 'react';
 
@@ -15,11 +16,11 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { WalletDetails } from '~/components/WalletDetails';
-import { Wallet, WalletTokenBalance } from '~/lib/types';
+import { Wallet } from '~/lib/types';
 
 export interface WalletSendDialogProps {
   wallet: Wallet;
-  balances: WalletTokenBalance[];
+  balances: Balance[];
   onSendTransaction: SendTransactionFormProps['onSendTransaction'];
   onSent?: SendTransactionFormProps['onSent'];
   onScreenAddress?: SendTransactionFormProps['onScreenAddress'];
