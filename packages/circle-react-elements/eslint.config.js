@@ -6,7 +6,15 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', '.storybook', 'storybook-static', 'tailwind.config.ts'] },
+  {
+    ignores: [
+      'dist',
+      '.storybook',
+      'storybook-static',
+      'tailwind.config.ts',
+      'vite.config.ts',
+    ],
+  },
   {
     extends: [
       js.configs.recommended,

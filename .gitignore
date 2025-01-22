@@ -5,3 +5,4 @@ node_modules
 tmp
 .history
 .github/copilot-instructions.md
+.clinerules
