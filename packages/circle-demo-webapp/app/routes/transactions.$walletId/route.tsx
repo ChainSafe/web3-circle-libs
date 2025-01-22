@@ -1,9 +1,9 @@
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
+import { TransactionDetails } from '@circle-libs/circle-react-elements';
 import { useParams } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { TransactionDetails } from '~/components/TransactionDetails';
 import { Card } from '~/components/ui/card';
 import { Dialog, DialogContent, DialogTitle } from '~/components/ui/dialog';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';

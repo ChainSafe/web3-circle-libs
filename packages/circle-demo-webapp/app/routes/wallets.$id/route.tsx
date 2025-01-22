@@ -26,8 +26,10 @@ export async function loader({ params }: { params: { id: string } }) {
   ]);
 
   return {
-    wallets: walletsResp?.data?.wallets as Wallet[],
-    walletSet: walletSetResp?.data?.walletSet as WalletSet,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    wallets: walletsResp?.data?.wallets! as Wallet[],
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    walletSet: walletSetResp?.data?.walletSet! as WalletSet,
   };
 }
 

@@ -1,4 +1,4 @@
-import { AccountType } from '@circle-fin/developer-controlled-wallets';
+import { AccountType, Blockchain } from '@circle-fin/developer-controlled-wallets';
 import { ActionFunctionArgs } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
@@ -7,10 +7,9 @@ import {
   errorResponse,
   successResponse,
 } from '~/lib/server.responses';
-import { TypeBlockchain } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
 
-const CHAIN_TO_ACCOUNT_TYPE: Record<TypeBlockchain, AccountType> = {
+const CHAIN_TO_ACCOUNT_TYPE: Record<Blockchain, AccountType> = {
   ARB: 'SCA',
   AVAX: 'EOA',
   ETH: 'SCA',
@@ -25,6 +24,7 @@ const CHAIN_TO_ACCOUNT_TYPE: Record<TypeBlockchain, AccountType> = {
   'MATIC-AMOY': 'SCA',
   'NEAR-TESTNET': 'EOA',
   'SOL-DEVNET': 'EOA',
+  'UNI-SEPOLIA': 'EOA',
 };
 
 interface RequestBody {
@@ -54,8 +54,8 @@ export async function action({ request }: ActionFunctionArgs) {
     await sdk.createWallets({
       walletSetId,
       count: 1,
-      accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain as TypeBlockchain],
-      blockchains: [blockchain as TypeBlockchain],
+      accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain as Blockchain],
+      blockchains: [blockchain as Blockchain],
       metadata: [
         {
           name,

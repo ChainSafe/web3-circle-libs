@@ -1,9 +1,9 @@
 import { AccountType } from '@circle-fin/developer-controlled-wallets';
+import { ChainLabel } from '@circle-libs/circle-react-elements';
 import makeBlockie from 'ethereum-blockies-base64';
 import { Copy } from 'lucide-react';
 import { useMemo } from 'react';
 
-import { ChainLabel } from '~/components/ChainLabel';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { shortenAddress } from '~/lib/format';

@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Token } from '~/lib/types';
-
 import { TokenItem } from './TokenItem';
 
 const meta = {
@@ -17,6 +15,21 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Sol: Story = {
+  args: {
+    token: {
+      blockchain: 'SOL',
+      createDate: '2024-08-12T21:58:31Z',
+      decimals: 18,
+      id: '9ad91eb5-e152-5d81-b60e-151d5fd2b3d3',
+      isNative: true,
+      name: 'Solana',
+      symbol: 'SOL',
+      updateDate: '2024-08-12T21:58:31Z',
+    },
+  },
+};
+
 export const Default: Story = {
   args: {
     token: {
@@ -28,6 +41,6 @@ export const Default: Story = {
       name: 'Arbitrum Ethereum-Sepolia',
       symbol: 'ETH-SEPOLIA',
       updateDate: '2024-08-12T21:58:31Z',
-    } as Token,
+    },
   },
 };

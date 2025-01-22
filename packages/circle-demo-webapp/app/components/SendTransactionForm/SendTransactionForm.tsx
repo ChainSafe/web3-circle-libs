@@ -2,6 +2,10 @@ import {
   Balance,
   CreateTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
+import {
+  Transaction,
+  Wallet,
+} from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { TokenSelect } from '@circle-libs/circle-react-elements';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
@@ -16,7 +20,6 @@ import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { FeeLevel } from '~/lib/constants';
 import { CircleError, ErrorResponse } from '~/lib/responses';
-import { Transaction, Wallet } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
 
 export interface ScreenAddressResult {

@@ -1,6 +1,7 @@
+import { Blockchain } from '@circle-fin/developer-controlled-wallets';
+import { ChainIcon } from '@circle-libs/circle-react-elements';
 import { SelectProps } from '@radix-ui/react-select';
 
-import { ChainIcon } from '~/components/ChainIcon';
 import {
   Select,
   SelectContent,
@@ -8,15 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import { Blockchain } from '~/lib/constants';
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
-  [Blockchain.Arb]: 'Arbitrum',
-  [Blockchain.Avax]: 'Avalanche',
-  [Blockchain.Eth]: 'Ethereum',
-  [Blockchain.Matic]: 'Polygon',
-  [Blockchain.Near]: 'NEAR',
-  [Blockchain.Sol]: 'Solana',
+  ARB: 'Arbitrum',
+  AVAX: 'Avalanche',
+  ETH: 'Ethereum',
+  MATIC: 'Polygon',
+  NEAR: 'NEAR',
+  SOL: 'Solana',
 };
 
 export type ChainSelectProps = Omit<SelectProps, 'children'> & { placeholder?: string };
@@ -33,7 +33,7 @@ export function ChainSelect({ ...props }: ChainSelectProps) {
         {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (
           <SelectItem key={blockchain} value={blockchain}>
             <div className="text-sm text-muted-foreground flex items-center space-x-2 pr-4">
-              <ChainIcon blockchain={blockchain} />
+              <ChainIcon blockchain={blockchain as Blockchain} />
               <span>{BLOCKCHAIN_LABELS[blockchain]}</span>
             </div>
           </SelectItem>

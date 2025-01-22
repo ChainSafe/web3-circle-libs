@@ -1,4 +1,5 @@
 import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import { Transaction } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { WalletBalance } from '@circle-libs/circle-react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
@@ -15,7 +16,6 @@ import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
 import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
-import { Transaction, Wallet } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
 
 import { EditWalletDialog } from './components/EditWalletDialog';
@@ -39,7 +39,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   return {
     balances: balancesRes?.data?.tokenBalances ?? [],
-    wallet: walletRes?.data?.wallet as Wallet,
+    wallet: walletRes?.data?.wallet,
   };
 }
 
@@ -64,6 +64,10 @@ export default function WalletBalancePage() {
 
   if (!id) {
     throw new Error('Wallet ID is required');
+  }
+
+  if (!wallet) {
+    throw new Error('Wallet not found');
   }
 
   return (

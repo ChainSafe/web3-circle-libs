@@ -1,3 +1,4 @@
+import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
 
@@ -10,7 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-import { Wallet } from '~/lib/types';
 
 import { EditWalletForm } from './EditWalletForm';
 

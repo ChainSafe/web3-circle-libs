@@ -1,14 +1,8 @@
-export function shortenAddress(address: string | undefined): string {
-  if (typeof address !== 'string') {
-    return '';
-  }
+export function shortenAddress(address: string): string {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
-export function shortenHash(hash: string | undefined): string {
-  if (typeof hash !== 'string') {
-    return '';
-  }
+export function shortenHash(hash: string): string {
   return `${hash.slice(0, 10)}...${hash.slice(-10)}`;
 }
 

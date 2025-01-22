@@ -1,5 +1,5 @@
-import { TokenItem } from '~/components/TokenItem';
-import { TransactionStateText } from '~/components/TransactionStatusText';
+import { TokenItem, TransactionStateText } from '@circle-libs/circle-react-elements';
+
 import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress } from '~/lib/format';
 import { TransactionWithToken } from '~/lib/types';

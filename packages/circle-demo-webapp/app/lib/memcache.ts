@@ -1,5 +1,7 @@
+import { Token } from '@circle-fin/developer-controlled-wallets';
+
 import { sdk } from '~/lib/sdk';
-import { Token, WalletSet } from '~/lib/types';
+import { WalletSet } from '~/lib/types';
 
 class MemCache<ReturnType extends { id: string }> {
   private map: Map<string, ReturnType>;

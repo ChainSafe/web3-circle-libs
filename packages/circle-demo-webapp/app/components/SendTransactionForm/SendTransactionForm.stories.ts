@@ -1,8 +1,8 @@
 import type { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import { Transaction } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Blockchain } from '~/lib/constants';
-import { Transaction } from '~/lib/types';
 
 import { SendTransactionForm } from './SendTransactionForm';
 
