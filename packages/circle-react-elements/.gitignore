@@ -1,4 +1,6 @@
 dist/
 node_modules
-
+.cache
+.env
 *storybook.log
+storybook-static

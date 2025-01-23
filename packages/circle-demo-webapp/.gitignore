@@ -1,9 +1,6 @@
 node_modules
-
 .cache
-build
+build/
 .env
-
 *storybook.log
-
 storybook-static
