@@ -1,12 +1,3 @@
-export const TestnetBlockchain = {
-  ArbSepolia: 'ARB-SEPOLIA',
-  AvaxFuji: 'AVAX-FUJI',
-  EthSepolia: 'ETH-SEPOLIA',
-  MaticAmoy: 'MATIC-AMOY',
-  SolDevnet: 'SOL-DEVNET',
-  UniSepolia: 'UNI-SEPOLIA',
-} as const;
-
 export const Blockchain = {
   Arb: 'ARB',
   Avax: 'AVAX',
@@ -28,11 +19,6 @@ export const TransactionType = {
   Inbound: 'INBOUND',
   Outbound: 'OUTBOUND',
 };
-export const FeeLevel = {
-  High: 'HIGH',
-  Medium: 'MEDIUM',
-  Low: 'LOW',
-} as const;
 
 export const TransactionState = {
   Cancelled: 'CANCELLED',

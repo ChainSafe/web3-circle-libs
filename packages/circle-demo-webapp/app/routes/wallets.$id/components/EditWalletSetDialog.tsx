@@ -10,12 +10,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-import { WalletSet } from '~/lib/types';
+import { ElementsWalletSet } from '~/lib/types';
 
 import { EditWalletSetForm } from './EditWalletSetForm';
 
 interface EditWalletSetDialogProps {
-  walletSet: WalletSet;
+  walletSet: ElementsWalletSet;
   onSuccess?: () => void;
 }
 

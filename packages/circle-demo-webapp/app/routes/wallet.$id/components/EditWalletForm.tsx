@@ -1,3 +1,4 @@
+import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { LoaderCircle } from 'lucide-react';
 import { FormEvent } from 'react';
 
@@ -5,7 +6,6 @@ import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { useUpdateWallet } from '~/hooks/useUpdateWallet';
-import { Wallet } from '~/lib/types';
 
 interface EditWalletFormProps {
   wallet: Wallet;

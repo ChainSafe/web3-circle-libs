@@ -1,5 +1,7 @@
+import { Token } from '@circle-fin/developer-controlled-wallets';
+
 import { sdk } from '~/lib/sdk';
-import { Token, WalletSet } from '~/lib/types';
+import { ElementsWalletSet } from '~/lib/types';
 
 class MemCache<ReturnType extends { id: string }> {
   private map: Map<string, ReturnType>;
@@ -63,9 +65,9 @@ export const cachedCoins = new MemCache<Token>({
   },
 });
 
-export const cachedWalletSets = new MemCache<WalletSet>({
+export const cachedWalletSets = new MemCache<ElementsWalletSet>({
   loadAllFunction: async () => {
     const resp = await sdk.listWalletSets();
-    return resp?.data?.walletSets as WalletSet[];
+    return resp?.data?.walletSets as ElementsWalletSet[];
   },
 });

@@ -1,9 +1,8 @@
+import { TokenItem, TransactionStateText } from '@circle-libs/circle-react-elements';
 import { Link } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { TokenItem } from '~/components/TokenItem';
-import { TransactionStateText } from '~/components/TransactionStatusText';
 import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { TransactionType } from '~/lib/constants';
 import { formatDate, shortenAddress } from '~/lib/format';
@@ -44,7 +43,7 @@ export function TransactionTableRow({
         {shortenAddress(tx.destinationAddress)}
       </td>
       <td className="px-4 py-2" title={tx.state}>
-        <TransactionStateText state={tx.state} getTransaction={getTransaction} />
+        <TransactionStateText state={tx.state} />
       </td>
       <td className="px-4 py-2" title={tx.tokenId}>
         {tx?.token ? <TokenItem token={tx.token} /> : '-'}
@@ -65,6 +64,7 @@ export function TransactionTableRow({
             className="text-primary"
             onClick={() => {
               if (typeof onClickDetails === 'function') {
+                getTransaction().catch(console.error);
                 onClickDetails(tx);
               }
             }}

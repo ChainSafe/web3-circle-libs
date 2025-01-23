@@ -1,17 +1,17 @@
 import { AccountType } from '@circle-fin/developer-controlled-wallets';
+import { ChainLabel } from '@circle-libs/circle-react-elements';
 import makeBlockie from 'ethereum-blockies-base64';
 import { Copy } from 'lucide-react';
 import { useMemo } from 'react';
 
-import { ChainLabel } from '~/components/ChainLabel';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { shortenAddress } from '~/lib/format';
-import { Wallet } from '~/lib/types';
+import { ElementsWallet } from '~/lib/types';
 
 export interface WalletDetailsProps {
   /** The wallet associated with the on-chain account */
-  wallet: Wallet;
+  wallet: ElementsWallet;
   /** Child components to associate with the wallet */
   children?: React.ReactNode;
   /** Copy the wallet address to the clipboard */

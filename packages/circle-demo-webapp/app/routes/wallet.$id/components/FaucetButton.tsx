@@ -1,9 +1,9 @@
+import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { LoaderCircle, Plus } from 'lucide-react';
 import { FormEvent } from 'react';
 
 import { Button } from '~/components/ui/button';
 import { useFaucet } from '~/hooks/useFaucet';
-import { Wallet } from '~/lib/types';
 
 interface FaucetButtonProps {
   wallet: Wallet;

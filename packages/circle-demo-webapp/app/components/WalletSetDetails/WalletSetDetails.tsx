@@ -1,10 +1,10 @@
 import { Badge } from '~/components/ui/badge';
 import { formatDate } from '~/lib/format';
-import { WalletSet } from '~/lib/types';
+import { ElementsWalletSet } from '~/lib/types';
 
 export interface WalletSetDetailsProps {
   /** The wallet set */
-  walletSet: WalletSet;
+  walletSet: ElementsWalletSet;
   /** Child components to associate with the wallet set */
   children?: React.ReactNode;
 }

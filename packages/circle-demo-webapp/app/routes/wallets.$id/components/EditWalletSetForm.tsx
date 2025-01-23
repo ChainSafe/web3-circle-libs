@@ -4,10 +4,10 @@ import { FormEvent } from 'react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
-import { WalletSet } from '~/lib/types';
+import { ElementsWalletSet } from '~/lib/types';
 
 interface EditWalletSetFormProps {
-  walletSet: WalletSet;
+  walletSet: ElementsWalletSet;
   onSuccess?: () => void;
 }
 
