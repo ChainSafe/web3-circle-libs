@@ -50,7 +50,7 @@ const exampleBalances: Balance[] = [
 ];
 
 const meta = {
-  title: 'Components/TokenSelect',
+  title: 'TokenSelect',
   component: TokenSelect,
   parameters: {
     layout: 'centered', // Centers the component in the story canvas

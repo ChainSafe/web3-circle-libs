@@ -80,7 +80,7 @@ export const NearTestnet: Story = {
 
 export const NearMainnet: Story = {
   args: {
-    blockchain: 'NEAR-TESTNET',
+    blockchain: 'NEAR',
   },
 };
 
