@@ -30,7 +30,7 @@ const CHAIN_TO_ACCOUNT_TYPE: Record<Blockchain, AccountType> = {
 interface RequestBody {
   walletSetId: string;
   name: string;
-  blockchain: string;
+  blockchain: Blockchain;
   description?: string;
 }
 
@@ -54,8 +54,8 @@ export async function action({ request }: ActionFunctionArgs) {
     await sdk.createWallets({
       walletSetId,
       count: 1,
-      accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain as Blockchain],
-      blockchains: [blockchain as Blockchain],
+      accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain],
+      blockchains: [blockchain],
       metadata: [
         {
           name,
