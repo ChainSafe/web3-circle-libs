@@ -1,8 +1,11 @@
+import {
+  NewWalletSetForm,
+  NewWalletSetFormInput,
+} from '@circle-libs/circle-react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
-import { NewWalletSetForm, NewWalletSetFormInput } from '~/components/NewWalletSetForm';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,

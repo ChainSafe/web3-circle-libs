@@ -1,5 +1,4 @@
 import { Blockchain } from '@circle-fin/developer-controlled-wallets';
-import { ChainIcon } from '@circle-libs/circle-react-elements';
 import { SelectProps } from '@radix-ui/react-select';
 
 import {
@@ -9,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
+
+import { ChainIcon } from '../ChainIcon';
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
   'ARB-SEPOLIA': 'Arbitrum Sepolia',

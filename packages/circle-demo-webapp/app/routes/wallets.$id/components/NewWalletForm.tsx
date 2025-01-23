@@ -1,7 +1,7 @@
+import { TestChainSelect } from '@circle-libs/circle-react-elements';
 import { LoaderCircle, Plus } from 'lucide-react';
 import { FormEvent } from 'react';
 
-import { TestChainSelect } from '~/components/TestChainSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';

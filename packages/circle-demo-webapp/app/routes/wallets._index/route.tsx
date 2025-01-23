@@ -1,9 +1,9 @@
+import { WalletSetDetails } from '@circle-libs/circle-react-elements';
 import { Link, useLoaderData, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import { WalletSetDetails } from '~/components/WalletSetDetails/WalletSetDetails';
 import { cachedWalletSets } from '~/lib/memcache';
 
 import { NewWalletSetDialog } from './components/NewWalletSetDialog';

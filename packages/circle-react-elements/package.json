@@ -36,11 +36,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.10.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "ethereum-blockies-base64": "^1.0.2",
     "qrcode.react": "^4.1.0",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.5.0",

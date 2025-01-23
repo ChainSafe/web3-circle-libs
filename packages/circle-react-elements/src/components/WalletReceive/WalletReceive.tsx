@@ -1,10 +1,11 @@
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
-import { ChainLabel } from '@circle-libs/circle-react-elements';
 import { Copy } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useState } from 'react';
 
 import { Button } from '~/components/ui/button';
+
+import { ChainLabel } from '../ChainLabel';
 
 export interface WalletReceiveProps {
   /** The wallet */
