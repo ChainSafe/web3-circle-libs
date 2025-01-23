@@ -6,6 +6,7 @@
     "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
+    "moduleResolution": "bundler",
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
