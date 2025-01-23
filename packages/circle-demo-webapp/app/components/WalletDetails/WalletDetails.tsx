@@ -7,11 +7,11 @@ import { useMemo } from 'react';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { shortenAddress } from '~/lib/format';
-import { Wallet } from '~/lib/types';
+import { ElementsWallet } from '~/lib/types';
 
 export interface WalletDetailsProps {
   /** The wallet associated with the on-chain account */
-  wallet: Wallet;
+  wallet: ElementsWallet;
   /** Child components to associate with the wallet */
   children?: React.ReactNode;
   /** Copy the wallet address to the clipboard */

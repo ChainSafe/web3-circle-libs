@@ -8,7 +8,7 @@ import { WalletDetails } from '~/components/WalletDetails';
 import { useToast } from '~/hooks/useToast';
 import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
-import { Wallet, WalletSet } from '~/lib/types';
+import { ElementsWallet, ElementsWalletSet } from '~/lib/types';
 
 import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';
@@ -27,13 +27,13 @@ export async function loader({ params }: { params: { id: string } }) {
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-    wallets: walletsResp?.data?.wallets! as Wallet[],
+    wallets: walletsResp?.data?.wallets! as ElementsWallet[],
     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-    walletSet: walletSetResp?.data?.walletSet! as WalletSet,
+    walletSet: walletSetResp?.data?.walletSet! as ElementsWalletSet,
   };
 }
 
-function Header({ walletSet }: { walletSet: WalletSet }) {
+function Header({ walletSet }: { walletSet: ElementsWalletSet }) {
   const revalidator = useRevalidator();
 
   const revalidate = () => {

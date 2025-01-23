@@ -31,7 +31,6 @@ export const Default: Story = {
       name: 'My Wallet',
       address: '0xc9758de68b17837dadf51616ac77d634bca848d5',
       blockchain: Blockchain.MaticAmoy,
-      accountType: 'EOA',
       updateDate: '2024-12-09T14:38:51Z',
       createDate: '2024-12-09T14:38:51Z',
     },

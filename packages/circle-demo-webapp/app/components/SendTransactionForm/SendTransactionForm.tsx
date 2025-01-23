@@ -18,7 +18,6 @@ import { FormErrorText } from '~/components/FormErrorText';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
-import { FeeLevel } from '~/lib/constants';
 import { CircleError, ErrorResponse } from '~/lib/responses';
 import { isAddress, isNumber } from '~/lib/utils';
 
@@ -80,7 +79,7 @@ export function SendTransactionForm({
       fee: {
         type: 'level',
         config: {
-          feeLevel: FeeLevel.Medium,
+          feeLevel: 'MEDIUM',
         },
       },
     } as CreateTransactionInput);
