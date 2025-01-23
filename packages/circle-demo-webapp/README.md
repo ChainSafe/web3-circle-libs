@@ -9,11 +9,3 @@ Explore a demo application built with Remix.js that showcases the components in 
 ```
 yarn dev
 ```
-
-## Run Storybook
-
-Browse the component library in a sandbox environment to view and test individual components:
-
-```
-yarn storybook
-```

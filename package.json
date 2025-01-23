@@ -1,7 +1,7 @@
 {
   "name": "circle-elements-monorepo",
   "version": "0.0.1",
-  "description": "Circle UI components and utilities",
+  "description": "Circle Wallet Elements - UI components and tools compatible with Circle SDK",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
@@ -17,7 +17,6 @@
   },
   "scripts": {
     "demo:dev": "yarn workspace circle-demo-webapp dev",
-    "demo:storybook": "yarn workspace circle-demo-webapp storybook",
     "demo:build": "yarn elements:build && yarn workspace circle-demo-webapp build",
     "elements:build": "yarn workspace @circle-libs/circle-react-elements build",
     "elements:watch": "yarn workspace @circle-libs/circle-react-elements watch",
