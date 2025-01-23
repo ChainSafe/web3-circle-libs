@@ -1,4 +1,8 @@
-import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import {
+  Balance,
+  CreateTransactionInput,
+} from '@circle-fin/developer-controlled-wallets';
+import { TokenSelect } from '@circle-libs/circle-react-elements';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -7,23 +11,22 @@ import z from 'zod';
 
 import { ComplianceEngineText } from '~/components/ComplianceEngineText';
 import { FormErrorText } from '~/components/FormErrorText';
-import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { FeeLevel } from '~/lib/constants';
 import { CircleError, ErrorResponse } from '~/lib/responses';
-import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
+import { Transaction, Wallet } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
 
 export interface ScreenAddressResult {
-  result?: boolean;
+  result: 'APPROVED' | 'DENIED';
 }
 
 export interface SendTransactionFormProps {
   /** The wallet */
   wallet: Wallet;
-  balances: WalletTokenBalance[];
+  balances: Balance[];
   onSendTransaction: (data: CreateTransactionInput) => Promise<Transaction | CircleError>;
   onScreenAddress?: (address: string) => Promise<ScreenAddressResult>;
   onSent?: (data: Transaction) => void;
@@ -49,8 +52,9 @@ export function SendTransactionForm({
   onSent,
   onScreenAddress,
 }: SendTransactionFormProps) {
-  const [screeningAddressResult, setScreeningAddressResult] =
-    useState<ScreenAddressResult>({});
+  const [screeningAddressResult, setScreeningAddressResult] = useState<
+    'APPROVED' | 'DENIED'
+  >();
   const [requestError, setRequestError] = useState<string>('');
   const [transactionData, setTransactionData] = useState({} as Transaction);
 
@@ -96,11 +100,11 @@ export function SendTransactionForm({
       if (isAddress(address)) {
         onScreenAddress(address)
           .then((res: ScreenAddressResult) => {
-            setScreeningAddressResult(res);
+            setScreeningAddressResult(res.result);
           })
           .catch(console.error);
       } else {
-        setScreeningAddressResult({});
+        setScreeningAddressResult('DENIED');
       }
     }
   };
@@ -114,8 +118,8 @@ export function SendTransactionForm({
           {...register('destinationAddress')}
           onChange={onChangeAddress}
         />
-        {screeningAddressResult.result !== undefined ? (
-          <ComplianceEngineText result={screeningAddressResult.result} />
+        {screeningAddressResult !== undefined ? (
+          <ComplianceEngineText result={screeningAddressResult === 'APPROVED'} />
         ) : (
           <FormErrorText message={errors.destinationAddress?.message} />
         )}
@@ -125,11 +129,13 @@ export function SendTransactionForm({
         <Controller
           name="tokenId"
           control={control}
+          defaultValue={balances.find((b) => b.token.symbol === 'USDC')?.token.id ?? ''}
           render={({ field }) => (
             <TokenSelect
               balances={balances}
               onValueChange={field.onChange}
-              className={`${errors.tokenId?.message ? 'border border-destructive' : ''}`}
+              error={errors.tokenId}
+              defaultToUsdc
             />
           )}
         />

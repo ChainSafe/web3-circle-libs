@@ -15,7 +15,7 @@ import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
 import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
-import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
+import { Transaction, Wallet } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
 
 import { EditWalletDialog } from './components/EditWalletDialog';
@@ -91,7 +91,7 @@ export default function WalletBalancePage() {
               <WalletReceiveDialog wallet={wallet} />
               <WalletSendDialog
                 wallet={wallet}
-                balances={balances as WalletTokenBalance[]}
+                balances={balances}
                 onSendTransaction={(data: CreateTransactionInput) =>
                   callFetch<Transaction, CreateTransactionInput>(
                     '/api/createTransaction',
@@ -104,6 +104,7 @@ export default function WalletBalancePage() {
                 onScreenAddress={(address: string) =>
                   callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
                     address,
+                    blockchain: wallet.blockchain,
                   })
                 }
               />
