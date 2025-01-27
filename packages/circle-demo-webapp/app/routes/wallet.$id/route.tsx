@@ -1,17 +1,18 @@
 import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { Transaction } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
-import { WalletBalance } from '@circle-libs/circle-react-elements';
+import {
+  TransactionTableHead,
+  TransactionTableRow,
+  WalletBalance,
+  WalletDetails,
+} from '@circle-libs/circle-react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 
-import { ScreenAddressResult } from '~/components/SendTransactionForm';
-import { TransactionTableHead } from '~/components/TransactionTableHead';
-import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Badge } from '~/components/ui/badge';
 import { Card } from '~/components/ui/card';
-import { WalletDetails } from '~/components/WalletDetails';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
 import { formatDate } from '~/lib/format';
@@ -106,7 +107,9 @@ export default function WalletBalancePage() {
                   reFetchTransactions().catch(console.error);
                 }}
                 onScreenAddress={(address: string) =>
-                  callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
+                  callFetch<{
+                    result: 'APPROVED' | 'DENIED';
+                  }>('/api/complianceScreenAddress', {
                     address,
                     blockchain: wallet.blockchain,
                   })

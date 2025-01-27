@@ -2,7 +2,7 @@ import type { Blockchain } from '@circle-fin/developer-controlled-wallets';
 
 import { ChainIcon } from '../ChainIcon';
 
-export interface ChainSelectProps {
+export interface ChainLabelProps {
   /** The blockchain network */
   blockchain: Blockchain;
 }
@@ -26,7 +26,7 @@ const BlockchainLabelMap: Record<Blockchain, string> = {
 };
 
 /** A label with an icon and text to identify a blockchain network */
-export function ChainLabel({ blockchain }: ChainSelectProps) {
+export function ChainLabel({ blockchain }: ChainLabelProps) {
   return (
     <p className="text-sm text-muted-foreground flex items-center space-x-2">
       <ChainIcon blockchain={blockchain} />

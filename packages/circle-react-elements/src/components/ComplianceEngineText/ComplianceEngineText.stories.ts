@@ -12,8 +12,14 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const ResultTrue: Story = {
   args: {
     result: true,
+  },
+};
+
+export const ResultFalse: Story = {
+  args: {
+    result: false,
   },
 };

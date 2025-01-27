@@ -1,10 +1,10 @@
+import { WalletDetails } from '@circle-libs/circle-react-elements';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import { WalletDetails } from '~/components/WalletDetails';
 import { useToast } from '~/hooks/useToast';
 import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';

@@ -13,7 +13,7 @@ interface RequestBody {
 
 export interface ScreenAddressResult {
   data: {
-    result: boolean;
+    result: 'APPROVED' | 'DENIED';
   };
 }
 

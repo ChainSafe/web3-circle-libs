@@ -1,5 +1,9 @@
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
-import { TransactionDetails } from '@circle-libs/circle-react-elements';
+import {
+  TransactionDetails,
+  TransactionTableHead,
+  TransactionTableRow,
+} from '@circle-libs/circle-react-elements';
 import { useParams } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,9 +13,6 @@ import { Dialog, DialogContent, DialogTitle } from '~/components/ui/dialog';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';
 import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { useTransactions } from '~/hooks/useTransactions';
-
-import { TransactionTableHead } from './components/TransactionTableHead';
-import { TransactionTableRow } from './components/TransactionTableRow';
 
 let timeout: NodeJS.Timeout;
 
@@ -95,7 +96,10 @@ export default function Page() {
                       <TransactionTableRow
                         key={tx.id}
                         transaction={tx}
-                        onClickDetails={(tx) => setTxId(tx.id)}
+                        withActions
+                        onClickDetails={(data) => {
+                          setTxId(data?.id);
+                        }}
                       />
                     ))}
                   </tbody>

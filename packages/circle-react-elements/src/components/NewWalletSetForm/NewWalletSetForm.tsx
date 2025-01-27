@@ -3,9 +3,9 @@ import { LoaderCircle, Plus } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FormErrorText } from '~/components/FormErrorText';
-import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
+import { FormErrorText } from '../FormErrorText';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
 const formSchema = z.object({
   name: z.string().nonempty('Name must not be empty'),

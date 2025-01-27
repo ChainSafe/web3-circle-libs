@@ -4,7 +4,7 @@ import { formatDate, shortenHash } from '../../lib/format';
 import { TransactionWithToken } from '../../lib/types';
 import { ChainLabel } from '../ChainLabel';
 import { TokenItem } from '../TokenItem';
-import { TransactionStateText } from '../TransactionStatusText';
+import { TransactionStateText } from '../TransactionStateText';
 
 export interface TransactionDetailsProps {
   /** The on-chain transaction data with token */
