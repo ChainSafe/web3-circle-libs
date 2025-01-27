@@ -1,5 +1,10 @@
+import {
+  EditWalletSetForm,
+  EditWalletSetFormInput,
+} from '@circle-libs/circle-react-elements';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -10,9 +15,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
+import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
 import { ElementsWalletSet } from '~/lib/types';
-
-import { EditWalletSetForm } from './EditWalletSetForm';
 
 interface EditWalletSetDialogProps {
   walletSet: ElementsWalletSet;
@@ -21,6 +25,24 @@ interface EditWalletSetDialogProps {
 
 export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialogProps) {
   const [open, setOpen] = useState(false);
+  const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
+
+  const onSubmit: SubmitHandler<EditWalletSetFormInput> = async ({ id, name }) => {
+    // Type assertion is safe because EditWalletSetFormInput matches UpdateWalletSetArgs
+    const success = await updateWalletSet({
+      id,
+      name,
+    });
+
+    if (!success) {
+      return;
+    }
+
+    setOpen(false);
+    if (typeof onSuccess === 'function') {
+      onSuccess();
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -39,13 +61,10 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
         </DialogHeader>
 
         <EditWalletSetForm
-          walletSet={walletSet}
-          onSuccess={() => {
-            setOpen(false);
-            if (typeof onSuccess === 'function') {
-              onSuccess();
-            }
-          }}
+          defaultValues={walletSet}
+          isSubmitting={isLoading}
+          onSubmit={onSubmit}
+          serverError={error}
         />
       </DialogContent>
     </Dialog>

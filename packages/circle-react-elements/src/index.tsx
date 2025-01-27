@@ -4,6 +4,7 @@ export * from './components/ChainLabel';
 export * from './components/ChainSelect';
 export * from './components/ComplianceEngineText';
 export * from './components/EditWalletForm';
+export * from './components/EditWalletSetForm';
 export * from './components/NewWalletForm';
 export * from './components/NewWalletSetForm';
 export * from './components/SendTransactionForm';
