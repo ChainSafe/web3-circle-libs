@@ -6,3 +6,4 @@ tmp
 .history
 .github/copilot-instructions.md
 .clinerules
+yarn-error.log
