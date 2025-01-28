@@ -1,4 +1,4 @@
-import { WalletDetails } from '@circle-libs/react-elements';
+import { formats, WalletDetails } from '@circle-libs/react-elements';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -8,7 +8,6 @@ import { Card } from '~/components/ui/card';
 import { useToast } from '~/hooks/useToast';
 import { sdk } from '~/lib/sdk';
 import { ElementsWallet, ElementsWalletSet } from '~/lib/types';
-import { formatDate } from '~/lib/utils';
 
 import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';
@@ -56,14 +55,14 @@ function Header({ walletSet }: { walletSet: ElementsWalletSet }) {
           variant="secondary"
           className="font-normal text-blue-600 dark:text-blue-500"
         >
-          Created: {formatDate(walletSet.createDate)}
+          Created: {formats.formatDate(walletSet.createDate)}
         </Badge>
 
         <Badge
           variant="secondary"
           className="font-normal text-blue-600 dark:text-blue-500"
         >
-          Updated: {formatDate(walletSet.updateDate)}
+          Updated: {formats.formatDate(walletSet.updateDate)}
         </Badge>
       </div>
     </div>

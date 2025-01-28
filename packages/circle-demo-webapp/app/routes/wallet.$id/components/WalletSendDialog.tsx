@@ -9,6 +9,8 @@ import {
 import {
   SendTransactionForm,
   SendTransactionFormInput,
+  SuccessMessage,
+  utils,
   WalletDetails,
 } from '@circle-libs/react-elements';
 import { ArrowUp } from 'lucide-react';
@@ -25,7 +27,6 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { CircleError, ErrorResponse } from '~/lib/responses';
-import { isAddress } from '~/lib/utils';
 
 // @todo: use constant exported from sdk
 const isTransactionPending = (tx: Transaction) =>
@@ -49,7 +50,7 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
   >();
   const [serverError, setServerError] = useState<Error | undefined>();
   const [transactionData, setTransactionData] = useState({} as Transaction);
-
+  const [successOpen, setSuccessOpen] = useState(false);
   const onSubmit: SubmitHandler<SendTransactionFormInput> = async (data) => {
     const res = await onSendTransaction({
       destinationAddress: data.destinationAddress,
@@ -74,13 +75,14 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
 
     setTransactionData({ state: tx.state } as Transaction);
     setOpen(false);
+    setSuccessOpen(true);
     if (typeof onSent === 'function') {
       onSent(tx);
     }
   };
   const onChangeAddress = (address: string) => {
     if (typeof onScreenAddress === 'function') {
-      if (isAddress(address)) {
+      if (utils.isAddress(address)) {
         onScreenAddress(address)
           .then((res) => {
             setScreeningAddressResult(res.result);
@@ -92,35 +94,59 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
     }
   };
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="default" size="sm">
-          <ArrowUp /> Send
-        </Button>
-      </DialogTrigger>
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="default" size="sm">
+            <ArrowUp /> Send
+          </Button>
+        </DialogTrigger>
 
-      <DialogContent className="min-w-[425px]">
-        <div className="mb-4">
-          <WalletDetails wallet={wallet} />
-        </div>
+        <DialogContent className="min-w-[425px]">
+          <div className="mb-4">
+            <WalletDetails wallet={wallet} />
+          </div>
 
-        <DialogHeader>
-          <DialogTitle>Send Transaction</DialogTitle>
-          <DialogDescription>
-            Send transaction to any blockchain address.
-          </DialogDescription>
-        </DialogHeader>
+          <DialogHeader>
+            <DialogTitle>Send Transaction</DialogTitle>
+            <DialogDescription>
+              Send transaction to any blockchain address.
+            </DialogDescription>
+          </DialogHeader>
 
-        <SendTransactionForm
-          onSubmit={onSubmit}
-          isSubmitting={isTransactionPending(transactionData)}
-          serverError={serverError}
-          screeningAddressResult={screeningAddressResult}
-          wallet={wallet}
-          balances={balances}
-          onChangeAddress={onChangeAddress}
-        />
-      </DialogContent>
-    </Dialog>
+          <SendTransactionForm
+            onSubmit={onSubmit}
+            isSubmitting={isTransactionPending(transactionData)}
+            serverError={serverError}
+            screeningAddressResult={screeningAddressResult}
+            wallet={wallet}
+            balances={balances}
+            onChangeAddress={onChangeAddress}
+          />
+        </DialogContent>
+      </Dialog>
+      <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
+        <DialogContent className="min-w-[425px]">
+          <SuccessMessage
+            onClose={() => setSuccessOpen(false)}
+            title="Transaction successful"
+          >
+            <div>
+              Transaction was successfully sent
+              {transactionData?.txHash && (
+                <a
+                  className="text-primary"
+                  href={utils.getExplorerUrl(wallet.blockchain, transactionData.txHash)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ArrowUpRight className="inline" />
+                </a>
+              )}
+            </div>
+          </SuccessMessage>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

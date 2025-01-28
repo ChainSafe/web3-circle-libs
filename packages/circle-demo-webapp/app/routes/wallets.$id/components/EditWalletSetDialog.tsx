@@ -25,7 +25,6 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
   const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
 
   const onSubmit: SubmitHandler<EditWalletSetFormInput> = async ({ id, name }) => {
-    // Type assertion is safe because EditWalletSetFormInput matches UpdateWalletSetArgs
     const success = await updateWalletSet({
       id,
       name,

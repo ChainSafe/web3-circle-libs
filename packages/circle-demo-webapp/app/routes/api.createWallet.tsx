@@ -2,11 +2,7 @@ import { AccountType, Blockchain } from '@circle-fin/developer-controlled-wallet
 import { ActionFunctionArgs } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
-import {
-  assertCircleErrorResponse,
-  errorResponse,
-  successResponse,
-} from '~/lib/server.responses';
+import { assertCircleErrorResponse, errorResponse } from '~/lib/server.responses';
 import { isValidString } from '~/lib/utils';
 
 const CHAIN_TO_ACCOUNT_TYPE: Record<Blockchain, AccountType> = {
@@ -51,7 +47,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    await sdk.createWallets({
+    const res = await sdk.createWallets({
       walletSetId,
       count: 1,
       accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain],
@@ -64,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
       ],
     });
 
-    return successResponse('Success');
+    return Response.json(res.data?.wallets[0]);
   } catch (e: unknown) {
     assertCircleErrorResponse(e);
 

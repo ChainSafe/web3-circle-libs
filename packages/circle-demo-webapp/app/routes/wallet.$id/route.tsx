@@ -1,6 +1,7 @@
 import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { Transaction } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
+  formats,
   TransactionTableHead,
   TransactionTableRow,
   WalletBalance,
@@ -16,7 +17,7 @@ import { Card } from '~/components/ui/card';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
 import { sdk } from '~/lib/sdk';
-import { callFetch, formatDate } from '~/lib/utils';
+import { callFetch } from '~/lib/utils';
 
 import { EditWalletDialog } from './components/EditWalletDialog';
 import { FaucetButton } from './components/FaucetButton';
@@ -126,14 +127,14 @@ export default function WalletBalancePage() {
               variant="secondary"
               className="font-normal text-blue-600 dark:text-blue-500"
             >
-              Created: {formatDate(wallet.createDate)}
+              Created: {formats.formatDate(wallet.createDate)}
             </Badge>
 
             <Badge
               variant="secondary"
               className="font-normal text-blue-600 dark:text-blue-500"
             >
-              Updated: {formatDate(wallet.updateDate)}
+              Updated: {formats.formatDate(wallet.updateDate)}
             </Badge>
           </div>
         </Card>

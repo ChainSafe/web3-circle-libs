@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+import { ElementsWalletSet } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
 
 interface CreateWalletSetArgs {
@@ -9,7 +10,7 @@ interface CreateWalletSetArgs {
 interface UseCreateWalletSetResult {
   error: Error | undefined;
   isLoading: boolean;
-  createWalletSet: (args: CreateWalletSetArgs) => Promise<boolean>;
+  createWalletSet: (args: CreateWalletSetArgs) => Promise<ElementsWalletSet | undefined>;
 }
 
 export const useCreateWalletSet = (): UseCreateWalletSetResult => {
@@ -21,12 +22,11 @@ export const useCreateWalletSet = (): UseCreateWalletSetResult => {
       setIsLoading(true);
       setError(undefined);
       try {
-        await callFetch('/api/createWalletSet', args);
-        return true;
+        return await callFetch<ElementsWalletSet>('/api/createWalletSet', args);
       } catch (err) {
         setError(err as Error);
 
-        return false;
+        return;
       } finally {
         setIsLoading(false);
       }
