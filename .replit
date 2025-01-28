@@ -1,12 +1,13 @@
 modules = ["nodejs-20", "web"]
-run = "npm run dev"
+
 [nix]
 channel = "stable-24_05"
-
-[deployment]
-deploymentTarget = "cloudrun"
-run = "cd packages/circle-react-elements && yarn build && cd ../circle-demo-webapp && yarn dev"
 
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[deployment]
+build = ["sh", "-c", "yarn elements:build && yarn demo:build"]
+run = ["sh", "-c", "yarn demo:dev"]
+deploymentTarget = "cloudrun"
