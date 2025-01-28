@@ -5,7 +5,7 @@ import {
   TransactionTableRow,
   WalletBalance,
   WalletDetails,
-} from '@circle-libs/circle-react-elements';
+} from '@circle-libs/react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';

@@ -1,4 +1,4 @@
-import { WalletSetDetails } from '@circle-libs/circle-react-elements';
+import { WalletSetDetails } from '@circle-libs/react-elements';
 import { Link, useLoaderData, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 

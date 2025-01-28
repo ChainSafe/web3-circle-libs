@@ -3,7 +3,7 @@ import {
   TransactionDetails,
   TransactionTableHead,
   TransactionTableRow,
-} from '@circle-libs/circle-react-elements';
+} from '@circle-libs/react-elements';
 import { useParams } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';

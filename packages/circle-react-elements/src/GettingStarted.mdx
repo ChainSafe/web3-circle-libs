@@ -1,6 +1,132 @@
-import { Meta } from '@storybook/blocks';
+# Circle React Elements
 
-<Meta title="Getting Started" />
+A library of React components for building Circle-powered web applications.
 
-Reusable UI components for working with
-[Circle Web3 Services](https://developers.circle.com/w3s/circle-programmable-wallets-an-overview).
+## Features
+
+- Pre-built components for common Circle operations
+- Built with React, TypeScript, and Tailwind CSS
+- Accessible by default using Radix UI primitives
+- Dark mode support
+- Responsive and mobile-friendly
+- Form components with validation
+- Transaction management components
+- Wallet management components
+
+## Installation
+
+```bash
+npm install @circle-fin/react-elements
+# or
+yarn add @circle-fin/react-elements
+```
+
+## Dependencies
+
+This package requires the following peer dependencies:
+
+```json
+{
+  "@circle-fin/developer-controlled-wallets": ">=1.0.0",
+  "react": ">=18.0.0",
+  "react-dom": ">=18.0.0",
+  "tailwindcss": ">=3.0.0"
+}
+```
+
+## Tailwind CSS Setup
+
+1. Add the package's Tailwind preset to your `tailwind.config.ts`:
+
+```typescript
+import { type Config } from 'tailwindcss';
+
+export default {
+  content: [
+    // ... your content paths
+    './node_modules/@circle-fin/react-elements/**/*.{js,ts,jsx,tsx}',
+  ],
+  presets: [require('@circle-fin/react-elements/tailwind')],
+} satisfies Config;
+```
+
+2. Import the CSS in your app's entry point:
+
+```typescript
+import '@circle-fin/react-elements/styles.css';
+```
+
+## Quick Start
+
+Here's a simple example using the wallet creation form:
+
+```tsx
+import { NewWalletForm } from '@circle-fin/react-elements';
+
+function CreateWallet() {
+  const handleSubmit = async (data) => {
+    try {
+      // Call Circle's API to create wallet
+      await createWallet(data);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  return (
+    <NewWalletForm walletSetId="your-wallet-set-id" onSubmit={handleSubmit} isTestnet />
+  );
+}
+```
+
+## Components
+
+The library provides several categories of components:
+
+### Form Components
+
+- `NewWalletForm` - Create a new wallet
+- `EditWalletForm` - Edit an existing wallet
+- `NewWalletSetForm` - Create a new wallet set
+- `EditWalletSetForm` - Edit an existing wallet set
+- `SendTransactionForm` - Send tokens from a wallet
+
+### Display Components
+
+- `WalletDetails` - Show wallet information
+- `WalletSetDetails` - Show wallet set information
+- `WalletBalance` - Display token balances
+- `WalletReceive` - Show wallet address with QR code
+- `TransactionDetails` - Display transaction information
+
+### Transaction Components
+
+- `TransactionStateText` - Show transaction status
+- `TransactionTableHead` - Header for transaction list
+- `TransactionTableRow` - Row for transaction list
+
+### Blockchain Components
+
+- `ChainIcon` - Display blockchain network icon
+- `ChainLabel` - Show network name with icon
+- `ChainSelect` - Network selection dropdown
+
+### Token Components
+
+- `TokenItem` - Display token information
+- `TokenSelect` - Token selection dropdown with balances
+- `Amount` - Format token amounts
+
+## TypeScript
+
+The package is written in TypeScript and includes full type definitions. All components and their props are fully typed for the best development experience.
+
+## Theme Customization
+
+The components use Tailwind CSS for styling and can be customized through your Tailwind configuration. They respect your theme's colors, spacing, and other design tokens.
+
+## Further Resources
+
+- [Circle Developer Documentation](https://developers.circle.com)
+- [Circle React Elements Storybook](#) (coming soon)
+- [GitHub Repository](#) (coming soon)
