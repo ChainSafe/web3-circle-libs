@@ -1,3 +1,4 @@
+import { TestnetBlockchain } from '@circle-fin/developer-controlled-wallets';
 import { ActionFunctionArgs } from '@remix-run/node';
 
 import { sdk } from '~/lib/sdk';
@@ -6,11 +7,10 @@ import {
   errorResponse,
   successResponse,
 } from '~/lib/server.responses';
-import { TypeTestnetBlockchain } from '~/lib/types';
 import { isValidString } from '~/lib/utils';
 
 interface RequestBody {
-  blockchain: string;
+  blockchain: TestnetBlockchain;
   address: string;
 }
 
@@ -27,7 +27,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   try {
     await sdk.requestTestnetTokens({
-      blockchain: blockchain as TypeTestnetBlockchain,
+      blockchain: blockchain,
       address,
       native: true,
       usdc: true,

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ErrorResponse } from '~/lib/responses';
+import { callFetch } from '~/lib/utils';
 
 interface UpdateWalletSetArgs {
   id: string;
@@ -17,23 +17,11 @@ export const useUpdateWalletSet = (): UseUpdateWalletSetResult => {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const updateWalletSet = async ({ id, name }: UpdateWalletSetArgs) => {
+  const updateWalletSet = async (args: UpdateWalletSetArgs) => {
     setIsLoading(true);
     setError(undefined);
     try {
-      const response = await fetch('/api/updateWalletSet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id, name }),
-      });
-
-      if (response.status !== 200) {
-        const errorData = (await response.json()) as ErrorResponse;
-        throw new Error(errorData.error);
-      }
-
+      await callFetch('/api/updateWalletSet', args);
       return true;
     } catch (err) {
       setError(err as Error);

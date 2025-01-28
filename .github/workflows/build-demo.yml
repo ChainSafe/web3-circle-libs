@@ -1,4 +1,4 @@
-name: 'Lint and build demo webapp'
+name: 'Lint and Build All'
 on:
   pull_request:
     types: [opened, reopened, synchronize]
@@ -13,8 +13,8 @@ jobs:
         with:
           node-version: 20
           cache: yarn
-      - run: corepack enable
       - run: yarn install
-      - run: yarn workspace circle-demo-webapp lint
-      - run: yarn workspace circle-demo-webapp build
-      - run: yarn workspace circle-demo-webapp build-storybook
+      - run: yarn elements:build
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn workspace @circle-libs/react-elements build-storybook

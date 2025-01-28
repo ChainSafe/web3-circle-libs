@@ -1,33 +1,57 @@
+import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
+import {
+  TransactionDetails,
+  TransactionTableHead,
+  TransactionTableRow,
+} from '@circle-libs/react-elements';
 import { useParams } from '@remix-run/react';
-import { useEffect, useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Card } from '~/components/ui/card';
+import { Dialog, DialogContent, DialogTitle } from '~/components/ui/dialog';
 import { InputWithIcon } from '~/components/ui/inputWithIcon';
+import { useGetTransaction } from '~/hooks/useGetTransaction';
 import { useTransactions } from '~/hooks/useTransactions';
-import { TransactionWithToken } from '~/lib/types';
-
-import { TransactionDetails } from './components/TransactionDetails';
-import { TransactionTableHead } from './components/TransactionTableHead';
-import { TransactionTableRow } from './components/TransactionTableRow';
 
 let timeout: NodeJS.Timeout;
 
 export default function Page() {
   const { walletId } = useParams();
-  const [transaction, setTransaction] = useState<TransactionWithToken>();
   const [address, setAddress] = useState<string>('');
-  const { data: transactions = [], refetch: reFetchTransactions } = useTransactions(
-    walletId ?? '',
-    {
-      filter: {
-        address,
-      },
-    },
-  );
+  const [txId, setTxId] = useState<string | undefined>('');
+
+  const getTransactionFilter = useMemo(() => ({ id: txId ?? '' }), [txId]);
+
+  const {
+    reFetch: getTransaction,
+    data: transaction,
+    isLoading,
+  } = useGetTransaction(getTransactionFilter);
+
+  const getTransactionsFilter = useMemo(() => {
+    const filter: ListTransactionsInput = {};
+    if (walletId) {
+      filter.walletIds = [walletId];
+    }
+    if (address) {
+      filter.destinationAddress = address;
+    }
+    return filter;
+  }, [walletId, address]);
+
+  const { data: transactions = [], reFetch: reFetchTransactions } =
+    useTransactions(getTransactionsFilter);
+
+  useEffect(() => {
+    if (txId) {
+      getTransaction().catch(console.error);
+    }
+  }, [txId, getTransaction]);
+
   useEffect(() => {
     reFetchTransactions().catch(console.error);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+  }, [reFetchTransactions]);
 
   const handleChangeSearchAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     const addr = e?.target?.value;
@@ -72,7 +96,10 @@ export default function Page() {
                       <TransactionTableRow
                         key={tx.id}
                         transaction={tx}
-                        onClickDetails={(tx) => setTransaction(tx)}
+                        withActions
+                        onClickDetails={(data) => {
+                          setTxId(data?.id);
+                        }}
                       />
                     ))}
                   </tbody>
@@ -81,11 +108,19 @@ export default function Page() {
             )}
           </div>
         </Card>
-        {transaction && (
-          <TransactionDetails
-            transaction={transaction}
-            onClose={() => setTransaction(undefined)}
-          />
+        {(isLoading || (txId && transaction)) && (
+          <Dialog open onOpenChange={() => setTxId(undefined)}>
+            <DialogContent className="min-w-[480px]">
+              <DialogTitle>Transaction Details</DialogTitle>
+              {isLoading ? (
+                <div className="flex justify-center items-center w-full h-40">
+                  <LoaderCircle className="animate-spin" />
+                </div>
+              ) : transaction ? (
+                <TransactionDetails transaction={transaction} />
+              ) : null}
+            </DialogContent>
+          </Dialog>
         )}
       </div>
     </div>

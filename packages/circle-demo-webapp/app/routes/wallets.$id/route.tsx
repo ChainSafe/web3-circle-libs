@@ -1,17 +1,13 @@
-import { AccountType } from '@circle-fin/developer-controlled-wallets';
-import { ActionFunctionArgs } from '@remix-run/node';
+import { formats, WalletDetails } from '@circle-libs/react-elements';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import { WalletDetails } from '~/components/WalletDetails';
 import { useToast } from '~/hooks/useToast';
-import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
-import { TypeBlockchain, Wallet, WalletSet } from '~/lib/types';
-import { isValidString } from '~/lib/utils';
+import { ElementsWallet, ElementsWalletSet } from '~/lib/types';
 
 import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';
@@ -29,67 +25,15 @@ export async function loader({ params }: { params: { id: string } }) {
   ]);
 
   return {
-    wallets: walletsResp?.data?.wallets as Wallet[],
-    walletSet: walletSetResp?.data?.walletSet as WalletSet,
+    wallets: walletsResp?.data?.wallets as ElementsWallet[],
+    walletSet: walletSetResp?.data?.walletSet as ElementsWalletSet,
   };
 }
-const CHAIN_TO_ACCOUNT_TYPE: Record<TypeBlockchain, AccountType> = {
-  ARB: 'SCA',
-  AVAX: 'EOA',
-  ETH: 'SCA',
-  EVM: 'SCA',
-  MATIC: 'SCA',
-  NEAR: 'EOA',
-  SOL: 'EOA',
-  'ARB-SEPOLIA': 'SCA',
-  'AVAX-FUJI': 'EOA',
-  'ETH-SEPOLIA': 'SCA',
-  'EVM-TESTNET': 'SCA',
-  'MATIC-AMOY': 'SCA',
-  'NEAR-TESTNET': 'EOA',
-  'SOL-DEVNET': 'EOA',
-};
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const name = formData.get('name');
-  const walletSetId = formData.get('walletSetId');
-  const blockchain = formData.get('blockchain');
-  const description = formData.get('description');
-
-  if (!isValidString(name)) {
-    throw new Error('Invalid name');
-  }
-  if (!isValidString(walletSetId)) {
-    throw new Error('Invalid walletSetId');
-  }
-  if (!isValidString(blockchain)) {
-    throw new Error('Invalid blockchain');
-  }
-  if (description && !isValidString(description)) {
-    throw new Error('Invalid description');
-  }
-
-  await sdk.createWallets({
-    walletSetId,
-    count: 1,
-    accountType: CHAIN_TO_ACCOUNT_TYPE[blockchain as TypeBlockchain],
-    blockchains: [blockchain as TypeBlockchain],
-    metadata: [
-      {
-        name,
-        ...(description ? { refId: description } : {}),
-      },
-    ],
-  });
-
-  return null;
-}
-
-function Header({ walletSet }: { walletSet: WalletSet }) {
+function Header({ walletSet }: { walletSet: ElementsWalletSet }) {
   const revalidator = useRevalidator();
 
-  const refreshWalletSet = () => {
+  const revalidate = () => {
     revalidator.revalidate();
   };
 
@@ -100,10 +44,10 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
           <h1 className="text-2xl font-semibold text-foreground">
             {walletSet.name ?? 'No Name'}
           </h1>
-          <EditWalletSetDialog walletSet={walletSet} onSuccess={refreshWalletSet} />
+          <EditWalletSetDialog walletSet={walletSet} onSuccess={revalidate} />
         </div>
 
-        <NewWalletDialog walletSetId={walletSet.id} />
+        <NewWalletDialog walletSetId={walletSet.id} onSuccess={revalidate} />
       </header>
 
       <div className="flex justify-between items-center px-8 pt-8">
@@ -111,14 +55,14 @@ function Header({ walletSet }: { walletSet: WalletSet }) {
           variant="secondary"
           className="font-normal text-blue-600 dark:text-blue-500"
         >
-          Created: {formatDate(walletSet.createDate)}
+          Created: {formats.formatDate(walletSet.createDate)}
         </Badge>
 
         <Badge
           variant="secondary"
           className="font-normal text-blue-600 dark:text-blue-500"
         >
-          Updated: {formatDate(walletSet.updateDate)}
+          Updated: {formats.formatDate(walletSet.updateDate)}
         </Badge>
       </div>
     </div>

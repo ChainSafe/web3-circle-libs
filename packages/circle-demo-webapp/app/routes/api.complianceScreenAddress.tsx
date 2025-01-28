@@ -1,24 +1,42 @@
-import { ActionFunction } from '@remix-run/node';
+import { Blockchain } from '@circle-fin/developer-controlled-wallets';
+import { ActionFunction, ActionFunctionArgs } from '@remix-run/node';
 
 import { assertCircleErrorResponse, errorResponse } from '~/lib/server.responses';
 
-export const action: ActionFunction = () => {
+const apiKey = process.env.CIRCLE_API_KEY!;
+const url = 'https://api.circle.com/v1/w3s/compliance/screening/addresses';
+
+interface RequestBody {
+  address: string;
+  blockchain: Blockchain;
+}
+
+export interface ScreenAddressResult {
+  data: {
+    result: 'APPROVED' | 'DENIED';
+  };
+}
+
+export const action: ActionFunction = async ({ request }: ActionFunctionArgs) => {
+  const { address, blockchain } = (await request.json()) as RequestBody;
+
   try {
-    return Response.json({
-      result: 'APPROVED',
-      id: {},
-      address: '0x1bf9ad0cc2ad298c69a2995aa806ee832788218c',
-      chain: 'MATIC-AMOY',
-      details: [
-        {
-          id: 'c4d1da72-111e-4d52-bdbf-2e74a2d803d5',
-          vendor: 'VENDOR',
-          response: {},
-          createDate: '2023-01-01T12:04:05Z',
-        },
-      ],
-      alertId: {},
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        address,
+        chain: blockchain,
+        idempotencyKey: crypto.randomUUID(),
+      }),
     });
+
+    const result = (await response.json()) as ScreenAddressResult;
+
+    return Response.json(result.data);
   } catch (e: unknown) {
     assertCircleErrorResponse(e);
 

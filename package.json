@@ -1,28 +1,50 @@
 {
-  "name": "circle-libs",
-  "version": "0.1.0",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "description": "Circle UI components and utilities",
+  "name": "circle-elements-monorepo",
+  "version": "0.0.1",
+  "description": "Circle Wallet Elements - UI components and tools compatible with Circle SDK",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
     "url": "https://github.com/ChainSafe/web3-circle-libs/issues"
   },
+  "license": "MIT",
+  "author": "ChainSafe",
   "contributors": [
     "ChainSafe <info@chainsafe.io>"
   ],
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
-    "lint": "yarn workspace circle-demo-webapp lint",
-    "build": "yarn workspace circle-demo-webapp build",
-    "dev": "yarn workspace circle-demo-webapp dev",
-    "start": "yarn workspace circle-demo-webapp start"
+    "demo:dev": "yarn workspace circle-demo-webapp dev",
+    "demo:build": "yarn elements:build && yarn workspace circle-demo-webapp build",
+    "elements:build": "yarn workspace @circle-libs/react-elements build",
+    "elements:watch": "yarn workspace @circle-libs/react-elements watch",
+    "elements:storybook": "yarn workspace @circle-libs/react-elements storybook",
+    "build": "yarn workspaces run build",
+    "lint": "yarn workspaces run lint"
   },
-  "packageManager": "yarn@1.22.22"
+  "dependencies": {
+    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@web3icons/react": "^3.16.0",
+    "lucide-react": "^0.462.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.54.2",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.7.2"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@1.22.22",
+  "volta": {
+    "node": "20.18.1",
+    "yarn": "1.22.22"
+  }
 }

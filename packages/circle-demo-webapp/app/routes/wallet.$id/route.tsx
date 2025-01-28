@@ -1,23 +1,22 @@
+import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import { Transaction } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
-  CreateTransactionInput,
-  GetTransactionInput,
-} from '@circle-fin/developer-controlled-wallets';
+  formats,
+  TransactionTableHead,
+  TransactionTableRow,
+  WalletBalance,
+  WalletDetails,
+} from '@circle-libs/react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
 
-import { TransactionTableHead } from '~/components/TransactionTableHead';
-import { TransactionTableRow } from '~/components/TransactionTableRow';
 import { Badge } from '~/components/ui/badge';
 import { Card } from '~/components/ui/card';
-import { WalletBalance } from '~/components/WalletBalance';
-import { WalletDetails } from '~/components/WalletDetails';
-import { ScreenAddressResult } from '~/components/WalletSend';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
-import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
-import { Transaction, Wallet, WalletTokenBalance } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
 
 import { EditWalletDialog } from './components/EditWalletDialog';
@@ -31,33 +30,36 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Error('Wallet ID is required');
   }
 
-  const [balancesRes, walletRes, transactionsRes] = await Promise.all([
+  const [balancesRes, walletRes] = await Promise.all([
     sdk.getWalletTokenBalance({
       id,
       includeAll: true,
     }),
     sdk.getWallet({ id }),
-    sdk.listTransactions({
-      walletIds: [id],
-      includeAll: true,
-    }),
   ]);
 
   return {
-    balances: (balancesRes?.data?.tokenBalances ?? []) as WalletTokenBalance[],
-    wallet: walletRes?.data?.wallet as Wallet,
-    transactions: transactionsRes?.data?.transactions as Transaction[],
+    balances: balancesRes?.data?.tokenBalances ?? [],
+    wallet: walletRes?.data?.wallet,
   };
 }
 
 export default function WalletBalancePage() {
   const revalidator = useRevalidator();
   const { id } = useParams();
-  const { balances, wallet, transactions } = useLoaderData<typeof loader>();
+  const { balances, wallet } = useLoaderData<typeof loader>();
   const { toast } = useToast();
-  const { refetch: refetchTransactions } = useTransactions(id ?? '');
+  const getTransactionFilter = useMemo(() => {
+    return { walletIds: [id ?? ''] };
+  }, [id]);
+  const { data: transactions, reFetch: reFetchTransactions } =
+    useTransactions(getTransactionFilter);
 
-  const refreshWalletSet = () => {
+  useEffect(() => {
+    reFetchTransactions().catch(console.error);
+  }, [reFetchTransactions]);
+
+  const revalidate = () => {
     revalidator.revalidate();
   };
 
@@ -65,12 +67,16 @@ export default function WalletBalancePage() {
     throw new Error('Wallet ID is required');
   }
 
+  if (!wallet) {
+    throw new Error('Wallet not found');
+  }
+
   return (
     <div>
       <header className="flex justify-between items-center bg-background px-8 py-4">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl font-semibold text-foreground">{wallet.name}</h1>
-          <EditWalletDialog wallet={wallet} onSuccess={refreshWalletSet} />
+          <EditWalletDialog wallet={wallet} onSuccess={revalidate} />
         </div>
 
         <FaucetButton wallet={wallet} />
@@ -92,15 +98,20 @@ export default function WalletBalancePage() {
                 wallet={wallet}
                 balances={balances}
                 onSendTransaction={(data: CreateTransactionInput) =>
-                  callFetch<Transaction>('/api/createTransaction', data)
+                  callFetch<Transaction, CreateTransactionInput>(
+                    '/api/createTransaction',
+                    data,
+                  )
                 }
-                onGetTransaction={(data: GetTransactionInput) =>
-                  callFetch<{ transaction: Transaction }>('/api/getTransaction', data)
-                }
-                onConfirmed={() => refetchTransactions()}
+                onSent={() => {
+                  reFetchTransactions().catch(console.error);
+                }}
                 onScreenAddress={(address: string) =>
-                  callFetch<ScreenAddressResult>('/api/complianceScreenAddress', {
+                  callFetch<{
+                    result: 'APPROVED' | 'DENIED';
+                  }>('/api/complianceScreenAddress', {
                     address,
+                    blockchain: wallet.blockchain,
                   })
                 }
               />
@@ -116,14 +127,14 @@ export default function WalletBalancePage() {
               variant="secondary"
               className="font-normal text-blue-600 dark:text-blue-500"
             >
-              Created: {formatDate(wallet.createDate)}
+              Created: {formats.formatDate(wallet.createDate)}
             </Badge>
 
             <Badge
               variant="secondary"
               className="font-normal text-blue-600 dark:text-blue-500"
             >
-              Updated: {formatDate(wallet.updateDate)}
+              Updated: {formats.formatDate(wallet.updateDate)}
             </Badge>
           </div>
         </Card>

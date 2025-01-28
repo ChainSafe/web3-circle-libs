@@ -1,10 +1,10 @@
+import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
+import { WalletReceive } from '@circle-libs/react-elements';
 import { ArrowDown } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
-import { WalletReceive } from '~/components/WalletReceive';
-import { Wallet } from '~/lib/types';
 
 interface WalletReceiveDialogProps {
   wallet: Wallet;

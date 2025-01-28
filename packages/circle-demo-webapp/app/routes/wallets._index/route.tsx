@@ -1,48 +1,30 @@
-import { ActionFunctionArgs } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { WalletSetDetails } from '@circle-libs/react-elements';
+import { Link, useLoaderData, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import { WalletSetDetails } from '~/components/WalletSetDetails/WalletSetDetails';
-import { cachedLoader, invalidateCache } from '~/lib/cache';
-import { sdk } from '~/lib/sdk';
-import { WalletSet } from '~/lib/types';
-import { isValidString } from '~/lib/utils';
+import { cachedWalletSets } from '~/lib/memcache';
 
 import { NewWalletSetDialog } from './components/NewWalletSetDialog';
 
 export async function loader() {
-  return cachedLoader('walletSets', async () => {
-    const resp = await sdk.listWalletSets();
-    return resp?.data?.walletSets as WalletSet[];
-  });
-}
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const name = formData.get('name');
-
-  if (!isValidString(name)) {
-    throw new Error('Invalid name');
-  }
-
-  await sdk.createWalletSet({
-    name,
-  });
-
-  invalidateCache('walletSets');
-
-  return null;
+  return cachedWalletSets.loadAllAndSet();
 }
 
 function Header() {
+  const revalidator = useRevalidator();
+
+  const revalidate = () => {
+    revalidator.revalidate();
+  };
+
   return (
     <header className="flex justify-between items-center bg-background px-8 py-4">
       <div>
         <h1 className="text-2xl font-semibold text-foreground">Wallet Sets</h1>
       </div>
-      <NewWalletSetDialog />
+      <NewWalletSetDialog onSuccess={revalidate} />
     </header>
   );
 }

@@ -1,5 +1,7 @@
-import { FilePenLine, LoaderCircle } from 'lucide-react';
-import { FormEvent, useState } from 'react';
+import { EditWalletSetForm, EditWalletSetFormInput } from '@circle-libs/react-elements';
+import { FilePenLine } from 'lucide-react';
+import { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -10,33 +12,31 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-import { Input } from '~/components/ui/input';
 import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
-import { WalletSet } from '~/lib/types';
+import { ElementsWalletSet } from '~/lib/types';
 
 interface EditWalletSetDialogProps {
-  walletSet: WalletSet;
-  onSuccess: () => void;
+  walletSet: ElementsWalletSet;
+  onSuccess?: () => void;
 }
 
 export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialogProps) {
   const [open, setOpen] = useState(false);
   const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<EditWalletSetFormInput> = async ({ id, name }) => {
+    const success = await updateWalletSet({
+      id,
+      name,
+    });
 
-    const formData = new FormData(event.currentTarget);
-    const id = formData.get('id') as string;
-    const name = formData.get('name') as string;
+    if (!success) {
+      return;
+    }
 
-    await updateWalletSet({ id, name });
-
-    if (!isLoading && !error) {
-      setOpen(false);
-      if (typeof onSuccess === 'function') {
-        onSuccess();
-      }
+    setOpen(false);
+    if (typeof onSuccess === 'function') {
+      onSuccess();
     }
   };
 
@@ -56,27 +56,12 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          onSubmit={(event) => {
-            void handleSubmit(event);
-          }}
-          className="space-y-8"
-        >
-          <div className="w-full mt-4">
-            <input type="hidden" name="id" value={walletSet.id} />
-            <Input
-              type="text"
-              name="name"
-              placeholder="Name"
-              defaultValue={walletSet.name}
-            />
-          </div>
-          <Button type="submit" className="w-full">
-            {isLoading && <LoaderCircle className="animate-spin" />}
-            Update
-          </Button>
-          {error && <p className="text-red-500">{error.message}</p>}
-        </form>
+        <EditWalletSetForm
+          defaultValues={walletSet}
+          isSubmitting={isLoading}
+          onSubmit={onSubmit}
+          serverError={error}
+        />
       </DialogContent>
     </Dialog>
   );

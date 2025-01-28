@@ -1,7 +1,6 @@
 'use client';
 
-// Inspired by react-hot-toast library
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 import type { ToastActionElement, ToastProps } from '~/components/ui/toast';
 
@@ -140,7 +139,7 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, 'id'>;
 
-function toast({ ...props }: Toast) {
+function toast(props: Toast) {
   const id = genId();
 
   const update = (props: ToasterToast) =>
@@ -170,9 +169,9 @@ function toast({ ...props }: Toast) {
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState);
+  const [state, setState] = useState<State>(memoryState);
 
-  React.useEffect(() => {
+  useEffect(() => {
     listeners.push(setState);
     return () => {
       const index = listeners.indexOf(setState);

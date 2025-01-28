@@ -1,5 +1,6 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 
+import { cachedWalletSets } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
 import {
   assertCircleErrorResponse,
@@ -29,6 +30,8 @@ export async function action({ request }: ActionFunctionArgs) {
       id,
       name,
     });
+
+    cachedWalletSets.invalidate();
 
     return successResponse('Success');
   } catch (e: unknown) {

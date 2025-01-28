@@ -3,7 +3,7 @@ import { Database, LayoutDashboard } from 'lucide-react';
 import React from 'react';
 
 import { DarkModeToggle } from '~/components/DarkModeToggle';
-import { WalletSet } from '~/lib/types';
+import { ElementsWalletSet } from '~/lib/types';
 
 import circleLogoWhite from './circle-logo-white.svg';
 import circleLogo from './circle-logo.svg';
@@ -33,7 +33,7 @@ function SidebarNavLink({ to, icon, label }: SidebarNavLinkProps) {
 }
 
 export interface SidebarProps {
-  walletSets: WalletSet[];
+  walletSets: ElementsWalletSet[];
 }
 
 export function Sidebar({ walletSets = [] }: SidebarProps) {
