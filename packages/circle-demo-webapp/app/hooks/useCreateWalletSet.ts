@@ -10,7 +10,7 @@ interface CreateWalletSetArgs {
 interface UseCreateWalletSetResult {
   error: Error | undefined;
   isLoading: boolean;
-  createWalletSet: (args: CreateWalletSetArgs) => Promise<boolean | ElementsWalletSet>;
+  createWalletSet: (args: CreateWalletSetArgs) => Promise<ElementsWalletSet | undefined>;
 }
 
 export const useCreateWalletSet = (): UseCreateWalletSetResult => {
@@ -26,7 +26,7 @@ export const useCreateWalletSet = (): UseCreateWalletSetResult => {
       } catch (err) {
         setError(err as Error);
 
-        return false;
+        return;
       } finally {
         setIsLoading(false);
       }

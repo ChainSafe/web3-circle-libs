@@ -35,9 +35,11 @@ export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
     if (!walletSet) {
       return;
     }
-    setWalletSet(walletSet as ElementsWalletSet);
-    setSuccessOpen(true);
+
+    setWalletSet(walletSet);
     setOpen(false);
+    setSuccessOpen(true);
+
     if (typeof onSuccess === 'function') {
       onSuccess();
     }
@@ -65,6 +67,7 @@ export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
           />
         </DialogContent>
       </Dialog>
+
       <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
         <DialogContent className="min-w-[425px]">
           <Notification

@@ -44,7 +44,7 @@ export const isNumber = (value: string): boolean => {
   return false;
 };
 
-export const chainIdExplorerMap: Record<string, string> = {
+const chainIdExplorerMap: Record<string, string> = {
   SOL: 'https://explorer.solana.com',
   'SOL-DEVNET': 'https://explorer.solana.com',
   ETH: 'https://etherscan.io',

@@ -69,3 +69,31 @@ export function formatDate(date: string): string {
     day: 'numeric',
   });
 }
+
+// others
+const chainIdExplorerMap: Record<string, string> = {
+  SOL: 'https://explorer.solana.com',
+  'SOL-DEVNET': 'https://explorer.solana.com',
+  ETH: 'https://etherscan.io',
+  'ETH-SEPOLIA': 'https://sepolia.etherscan.io',
+  ARB: 'https://arbiscan.io',
+  'ARB-SEPOLIA': 'https://sepolia.arbiscan.io',
+  MATIC: 'https://polygonscan.com',
+  'MATIC-AMOY': 'https://www.oklink.com/amoy',
+  NEAR: 'https://explorer.near.org',
+  'NEAR-TESTNET': 'https://explorer.testnet.near.org',
+  EVM: '',
+  'EVM-TESTNET': '',
+  AVAX: 'https://cchain.explorer.avax.network',
+  'AVAX-FUJI': 'https://cchain.explorer.avax-test.network',
+  'UNI-SEPOLIA': 'https://unichain-sepolia.blockscout.com',
+};
+
+export const getExplorerUrl = (chain: string, txHash?: string): string => {
+  const explorer = chainIdExplorerMap[chain];
+  console.log('explorer', explorer, chain, txHash);
+  if (!explorer) {
+    return '';
+  }
+  return `${explorer}/tx/${txHash}`;
+};

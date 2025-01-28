@@ -18,7 +18,7 @@ import { useCreateWallet } from '~/hooks/useCreateWallet';
 
 interface NewWalletDialogProps {
   walletSetId: string;
-  onSuccess?: (wallet: Wallet) => void;
+  onSuccess?: () => void;
 }
 
 export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps) {
@@ -46,9 +46,10 @@ export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps
 
     setWallet(wallet);
     setOpen(false);
+    setSuccessOpen(true);
 
     if (typeof onSuccess === 'function') {
-      onSuccess(wallet);
+      onSuccess();
     }
   };
 

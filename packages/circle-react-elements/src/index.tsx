@@ -9,7 +9,6 @@ export * from './components/NewWalletForm';
 export * from './components/NewWalletSetForm';
 export * from './components/Notification';
 export * from './components/SendTransactionForm';
-export * from './components/SendTransactionForm';
 export * from './components/TestChainSelect';
 export * from './components/TokenItem';
 export * from './components/TokenSelect';
