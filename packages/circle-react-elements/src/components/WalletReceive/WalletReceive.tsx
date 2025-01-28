@@ -7,14 +7,32 @@ import { Button } from '~/components/ui/button';
 
 import { ChainLabel } from '../ChainLabel';
 
+/**
+ * Props for the WalletReceive component
+ */
 export interface WalletReceiveProps {
-  /** The wallet */
+  /**
+   * The wallet data from Circle's API
+   * Used to display the wallet's address and blockchain network
+   */
   wallet: Wallet;
 }
 
 /**
- * Helpers for obtaining a wallet's on-chain address:
- * a QR code that encodes the address and elements for viewing the address and copying it to the clipboard
+ * Displays wallet receiving information in a user-friendly format
+ *
+ * Features:
+ * - Generates QR code for easy address sharing
+ * - Shows full wallet address with appropriate text wrapping
+ * - Displays blockchain network with icon
+ * - Copy address button with feedback:
+ *   - Changes text to "Copied!" for 2 seconds
+ *   - Uses clipboard API for copying
+ * - Dark mode support:
+ *   - White QR code background in dark mode
+ *   - Border styling adjustments
+ * - Centered layout with consistent spacing
+ * - Responsive design that works on mobile
  */
 export function WalletReceive({ wallet }: WalletReceiveProps) {
   const [copied, setCopied] = useState(false);

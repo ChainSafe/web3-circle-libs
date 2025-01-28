@@ -2,23 +2,58 @@ import { TransactionState } from '@circle-fin/developer-controlled-wallets';
 
 import { Badge } from '../ui/badge';
 
+/**
+ * Props for the TransactionStateText component
+ */
 export interface TransactionStateTextProps {
-  /** The state of the transaction:
-   *  'CANCELLED', 'CONFIRMED', 'COMPLETE', 'DENIED', 'FAILED', 'INITIATED', 'PENDING_RISK_SCREENING', 'QUEUED', 'SENT';
-   *
-   * **/
+  /**
+   * The state of the transaction from Circle's API
+   * Possible values:
+   * - Success states: 'COMPLETE', 'CONFIRMED'
+   * - In-progress states: 'SENT', 'INITIATED', 'QUEUED', 'PENDING_RISK_SCREENING'
+   * - Error states: 'CANCELLED', 'DENIED', 'FAILED'
+   */
   state: TransactionState;
 }
 
+/**
+ * States that indicate successful transaction completion
+ * Displayed in green with a checkmark
+ */
 const greenStates = ['COMPLETE', 'CONFIRMED'];
+
+/**
+ * States that indicate transaction is in progress
+ * Displayed in yellow without icons
+ */
 const yellowStates = ['SENT', 'INITIATED', 'QUEUED', 'PENDING_RISK_SCREENING'];
 
+/**
+ * Capitalizes first letter of each word in a string
+ */
 const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
+/**
+ * Converts snake_case state to readable text
+ */
 const toText = (state: string) => state.replace(/_/gi, ' ');
 
-/** Display transaction state text **/
+/**
+ * Displays transaction state with appropriate styling and icons
+ *
+ * Features:
+ * - Color coding based on state:
+ *   - Green for successful states
+ *   - Yellow for in-progress states
+ *   - Red for error states
+ * - Icons to indicate status:
+ *   - ✓ for successful states
+ *   - ✘ for error states
+ * - Formats state text for readability
+ * - Dark mode support
+ * - Non-breaking text layout
+ */
 export function TransactionStateText({ state }: TransactionStateTextProps) {
   return greenStates.includes(state) ? (
     <Badge

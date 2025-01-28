@@ -2,11 +2,20 @@ import type { Blockchain } from '@circle-fin/developer-controlled-wallets';
 
 import { ChainIcon } from '../ChainIcon';
 
+/**
+ * Props for the ChainLabel component
+ */
 export interface ChainLabelProps {
-  /** The blockchain network */
+  /**
+   * The blockchain network to display
+   * Supports all networks from Circle's API including testnet variants
+   */
   blockchain: Blockchain;
 }
 
+/**
+ * Mapping of Circle blockchain identifiers to human-readable network names
+ */
 const BlockchainLabelMap: Record<Blockchain, string> = {
   'ARB-SEPOLIA': 'Arbitrum Sepolia',
   ARB: 'Arbitrum',
@@ -25,7 +34,15 @@ const BlockchainLabelMap: Record<Blockchain, string> = {
   'UNI-SEPOLIA': 'Uni Sepolia',
 };
 
-/** A label with an icon and text to identify a blockchain network */
+/**
+ * Displays a blockchain network label with an icon and human-readable name
+ *
+ * Features:
+ * - Shows network icon using ChainIcon component
+ * - Displays human-readable network names (e.g. "Ethereum" instead of "ETH")
+ * - Includes testnet names where applicable (e.g. "Ethereum Sepolia")
+ * - Consistent styling with muted text and icon alignment
+ */
 export function ChainLabel({ blockchain }: ChainLabelProps) {
   return (
     <p className="text-sm text-muted-foreground flex items-center space-x-2">

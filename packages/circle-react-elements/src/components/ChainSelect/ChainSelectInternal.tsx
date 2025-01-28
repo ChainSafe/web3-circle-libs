@@ -13,13 +13,40 @@ import {
   SelectValue,
 } from '../ui/select';
 
+/**
+ * Props for the internal ChainSelect component
+ * Extends Radix UI's SelectProps (excluding children)
+ */
 export type ChainSelectInternalProps = Omit<SelectProps, 'children'> & {
+  /**
+   * Optional placeholder text shown when no network is selected
+   * @default "Select network"
+   */
   placeholder?: string;
+
+  /**
+   * Optional form field error from react-hook-form
+   * When provided, adds a red border to indicate validation errors
+   */
   error?: FieldError;
+
+  /**
+   * Mapping of blockchain identifiers to their display labels
+   * e.g. { "ETH": "Ethereum" }
+   */
   blockchainLabels: Record<string, string>;
 };
 
-/** Internal component for blockchain network selection */
+/**
+ * Internal implementation of the blockchain network selector
+ *
+ * Features:
+ * - Uses Radix UI's Select component for accessibility
+ * - Shows network icons alongside network names
+ * - Supports form validation with error states
+ * - Customizable placeholder text
+ * - Consistent styling with design system
+ */
 export function ChainSelectInternal({
   error,
   placeholder = 'Select network',

@@ -38,13 +38,26 @@ export type TokenSelectProps = Omit<SelectProps, 'children'> & {
   defaultToUsdc?: boolean;
 };
 
+/**
+ * Helper function to find USDC token ID in balances array
+ * Used when defaultToUsdc prop is true to pre-select USDC
+ */
 function findTokenSelectDefaultValue(balances: Balance[]): string | undefined {
   const usdcToken = balances.find((balance) => balance.token.symbol === 'USDC');
   return usdcToken?.token.id;
 }
 
 /**
- * A dropdown select menu for choosing a token from a list of balances.
+ * A dropdown select menu for choosing a token from a list of balances
+ *
+ * Features:
+ * - Displays token icons and symbols using TokenSelectItem
+ * - Shows token balances in the dropdown
+ * - Optional auto-selection of USDC token
+ * - Form validation integration with error states
+ * - Customizable placeholder text
+ * - Uses Radix UI Select for accessibility
+ * - Consistent styling with design system
  */
 export function TokenSelect({
   placeholder = 'Select Token',
