@@ -9,4 +9,7 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "cloudrun"
-run = ["sh", "-c", "npm run build && npm run start"]
+run = "cd packages/circle-demo-webapp && yarn dev"
+[[ports]]
+localPort = 3000
+externalPort = 80
