@@ -67,6 +67,7 @@ export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps
           isSubmitting={isLoading}
           onSubmit={onSubmit}
           serverError={error}
+          isTestnet
         />
       </DialogContent>
     </Dialog>
