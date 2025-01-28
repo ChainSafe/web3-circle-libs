@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Plus } from 'lucide-react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { TestChainSelect } from '../ChainSelect';
 import { FormErrorText } from '../FormErrorText';
-import { TestChainSelect } from '../TestChainSelect';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -32,9 +32,10 @@ export function NewWalletForm({
   serverError,
 }: NewWalletFormProps) {
   const {
-    register,
-    handleSubmit,
+    control,
     formState: { errors },
+    handleSubmit,
+    register,
   } = useForm<NewWalletFormInput>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +68,14 @@ export function NewWalletForm({
         </div>
 
         <div>
-          <TestChainSelect {...register('blockchain')} />
+          <Controller
+            name="blockchain"
+            control={control}
+            render={({ field }) => (
+              <TestChainSelect onValueChange={field.onChange} error={errors.blockchain} />
+            )}
+          />
+
           <FormErrorText message={errors.blockchain?.message} />
         </div>
       </div>

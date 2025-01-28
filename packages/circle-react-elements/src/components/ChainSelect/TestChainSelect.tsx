@@ -1,18 +1,18 @@
 import { SelectProps } from '@radix-ui/react-select';
 import { FieldError } from 'react-hook-form';
 
-import { ChainSelectInternal } from './ChainSelectInternal';
+import { ChainSelectInternal } from '../ChainSelect/ChainSelectInternal';
 
 const BLOCKCHAIN_LABELS: Record<string, string> = {
-  ARB: 'Arbitrum',
-  AVAX: 'Avalanche',
-  ETH: 'Ethereum',
-  MATIC: 'Polygon',
-  NEAR: 'NEAR',
-  SOL: 'Solana',
+  'ARB-SEPOLIA': 'Arbitrum Sepolia',
+  'AVAX-FUJI': 'Avalanche Fuji',
+  'ETH-SEPOLIA': 'Ethereum Sepolia',
+  'MATIC-AMOY': 'Polygon Amoy',
+  'NEAR-TESTNET': 'NEAR Testnet',
+  'SOL-DEVNET': 'Solana Devnet',
 };
 
-export type ChainSelectProps = Omit<SelectProps, 'children'> & {
+export type TestChainSelectProps = Omit<SelectProps, 'children'> & {
   /**
    * Optional placeholder text shown when no network is selected
    */
@@ -23,7 +23,7 @@ export type ChainSelectProps = Omit<SelectProps, 'children'> & {
   error?: FieldError;
 };
 
-/** A dropdown select menu to choose a mainnet blockchain network */
-export function ChainSelect(props: ChainSelectProps) {
+/** A dropdown select menu to choose a test blockchain network */
+export function TestChainSelect(props: TestChainSelectProps) {
   return <ChainSelectInternal {...props} blockchainLabels={BLOCKCHAIN_LABELS} />;
 }
