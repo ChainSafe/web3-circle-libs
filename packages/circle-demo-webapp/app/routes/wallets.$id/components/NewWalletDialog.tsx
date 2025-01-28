@@ -1,6 +1,9 @@
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
-import { Notification } from '@circle-libs/circle-react-elements';
-import { NewWalletForm, NewWalletFormInput } from '@circle-libs/circle-react-elements';
+import {
+  NewWalletForm,
+  NewWalletFormInput,
+  SuccessMessage,
+} from '@circle-libs/circle-react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
@@ -81,17 +84,16 @@ export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps
 
       <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
         <DialogContent className="min-w-[425px]">
-          <Notification
+          <SuccessMessage
             onClose={() => setSuccessOpen(false)}
             title="New Wallet Created"
-            description={
-              <div>
-                Your wallet with the name{' '}
-                <span className="text-gray-600">{wallet?.name}</span> was successfully
-                created.
-              </div>
-            }
-          />
+          >
+            <div>
+              Your wallet with the name{' '}
+              <span className="text-gray-600">{wallet?.name}</span> was successfully
+              created.
+            </div>
+          </SuccessMessage>
         </DialogContent>
       </Dialog>
     </>

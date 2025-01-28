@@ -7,12 +7,13 @@ import {
   Wallet,
 } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
-  Notification,
   SendTransactionForm,
   SendTransactionFormInput,
+  SuccessMessage,
+  utils,
   WalletDetails,
 } from '@circle-libs/circle-react-elements';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
@@ -26,7 +27,6 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { CircleError, ErrorResponse } from '~/lib/responses';
-import { getExplorerUrl, isAddress } from '~/lib/utils';
 
 // @todo: use constant exported from sdk
 const isTransactionPending = (tx: Transaction) =>
@@ -82,7 +82,7 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
   };
   const onChangeAddress = (address: string) => {
     if (typeof onScreenAddress === 'function') {
-      if (isAddress(address)) {
+      if (utils.isAddress(address)) {
         onScreenAddress(address)
           .then((res) => {
             setScreeningAddressResult(res.result);
@@ -127,16 +127,24 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
       </Dialog>
       <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
         <DialogContent className="min-w-[425px]">
-          <Notification
-            externalLink={
-              transactionData?.txHash
-                ? getExplorerUrl(wallet.blockchain, transactionData.txHash)
-                : undefined
-            }
+          <SuccessMessage
             onClose={() => setSuccessOpen(false)}
             title="Transaction successful"
-            description="Transaction was successfully sent"
-          />
+          >
+            <div>
+              Transaction was successfully sent
+              {transactionData?.txHash && (
+                <a
+                  className="text-primary"
+                  href={utils.getExplorerUrl(wallet.blockchain, transactionData.txHash)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ArrowUpRight className="inline" />
+                </a>
+              )}
+            </div>
+          </SuccessMessage>
         </DialogContent>
       </Dialog>
     </>

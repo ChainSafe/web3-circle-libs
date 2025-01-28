@@ -1,7 +1,7 @@
 import {
   NewWalletSetForm,
   NewWalletSetFormInput,
-  Notification,
+  SuccessMessage,
 } from '@circle-libs/circle-react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
@@ -70,17 +70,16 @@ export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
 
       <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
         <DialogContent className="min-w-[425px]">
-          <Notification
+          <SuccessMessage
             onClose={() => setSuccessOpen(false)}
             title="New Wallet Set Created"
-            description={
-              <div>
-                Your wallet set with the name{' '}
-                <span className="text-gray-600">{walletSet?.name}</span> was successfully
-                created.
-              </div>
-            }
-          />
+          >
+            <div>
+              Your wallet set with the name{' '}
+              <span className="text-gray-600">{walletSet?.name}</span> was successfully
+              created.
+            </div>
+          </SuccessMessage>
         </DialogContent>
       </Dialog>
     </>

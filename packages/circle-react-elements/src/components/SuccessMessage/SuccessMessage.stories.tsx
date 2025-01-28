@@ -1,14 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ArrowUpRight } from 'lucide-react';
 
 import { getExplorerUrl } from '~/lib/utils';
 
-import { Notification } from './Notification';
+import { SuccessMessage } from './SuccessMessage';
 
 const meta = {
-  title: 'Notification',
-  component: Notification,
+  title: 'SuccessMessage',
+  component: SuccessMessage,
   tags: ['autodocs'],
-} satisfies Meta<typeof Notification>;
+} satisfies Meta<typeof SuccessMessage>;
 
 export default meta;
 
@@ -18,7 +19,7 @@ export const Wallet: Story = {
   args: {
     onClose: () => console.log('Close'),
     title: 'New Wallet Created',
-    description: (
+    children: (
       <div>
         Your wallet with the name <span className="text-gray-600">My wallet</span> was
         successfully created.
@@ -31,7 +32,7 @@ export const WalletSet: Story = {
   args: {
     onClose: () => console.log('Close'),
     title: 'New Wallet Set Created',
-    description: (
+    children: (
       <div>
         Your wallet set with the name <span className="text-gray-600">My wallet set</span>{' '}
         was successfully created.
@@ -44,10 +45,21 @@ export const Transaction: Story = {
   args: {
     onClose: () => console.log('Close'),
     title: 'Transaction successful',
-    description: 'Transaction was successfully sent',
-    externalLink: getExplorerUrl(
-      'ETH',
-      '0x573924a77b548b1883b8fa163f70dcdf37321564507d332ca19682532631c7c9',
+    children: (
+      <div>
+        Transaction was successfully sent
+        <a
+          className="text-primary"
+          href={getExplorerUrl(
+            'ETH',
+            '0x573924a77b548b1883b8fa163f70dcdf37321564507d332ca19682532631c7c9',
+          )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <ArrowUpRight className="inline" />
+        </a>
+      </div>
     ),
   },
 };
