@@ -1,3 +1,4 @@
+import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { useCallback, useState } from 'react';
 
 import { callFetch } from '~/lib/utils';
@@ -12,7 +13,7 @@ interface CreateWalletArgs {
 interface UseCreateWalletResult {
   error: Error | undefined;
   isLoading: boolean;
-  createWallet: (args: CreateWalletArgs) => Promise<boolean>;
+  createWallet: (args: CreateWalletArgs) => Promise<boolean | Wallet>;
 }
 
 export const useCreateWallet = (): UseCreateWalletResult => {
@@ -24,8 +25,7 @@ export const useCreateWallet = (): UseCreateWalletResult => {
       setIsLoading(true);
       setError(undefined);
       try {
-        await callFetch('/api/createWallet', args);
-        return true;
+        return await callFetch<Wallet>('/api/createWallet', args);
       } catch (err) {
         setError(err as Error);
 

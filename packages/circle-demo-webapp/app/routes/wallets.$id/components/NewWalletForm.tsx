@@ -1,3 +1,4 @@
+import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { TestChainSelect } from '@circle-libs/circle-react-elements';
 import { LoaderCircle, Plus } from 'lucide-react';
 import { FormEvent } from 'react';
@@ -9,7 +10,7 @@ import { useCreateWallet } from '~/hooks/useCreateWallet';
 
 interface NewWalletFormProps {
   walletSetId: string;
-  onSuccess?: () => void;
+  onSuccess?: (wallet: Wallet) => void;
 }
 
 export function NewWalletForm({ walletSetId, onSuccess }: NewWalletFormProps) {
@@ -23,14 +24,13 @@ export function NewWalletForm({ walletSetId, onSuccess }: NewWalletFormProps) {
     const description = formData.get('description') as string;
     const blockchain = formData.get('blockchain') as string;
 
-    const success = await createWallet({ walletSetId, name, description, blockchain });
-
-    if (!success) {
+    const wallet = await createWallet({ walletSetId, name, description, blockchain });
+    if (!wallet) {
       return;
     }
 
     if (typeof onSuccess === 'function') {
-      onSuccess();
+      onSuccess(wallet as Wallet);
     }
   };
 

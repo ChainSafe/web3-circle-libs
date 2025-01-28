@@ -16,3 +16,4 @@ export * from './components/WalletDetails';
 export * from './components/WalletSetDetails';
 export * from './components/WalletReceive';
 export * from './components/SendTransactionForm';
+export * from './components/Notification';

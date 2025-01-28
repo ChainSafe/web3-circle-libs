@@ -2,11 +2,7 @@ import { ActionFunctionArgs } from '@remix-run/node';
 
 import { cachedWalletSets } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
-import {
-  assertCircleErrorResponse,
-  errorResponse,
-  successResponse,
-} from '~/lib/server.responses';
+import { assertCircleErrorResponse, errorResponse } from '~/lib/server.responses';
 import { isValidString } from '~/lib/utils';
 
 interface RequestBody {
@@ -21,13 +17,13 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    await sdk.createWalletSet({
+    const res = await sdk.createWalletSet({
       name,
     });
 
     cachedWalletSets.invalidate();
 
-    return successResponse('Success');
+    return Response.json(res?.data?.walletSet);
   } catch (e: unknown) {
     assertCircleErrorResponse(e);
 
