@@ -13,7 +13,7 @@ import {
   utils,
   WalletDetails,
 } from '@circle-libs/react-elements';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
