@@ -19,7 +19,7 @@ export function SuccessMessage({ onClose, title, children }: SuccessMessageProps
       <div className="rounded-full bg-green-600 p-1 border-green-500 border-8 bg-opacity-5 border-opacity-5">
         <CheckCircle className="text-green-600" />
       </div>
-      <h1 className="text-center mt-8 text-lg font-bold">{title}</h1>
+      <h1 className="text-center mt-8 text-lg font-semibold">{title}</h1>
       <div className="text-center mt-8 text-gray-400">{children}</div>
 
       {typeof onClose === 'function' && (
