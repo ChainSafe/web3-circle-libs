@@ -6,9 +6,9 @@ import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { useToast } from '~/hooks/useToast';
-import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
 import { ElementsWallet, ElementsWalletSet } from '~/lib/types';
+import { formatDate } from '~/lib/utils';
 
 import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';

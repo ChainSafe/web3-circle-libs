@@ -1,6 +1,8 @@
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
+import { EditWalletForm, EditWalletFormInput } from '@circle-libs/circle-react-elements';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -11,8 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog';
-
-import { EditWalletForm } from './EditWalletForm';
+import { useUpdateWallet } from '~/hooks/useUpdateWallet';
 
 interface EditWalletDialogProps {
   wallet: Wallet;
@@ -21,6 +22,24 @@ interface EditWalletDialogProps {
 
 export function EditWalletDialog({ wallet, onSuccess }: EditWalletDialogProps) {
   const [open, setOpen] = useState(false);
+  const { updateWallet, isLoading, error } = useUpdateWallet();
+
+  const onSubmit: SubmitHandler<EditWalletFormInput> = async ({ id, name, refId }) => {
+    const success = await updateWallet({
+      id,
+      name,
+      description: refId,
+    });
+
+    if (!success) {
+      return;
+    }
+
+    setOpen(false);
+    if (typeof onSuccess === 'function') {
+      onSuccess();
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -33,17 +52,16 @@ export function EditWalletDialog({ wallet, onSuccess }: EditWalletDialogProps) {
       <DialogContent className="min-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Wallet</DialogTitle>
-          <DialogDescription>You can change the name of the wallet.</DialogDescription>
+          <DialogDescription>
+            You can change the name and description of the wallet.
+          </DialogDescription>
         </DialogHeader>
 
         <EditWalletForm
-          wallet={wallet}
-          onSuccess={() => {
-            setOpen(false);
-            if (typeof onSuccess === 'function') {
-              onSuccess();
-            }
-          }}
+          defaultValues={wallet}
+          isSubmitting={isLoading}
+          onSubmit={onSubmit}
+          serverError={error}
         />
       </DialogContent>
     </Dialog>

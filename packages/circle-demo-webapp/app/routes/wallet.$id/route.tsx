@@ -15,9 +15,8 @@ import { Badge } from '~/components/ui/badge';
 import { Card } from '~/components/ui/card';
 import { useToast } from '~/hooks/useToast';
 import { useTransactions } from '~/hooks/useTransactions';
-import { formatDate } from '~/lib/format';
 import { sdk } from '~/lib/sdk';
-import { callFetch } from '~/lib/utils';
+import { callFetch, formatDate } from '~/lib/utils';
 
 import { EditWalletDialog } from './components/EditWalletDialog';
 import { FaucetButton } from './components/FaucetButton';
