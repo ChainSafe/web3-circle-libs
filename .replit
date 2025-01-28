@@ -3,13 +3,10 @@ run = "npm run dev"
 [nix]
 channel = "stable-24_05"
 
-[[ports]]
-localPort = 3000
-externalPort = 80
-
 [deployment]
 deploymentTarget = "cloudrun"
 run = "cd packages/circle-demo-webapp && yarn dev"
+
 [[ports]]
 localPort = 3000
 externalPort = 80
