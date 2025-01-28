@@ -1,18 +1,38 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Combines the given class names into a single class name.
+ * @param inputs - The class names to combine.
+ * @returns The combined class name.
+ */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Determines whether the given value is a valid Solana address.
+ * @param value - The value to check.
+ * @returns `true` if the value is a valid Solana address, `false` otherwise.
+ */
 export const isSolanaAddress = (value: string): boolean => {
   return /^[1-9A-HJ-NP-Za-km-z]{43,44}$/.test(value);
 };
 
+/**
+ * Determines whether the given value is a valid Ethereum address.
+ * @param address - The value to check.
+ * @returns `true` if the value is a valid Ethereum address, `false` otherwise.
+ */
 export const isEthAddress = (address: string): boolean => {
   return /^0x[a-fA-F0-9]{40}$/.test(address);
 };
 
+/**
+ * Determines whether the given value is a valid address.
+ * @param value - The value to check.
+ * @returns `true` if the value is a valid address, `false` otherwise.
+ */
 export const isAddress = (value: string): boolean => {
   return isSolanaAddress(value) || isEthAddress(value);
 };
@@ -44,7 +64,7 @@ export const isNumber = (value: string): boolean => {
   return false;
 };
 
-export const chainIdExplorerMap: Record<string, string> = {
+const chainIdExplorerMap: Record<string, string> = {
   SOL: 'https://explorer.solana.com',
   'SOL-DEVNET': 'https://explorer.solana.com',
   ETH: 'https://etherscan.io',
@@ -62,6 +82,12 @@ export const chainIdExplorerMap: Record<string, string> = {
   'UNI-SEPOLIA': 'https://unichain-sepolia.blockscout.com',
 };
 
+/**
+ * Get the explorer URL for the given chain and transaction hash.
+ * @param chain The chain to get the explorer URL for.
+ * @param txHash The transaction hash.
+ * @returns The explorer URL.
+ */
 export const getExplorerUrl = (chain: string, txHash?: string): string => {
   const explorer = chainIdExplorerMap[chain];
   console.log('explorer', explorer, chain, txHash);

@@ -48,24 +48,3 @@ export async function callGetFetch<ReturnType>(
 export function isValidString(value: unknown): value is string {
   return typeof value === 'string' && value.trim() !== '';
 }
-
-const isSolanaAddress = (value: string): boolean => {
-  return /^[1-9A-HJ-NP-Za-km-z]{43,44}$/.test(value);
-};
-
-const isEthAddress = (address: string): boolean => {
-  return /^0x[a-fA-F0-9]{40}$/.test(address);
-};
-
-export const isAddress = (value: string): boolean => {
-  return isSolanaAddress(value) || isEthAddress(value);
-};
-
-// formatting
-export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
