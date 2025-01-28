@@ -2,6 +2,7 @@ import { Balance } from '@circle-fin/developer-controlled-wallets';
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
+import { useMemo } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -13,6 +14,15 @@ import { isAddress, isNumber } from '~/lib/utils';
 
 import { ComplianceEngineText } from '../ComplianceEngineText';
 import { TokenSelect } from '../TokenSelect';
+
+/**
+ * Helper function to find USDC token ID in balances array
+ * Used when defaultToUsdc prop is true to pre-select USDC
+ */
+function findTokenSelectDefaultValue(balances: Balance[]): string | undefined {
+  const usdcToken = balances.find((balance) => balance.token.symbol === 'USDC');
+  return usdcToken?.token.id;
+}
 
 const formSchema = z.object({
   destinationAddress: z.string().refine(isAddress, 'Address is not valid'),
@@ -90,6 +100,10 @@ export function SendTransactionForm({
   onChangeAddress,
   screeningAddressResult,
 }: SendTransactionFormProps) {
+  const defaultTokenIdValue = useMemo(
+    () => findTokenSelectDefaultValue(balances),
+    [balances],
+  );
   const {
     register,
     control,
@@ -128,12 +142,13 @@ export function SendTransactionForm({
         <Controller
           name="tokenId"
           control={control}
+          defaultValue={defaultTokenIdValue}
           render={({ field }) => (
             <TokenSelect
               balances={balances}
               onValueChange={field.onChange}
               error={errors.tokenId}
-              defaultToUsdc
+              defaultValue={defaultTokenIdValue}
             />
           )}
         />
