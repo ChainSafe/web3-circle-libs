@@ -4,7 +4,7 @@ import { fn } from '@storybook/test';
 import { NewWalletSetForm } from './NewWalletSetForm';
 
 const meta = {
-  title: 'NewWalletSetForm',
+  title: 'Form Components/NewWalletSetForm',
   component: NewWalletSetForm,
   parameters: {
     layout: 'centered',

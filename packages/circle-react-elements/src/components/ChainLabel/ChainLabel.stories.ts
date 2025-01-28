@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ChainLabel } from './ChainLabel';
 
 const meta = {
-  title: 'ChainLabel',
+  title: 'Blockchain Components/ChainLabel',
   component: ChainLabel,
   tags: ['autodocs'],
 } satisfies Meta<typeof ChainLabel>;

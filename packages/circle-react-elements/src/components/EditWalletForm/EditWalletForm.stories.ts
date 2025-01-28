@@ -4,7 +4,7 @@ import { fn } from '@storybook/test';
 import { EditWalletForm } from './EditWalletForm';
 
 const meta = {
-  title: 'EditWalletForm',
+  title: 'Form Components/EditWalletForm',
   component: EditWalletForm,
   parameters: {
     layout: 'centered',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { WalletReceive } from './WalletReceive';
 
 const meta = {
-  title: 'WalletReceive',
+  title: 'Display Components/WalletReceive',
   component: WalletReceive,
   tags: ['autodocs'],
 } satisfies Meta<typeof WalletReceive>;
