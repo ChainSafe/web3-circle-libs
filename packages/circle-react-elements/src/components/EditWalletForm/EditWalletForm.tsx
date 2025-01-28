@@ -15,15 +15,48 @@ const formSchema = z.object({
   refId: z.string().optional(),
 });
 
+/**
+ * Input data structure for the EditWalletForm component
+ * @property id - The ID of the wallet to edit
+ * @property name - The name of the wallet (required, non-empty)
+ * @property refId - Optional reference ID for the wallet
+ */
 export type EditWalletFormInput = z.infer<typeof formSchema>;
 
 export interface EditWalletFormProps {
+  /**
+   * Initial values for the form fields, populated from the existing wallet
+   */
   defaultValues: Wallet;
+
+  /**
+   * Indicates if the form is currently submitting
+   * When true, disables the submit button and shows a loading spinner
+   * @default false
+   */
   isSubmitting?: boolean;
+
+  /**
+   * Handler called when the form is submitted with valid data
+   * @param data - The form data of type EditWalletFormInput
+   */
   onSubmit: SubmitHandler<EditWalletFormInput>;
+
+  /**
+   * Optional error from the server to display below the form
+   */
   serverError?: Error;
 }
 
+/**
+ * A form component for editing an existing wallet
+ *
+ * Features:
+ * - Input fields for wallet name and optional reference ID
+ * - Form validation using Zod
+ * - Error handling for form fields and server errors
+ * - Loading state during submission
+ */
 export function EditWalletForm({
   defaultValues,
   isSubmitting,

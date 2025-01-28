@@ -11,14 +11,41 @@ const formSchema = z.object({
   name: z.string().nonempty('Name must not be empty'),
 });
 
+/**
+ * Input data structure for the NewWalletSetForm component
+ * @property name - The name of the wallet set (required, non-empty)
+ */
 export type NewWalletSetFormInput = z.infer<typeof formSchema>;
 
 export interface NewWalletSetFormProps {
+  /**
+   * Indicates if the form is currently submitting
+   * When true, disables the submit button and shows a loading spinner
+   * @default false
+   */
   isSubmitting?: boolean;
+
+  /**
+   * Handler called when the form is submitted with valid data
+   * @param data - The form data of type NewWalletSetFormInput
+   */
   onSubmit: SubmitHandler<NewWalletSetFormInput>;
+
+  /**
+   * Optional error from the server to display below the form
+   */
   serverError?: Error;
 }
 
+/**
+ * A form component for creating a new wallet set
+ *
+ * Features:
+ * - Input field for wallet set name
+ * - Form validation using Zod
+ * - Error handling for form fields and server errors
+ * - Loading state during submission
+ */
 export function NewWalletSetForm({
   isSubmitting,
   onSubmit,
