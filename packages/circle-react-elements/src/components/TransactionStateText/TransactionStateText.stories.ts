@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TransactionStateText } from './TransactionStateText';
 
 const meta = {
-  title: 'TransactionStateText',
+  title: 'Transaction Components/TransactionStateText',
   component: TransactionStateText,
   tags: ['autodocs'],
 } satisfies Meta<typeof TransactionStateText>;

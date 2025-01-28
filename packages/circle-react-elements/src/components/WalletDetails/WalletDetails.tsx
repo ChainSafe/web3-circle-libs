@@ -10,21 +10,53 @@ import { ElementsWallet } from '~/lib/types';
 
 import { ChainLabel } from '../ChainLabel';
 
+/**
+ * Props for the WalletDetails component
+ */
 export interface WalletDetailsProps {
-  /** The wallet associated with the on-chain account */
+  /**
+   * The wallet data from Circle's API
+   * Contains wallet details like name, address, blockchain, and account type
+   */
   wallet: ElementsWallet;
-  /** Child components to associate with the wallet */
+
+  /**
+   * Optional child components to render in the wallet details card
+   * Useful for adding custom buttons or additional information
+   */
   children?: React.ReactNode;
-  /** Copy the wallet address to the clipboard */
+
+  /**
+   * Optional callback when wallet address is copied
+   * @param address - The full wallet address that was copied
+   */
   onAddressCopy?: (address: string) => void;
 }
 
+/**
+ * Mapping of Circle account types to display text
+ * SCA = Smart Contract Account
+ * EOA = Externally Owned Account
+ */
 const ACCOUNT_TYPE_TO_TEXT: Record<AccountType, string> = {
   SCA: 'SCA',
   EOA: 'EOA',
 };
 
-/** The details of an on-chain account */
+/**
+ * Displays detailed information about a wallet
+ *
+ * Features:
+ * - Generates unique wallet avatar using ethereum-blockies
+ * - Shows wallet name and type (SCA/EOA badge)
+ * - Displays shortened wallet address with copy button
+ * - Shows blockchain network with icon
+ * - Supports custom child components for extensibility
+ * - Address clipboard copy with optional callback
+ * - Responsive layout with consistent spacing
+ * - Uses design system components (Badge, Button)
+ * - Full address available in tooltip
+ */
 export function WalletDetails({ wallet, onAddressCopy, children }: WalletDetailsProps) {
   const shortAddress = useMemo(() => shortenAddress(wallet.address), [wallet]);
   const walletImage = useMemo(() => makeBlockie(wallet.address), [wallet]);

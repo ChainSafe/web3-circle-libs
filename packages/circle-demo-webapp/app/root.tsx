@@ -13,8 +13,10 @@ import { LoaderCircle } from 'lucide-react';
 
 import { Sidebar } from '~/components/Sidebar';
 import { Toaster } from '~/components/ui/toaster';
-import './tailwind.css';
 import { cachedWalletSets } from '~/lib/memcache';
+
+import '@circle-libs/react-elements/styles.css';
+import './tailwind.css';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Circle SDK Demo' }];

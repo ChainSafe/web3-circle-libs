@@ -1,11 +1,20 @@
 import type { Blockchain } from '@circle-fin/developer-controlled-wallets';
 import { NetworkIcon } from '@web3icons/react';
 
+/**
+ * Props for the ChainIcon component
+ */
 export interface ChainIconProps {
-  /** The blockchain network */
+  /**
+   * The blockchain network to display an icon for
+   * Supports all networks from Circle's API including testnet variants
+   */
   blockchain: Blockchain;
 }
 
+/**
+ * Mapping of Circle blockchain identifiers to web3icons network names
+ */
 const BlockchainToIconMap: Record<Blockchain, string> = {
   'ARB-SEPOLIA': 'arbitrum',
   ARB: 'arbitrum',
@@ -24,7 +33,15 @@ const BlockchainToIconMap: Record<Blockchain, string> = {
   'UNI-SEPOLIA': 'uni',
 };
 
-/** A label with an icon and text to identify a blockchain network */
+/**
+ * Displays a branded icon for a given blockchain network
+ *
+ * Features:
+ * - Shows branded network icons using web3icons library
+ * - Supports all Circle-supported networks including testnets
+ * - Consistent 20px size for all icons
+ * - Uses official branded network colors
+ */
 export function ChainIcon({ blockchain }: ChainIconProps) {
   return (
     <NetworkIcon network={BlockchainToIconMap[blockchain]} size={20} variant="branded" />

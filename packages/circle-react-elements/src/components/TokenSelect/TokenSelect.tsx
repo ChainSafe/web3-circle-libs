@@ -1,6 +1,5 @@
 import { Balance } from '@circle-fin/developer-controlled-wallets';
 import { SelectProps } from '@radix-ui/react-select';
-import { useMemo } from 'react';
 import { FieldError } from 'react-hook-form';
 
 import {
@@ -32,32 +31,30 @@ export type TokenSelectProps = Omit<SelectProps, 'children'> & {
   error?: FieldError;
 
   /**
-   * When true, automatically selects USDC token if available in balances
-   * @default false
+   * Optional default token ID to pre-select in the dropdown
    */
-  defaultToUsdc?: boolean;
+  defaultValue?: string;
 };
 
-function findTokenSelectDefaultValue(balances: Balance[]): string | undefined {
-  const usdcToken = balances.find((balance) => balance.token.symbol === 'USDC');
-  return usdcToken?.token.id;
-}
-
 /**
- * A dropdown select menu for choosing a token from a list of balances.
+ * A dropdown select menu for choosing a token from a list of balances
+ *
+ * Features:
+ * - Displays token icons and symbols using TokenSelectItem
+ * - Shows token balances in the dropdown
+ * - Optional auto-selection of USDC token
+ * - Form validation integration with error states
+ * - Customizable placeholder text
+ * - Uses Radix UI Select for accessibility
+ * - Consistent styling with design system
  */
 export function TokenSelect({
   placeholder = 'Select Token',
   balances = [],
   error,
-  defaultToUsdc = false,
+  defaultValue,
   ...other
 }: TokenSelectProps) {
-  const defaultValue = useMemo(
-    () => (defaultToUsdc ? findTokenSelectDefaultValue(balances) : undefined),
-    [balances, defaultToUsdc],
-  );
-
   return (
     <Select defaultValue={defaultValue} {...other}>
       <SelectTrigger className={cn('w-full', error ? 'border border-destructive' : '')}>

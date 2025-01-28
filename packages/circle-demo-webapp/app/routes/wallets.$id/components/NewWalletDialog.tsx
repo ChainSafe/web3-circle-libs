@@ -3,7 +3,7 @@ import {
   NewWalletForm,
   NewWalletFormInput,
   SuccessMessage,
-} from '@circle-libs/circle-react-elements';
+} from '@circle-libs/react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
@@ -78,6 +78,7 @@ export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps
             isSubmitting={isLoading}
             onSubmit={onSubmit}
             serverError={error}
+            isTestnet
           />
         </DialogContent>
       </Dialog>

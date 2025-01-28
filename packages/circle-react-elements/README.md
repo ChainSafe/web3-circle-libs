@@ -1,4 +1,4 @@
-# @circle-libs/circle-react-elements
+# @circle-libs/react-elements
 
 Reusable React components for Circle Dev controlled wallets.
 
@@ -7,9 +7,9 @@ Reusable React components for Circle Dev controlled wallets.
 To install the package, use npm or yarn:
 
 ```bash
-npm install @circle-libs/circle-react-elements
+npm install @circle-libs/react-elements
 # or
-yarn add @circle-libs/circle-react-elements
+yarn add @circle-libs/react-elements
 ```
 
 ## Contributing

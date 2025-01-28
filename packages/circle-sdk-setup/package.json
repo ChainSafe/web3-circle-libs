@@ -1,5 +1,5 @@
 {
-  "name": "@circle-libs/circle-sdk-setup",
+  "name": "@circle-libs/sdk-setup",
   "version": "0.0.1",
   "description": "CLI tool for Circle SDK setup",
   "keywords": [

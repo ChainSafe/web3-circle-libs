@@ -1,7 +1,4 @@
-import {
-  EditWalletSetForm,
-  EditWalletSetFormInput,
-} from '@circle-libs/circle-react-elements';
+import { EditWalletSetForm, EditWalletSetFormInput } from '@circle-libs/react-elements';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';

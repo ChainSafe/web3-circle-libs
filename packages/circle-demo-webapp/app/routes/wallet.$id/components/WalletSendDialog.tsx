@@ -12,7 +12,7 @@ import {
   SuccessMessage,
   utils,
   WalletDetails,
-} from '@circle-libs/circle-react-elements';
+} from '@circle-libs/react-elements';
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';

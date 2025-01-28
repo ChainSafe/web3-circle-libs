@@ -1,4 +1,4 @@
-import { formats, WalletDetails } from '@circle-libs/circle-react-elements';
+import { formats, WalletDetails } from '@circle-libs/react-elements';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 

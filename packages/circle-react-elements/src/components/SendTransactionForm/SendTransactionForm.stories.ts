@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SendTransactionForm } from './SendTransactionForm';
 
 const meta = {
-  title: 'SendTransactionForm',
+  title: 'Form Components/SendTransactionForm',
   component: SendTransactionForm,
   parameters: {
     layout: 'centered',

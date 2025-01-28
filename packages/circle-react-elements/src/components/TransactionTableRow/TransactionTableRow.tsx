@@ -7,12 +7,44 @@ import { getExplorerUrl } from '~/lib/utils';
 import { TokenItem } from '../TokenItem';
 import { TransactionStateText } from '../TransactionStateText';
 
+/**
+ * Props for the TransactionTableRow component
+ */
 export interface TransactionTableRowProps {
+  /**
+   * Transaction data to display in the row
+   * Includes transaction details and associated token information
+   */
   transaction: TransactionWithToken;
+
+  /**
+   * Whether to show action buttons
+   * When true, displays Details button and blockchain explorer link
+   * @default false
+   */
   withActions?: boolean;
+
+  /**
+   * Optional handler for when the Details button is clicked
+   * @param tx - The transaction data for the clicked row
+   */
   onClickDetails?: (tx: TransactionWithToken) => void;
 }
 
+/**
+ * Table row component for displaying transaction information
+ *
+ * Features:
+ * - Displays shortened addresses with full address in tooltip
+ * - Shows transaction status with appropriate styling
+ * - Displays token information using TokenItem component
+ * - Color-coded amounts (green for inbound, red for outbound)
+ * - Formatted dates
+ * - Optional action buttons:
+ *   - Details button to view transaction details
+ *   - External link to blockchain explorer
+ * - Consistent styling with table head component
+ */
 export function TransactionTableRow({
   transaction,
   withActions,

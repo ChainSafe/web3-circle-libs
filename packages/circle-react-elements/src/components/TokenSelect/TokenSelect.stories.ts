@@ -50,7 +50,7 @@ const exampleBalances: Balance[] = [
 ];
 
 const meta = {
-  title: 'TokenSelect',
+  title: 'Token Components/TokenSelect',
   component: TokenSelect,
   parameters: {
     layout: 'centered', // Centers the component in the story canvas
@@ -62,6 +62,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const DefaultValue: Story = {
+  args: {
+    balances: exampleBalances,
+    defaultValue: '1',
+  },
+};
+
 export const Empty: Story = {
   args: {
     balances: [],
@@ -71,12 +78,5 @@ export const Empty: Story = {
 export const WithBalances: Story = {
   args: {
     balances: exampleBalances,
-  },
-};
-
-export const DefaultToUSDC: Story = {
-  args: {
-    balances: exampleBalances,
-    defaultToUsdc: true,
   },
 };

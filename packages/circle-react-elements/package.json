@@ -1,5 +1,5 @@
 {
-  "name": "@circle-libs/circle-react-elements",
+  "name": "@circle-libs/react-elements",
   "version": "0.0.1",
   "description": "React components compatible with Circle SDK",
   "keywords": [
@@ -22,6 +22,14 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
   "sideEffects": false,
   "type": "module",
   "repository": {
@@ -29,7 +37,9 @@
     "url": "https://github.com/ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
-    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "build": "yarn build:js && yarn build:css",
+    "build:js": "tsup src/index.tsx --format cjs,esm --dts",
+    "build:css": "postcss src/tailwind.css -o dist/styles.css",
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}'",
     "watch": "tsup src/index.tsx --format cjs,esm --dts --watch",
     "storybook": "storybook dev -p 6006",
@@ -66,6 +76,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-storybook": "^0.11.1",
     "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
     "prettier": "^3.4.1",
     "storybook": "^8.5.0",
     "storybook-dark-mode": "^4.0.2",

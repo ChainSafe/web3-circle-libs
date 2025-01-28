@@ -6,11 +6,21 @@ import { ChainLabel } from '../ChainLabel';
 import { TokenItem } from '../TokenItem';
 import { TransactionStateText } from '../TransactionStateText';
 
+/**
+ * Props for the TransactionDetails component
+ */
 export interface TransactionDetailsProps {
-  /** The on-chain transaction data with token */
+  /**
+   * The on-chain transaction data with token information
+   * Includes transaction hash, addresses, amounts, token details, and state
+   */
   transaction: TransactionWithToken;
 }
 
+/**
+ * Helper component for displaying a single line of transaction details
+ * Shows a label and value pair with consistent styling and spacing
+ */
 const OneLine = ({ label, value }: { label: string; value: ReactNode | string }) => (
   <div className="flex space-x-4 justify-between border-t py-2">
     <div className="flex-1">{label}</div>
@@ -18,7 +28,20 @@ const OneLine = ({ label, value }: { label: string; value: ReactNode | string })
   </div>
 );
 
-/** The details of an on-chain transaction */
+/**
+ * Displays detailed information about an on-chain transaction
+ *
+ * Features:
+ * - Shows transaction hash with truncation
+ * - Displays transaction state with appropriate styling
+ * - Lists source and destination addresses
+ * - Shows token details and amount with color coding for inbound/outbound
+ * - Includes transaction date with formatting
+ * - Displays blockchain network with icon
+ * - Shows optional transaction note
+ * - Consistent styling with borders and spacing
+ * - Color-coded amounts (green for inbound, red for outbound)
+ */
 export function TransactionDetails({ transaction }: TransactionDetailsProps) {
   const shortHash = useMemo(
     () => (transaction?.txHash ? shortenHash(transaction.txHash) : ''),

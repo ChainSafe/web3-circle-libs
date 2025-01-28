@@ -1,15 +1,11 @@
-import { Blockchain } from '@circle-fin/developer-controlled-wallets';
 import { SelectProps } from '@radix-ui/react-select';
+import { FieldError } from 'react-hook-form';
 
-import { ChainIcon } from '../ChainIcon';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
+import { ChainSelectInternal } from './ChainSelectInternal';
 
+/**
+ * Mapping of supported mainnet blockchain identifiers to human-readable labels
+ */
 const BLOCKCHAIN_LABELS: Record<string, string> = {
   ARB: 'Arbitrum',
   AVAX: 'Avalanche',
@@ -19,26 +15,35 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
   SOL: 'Solana',
 };
 
-export type ChainSelectProps = Omit<SelectProps, 'children'> & { placeholder?: string };
+/**
+ * Props for the ChainSelect component
+ * Extends Radix UI's SelectProps (excluding children)
+ */
+export type ChainSelectProps = Omit<SelectProps, 'children'> & {
+  /**
+   * Optional placeholder text shown when no network is selected
+   * Displayed when no value is selected
+   */
+  placeholder?: string;
 
-/** A dropdown select menu to choose a mainnet blockchain network */
-export function ChainSelect({ ...props }: ChainSelectProps) {
-  const { placeholder = 'Select network', ...other } = props;
-  return (
-    <Select {...other}>
-      <SelectTrigger className="w-full max-w-md">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {Object.keys(BLOCKCHAIN_LABELS).map((blockchain) => (
-          <SelectItem key={blockchain} value={blockchain}>
-            <div className="text-sm text-muted-foreground flex items-center space-x-2 pr-4">
-              <ChainIcon blockchain={blockchain as Blockchain} />
-              <span>{BLOCKCHAIN_LABELS[blockchain]}</span>
-            </div>
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
+  /**
+   * Optional form field error from react-hook-form
+   * When provided, adds a red border to indicate validation errors
+   */
+  error?: FieldError;
+};
+
+/**
+ * A dropdown select menu for choosing a mainnet blockchain network
+ *
+ * Features:
+ * - Shows only mainnet networks (no testnets)
+ * - Displays network icons alongside network names
+ * - Accessible dropdown using Radix UI Select
+ * - Integration with react-hook-form for validation
+ * - Customizable placeholder text
+ * - Consistent styling with the design system
+ */
+export function ChainSelect(props: ChainSelectProps) {
+  return <ChainSelectInternal {...props} blockchainLabels={BLOCKCHAIN_LABELS} />;
 }

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TokenItem } from './TokenItem';
 
 const meta = {
-  title: 'TokenItem',
+  title: 'Token Components/TokenItem',
   component: TokenItem,
   parameters: {
     layout: 'centered',
