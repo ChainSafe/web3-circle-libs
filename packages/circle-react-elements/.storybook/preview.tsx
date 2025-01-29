@@ -3,9 +3,9 @@ import type { Preview } from '@storybook/react';
 import { DocsContainer } from '@storybook/blocks';
 import { addons } from '@storybook/preview-api';
 import { themes } from '@storybook/theming';
-import { DARK_MODE_EVENT_NAME, UPDATE_DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
+import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
 
-import '../src/tailwind.css';
+import '../src/styles/tailwind.css';
 
 const channel = addons.getChannel();
 
