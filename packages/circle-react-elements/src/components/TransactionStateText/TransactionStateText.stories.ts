@@ -6,6 +6,22 @@ const meta = {
   title: 'Transaction Components/TransactionStateText',
   component: TransactionStateText,
   tags: ['autodocs'],
+  argTypes: {
+    state: {
+      control: 'select',
+      options: [
+        'COMPLETE',
+        'CONFIRMED',
+        'SENT',
+        'INITIATED',
+        'QUEUED',
+        'PENDING_RISK_SCREENING',
+        'CANCELLED',
+        'DENIED',
+        'FAILED',
+      ],
+    },
+  },
 } satisfies Meta<typeof TransactionStateText>;
 
 export default meta;

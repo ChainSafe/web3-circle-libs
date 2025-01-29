@@ -1,6 +1,6 @@
 # Circle React Elements
 
-A library of React components for building Circle-powered web applications.
+A library of React components for building Circle-powered web applications. Read more about Circle's developer-controlled wallets in the [official documentation](https://developers.circle.com/w3s/developer-controlled-create-your-first-wallet).
 
 ## Features
 
@@ -16,9 +16,9 @@ A library of React components for building Circle-powered web applications.
 ## Installation
 
 ```bash
-npm install @circle-fin/react-elements
+npm install @circle-libs/react-elements
 # or
-yarn add @circle-fin/react-elements
+yarn add @circle-libs/react-elements
 ```
 
 ## Dependencies
@@ -27,10 +27,14 @@ This package requires the following peer dependencies:
 
 ```json
 {
-  "@circle-fin/developer-controlled-wallets": ">=1.0.0",
-  "react": ">=18.0.0",
-  "react-dom": ">=18.0.0",
-  "tailwindcss": ">=3.0.0"
+  "@circle-fin/developer-controlled-wallets": "^7.0.0", // Circle SDK
+  "@web3icons/react": "^3.16.0", // Blockchain icons
+  "lucide-react": "^0.462.0", // Icon library
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0",
+  "react-hook-form": "^7.54.2", // Form validation
+  "tailwindcss": "^3.4.4", // CSS framework
+  "tailwindcss-animate": "^1.0.7" // Animation utilities
 }
 ```
 
@@ -39,21 +43,21 @@ This package requires the following peer dependencies:
 1. Add the package's Tailwind preset to your `tailwind.config.ts`:
 
 ```typescript
-import { type Config } from 'tailwindcss';
+import circlePreset from '@circle-libs/react-elements/tailwind.preset';
+import type { Config } from 'tailwindcss';
 
 export default {
   content: [
     // ... your content paths
-    './node_modules/@circle-fin/react-elements/**/*.{js,ts,jsx,tsx}',
   ],
-  presets: [require('@circle-fin/react-elements/tailwind')],
+  presets: [circlePreset],
 } satisfies Config;
 ```
 
 2. Import the CSS in your app's entry point:
 
 ```typescript
-import '@circle-fin/react-elements/styles.css';
+import '@circle-libs/react-elements/styles.css';
 ```
 
 ## Quick Start
@@ -61,7 +65,7 @@ import '@circle-fin/react-elements/styles.css';
 Here's a simple example using the wallet creation form:
 
 ```tsx
-import { NewWalletForm } from '@circle-fin/react-elements';
+import { NewWalletForm } from '@circle-libs/react-elements';
 
 function CreateWallet() {
   const handleSubmit = async (data) => {
@@ -127,6 +131,4 @@ The components use Tailwind CSS for styling and can be customized through your T
 
 ## Further Resources
 
-- [Circle Developer Documentation](https://developers.circle.com)
-- [Circle React Elements Storybook](#) (coming soon)
-- [GitHub Repository](#) (coming soon)
+- [Circle Developer Documentation](https://developers.circle.com/w3s/developer-controlled-create-your-first-wallet)

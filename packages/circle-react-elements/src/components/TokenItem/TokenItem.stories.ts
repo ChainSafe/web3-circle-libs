@@ -5,9 +5,6 @@ import { TokenItem } from './TokenItem';
 const meta = {
   title: 'Token Components/TokenItem',
   component: TokenItem,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
 } satisfies Meta<typeof TokenItem>;
 

@@ -28,18 +28,23 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./tailwind.preset": {
+      "types": "./dist/tailwind.preset.d.ts",
+      "import": "./dist/tailwind.preset.js",
+      "require": "./dist/tailwind.preset.cjs"
+    }
   },
   "sideEffects": false,
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ChainSafe/web3-circle-libs.git"
+    "url": "git+https://github.com/ChainSafe/web3-circle-libs.git"
   },
   "scripts": {
     "build": "yarn build:js && yarn build:css",
-    "build:js": "tsup src/index.tsx --format cjs,esm --dts",
-    "build:css": "postcss src/tailwind.css -o dist/styles.css",
+    "build:js": "tsup",
+    "build:css": "postcss src/styles/tailwind.css -o dist/styles.css",
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}'",
     "watch": "tsup src/index.tsx --format cjs,esm --dts --watch",
     "storybook": "storybook dev -p 6006",
@@ -47,20 +52,25 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ethereum-blockies-base64": "^1.0.2",
     "qrcode.react": "^4.1.0",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.5.0",
     "@storybook/blocks": "^8.5.0",
+    "@storybook/preview-api": "^8.5.2",
     "@storybook/react": "^8.5.0",
     "@storybook/react-vite": "^8.5.0",
     "@storybook/test": "^8.5.0",
+    "@storybook/theming": "^8.5.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
@@ -80,23 +90,20 @@
     "prettier": "^3.4.1",
     "storybook": "^8.5.0",
     "storybook-dark-mode": "^4.0.2",
-    "tsup": "^5.0.0",
+    "tsup": "^8.3.6",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.11.0",
     "vite": "^5.1.0"
   },
   "peerDependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
-    "@radix-ui/react-dialog": "^1.1.2",
-    "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-select": "^2.1.2",
-    "@radix-ui/react-slot": "^1.1.0",
     "@web3icons/react": "^3.16.0",
     "lucide-react": "^0.462.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.54.2",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.4",
+    "tailwindcss-animate": "^1.0.7"
   },
   "engines": {
     "node": ">=20.0.0"
