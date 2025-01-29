@@ -47,6 +47,10 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ethereum-blockies-base64": "^1.0.2",
@@ -58,9 +62,11 @@
   "devDependencies": {
     "@storybook/addon-essentials": "^8.5.0",
     "@storybook/blocks": "^8.5.0",
+    "@storybook/preview-api": "^8.5.2",
     "@storybook/react": "^8.5.0",
     "@storybook/react-vite": "^8.5.0",
     "@storybook/test": "^8.5.0",
+    "@storybook/theming": "^8.5.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
@@ -87,10 +93,6 @@
   },
   "peerDependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
-    "@radix-ui/react-dialog": "^1.1.2",
-    "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-select": "^2.1.2",
-    "@radix-ui/react-slot": "^1.1.0",
     "@web3icons/react": "^3.16.0",
     "lucide-react": "^0.462.0",
     "react": "^18.2.0",
