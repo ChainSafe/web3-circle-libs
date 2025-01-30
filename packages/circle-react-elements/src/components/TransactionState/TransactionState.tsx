@@ -1,11 +1,11 @@
-import { TransactionState } from '@circle-fin/developer-controlled-wallets';
+import { TransactionState as TransactionStateType } from '@circle-fin/developer-controlled-wallets';
 
 import { Badge } from '../ui/badge';
 
 /**
- * Props for the TransactionStateText component
+ * Props for the TransactionState component
  */
-export interface TransactionStateTextProps {
+export interface TransactionStateProps {
   /**
    * The state of the transaction from Circle's API
    * Possible values:
@@ -13,7 +13,7 @@ export interface TransactionStateTextProps {
    * - In-progress states: 'SENT', 'INITIATED', 'QUEUED', 'PENDING_RISK_SCREENING'
    * - Error states: 'CANCELLED', 'DENIED', 'FAILED'
    */
-  state: TransactionState;
+  state: TransactionStateType;
 }
 
 /**
@@ -54,7 +54,7 @@ const toText = (state: string) => state.replace(/_/gi, ' ');
  * - Dark mode support
  * - Non-breaking text layout
  */
-export function TransactionStateText({ state }: TransactionStateTextProps) {
+export function TransactionState({ state }: TransactionStateProps) {
   return greenStates.includes(state) ? (
     <Badge
       variant="accent"

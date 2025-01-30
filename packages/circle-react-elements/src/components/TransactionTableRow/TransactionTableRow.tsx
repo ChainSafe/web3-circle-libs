@@ -5,7 +5,7 @@ import { TransactionWithToken } from '~/lib/types';
 import { getExplorerUrl } from '~/lib/utils';
 
 import { TokenItem } from '../TokenItem';
-import { TransactionStateText } from '../TransactionStateText';
+import { TransactionState } from '../TransactionState';
 
 /**
  * Props for the TransactionTableRow component
@@ -60,7 +60,7 @@ export function TransactionTableRow({
         {shortenAddress(transaction.destinationAddress ?? '')}
       </td>
       <td className="px-4 py-2" title={transaction.state}>
-        <TransactionStateText state={transaction.state} />
+        <TransactionState state={transaction.state} />
       </td>
       <td className="px-4 py-2" title={transaction.tokenId}>
         {transaction?.token ? <TokenItem token={transaction.token} /> : '-'}

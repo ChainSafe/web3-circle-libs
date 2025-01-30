@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TransactionStateText } from './TransactionStateText';
+import { TransactionState } from './TransactionState';
 
 const meta = {
-  title: 'Transaction Components/TransactionStateText',
-  component: TransactionStateText,
+  title: 'Transaction Components/TransactionState',
+  component: TransactionState,
   tags: ['autodocs'],
   argTypes: {
     state: {
@@ -22,7 +22,7 @@ const meta = {
       ],
     },
   },
-} satisfies Meta<typeof TransactionStateText>;
+} satisfies Meta<typeof TransactionState>;
 
 export default meta;
 

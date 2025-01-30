@@ -12,7 +12,7 @@ export * from './components/SendTransactionForm';
 export * from './components/TokenItem';
 export * from './components/TokenSelect';
 export * from './components/TransactionDetails';
-export * from './components/TransactionStateText';
+export * from './components/TransactionState';
 export * from './components/TransactionTableHead';
 export * from './components/TransactionTableRow';
 export * from './components/WalletBalance';

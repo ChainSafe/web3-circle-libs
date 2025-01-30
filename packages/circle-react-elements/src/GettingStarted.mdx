@@ -87,7 +87,33 @@ function CreateWallet() {
 
 The library provides several categories of components:
 
-### Form Components
+## Wallet Components
+
+- `WalletDetails` - Show wallet information
+- `WalletSetDetails` - Show wallet set information
+- `WalletBalance` - Display token balances
+- `WalletReceive` - Show wallet address with QR code
+
+## Blockchain Components
+
+- `ChainIcon` - Display blockchain network icon
+- `ChainLabel` - Show network name with icon
+- `ChainSelect` - Network selection dropdown for mainnets
+- `TestChainSelect` - Network selection dropdown for testnets
+
+## Token Components
+
+- `TokenItem` - Display token information
+- `TokenSelect` - Token selection dropdown with balances
+- `Amount` - Format token amounts
+
+## Transaction Components
+
+- `TransactionDetails` - Display transaction information
+- `TransactionTableHead` - Header for transaction list
+- `TransactionTableRow` - Row for transaction list
+
+## Form Components
 
 - `NewWalletForm` - Create a new wallet
 - `EditWalletForm` - Edit an existing wallet
@@ -95,31 +121,11 @@ The library provides several categories of components:
 - `EditWalletSetForm` - Edit an existing wallet set
 - `SendTransactionForm` - Send tokens from a wallet
 
-### Display Components
+## Feedback & Messaging
 
-- `WalletDetails` - Show wallet information
-- `WalletSetDetails` - Show wallet set information
-- `WalletBalance` - Display token balances
-- `WalletReceive` - Show wallet address with QR code
-- `TransactionDetails` - Display transaction information
-
-### Transaction Components
-
-- `TransactionStateText` - Show transaction status
-- `TransactionTableHead` - Header for transaction list
-- `TransactionTableRow` - Row for transaction list
-
-### Blockchain Components
-
-- `ChainIcon` - Display blockchain network icon
-- `ChainLabel` - Show network name with icon
-- `ChainSelect` - Network selection dropdown
-
-### Token Components
-
-- `TokenItem` - Display token information
-- `TokenSelect` - Token selection dropdown with balances
-- `Amount` - Format token amounts
+- `SuccessMessage` - Display a success message
+- `TransactionState` - Show transaction state
+- `ComplianceStatus` - Show compliance status
 
 ## TypeScript
 
