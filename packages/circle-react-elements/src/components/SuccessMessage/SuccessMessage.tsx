@@ -3,15 +3,37 @@ import { PropsWithChildren } from 'react';
 
 import { Button } from '~/components/ui/button';
 
+/**
+ * Props for the SuccessMessage component
+ */
 export interface SuccessMessageProps extends PropsWithChildren {
-  /** onClose callback, show the close btn if exists */
+  /**
+   * Optional callback function to handle closing the message
+   * When provided, displays a close button at the bottom
+   */
   onClose?: () => void;
-  /** title of the success message */
+
+  /**
+   * The main heading text displayed below the success icon
+   * Should be concise and clearly indicate the successful action
+   */
   title: string;
+
+  /**
+   * Optional children elements rendered below the title
+   * Typically used for additional details or next steps
+   */
+  children?: React.ReactNode;
 }
 
 /**
- * Success message component
+ * Displays a success confirmation message with consistent styling
+ *
+ * Features:
+ * - Large success icon with green accent colors
+ * - Prominent title text for clear communication
+ * - Optional details/description as children
+ * - Optional close button for dismissing the message
  */
 export function SuccessMessage({ onClose, title, children }: SuccessMessageProps) {
   return (

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ComplianceStatus } from './ComplianceStatus';
 
 const meta = {
-  title: 'Transaction Components/ComplianceStatus',
+  title: 'Feedback & Messaging/ComplianceStatus',
   component: ComplianceStatus,
   tags: ['autodocs'],
   parameters: {
