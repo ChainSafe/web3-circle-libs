@@ -1,9 +1,5 @@
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
-import {
-  TransactionDetails,
-  TransactionTableHead,
-  TransactionTableRow,
-} from '@circle-libs/react-elements';
+import { TransactionDetails, Transaction } from '@circle-libs/react-elements';
 import { useParams } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
@@ -88,23 +84,28 @@ export default function Page() {
             {transactions.length === 0 && <p>No transactions</p>}
 
             {transactions.length > 0 && (
-              <div className="overflow-x-auto">
-                <table className="min-w-full table-auto">
-                  <TransactionTableHead />
-                  <tbody>
-                    {transactions.map((tx) => (
-                      <TransactionTableRow
-                        key={tx.id}
-                        transaction={tx}
-                        withActions
-                        onClickDetails={(data) => {
-                          setTxId(data?.id);
-                        }}
-                      />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <Transaction.Table>
+                <Transaction.Table.Head />
+                <Transaction.Table.Body>
+                  {transactions.map((tx) => (
+                    <Transaction.Root
+                      key={tx.id}
+                      transaction={tx}
+                      onClickDetails={(data) => {
+                        setTxId(data.id);
+                      }}
+                    >
+                      <Transaction.Address type="from" />
+                      <Transaction.Address type="to" />
+                      <Transaction.Status />
+                      <Transaction.Token />
+                      <Transaction.Amount />
+                      <Transaction.Date />
+                      <Transaction.Actions />
+                    </Transaction.Root>
+                  ))}
+                </Transaction.Table.Body>
+              </Transaction.Table>
             )}
           </div>
         </Card>

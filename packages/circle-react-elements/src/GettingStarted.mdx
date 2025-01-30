@@ -110,8 +110,7 @@ The library provides several categories of components:
 ## Transaction Components
 
 - `TransactionDetails` - Display transaction information
-- `TransactionTableHead` - Header for transaction list
-- `TransactionTableRow` - Row for transaction list
+- `Transaction` - Flexible transactions component that dynamically renders transaction details within a table, supporting customizable columns
 
 ## Form Components
 
