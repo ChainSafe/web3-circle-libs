@@ -1,9 +1,8 @@
 import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
-import { Transaction } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
+import { Transaction as TransactionType } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
   formats,
-  TransactionTableHead,
-  TransactionTableRow,
+  Transaction,
   WalletBalance,
   WalletDetails,
 } from '@circle-libs/react-elements';
@@ -98,7 +97,7 @@ export default function WalletBalancePage() {
                 wallet={wallet}
                 balances={balances}
                 onSendTransaction={(data: CreateTransactionInput) =>
-                  callFetch<Transaction, CreateTransactionInput>(
+                  callFetch<TransactionType, CreateTransactionInput>(
                     '/api/createTransaction',
                     data,
                   )
@@ -164,17 +163,21 @@ export default function WalletBalancePage() {
               {transactions.length === 0 && <p>No transactions</p>}
 
               {transactions.length > 0 && (
-                <div className="overflow-x-auto">
-                  <table className="min-w-full table-auto">
-                    <TransactionTableHead />
-
-                    <tbody>
-                      {transactions.map((tx) => (
-                        <TransactionTableRow key={tx.id} transaction={tx} />
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <Transaction.Table>
+                  <Transaction.Table.Head />
+                  <Transaction.Table.Body>
+                    {transactions.map((tx) => (
+                      <Transaction.Root key={tx.id} transaction={tx}>
+                        <Transaction.Address type="from" />
+                        <Transaction.Address type="to" />
+                        <Transaction.Status />
+                        <Transaction.Token />
+                        <Transaction.Amount />
+                        <Transaction.Date />
+                      </Transaction.Root>
+                    ))}
+                  </Transaction.Table.Body>
+                </Transaction.Table>
               )}
             </div>
           </Card>
