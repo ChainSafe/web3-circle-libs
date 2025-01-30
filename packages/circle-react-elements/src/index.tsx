@@ -2,7 +2,7 @@ export * from './components/Amount';
 export * from './components/ChainIcon';
 export * from './components/ChainLabel';
 export * from './components/ChainSelect';
-export * from './components/ComplianceEngineText';
+export * from './components/ComplianceStatus';
 export * from './components/EditWalletForm';
 export * from './components/EditWalletSetForm';
 export * from './components/NewWalletForm';

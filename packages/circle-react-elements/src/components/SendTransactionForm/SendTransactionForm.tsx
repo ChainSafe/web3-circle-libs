@@ -12,7 +12,7 @@ import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { isAddress, isNumber } from '~/lib/utils';
 
-import { ComplianceEngineText } from '../ComplianceEngineText';
+import { ComplianceStatus } from '../ComplianceStatus';
 import { TokenSelect } from '../TokenSelect';
 
 /**
@@ -132,7 +132,7 @@ export function SendTransactionForm({
           onChange={handleChangeAddress}
         />
         {screeningAddressResult !== undefined ? (
-          <ComplianceEngineText result={screeningAddressResult === 'APPROVED'} />
+          <ComplianceStatus result={screeningAddressResult === 'APPROVED'} />
         ) : (
           <FormErrorText message={errors.destinationAddress?.message} />
         )}
