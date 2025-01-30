@@ -90,7 +90,6 @@ const chainIdExplorerMap: Record<string, string> = {
  */
 export const getExplorerUrl = (chain: string, txHash?: string): string => {
   const explorer = chainIdExplorerMap[chain];
-  console.log('explorer', explorer, chain, txHash);
   if (!explorer) {
     return '';
   }
