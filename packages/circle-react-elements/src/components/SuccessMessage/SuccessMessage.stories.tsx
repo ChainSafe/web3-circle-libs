@@ -6,7 +6,7 @@ import { getExplorerUrl } from '~/lib/utils';
 import { SuccessMessage } from './SuccessMessage';
 
 const meta = {
-  title: 'Display Components/SuccessMessage',
+  title: 'Feedback & Messaging/SuccessMessage',
   component: SuccessMessage,
   tags: ['autodocs'],
 } satisfies Meta<typeof SuccessMessage>;

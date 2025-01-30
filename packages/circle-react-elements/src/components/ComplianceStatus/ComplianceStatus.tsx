@@ -1,9 +1,9 @@
 import { Badge } from '~/components/ui/badge';
 
 /**
- * Props for the ComplianceEngineText component
+ * Props for the ComplianceStatus component
  */
-export interface ComplianceEngineTextProps {
+export interface ComplianceStatusProps {
   /**
    * The compliance check result from Circle's Compliance Engine
    * true = approved, false = denied
@@ -21,7 +21,7 @@ export interface ComplianceEngineTextProps {
  * - Clear visual indicators (✓/✘) for quick status recognition
  * - Accessible text colors meeting contrast requirements
  */
-export function ComplianceEngineText({ result }: ComplianceEngineTextProps) {
+export function ComplianceStatus({ result }: ComplianceStatusProps) {
   return result ? (
     <Badge
       variant="accent"

@@ -4,7 +4,7 @@ import { formatDate, shortenHash } from '../../lib/format';
 import { TransactionWithToken } from '../../lib/types';
 import { ChainLabel } from '../ChainLabel';
 import { TokenItem } from '../TokenItem';
-import { TransactionStateText } from '../TransactionStateText';
+import { TransactionState } from '../TransactionState';
 
 /**
  * Props for the TransactionDetails component
@@ -56,10 +56,7 @@ export function TransactionDetails({ transaction }: TransactionDetailsProps) {
   return (
     <div>
       <OneLine label="Hash" value={shortHash} />
-      <OneLine
-        label="Status"
-        value={<TransactionStateText state={transaction.state} />}
-      />
+      <OneLine label="Status" value={<TransactionState state={transaction.state} />} />
       <OneLine label="From" value={transaction.sourceAddress} />
       <OneLine label="To" value={transaction.destinationAddress} />
       {transaction.token && (
