@@ -13,6 +13,33 @@ A library of React components for building Circle-powered web applications.
 - Transaction management components
 - Wallet management components
 
+## Circle Console Setup
+
+Before using the components, you need to configure the Circle Console. The easiest way is to use our setup tool:
+
+```bash
+npx @circle-libs/sdk-setup --api-key YOUR_API_KEY
+```
+
+You'll need:
+
+- A Circle API key from the [Circle Console](https://console.circle.com)
+
+The setup tool will automatically:
+
+- Generate a secure entity secret
+- Register your configuration with Circle
+- Save the configuration to `.env` file with required environment variables:
+
+  - `CIRCLE_API_KEY`: Your Circle API key
+  - `CIRCLE_SECRET`: Generated entity secret for secure communication with the Circle API
+
+- Generate a recovery file (`recovery_file_YYYY-MM-DD.dat`)
+
+⚠️ **Important**: Store the generated recovery file (`recovery_file_YYYY-MM-DD.dat`) in a secure location and remove it from your project directory.
+
+Then you can proceed with the installation of the [Circle Developer-Controlled Wallet SDK](https://developers.circle.com/w3s/nodejs-sdk) and Circle React Elements.
+
 ## Installation
 
 ```bash

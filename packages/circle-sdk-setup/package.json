@@ -1,9 +1,12 @@
 {
   "name": "@circle-libs/sdk-setup",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.1",
   "description": "CLI tool for Circle SDK setup",
   "keywords": [
     "circle",
+    "developer",
+    "controlled",
+    "wallet",
     "sdk",
     "cli"
   ],
@@ -19,12 +22,15 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "circle-sdk-setup": "./dist/cli.js"
+    "circle-sdk-setup": "dist/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ChainSafe/web3-circle-libs.git"
+    "url": "git+https://github.com/ChainSafe/web3-circle-libs.git"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/cli.js",

@@ -59,7 +59,7 @@ This document outlines the steps to prepare and publish a new release of @circle
    ```
 4. Now create and push the version tag on the squashed commit:
    ```bash
-   git tag v[version]
+   git tag @circle-libs/react-elements@[version]
    git push origin --tags
    ```
 5. If this was a beta release that is now stable, update release notes with what changed
