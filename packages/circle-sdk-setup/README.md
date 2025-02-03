@@ -1,13 +1,13 @@
-# Circle SDK Setup
+# Circle Console Setup
 
-CLI tool for setting up Circle SDK configuration. This tool helps you generate and configure the necessary secrets and environment variables for using the Circle SDK.
+CLI tool for setting up Circle Console configuration. This tool helps you generate and configure the necessary secrets and environment variables to work with Circle Developer-Controlled Wallets.
 
 ## Usage
 
-Run the setup command with your Circle API key:
+You'll need a Circle API key from the [Circle Console](https://console.circle.com). Then run the setup command with your Circle API key:
 
 ```bash
-npx circle-sdk-setup --api-key YOUR_API_KEY
+npx @circle-libs/sdk-setup --api-key YOUR_API_KEY
 ```
 
 Options:
