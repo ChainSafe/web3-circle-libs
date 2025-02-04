@@ -4,7 +4,7 @@ CLI tool for setting up Circle Console configuration. This tool helps you genera
 
 ## Usage
 
-You'll need a Circle API key from the [Circle Console](https://console.circle.com). Then run the setup command with your Circle API key:
+You'll need a Circle API key from the [Circle Console](https://console.circle.com). Read how to setup your Circle Developer Account [here](https://developers.circle.com/w3s/circle-developer-account). Then run the setup command with your Circle API key:
 
 ```bash
 npx @circle-libs/sdk-setup --api-key YOUR_API_KEY

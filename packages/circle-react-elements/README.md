@@ -23,7 +23,7 @@ npx @circle-libs/sdk-setup --api-key YOUR_API_KEY
 
 You'll need:
 
-- A Circle API key from the [Circle Console](https://console.circle.com)
+- A Circle API key from the [Circle Console](https://console.circle.com). Read how to setup your Circle Developer Account [here](https://developers.circle.com/w3s/circle-developer-account).
 
 The setup tool will automatically:
 

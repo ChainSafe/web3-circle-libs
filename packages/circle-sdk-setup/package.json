@@ -3,12 +3,11 @@
   "version": "0.0.1-beta.1",
   "description": "CLI tool for Circle SDK setup",
   "keywords": [
+    "cli",
     "circle",
-    "developer",
-    "controlled",
-    "wallet",
-    "sdk",
-    "cli"
+    "usdc",
+    "stablecoins",
+    "programmable wallets"
   ],
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {

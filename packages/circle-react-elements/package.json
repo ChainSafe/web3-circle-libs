@@ -5,7 +5,10 @@
   "keywords": [
     "react",
     "components",
-    "circle"
+    "circle",
+    "usdc",
+    "stablecoins",
+    "programmable wallets"
   ],
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
   "bugs": {
