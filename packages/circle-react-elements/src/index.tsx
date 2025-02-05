@@ -20,3 +20,4 @@ export * from './components/WalletReceive';
 export * from './components/WalletSetDetails';
 export * as formats from './lib/format';
 export * as utils from './lib/utils';
+export * from './styles/tailwind.preset';

@@ -1,6 +1,6 @@
 import tailwindAnimate from 'tailwindcss-animate';
 
-const preset = {
+export const tailwindPreset = {
   theme: {
     extend: {
       fontFamily: {
@@ -61,5 +61,3 @@ const preset = {
   },
   plugins: [tailwindAnimate],
 };
-
-export default preset;
