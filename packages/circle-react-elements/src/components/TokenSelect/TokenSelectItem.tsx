@@ -32,9 +32,8 @@ export function TokenSelectItem({ balance }: TokenSelectItemProps) {
         className="flex-shrink-0"
       />
       <div className="text-sm text-muted-foreground">
-        {balance.token.symbol === 'USDC'
-          ? `$${balance.amount}`
-          : `${balance.amount} ${balance.token.symbol}`}
+        {balance.token.symbol === 'USDC' ? `$${balance.amount}` : balance.amount}{' '}
+        {balance.token.symbol}
       </div>
     </div>
   );
