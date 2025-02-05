@@ -44,7 +44,11 @@ Then you can proceed with the installation of the [Circle Developer-Controlled W
 
 ```bash
 npm install @circle-libs/react-elements
-# or
+```
+
+or
+
+```bash
 yarn add @circle-libs/react-elements
 ```
 
@@ -63,6 +67,18 @@ This package requires the following peer dependencies:
   "tailwindcss": "^3.4.4", // CSS framework
   "tailwindcss-animate": "^1.0.7" // Animation utilities
 }
+```
+
+Install them all in a single command:
+
+```bash
+npm install @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss tailwindcss-animate
+```
+
+or
+
+```bash
+yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss tailwindcss-animate
 ```
 
 ## Tailwind CSS Setup
