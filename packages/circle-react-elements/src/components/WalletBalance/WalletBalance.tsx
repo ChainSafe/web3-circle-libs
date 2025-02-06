@@ -36,7 +36,7 @@ export function WalletBalance({ balance }: WalletBalanceProps) {
           symbol={balance.token.symbol?.split('-')[0] ?? ''}
           size={40}
           variant="branded"
-          className="flex-shrink-0"
+          className="shrink-0"
         />
 
         <div className="flex flex-col">

@@ -28,7 +28,7 @@ export function TokenItem({ token }: TokenItemProps) {
         symbol={token?.symbol?.split('-')[0] ?? ''}
         size={24}
         variant="branded"
-        className="flex-shrink-0"
+        className="shrink-0"
       />
       <div className="text-sm text-muted-foreground">{token.symbol}</div>
     </div>
