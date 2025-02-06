@@ -64,7 +64,7 @@ This package requires the following peer dependencies:
   "react": "^18.2.0",
   "react-dom": "^18.2.0",
   "react-hook-form": "^7.54.2", // Form validation
-  "tailwindcss": "^3.4.4", // CSS framework
+  "tailwindcss": "^4.0.4", // CSS framework
   "tailwindcss-animate": "^1.0.7" // Animation utilities
 }
 ```
