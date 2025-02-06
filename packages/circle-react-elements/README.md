@@ -64,21 +64,20 @@ This package requires the following peer dependencies:
   "react": "^18.2.0",
   "react-dom": "^18.2.0",
   "react-hook-form": "^7.54.2", // Form validation
-  "tailwindcss": "^4.0.4", // CSS framework
-  "tailwindcss-animate": "^1.0.7" // Animation utilities
+  "tailwindcss": "^4.0.4" // CSS framework
 }
 ```
 
 Install them all in a single command:
 
 ```bash
-npm install @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss tailwindcss-animate
+npm install @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss
 ```
 
 or
 
 ```bash
-yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss tailwindcss-animate
+yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss
 ```
 
 ## Tailwind CSS Setup

@@ -1,5 +1,3 @@
-import tailwindAnimate from 'tailwindcss-animate';
-
 const preset = {
   theme: {
     extend: {
@@ -59,7 +57,6 @@ const preset = {
       },
     },
   },
-  plugins: [tailwindAnimate],
 };
 
 export default preset;
