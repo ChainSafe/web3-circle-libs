@@ -1,6 +1,6 @@
 # Circle React Elements
 
-A library of React components for building Circle-powered web applications.
+Accelerate frontend development with a powerful set of UI components designed for Circle's [Developer-Controlled Wallets](https://developers.circle.com/w3s/developer-controlled-wallets). These embedded wallets enable users to store, send, and spend USDC and other digital assets seamlessly.
 
 ## Features
 
