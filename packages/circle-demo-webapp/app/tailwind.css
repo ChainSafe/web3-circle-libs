@@ -1,25 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@circle-libs/react-elements/styles.css';
 
-@layer base {
-  :root {
-    /* Background Colors */
-    --background: 0 0% 100%; /* White background for light mode */
-    --foreground: 240 10% 3.9%; /* Dark text for light mode */
+@custom-variant dark (&:is(.dark *));
 
-    /* Primary Brand Color - Jelly 400 */
-    --primary: 255 82% 64%; /* Jelly 400 - Vibrant purple */
-    --primary-foreground: 0 0% 98%; /* White text for contrast */
-  }
+:root {
+  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
+}
 
-  .dark {
-    /* Background Colors */
-    --background: 240 10% 3.9%; /* Dark background for dark mode */
-    --foreground: 0 0% 98%;
-
-    /* Primary Brand Color - Jelly 400 */
-    --primary: 255 82% 64%; /* Jelly 400 - Vibrant purple */
-    --primary-foreground: 0 0% 98%; /* White text for contrast */
-  }
+.dark {
+  --primary: hsl(255 82% 64%);
 }

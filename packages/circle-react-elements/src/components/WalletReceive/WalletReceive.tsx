@@ -45,7 +45,7 @@ export function WalletReceive({ wallet }: WalletReceiveProps) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="p-6 rounded-2xl mb-6 dark:bg-foreground border border-gray-400 dark:border-0">
+      <div className="p-6 rounded-2xl mb-6 border border-gray-400 dark:bg-foreground dark:border-0">
         <QRCodeCanvas value={wallet.address} size={160} />
       </div>
 

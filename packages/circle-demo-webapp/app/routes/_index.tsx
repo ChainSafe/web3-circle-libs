@@ -1,7 +1,7 @@
 export default function Page() {
   return (
     <div className="p-8 pt-12 max-w-4xl mx-auto min-h-[calc(100vh-4rem)] flex flex-col">
-      <div className="flex-grow space-y-8">
+      <div className="grow space-y-8">
         <div className="space-y-4">
           <h1 className="text-3xl font-semibold">Welcome to Circle Elements Demo</h1>
           <p className="text-muted-foreground">

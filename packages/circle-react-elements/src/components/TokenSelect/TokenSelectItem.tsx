@@ -29,7 +29,7 @@ export function TokenSelectItem({ balance }: TokenSelectItemProps) {
         symbol={balance.token.symbol?.split('-')[0] ?? ''}
         size={24}
         variant="branded"
-        className="flex-shrink-0"
+        className="shrink-0"
       />
       <div className="text-sm text-muted-foreground">
         {balance.token.symbol === 'USDC' ? `$${balance.amount}` : balance.amount}{' '}

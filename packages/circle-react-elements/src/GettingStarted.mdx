@@ -1,6 +1,6 @@
 # Circle React Elements
 
-A library of React components for building Circle-powered web applications. Read more about Circle's developer-controlled wallets in the [official documentation](https://developers.circle.com/w3s/developer-controlled-create-your-first-wallet).
+Accelerate frontend development with a powerful set of UI components designed for Circle's [Developer-Controlled Wallets](https://developers.circle.com/w3s/developer-controlled-wallets). These embedded wallets enable users to store, send, and spend USDC and other digital assets seamlessly.
 
 ## Features
 
@@ -60,47 +60,43 @@ This package requires the following peer dependencies:
 {
   "@circle-fin/developer-controlled-wallets": "^7.0.0", // Circle SDK
   "@web3icons/react": "^3.16.0", // Blockchain icons
-  "lucide-react": "^0.462.0", // Icon library
+  "lucide-react": "^0.474.0", // Icon library
   "react": "^18.2.0",
   "react-dom": "^18.2.0",
   "react-hook-form": "^7.54.2", // Form validation
-  "tailwindcss": "^3.4.4", // CSS framework
-  "tailwindcss-animate": "^1.0.7" // Animation utilities
+  "tailwindcss": "^4.0.4" // CSS framework
 }
 ```
 
 Install them all in a single command:
 
 ```bash
-npm install @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss tailwindcss-animate
+npm install @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss
 ```
 
 or
 
 ```bash
-yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss tailwindcss-animate
+yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss
 ```
 
 ## Tailwind CSS Setup
 
-1. Add the package's Tailwind preset to your `tailwind.config.ts`:
+Import the Circle React Elements CSS in your app's `tailwind.css` file:
 
-```typescript
-import circlePreset from '@circle-libs/react-elements/tailwind.preset';
-import type { Config } from 'tailwindcss';
+```css
+@import 'tailwindcss';
+@import '@circle-libs/react-elements/styles.css';
 
-export default {
-  content: [
-    // ... your content paths
-  ],
-  presets: [circlePreset],
-} satisfies Config;
-```
+@custom-variant dark (&:is(.dark *));
 
-2. Import the CSS in your app's entry point:
+:root {
+  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
+}
 
-```typescript
-import '@circle-libs/react-elements/styles.css';
+.dark {
+  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
+}
 ```
 
 ## Quick Start

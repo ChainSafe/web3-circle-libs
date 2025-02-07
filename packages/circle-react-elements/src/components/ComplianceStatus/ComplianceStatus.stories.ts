@@ -6,9 +6,6 @@ const meta = {
   title: 'Feedback & Messaging/ComplianceStatus',
   component: ComplianceStatus,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'centered',
-  },
 } satisfies Meta<typeof ComplianceStatus>;
 
 export default meta;

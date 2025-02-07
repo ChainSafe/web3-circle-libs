@@ -38,7 +38,7 @@ export interface SuccessMessageProps extends PropsWithChildren {
 export function SuccessMessage({ onClose, title, children }: SuccessMessageProps) {
   return (
     <div className="flex flex-col items-center">
-      <div className="rounded-full bg-green-600 p-1 border-green-500 border-8 bg-opacity-5 border-opacity-5">
+      <div className="p-3 rounded-full bg-green-600/10">
         <CheckCircle className="text-green-600" />
       </div>
       <h1 className="text-center mt-8 text-lg font-semibold">{title}</h1>

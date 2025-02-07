@@ -11,7 +11,7 @@ export default tseslint.config(
       'dist',
       '.storybook',
       'storybook-static',
-      'tailwind.config.ts',
+      'tsup.config.ts',
       'vite.config.ts',
     ],
   },
