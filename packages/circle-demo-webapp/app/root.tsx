@@ -15,7 +15,6 @@ import { Sidebar } from '~/components/Sidebar';
 import { Toaster } from '~/components/ui/toaster';
 import { cachedWalletSets } from '~/lib/memcache';
 
-import '@circle-libs/react-elements/styles.css';
 import './tailwind.css';
 
 export const meta: MetaFunction = () => {
@@ -58,7 +57,7 @@ export default function App() {
 
       <div className="flex-1 overflow-y-auto bg-secondary/40 relative">
         {navigation.state === 'loading' && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-50">
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-50">
             <LoaderCircle className="animate-spin" strokeWidth={1} size={64} />
           </div>
         )}

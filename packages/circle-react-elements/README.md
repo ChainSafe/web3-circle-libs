@@ -60,7 +60,7 @@ This package requires the following peer dependencies:
 {
   "@circle-fin/developer-controlled-wallets": "^7.0.0", // Circle SDK
   "@web3icons/react": "^3.16.0", // Blockchain icons
-  "lucide-react": "^0.462.0", // Icon library
+  "lucide-react": "^0.474.0", // Icon library
   "react": "^18.2.0",
   "react-dom": "^18.2.0",
   "react-hook-form": "^7.54.2", // Form validation
@@ -82,24 +82,21 @@ yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react 
 
 ## Tailwind CSS Setup
 
-1. Add the package's Tailwind preset to your `tailwind.config.ts`:
+Import the Circle React Elements CSS in your app's `tailwind.css` file:
 
-```typescript
-import circlePreset from '@circle-libs/react-elements/tailwind.preset';
-import type { Config } from 'tailwindcss';
+```css
+@import 'tailwindcss';
+@import '@circle-libs/react-elements/styles.css';
 
-export default {
-  content: [
-    // ... your content paths
-  ],
-  presets: [circlePreset],
-} satisfies Config;
-```
+@custom-variant dark (&:is(.dark *));
 
-2. Import the CSS in your app's entry point:
+:root {
+  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
+}
 
-```typescript
-import '@circle-libs/react-elements/styles.css';
+.dark {
+  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
+}
 ```
 
 ## Quick Start
