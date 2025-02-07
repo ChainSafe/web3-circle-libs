@@ -36,7 +36,6 @@
     "@remix-run/node": "^2.15.0",
     "@remix-run/react": "^2.15.0",
     "@remix-run/serve": "^2.15.0",
-    "@web3icons/react": "^3.16.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ethereum-blockies-base64": "^1.0.2",

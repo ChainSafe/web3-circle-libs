@@ -59,7 +59,6 @@ This package requires the following peer dependencies:
 ```json
 {
   "@circle-fin/developer-controlled-wallets": "^7.0.0", // Circle SDK
-  "@web3icons/react": "^3.16.0", // Blockchain icons
   "lucide-react": "^0.474.0", // Icon library
   "react": "^18.2.0",
   "react-dom": "^18.2.0",
@@ -71,13 +70,13 @@ This package requires the following peer dependencies:
 Install them all in a single command:
 
 ```bash
-npm install @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss
+npm install @circle-fin/developer-controlled-wallets lucide-react react react-dom react-hook-form tailwindcss
 ```
 
 or
 
 ```bash
-yarn add @circle-fin/developer-controlled-wallets @web3icons/react lucide-react react react-dom react-hook-form tailwindcss
+yarn add @circle-fin/developer-controlled-wallets lucide-react react react-dom react-hook-form tailwindcss
 ```
 
 ## Tailwind CSS Setup

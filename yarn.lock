@@ -2498,17 +2498,17 @@
   resolved "https://registry.yarnpkg.com/@web3-storage/multipart-parser/-/multipart-parser-1.0.0.tgz#6b69dc2a32a5b207ba43e556c25cc136a56659c4"
   integrity sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==
 
-"@web3icons/common@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.10.0.tgz#63f50e65d8fe2ecc30a831d7294740d984be9c25"
-  integrity sha512-Ksh9CAkxNtj9FPiBCNoctqj8ieS7eBcixtm4+Xt0ralK/35MltSrNizMYfrwXAlF9M3ACqRBkZbrHnIEPsrdLg==
+"@web3icons/common@0.11.6":
+  version "0.11.6"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.6.tgz#ce26c2b4152cd6dd2a42fafe4fc9d4bead08ef52"
+  integrity sha512-3Y+ImXPbn3f4x0EiEiqBjbzExmDgY2N05cHSRCzC9iLQwYVAFmHHGg+C1jWiM0PzKR2vq4A4ZwMTYQTSS0CJxA==
 
-"@web3icons/react@^3.16.0":
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-3.16.0.tgz#9d4a9b17571838a49f8d960575473015392d0858"
-  integrity sha512-EDTKJA0Q9aR6ihiwaMZrJjwC/N0fteJd3doV2wOYm6/LiRQaWAZYbL9pUE0dVuuukSQC1MDL8lSU/qGZJ8ewJg==
+"@web3icons/react@^4.0.0":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.7.tgz#3cd0df7b90102ba9703aec1648860e64753df2c2"
+  integrity sha512-Jz20iAr+fwEMkxKQbjq8N/6jvPVzY96QM4E47hDKOsIGsOHOybXA8BybCH59EZIe88yAQ1TYt5xnn0+qNJnsjQ==
   dependencies:
-    "@web3icons/common" "0.10.0"
+    "@web3icons/common" "0.11.6"
     react "^18.2.0"
 
 "@zxing/text-encoding@0.9.0":
