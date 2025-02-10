@@ -9,5 +9,5 @@ externalPort = 80
 
 [deployment]
 build = ["sh", "-c", "yarn elements:build && yarn demo:build"]
-run = ["sh", "-c", "yarn demo:dev"]
+run = ["sh", "-c", "cd packages/circle-demo-webapp && yarn start"]
 deploymentTarget = "cloudrun"

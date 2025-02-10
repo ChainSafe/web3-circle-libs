@@ -22,7 +22,7 @@
     "dev": "remix vite:dev",
     "lint": "tsc --noEmit && eslint .",
     "prettier": "prettier . --write",
-    "start": "remix-serve ./build/server/index.js"
+    "start": "PORT=3000 remix-serve ./build/server/index.js"
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.0.0",
