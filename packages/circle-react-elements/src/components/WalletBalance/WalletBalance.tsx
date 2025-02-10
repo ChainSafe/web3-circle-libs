@@ -1,7 +1,7 @@
 import type { Balance } from '@circle-fin/developer-controlled-wallets';
-import { TokenIcon } from '@web3icons/react';
 
 import { Amount } from '~/components/Amount';
+import { LazyTokenIcon } from '~/components/LazyTokenIcon';
 
 /**
  * Props for the WalletBalance component
@@ -21,18 +21,12 @@ export interface WalletBalanceProps {
  * - Shows branded token icon using web3icons library
  * - Displays token name and symbol
  * - Shows formatted balance amount using Amount component
- * - Handles split token symbols (e.g., "USDC-ETH" displays USDC icon)
- * - Large 40px icon size for better visibility
- * - Responsive layout with space between token info and amount
- * - Consistent text styles with design system:
- *   - Medium weight for token name
- *   - Muted color for token symbol
  */
 export function WalletBalance({ balance }: WalletBalanceProps) {
   return (
     <div className="flex items-center justify-between space-x-8">
       <div className="flex items-center space-x-2">
-        <TokenIcon
+        <LazyTokenIcon
           symbol={balance.token.symbol?.split('-')[0] ?? ''}
           size={40}
           variant="branded"

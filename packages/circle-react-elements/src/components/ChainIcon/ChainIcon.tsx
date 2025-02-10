@@ -1,10 +1,19 @@
 import type { Blockchain } from '@circle-fin/developer-controlled-wallets';
-import { NetworkIcon } from '@web3icons/react';
+import {
+  NetworkArbitrumOne,
+  NetworkPolygon,
+  NetworkNearProtocol,
+  NetworkAvalanche,
+  NetworkSolana,
+  NetworkEthereum,
+  NetworkUnichain,
+  type IconComponentProps,
+} from '@web3icons/react';
 
 /**
  * Props for the ChainIcon component
  */
-export interface ChainIconProps {
+export interface ChainIconProps extends IconComponentProps {
   /**
    * The blockchain network to display an icon for
    * Supports all networks from Circle's API including testnet variants
@@ -12,38 +21,37 @@ export interface ChainIconProps {
   blockchain: Blockchain;
 }
 
-/**
- * Mapping of Circle blockchain identifiers to web3icons network names
- */
-const BlockchainToIconMap: Record<Blockchain, string> = {
-  'ARB-SEPOLIA': 'arbitrum',
-  ARB: 'arbitrum',
-  'AVAX-FUJI': 'avalanche',
-  AVAX: 'avalanche',
-  'ETH-SEPOLIA': 'ethereum',
-  ETH: 'ethereum',
-  'EVM-TESTNET': '',
-  EVM: '',
-  'MATIC-AMOY': 'polygon',
-  MATIC: 'polygon',
-  'NEAR-TESTNET': 'near-protocol',
-  NEAR: 'near-protocol',
-  'SOL-DEVNET': 'solana',
-  SOL: 'solana',
-  'UNI-SEPOLIA': 'uni',
-};
+const BlockchainToIconMap: Record<Blockchain, React.ComponentType<IconComponentProps>> = {
+  'ARB-SEPOLIA': NetworkArbitrumOne,
+  ARB: NetworkArbitrumOne,
+  'AVAX-FUJI': NetworkAvalanche,
+  AVAX: NetworkAvalanche,
+  'ETH-SEPOLIA': NetworkEthereum,
+  ETH: NetworkEthereum,
+  'EVM-TESTNET': NetworkEthereum,
+  EVM: NetworkEthereum,
+  'MATIC-AMOY': NetworkPolygon,
+  MATIC: NetworkPolygon,
+  'NEAR-TESTNET': NetworkNearProtocol,
+  NEAR: NetworkNearProtocol,
+  'SOL-DEVNET': NetworkSolana,
+  SOL: NetworkSolana,
+  'UNI-SEPOLIA': NetworkUnichain,
+} as const;
 
 /**
  * Displays a branded icon for a given blockchain network
  *
  * Features:
- * - Shows branded network icons using web3icons library
+ * - Uses specific network icons from @web3icons/react
  * - Supports all Circle-supported networks including testnets
- * - Consistent 20px size for all icons
- * - Uses official branded network colors
  */
-export function ChainIcon({ blockchain }: ChainIconProps) {
-  return (
-    <NetworkIcon network={BlockchainToIconMap[blockchain]} size={20} variant="branded" />
-  );
+export function ChainIcon({ blockchain, ...props }: ChainIconProps) {
+  const Icon = BlockchainToIconMap[blockchain];
+
+  if (!Icon) {
+    return null;
+  }
+
+  return <Icon size={20} variant="branded" {...props} />;
 }
