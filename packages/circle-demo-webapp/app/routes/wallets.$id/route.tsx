@@ -1,4 +1,9 @@
-import { formats, WalletDetails } from '@circle-libs/react-elements';
+import {
+  ElementsWallet,
+  ElementsWalletSet,
+  formats,
+  WalletDetails,
+} from '@circle-libs/react-elements';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -7,7 +12,6 @@ import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { useToast } from '~/hooks/useToast';
 import { sdk } from '~/lib/sdk';
-import { ElementsWallet, ElementsWalletSet } from '~/lib/types';
 
 import { EditWalletSetDialog } from './components/EditWalletSetDialog';
 import { NewWalletDialog } from './components/NewWalletDialog';

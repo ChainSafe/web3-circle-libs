@@ -1,21 +1,21 @@
 import { GetTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import { ElementsTransactionWithToken } from '@circle-libs/react-elements';
 import { useCallback, useState } from 'react';
 
-import { TransactionWithToken } from '~/lib/types';
 import { callGetFetch } from '~/lib/utils';
 
 interface UseGetTransactionResult {
   error: Error | undefined;
-  data: TransactionWithToken | undefined;
+  data: ElementsTransactionWithToken | undefined;
   isLoading: boolean;
   reFetch: () => Promise<boolean>;
 }
 
 export const useGetTransaction = (
   options: GetTransactionInput,
-  initialData?: TransactionWithToken,
+  initialData?: ElementsTransactionWithToken,
 ): UseGetTransactionResult => {
-  const [data, setData] = useState<TransactionWithToken | undefined>(initialData);
+  const [data, setData] = useState<ElementsTransactionWithToken | undefined>(initialData);
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -23,7 +23,7 @@ export const useGetTransaction = (
     setIsLoading(true);
     setError(undefined);
     try {
-      const res = await callGetFetch<{ transaction: TransactionWithToken }>(
+      const res = await callGetFetch<{ transaction: ElementsTransactionWithToken }>(
         `/api/getTransaction`,
         { ...options },
       );

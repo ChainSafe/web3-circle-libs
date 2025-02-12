@@ -1,9 +1,9 @@
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
+import { ElementsTransactionWithToken } from '@circle-libs/react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 
 import { cachedCoins } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
-import { TransactionWithToken } from '~/lib/types';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -33,14 +33,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (prs.length > 0) {
     await Promise.all(prs);
   }
-  const txWithTokens: TransactionWithToken[] = [];
+  const txWithTokens: ElementsTransactionWithToken[] = [];
 
   for (const tx of txs) {
     const cachedToken = tx.tokenId ? cachedCoins.get(tx.tokenId) : undefined;
     if (cachedToken) {
-      txWithTokens.push({ ...tx, token: cachedToken } as TransactionWithToken);
+      txWithTokens.push({ ...tx, token: cachedToken } as ElementsTransactionWithToken);
     } else {
-      txWithTokens.push(tx as TransactionWithToken);
+      txWithTokens.push(tx as ElementsTransactionWithToken);
     }
   }
 

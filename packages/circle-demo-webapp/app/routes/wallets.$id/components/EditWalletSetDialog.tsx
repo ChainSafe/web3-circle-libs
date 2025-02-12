@@ -1,4 +1,8 @@
-import { EditWalletSetForm, EditWalletSetFormInput } from '@circle-libs/react-elements';
+import {
+  EditWalletSetForm,
+  EditWalletSetFormInput,
+  ElementsWalletSet,
+} from '@circle-libs/react-elements';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
@@ -13,7 +17,6 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { useUpdateWalletSet } from '~/hooks/useUpdateWalletSet';
-import { ElementsWalletSet } from '~/lib/types';
 
 interface EditWalletSetDialogProps {
   walletSet: ElementsWalletSet;

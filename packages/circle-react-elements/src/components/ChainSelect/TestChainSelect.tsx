@@ -10,6 +10,7 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
   'MATIC-AMOY': 'Polygon Amoy',
   'NEAR-TESTNET': 'NEAR Testnet',
   'SOL-DEVNET': 'Solana Devnet',
+  'UNI-SEPOLIA': 'Unichain Sepolia',
 };
 
 export type TestChainSelectProps = Omit<SelectProps, 'children'> & {

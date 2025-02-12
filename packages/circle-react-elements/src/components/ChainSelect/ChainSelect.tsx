@@ -13,6 +13,7 @@ const BLOCKCHAIN_LABELS: Record<string, string> = {
   MATIC: 'Polygon',
   NEAR: 'NEAR',
   SOL: 'Solana',
+  UNI: 'Unichain',
 };
 
 /**

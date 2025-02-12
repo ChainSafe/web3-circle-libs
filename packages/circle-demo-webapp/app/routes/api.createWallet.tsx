@@ -13,6 +13,7 @@ const CHAIN_TO_ACCOUNT_TYPE: Record<Blockchain, AccountType> = {
   MATIC: 'SCA',
   NEAR: 'EOA',
   SOL: 'EOA',
+  UNI: 'EOA',
   'ARB-SEPOLIA': 'SCA',
   'AVAX-FUJI': 'EOA',
   'ETH-SEPOLIA': 'SCA',

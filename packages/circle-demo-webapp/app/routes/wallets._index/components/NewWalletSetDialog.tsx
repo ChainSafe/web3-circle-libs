@@ -1,4 +1,5 @@
 import {
+  ElementsWalletSet,
   NewWalletSetForm,
   NewWalletSetFormInput,
   SuccessMessage,
@@ -17,7 +18,6 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { useCreateWalletSet } from '~/hooks/useCreateWalletSet';
-import { ElementsWalletSet } from '~/lib/types';
 
 interface NewWalletSetDialogProps {
   onSuccess?: () => void;
