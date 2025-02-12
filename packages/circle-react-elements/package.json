@@ -94,14 +94,14 @@
     "vite": "^5.2.0"
   },
   "peerDependencies": {
-    "@circle-fin/developer-controlled-wallets": "^7.1.0",
-    "lucide-react": "^0.474.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.54.2",
-    "tailwindcss": "^4.0.4"
+    "@circle-fin/developer-controlled-wallets": "~7.1.0",
+    "lucide-react": ">=0.474.0",
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0",
+    "react-hook-form": ">=7.54.2",
+    "tailwindcss": ">=4.0.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   }
 }

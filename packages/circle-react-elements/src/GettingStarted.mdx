@@ -1,8 +1,15 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta
+  title="Getting Started"
+  description="Circle React Elements - A comprehensive UI library for Circle's Developer-Controlled Wallets"
+/>
+
 # Circle React Elements
 
 Accelerate frontend development with a powerful set of UI components designed for Circle's [Developer-Controlled Wallets](https://developers.circle.com/w3s/developer-controlled-wallets). These embedded wallets enable users to store, send, and spend USDC and other digital assets seamlessly.
 
-## Features
+## Key Features
 
 - Pre-built components for common Circle operations
 - Built with React, TypeScript, and Tailwind CSS
@@ -13,9 +20,18 @@ Accelerate frontend development with a powerful set of UI components designed fo
 - Transaction management components
 - Wallet management components
 
-## Circle Console Setup
+## Framework Integration Guides
 
-Before using the components, you need to configure the Circle Console. The easiest way is to use our setup tool:
+Choose your framework to get started:
+
+- [Next.js Guide](?path=/docs/guides-next-js-guide--docs)
+- More frameworks coming soon...
+
+## Quick Setup
+
+### Configure Circle Console
+
+The simplest way to set up your local environment for Circle SDK is by using our setup tool:
 
 ```bash
 npx @circle-libs/sdk-setup --api-key YOUR_API_KEY
@@ -38,119 +54,68 @@ The setup tool will automatically:
 
 ⚠️ **Important**: Store the generated recovery file (`recovery_file_YYYY-MM-DD.dat`) in a secure location and remove it from your project directory.
 
-Then you can proceed with the installation of the [Circle Developer-Controlled Wallet SDK](https://developers.circle.com/w3s/nodejs-sdk) and Circle React Elements.
+### Install the package and its peer dependencies
 
-## Installation
-
-```bash
-npm install @circle-libs/react-elements
-```
-
-or
+That includes [Circle Developer-Controlled Wallet SDK](https://developers.circle.com/w3s/nodejs-sdk).
 
 ```bash
-yarn add @circle-libs/react-elements
+npm install @circle-libs/react-elements @circle-fin/developer-controlled-wallets lucide-react react-hook-form tailwindcss
 ```
 
-## Dependencies
-
-This package requires the following peer dependencies:
+Ensure that the package versions meet the following requirements:
 
 ```json
 {
-  "@circle-fin/developer-controlled-wallets": "^7.1.0", // Circle SDK
-  "lucide-react": "^0.474.0", // Icon library
-  "react": "^18.2.0",
-  "react-dom": "^18.2.0",
-  "react-hook-form": "^7.54.2", // Form validation
-  "tailwindcss": "^4.0.4" // CSS framework
+  "@circle-fin/developer-controlled-wallets": "~7.1.0",
+  "lucide-react": ">=0.474.0",
+  "react": ">=18.2.0",
+  "react-dom": ">=18.2.0",
+  "react-hook-form": ">=7.54.2",
+  "tailwindcss": ">=4.0.0"
 }
 ```
 
-Install them all in a single command:
-
-```bash
-npm install @circle-fin/developer-controlled-wallets lucide-react react react-dom react-hook-form tailwindcss
-```
-
-or
-
-```bash
-yarn add @circle-fin/developer-controlled-wallets lucide-react react react-dom react-hook-form tailwindcss
-```
-
-## Tailwind CSS Setup
-
-Import the Circle React Elements CSS in your app's `tailwind.css` file:
+### Import styles in your app
 
 ```css
 @import 'tailwindcss';
 @import '@circle-libs/react-elements/styles.css';
 
 @custom-variant dark (&:is(.dark *));
-
-:root {
-  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
-}
-
-.dark {
-  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
-}
 ```
 
-## Quick Start
+For detailed setup instructions and advanced configuration options, refer to our framework-specific guides.
 
-Here's a simple example using the wallet creation form:
-
-```tsx
-import { NewWalletForm } from '@circle-libs/react-elements';
-
-function CreateWallet() {
-  const handleSubmit = async (data) => {
-    try {
-      // Call Circle's API to create wallet
-      await createWallet(data);
-    } catch (error) {
-      // Handle error
-    }
-  };
-
-  return (
-    <NewWalletForm walletSetId="your-wallet-set-id" onSubmit={handleSubmit} isTestnet />
-  );
-}
-```
-
-## Components
+## Component Categories
 
 The library provides several categories of components:
 
-## Wallet Components
+### Wallet Components
 
 - `WalletDetails` - Show wallet information
 - `WalletSetDetails` - Show wallet set information
 - `WalletBalance` - Display token balances
 - `WalletReceive` - Show wallet address with QR code
 
-## Blockchain Components
+### Blockchain Components
 
 - `ChainIcon` - Display blockchain network icon
 - `ChainLabel` - Show network name with icon
 - `ChainSelect` - Network selection dropdown for mainnets
 - `TestChainSelect` - Network selection dropdown for testnets
 
-## Token Components
+### Token Components
 
 - `TokenItem` - Display token information
 - `TokenSelect` - Token selection dropdown with balances
 - `Amount` - Format token amounts
 
-## Transaction Components
+### Transaction Components
 
 - `TransactionDetails` - Display transaction information
 - `Transaction` - Flexible transactions component that dynamically renders transaction details within a table, supporting customizable columns
 
-## Form Components
+### Form Components
 
 - `NewWalletForm` - Create a new wallet
 - `EditWalletForm` - Edit an existing wallet
@@ -158,20 +123,30 @@ The library provides several categories of components:
 - `EditWalletSetForm` - Edit an existing wallet set
 - `SendTransactionForm` - Send tokens from a wallet
 
-## Feedback & Messaging
+### Feedback & Messaging
 
 - `SuccessMessage` - Display a success message
 - `TransactionState` - Show transaction state
 - `ComplianceStatus` - Show compliance status
 
-## TypeScript
+## TypeScript Support
 
-The package is written in TypeScript and includes full type definitions. All components and their props are fully typed for the best development experience.
+All components include comprehensive TypeScript definitions for excellent IDE support and type safety.
 
 ## Theme Customization
 
-The components use Tailwind CSS for styling and can be customized through your Tailwind configuration. They respect your theme's colors, spacing, and other design tokens.
+Customize the look and feel through Tailwind CSS configuration:
 
-## Further Resources
+```css
+:root {
+  --primary: hsl(255 82% 64%); /* Your brand color */
+}
+
+.dark {
+  --primary: hsl(255 82% 64%); /* Your brand color */
+}
+```
+
+## Additional Resources
 
 - [Circle Developer Documentation](https://developers.circle.com/w3s/developer-controlled-create-your-first-wallet)
