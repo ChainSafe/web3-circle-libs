@@ -1,5 +1,5 @@
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
-import { LoaderCircle, Plus } from 'lucide-react';
+import { CircleDollarSign, LoaderCircle } from 'lucide-react';
 import { FormEvent } from 'react';
 
 import { Button } from '~/components/ui/button';
@@ -26,8 +26,8 @@ export function FaucetButton({ wallet }: FaucetButtonProps) {
       <input type="hidden" name="address" value={wallet.address} />
       <input type="hidden" name="blockchain" value={wallet.blockchain} />
       <Button type="submit" variant="default" disabled={isLoading}>
-        {isLoading ? <LoaderCircle className="animate-spin" /> : <Plus />}
-        Use Faucet
+        {isLoading ? <LoaderCircle className="animate-spin" /> : <CircleDollarSign />}
+        Add Funds
       </Button>
     </form>
   );
