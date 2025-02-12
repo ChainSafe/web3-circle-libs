@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { ReactNode, useEffect, useMemo } from 'react';
 
 import { formatDate, shortenAddress } from '~/lib/format';
-import { TransactionWithToken } from '~/lib/types';
+import { ElementsTransactionWithToken } from '~/lib/types';
 import { cn, getExplorerUrl } from '~/lib/utils';
 
 import { TokenItem } from '../TokenItem';
@@ -14,14 +14,14 @@ export interface TransactionProps {
    * Transaction data with token information.
    * Includes transaction details like amounts, addresses, status, and associated token data.
    */
-  transaction: TransactionWithToken;
+  transaction: ElementsTransactionWithToken;
 
   /**
    * Optional callback fired when Details button is clicked.
    * If not provided, Details button will not be shown.
    * @param tx The transaction data associated with the clicked row
    */
-  onClickDetails?: (tx: TransactionWithToken) => void;
+  onClickDetails?: (tx: ElementsTransactionWithToken) => void;
 
   /**
    * Optional child components for customizing the transaction row layout.

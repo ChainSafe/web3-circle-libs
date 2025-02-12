@@ -1,6 +1,6 @@
+import { ElementsWalletSet } from '@circle-libs/react-elements';
 import { useCallback, useState } from 'react';
 
-import { ElementsWalletSet } from '~/lib/types';
 import { callFetch } from '~/lib/utils';
 
 interface CreateWalletSetArgs {

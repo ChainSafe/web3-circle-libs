@@ -2,11 +2,11 @@ import {
   GetTransactionInput,
   TransactionType,
 } from '@circle-fin/developer-controlled-wallets';
+import { ElementsTransactionWithToken } from '@circle-libs/react-elements';
 import { LoaderFunctionArgs } from '@remix-run/node';
 
 import { cachedCoins } from '~/lib/memcache';
 import { sdk } from '~/lib/sdk';
-import { TransactionWithToken } from '~/lib/types';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -21,9 +21,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const res = await sdk.getTransaction(params);
   if (res?.data?.transaction?.tokenId) {
-    (res.data.transaction as TransactionWithToken).token = await cachedCoins.loadAndSet(
-      res.data.transaction?.tokenId,
-    );
+    (res.data.transaction as ElementsTransactionWithToken).token =
+      await cachedCoins.loadAndSet(res.data.transaction?.tokenId);
   }
 
   return Response.json(res.data);

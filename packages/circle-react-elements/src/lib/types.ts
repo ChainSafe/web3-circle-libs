@@ -5,7 +5,7 @@ import type {
   WalletSet,
 } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 
-export interface TransactionWithToken extends Transaction {
+export interface ElementsTransactionWithToken extends Transaction {
   token?: Token;
 }
 

@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 
-import { TransactionWithToken } from '~/lib/types';
+import { ElementsTransactionWithToken } from '~/lib/types';
 
 export interface TransactionContextType {
-  transaction: TransactionWithToken;
-  onClickDetails?: (tx: TransactionWithToken) => void;
+  transaction: ElementsTransactionWithToken;
+  onClickDetails?: (tx: ElementsTransactionWithToken) => void;
 }
 
 export const TransactionContext = createContext<TransactionContextType | undefined>(

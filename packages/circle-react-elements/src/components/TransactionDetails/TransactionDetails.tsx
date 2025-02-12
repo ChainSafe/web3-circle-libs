@@ -1,7 +1,7 @@
 import { ReactNode, useMemo } from 'react';
 
 import { formatDate, shortenHash } from '../../lib/format';
-import { TransactionWithToken } from '../../lib/types';
+import { ElementsTransactionWithToken } from '../../lib/types';
 import { ChainLabel } from '../ChainLabel';
 import { TokenItem } from '../TokenItem';
 import { TransactionState } from '../TransactionState';
@@ -14,7 +14,7 @@ export interface TransactionDetailsProps {
    * The on-chain transaction data with token information
    * Includes transaction hash, addresses, amounts, token details, and state
    */
-  transaction: TransactionWithToken;
+  transaction: ElementsTransactionWithToken;
 }
 
 /**
