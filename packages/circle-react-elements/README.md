@@ -58,7 +58,7 @@ This package requires the following peer dependencies:
 
 ```json
 {
-  "@circle-fin/developer-controlled-wallets": "^7.0.0", // Circle SDK
+  "@circle-fin/developer-controlled-wallets": "^7.1.0", // Circle SDK
   "lucide-react": "^0.474.0", // Icon library
   "react": "^18.2.0",
   "react-dom": "^18.2.0",

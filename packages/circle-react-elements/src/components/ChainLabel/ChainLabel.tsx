@@ -31,7 +31,8 @@ const BlockchainLabelMap: Record<Blockchain, string> = {
   NEAR: 'NEAR',
   'SOL-DEVNET': 'Solana Devnet',
   SOL: 'Solana',
-  'UNI-SEPOLIA': 'Uni Sepolia',
+  'UNI-SEPOLIA': 'Unichain Sepolia',
+  UNI: 'Unichain',
 };
 
 /**

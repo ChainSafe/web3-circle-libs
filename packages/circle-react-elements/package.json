@@ -94,7 +94,7 @@
     "vite": "^5.2.0"
   },
   "peerDependencies": {
-    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@circle-fin/developer-controlled-wallets": "^7.1.0",
     "lucide-react": "^0.474.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

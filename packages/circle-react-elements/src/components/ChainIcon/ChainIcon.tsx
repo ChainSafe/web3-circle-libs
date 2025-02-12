@@ -37,6 +37,7 @@ const BlockchainToIconMap: Record<Blockchain, React.ComponentType<IconComponentP
   'SOL-DEVNET': NetworkSolana,
   SOL: NetworkSolana,
   'UNI-SEPOLIA': NetworkUnichain,
+  UNI: NetworkUnichain,
 } as const;
 
 /**

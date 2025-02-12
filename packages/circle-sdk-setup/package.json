@@ -37,7 +37,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@circle-fin/developer-controlled-wallets": "^7.1.0",
     "commander": "^11.0.0",
     "dotenv": "^16.3.1"
   },

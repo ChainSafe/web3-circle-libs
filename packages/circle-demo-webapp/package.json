@@ -25,7 +25,7 @@
     "start": "PORT=3000 remix-serve ./build/server/index.js"
   },
   "dependencies": {
-    "@circle-fin/developer-controlled-wallets": "^7.0.0",
+    "@circle-fin/developer-controlled-wallets": "^7.1.0",
     "@circle-libs/react-elements": "^0.0.1-beta.1",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-dialog": "^1.1.2",
