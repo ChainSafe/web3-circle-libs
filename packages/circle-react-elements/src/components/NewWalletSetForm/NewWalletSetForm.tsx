@@ -62,7 +62,12 @@ export function NewWalletSetForm({
   return (
     <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} className="space-y-8">
       <div>
-        <Input type="text" placeholder="Name" error={errors.name} {...register('name')} />
+        <Input
+          type="text"
+          placeholder="Name"
+          isError={!!errors.name}
+          {...register('name')}
+        />
         <FormErrorText message={errors.name?.message} />
       </div>
 

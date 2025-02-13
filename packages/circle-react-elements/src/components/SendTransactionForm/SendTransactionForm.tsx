@@ -127,7 +127,7 @@ export function SendTransactionForm({
       <div>
         <Input
           placeholder="Recipient Address"
-          error={errors.destinationAddress}
+          isError={!!errors.destinationAddress}
           {...register('destinationAddress')}
           onChange={handleChangeAddress}
         />
@@ -147,7 +147,7 @@ export function SendTransactionForm({
             <TokenSelect
               balances={balances}
               onValueChange={field.onChange}
-              error={errors.tokenId}
+              isError={!!errors.tokenId}
               defaultValue={defaultTokenIdValue}
             />
           )}
@@ -156,7 +156,7 @@ export function SendTransactionForm({
       </div>
 
       <div>
-        <Input placeholder="Amount" error={errors.amount} {...register('amount')} />
+        <Input placeholder="Amount" isError={!!errors.amount} {...register('amount')} />
         <FormErrorText message={errors.amount?.message} />
       </div>
 

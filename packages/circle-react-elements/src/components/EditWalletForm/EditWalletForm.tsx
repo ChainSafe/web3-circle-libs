@@ -80,7 +80,7 @@ export function EditWalletForm({
           <Input
             type="text"
             placeholder="Wallet name"
-            error={errors.name}
+            isError={!!errors.name}
             {...register('name')}
           />
           <FormErrorText message={errors.name?.message} />
@@ -90,7 +90,7 @@ export function EditWalletForm({
           <Textarea
             placeholder="Enter description (optional)"
             className="min-h-[100px]"
-            error={errors.refId}
+            isError={!!errors.refId}
             {...register('refId')}
           />
           <FormErrorText message={errors.refId?.message} />

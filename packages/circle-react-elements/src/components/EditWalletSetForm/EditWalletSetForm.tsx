@@ -78,7 +78,7 @@ export function EditWalletSetForm({
           <Input
             type="text"
             placeholder="Name"
-            error={errors.name}
+            isError={!!errors.name}
             {...register('name')}
           />
           <FormErrorText message={errors.name?.message} />

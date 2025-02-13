@@ -1,6 +1,5 @@
 import { Blockchain } from '@circle-fin/developer-controlled-wallets';
 import { SelectProps } from '@radix-ui/react-select';
-import { FieldError } from 'react-hook-form';
 
 import { cn } from '~/lib/utils';
 
@@ -25,10 +24,9 @@ export type ChainSelectInternalProps = Omit<SelectProps, 'children'> & {
   placeholder?: string;
 
   /**
-   * Optional form field error from react-hook-form
-   * When provided, adds a red border to indicate validation errors
+   * Optional form field error. When true, adds a red border to indicate validation errors
    */
-  error?: FieldError;
+  isError?: boolean;
 
   /**
    * Mapping of blockchain identifiers to their display labels
@@ -48,7 +46,7 @@ export type ChainSelectInternalProps = Omit<SelectProps, 'children'> & {
  * - Consistent styling with design system
  */
 export function ChainSelectInternal({
-  error,
+  isError,
   placeholder = 'Select network',
   blockchainLabels,
   ...props
@@ -56,7 +54,7 @@ export function ChainSelectInternal({
   return (
     <Select {...props}>
       <SelectTrigger
-        className={cn('w-full max-w-md', error ? 'border border-destructive' : '')}
+        className={cn('w-full max-w-md', isError ? 'border border-destructive' : '')}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

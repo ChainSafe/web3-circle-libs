@@ -95,7 +95,7 @@ export function NewWalletForm({
           <Input
             type="text"
             placeholder="Enter wallet name"
-            error={errors.name}
+            isError={!!errors.name}
             {...register('name')}
           />
           <FormErrorText message={errors.name?.message} />
@@ -120,7 +120,7 @@ export function NewWalletForm({
               return (
                 <ChainSelectComponent
                   onValueChange={field.onChange}
-                  error={errors.blockchain}
+                  isError={!!errors.blockchain}
                 />
               );
             }}
