@@ -29,7 +29,6 @@
     "lucide-react": "^0.474.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.54.2",
     "tailwindcss": "^4.0.4",
     "typescript": "^5.7.2"
   },

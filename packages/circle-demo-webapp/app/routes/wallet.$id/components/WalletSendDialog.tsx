@@ -7,6 +7,7 @@ import {
   Wallet,
 } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
+  ElementsSubmitHandler,
   SendTransactionForm,
   SendTransactionFormInput,
   SuccessMessage,
@@ -15,7 +16,6 @@ import {
 } from '@circle-libs/react-elements';
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -51,7 +51,7 @@ export function WalletSendDialog(props: WalletSendDialogProps) {
   const [serverError, setServerError] = useState<Error | undefined>();
   const [transactionData, setTransactionData] = useState({} as Transaction);
   const [successOpen, setSuccessOpen] = useState(false);
-  const onSubmit: SubmitHandler<SendTransactionFormInput> = async (data) => {
+  const onSubmit: ElementsSubmitHandler<SendTransactionFormInput> = async (data) => {
     const res = await onSendTransaction({
       destinationAddress: data.destinationAddress,
       amounts: [data.amount],

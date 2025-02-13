@@ -1,6 +1,5 @@
 import { Balance } from '@circle-fin/developer-controlled-wallets';
 import { SelectProps } from '@radix-ui/react-select';
-import { FieldError } from 'react-hook-form';
 
 import {
   Select,
@@ -21,14 +20,14 @@ export type TokenSelectProps = Omit<SelectProps, 'children'> & {
   placeholder?: string;
 
   /**
-   * Array of Balance objects returned from Circle's API.
+   * Array of Balance objects returned from Circle's API
    */
   balances: Balance[];
 
   /**
-   * Optional form field error from react-hook-form. When provided, adds a red border to indicate validation errors.
+   * Optional form field error. When true, adds a red border to indicate validation errors
    */
-  error?: FieldError;
+  isError?: boolean;
 
   /**
    * Optional default token ID to pre-select in the dropdown
@@ -51,13 +50,13 @@ export type TokenSelectProps = Omit<SelectProps, 'children'> & {
 export function TokenSelect({
   placeholder = 'Select Token',
   balances = [],
-  error,
+  isError,
   defaultValue,
   ...other
 }: TokenSelectProps) {
   return (
     <Select defaultValue={defaultValue} {...other}>
-      <SelectTrigger className={cn('w-full', error ? 'border border-destructive' : '')}>
+      <SelectTrigger className={cn('w-full', isError ? 'border border-destructive' : '')}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

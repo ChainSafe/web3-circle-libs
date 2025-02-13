@@ -1,5 +1,4 @@
 import { SelectProps } from '@radix-ui/react-select';
-import { FieldError } from 'react-hook-form';
 
 import { ChainSelectInternal } from '../ChainSelect/ChainSelectInternal';
 
@@ -19,9 +18,9 @@ export type TestChainSelectProps = Omit<SelectProps, 'children'> & {
    */
   placeholder?: string;
   /**
-   * Optional form field error from react-hook-form. When provided, adds a red border to indicate validation errors.
+   * Optional form field error. When true, adds a red border to indicate validation errors
    */
-  error?: FieldError;
+  isError?: boolean;
 };
 
 /** A dropdown select menu to choose a test blockchain network */

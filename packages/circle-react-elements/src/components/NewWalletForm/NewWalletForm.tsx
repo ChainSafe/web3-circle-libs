@@ -1,15 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Plus } from 'lucide-react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { ChainSelect, TestChainSelect } from '../ChainSelect';
-import { FormErrorText } from '../FormErrorText';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Textarea } from '../ui/textarea';
+import { ChainSelect, TestChainSelect } from '~/components/ChainSelect';
+import { FormErrorText } from '~/components/FormErrorText';
+import { Button } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
+import { Textarea } from '~/components/ui/textarea';
+import { ElementsSubmitHandler } from '~/lib/types';
 
-const formSchema = z.object({
+export const newWalletSchema = z.object({
   walletSetId: z.string(),
   name: z.string().nonempty('Name must not be empty'),
   description: z.string().optional(),
@@ -23,7 +24,7 @@ const formSchema = z.object({
  * @property description - Optional description for the wallet
  * @property blockchain - The selected blockchain network (required)
  */
-export type NewWalletFormInput = z.infer<typeof formSchema>;
+export type NewWalletFormInput = z.infer<typeof newWalletSchema>;
 
 export interface NewWalletFormProps {
   /**
@@ -42,7 +43,7 @@ export interface NewWalletFormProps {
    * Handler called when the form is submitted with valid data
    * @param data - The form data of type NewWalletFormInput
    */
-  onSubmit: SubmitHandler<NewWalletFormInput>;
+  onSubmit: ElementsSubmitHandler<NewWalletFormInput>;
 
   /**
    * Optional error from the server to display below the form
@@ -80,7 +81,7 @@ export function NewWalletForm({
     handleSubmit,
     register,
   } = useForm<NewWalletFormInput>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(newWalletSchema),
     defaultValues: {
       walletSetId,
     },
@@ -95,7 +96,7 @@ export function NewWalletForm({
           <Input
             type="text"
             placeholder="Enter wallet name"
-            error={errors.name}
+            isError={!!errors.name}
             {...register('name')}
           />
           <FormErrorText message={errors.name?.message} />
@@ -120,7 +121,7 @@ export function NewWalletForm({
               return (
                 <ChainSelectComponent
                   onValueChange={field.onChange}
-                  error={errors.blockchain}
+                  isError={!!errors.blockchain}
                 />
               );
             }}

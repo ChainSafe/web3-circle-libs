@@ -1,5 +1,4 @@
 import { SelectProps } from '@radix-ui/react-select';
-import { FieldError } from 'react-hook-form';
 
 import { ChainSelectInternal } from './ChainSelectInternal';
 
@@ -28,10 +27,9 @@ export type ChainSelectProps = Omit<SelectProps, 'children'> & {
   placeholder?: string;
 
   /**
-   * Optional form field error from react-hook-form
-   * When provided, adds a red border to indicate validation errors
+   * Optional form field error. When true, adds a red border to indicate validation errors
    */
-  error?: FieldError;
+  isError?: boolean;
 };
 
 /**
@@ -41,9 +39,7 @@ export type ChainSelectProps = Omit<SelectProps, 'children'> & {
  * - Shows only mainnet networks (no testnets)
  * - Displays network icons alongside network names
  * - Accessible dropdown using Radix UI Select
- * - Integration with react-hook-form for validation
  * - Customizable placeholder text
- * - Consistent styling with the design system
  */
 export function ChainSelect(props: ChainSelectProps) {
   return <ChainSelectInternal {...props} blockchainLabels={BLOCKCHAIN_LABELS} />;
