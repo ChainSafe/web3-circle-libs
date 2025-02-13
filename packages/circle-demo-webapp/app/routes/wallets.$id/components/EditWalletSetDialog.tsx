@@ -1,11 +1,11 @@
 import {
   EditWalletSetForm,
   EditWalletSetFormInput,
+  ElementsSubmitHandler,
   ElementsWalletSet,
 } from '@circle-libs/react-elements';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -27,7 +27,10 @@ export function EditWalletSetDialog({ walletSet, onSuccess }: EditWalletSetDialo
   const [open, setOpen] = useState(false);
   const { updateWalletSet, isLoading, error } = useUpdateWalletSet();
 
-  const onSubmit: SubmitHandler<EditWalletSetFormInput> = async ({ id, name }) => {
+  const onSubmit: ElementsSubmitHandler<EditWalletSetFormInput> = async ({
+    id,
+    name,
+  }) => {
     const success = await updateWalletSet({
       id,
       name,

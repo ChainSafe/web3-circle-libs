@@ -1,13 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Plus } from 'lucide-react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FormErrorText } from '../FormErrorText';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+import { FormErrorText } from '~/components/FormErrorText';
+import { Button } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
+import { ElementsSubmitHandler } from '~/lib/types';
 
-const formSchema = z.object({
+export const newWalletSetSchema = z.object({
   name: z.string().nonempty('Name must not be empty'),
 });
 
@@ -15,7 +16,7 @@ const formSchema = z.object({
  * Input data structure for the NewWalletSetForm component
  * @property name - The name of the wallet set (required, non-empty)
  */
-export type NewWalletSetFormInput = z.infer<typeof formSchema>;
+export type NewWalletSetFormInput = z.infer<typeof newWalletSetSchema>;
 
 export interface NewWalletSetFormProps {
   /**
@@ -29,7 +30,7 @@ export interface NewWalletSetFormProps {
    * Handler called when the form is submitted with valid data
    * @param data - The form data of type NewWalletSetFormInput
    */
-  onSubmit: SubmitHandler<NewWalletSetFormInput>;
+  onSubmit: ElementsSubmitHandler<NewWalletSetFormInput>;
 
   /**
    * Optional error from the server to display below the form
@@ -56,7 +57,7 @@ export function NewWalletSetForm({
     handleSubmit,
     formState: { errors },
   } = useForm<NewWalletSetFormInput>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(newWalletSetSchema),
   });
 
   return (

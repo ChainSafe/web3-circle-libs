@@ -1,15 +1,16 @@
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FormErrorText } from '../FormErrorText';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Textarea } from '../ui/textarea';
+import { FormErrorText } from '~/components/FormErrorText';
+import { Button } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
+import { Textarea } from '~/components/ui/textarea';
+import { ElementsSubmitHandler } from '~/lib/types';
 
-const formSchema = z.object({
+export const editWalletSchema = z.object({
   id: z.string(),
   name: z.string().nonempty('Name must not be empty'),
   refId: z.string().optional(),
@@ -21,7 +22,7 @@ const formSchema = z.object({
  * @property name - The name of the wallet (required, non-empty)
  * @property refId - Optional reference ID for the wallet
  */
-export type EditWalletFormInput = z.infer<typeof formSchema>;
+export type EditWalletFormInput = z.infer<typeof editWalletSchema>;
 
 export interface EditWalletFormProps {
   /**
@@ -40,7 +41,7 @@ export interface EditWalletFormProps {
    * Handler called when the form is submitted with valid data
    * @param data - The form data of type EditWalletFormInput
    */
-  onSubmit: SubmitHandler<EditWalletFormInput>;
+  onSubmit: ElementsSubmitHandler<EditWalletFormInput>;
 
   /**
    * Optional error from the server to display below the form
@@ -68,7 +69,7 @@ export function EditWalletForm({
     handleSubmit,
     formState: { errors },
   } = useForm<EditWalletFormInput>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(editWalletSchema),
     defaultValues,
   });
 

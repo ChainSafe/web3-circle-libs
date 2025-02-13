@@ -1,4 +1,5 @@
 import {
+  ElementsSubmitHandler,
   ElementsWalletSet,
   NewWalletSetForm,
   NewWalletSetFormInput,
@@ -6,7 +7,6 @@ import {
 } from '@circle-libs/react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -29,7 +29,7 @@ export function NewWalletSetDialog({ onSuccess }: NewWalletSetDialogProps) {
   const [walletSet, setWalletSet] = useState<ElementsWalletSet>();
   const { createWalletSet, isLoading, error } = useCreateWalletSet();
 
-  const onSubmit: SubmitHandler<NewWalletSetFormInput> = async ({ name }) => {
+  const onSubmit: ElementsSubmitHandler<NewWalletSetFormInput> = async ({ name }) => {
     const walletSet = await createWalletSet({ name });
 
     if (!walletSet) {

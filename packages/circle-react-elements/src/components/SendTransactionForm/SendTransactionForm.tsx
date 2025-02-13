@@ -3,17 +3,17 @@ import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clie
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
 import { useMemo } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
 
+import { ComplianceStatus } from '~/components/ComplianceStatus';
 import { FormErrorText } from '~/components/FormErrorText';
+import { TokenSelect } from '~/components/TokenSelect';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
+import { ElementsSubmitHandler } from '~/lib/types';
 import { isAddress, isNumber } from '~/lib/utils';
-
-import { ComplianceStatus } from '../ComplianceStatus';
-import { TokenSelect } from '../TokenSelect';
 
 /**
  * Helper function to find USDC token ID in balances array
@@ -24,7 +24,7 @@ function findTokenSelectDefaultValue(balances: Balance[]): string | undefined {
   return usdcToken?.token.id;
 }
 
-const formSchema = z.object({
+export const sendTransactionSchema = z.object({
   destinationAddress: z.string().refine(isAddress, 'Address is not valid'),
   amount: z.string().refine(isNumber, 'Amount is not valid'),
   tokenId: z.string(),
@@ -38,7 +38,7 @@ const formSchema = z.object({
  * @property tokenId - The ID of the token to send
  * @property note - Optional note to attach to the transaction
  */
-export type SendTransactionFormInput = z.infer<typeof formSchema>;
+export type SendTransactionFormInput = z.infer<typeof sendTransactionSchema>;
 
 export interface SendTransactionFormProps {
   /**
@@ -55,7 +55,7 @@ export interface SendTransactionFormProps {
    * Handler called when the form is submitted with valid data
    * @param data - The form data of type SendTransactionFormInput
    */
-  onSubmit: SubmitHandler<SendTransactionFormInput>;
+  onSubmit: ElementsSubmitHandler<SendTransactionFormInput>;
 
   /**
    * Indicates if the form is currently submitting
@@ -110,7 +110,7 @@ export function SendTransactionForm({
     handleSubmit,
     formState: { errors },
   } = useForm<SendTransactionFormInput>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(sendTransactionSchema),
   });
 
   const handleChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {

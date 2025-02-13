@@ -1,12 +1,12 @@
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
+  ElementsSubmitHandler,
   NewWalletForm,
   NewWalletFormInput,
   SuccessMessage,
 } from '@circle-libs/react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -30,7 +30,7 @@ export function NewWalletDialog({ walletSetId, onSuccess }: NewWalletDialogProps
   const [wallet, setWallet] = useState<Wallet>();
   const { createWallet, isLoading, error } = useCreateWallet();
 
-  const onSubmit: SubmitHandler<NewWalletFormInput> = async ({
+  const onSubmit: ElementsSubmitHandler<NewWalletFormInput> = async ({
     walletSetId,
     name,
     blockchain,
