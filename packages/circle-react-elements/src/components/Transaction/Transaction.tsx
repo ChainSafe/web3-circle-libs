@@ -194,7 +194,7 @@ export function TransactionToken({ className }: TransactionTokenProps) {
   }, [registerComponent]);
 
   return (
-    <td className={cn('py-2', className)} title={transaction.tokenId}>
+    <td className={cn('py-2', className)}>
       {transaction?.token ? <TokenItem token={transaction.token} /> : '-'}
     </td>
   );

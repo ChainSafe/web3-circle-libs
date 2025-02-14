@@ -1,7 +1,7 @@
-import type { Blockchain } from '@circle-fin/developer-controlled-wallets';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Transaction } from './index';
+import { fullMockTransaction } from './stories/__mocks__/transactions';
 
 type Story = StoryObj<typeof Transaction.Root>;
 
@@ -10,12 +10,23 @@ const meta = {
   component: Transaction.Root,
   tags: ['autodocs'],
   parameters: {
-    componentSubtitle:
-      'A composable transaction table system for displaying blockchain transactions',
     docs: {
+      source: {
+        transform: (code: string) =>
+          code
+            .replace(/<Transaction/g, '<Transaction.')
+            .replace(/<\/Transaction/g, '</Transaction.'),
+      },
       description: {
         component: `
 Transaction components work together to create a flexible transaction table:
+
+Key features:
+- Flexible column configuration
+- Automatic header generation
+- Responsive design
+- Color-coded states and amounts
+- Blockchain explorer integration
 
 \`\`\`tsx
 <Transaction.Table>
@@ -35,13 +46,6 @@ Transaction components work together to create a flexible transaction table:
   </Transaction.Table.Body>
 </Transaction.Table>
 \`\`\`
-
-Key features:
-- Flexible column configuration
-- Automatic header generation
-- Responsive design
-- Color-coded states and amounts
-- Blockchain explorer integration
 `,
       },
     },
@@ -60,39 +64,13 @@ Key features:
 
 export default meta;
 
-const mockTransaction = {
-  id: '1234',
-  sourceAddress: '0x1234567890abcdef1234567890abcdef12345678',
-  destinationAddress: '0x9876543210abcdef1234567890abcdef12345678',
-  transactionType: 'OUTBOUND' as const,
-  state: 'COMPLETE' as const,
-  amounts: ['1000.00'],
-  createDate: '2024-01-30T10:00:00Z',
-  updateDate: '2024-01-30T10:05:00Z',
-  firstConfirmDate: '2024-01-30T10:05:00Z',
-  blockchain: 'MATIC-MUMBAI' as Blockchain,
-  txHash: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
-  token: {
-    id: 'USDC-MATIC',
-    name: 'USD Coin',
-    symbol: 'USDC',
-    decimals: 6,
-    chain: 'MATIC',
-    blockchain: 'MATIC-MUMBAI' as Blockchain,
-    isNative: false,
-    createDate: '2024-01-30T10:00:00Z',
-    updateDate: '2024-01-30T10:00:00Z',
-  },
-  tokenId: 'USDC-MATIC',
-};
-
 /**
  * Shows a complete transaction row with all available columns.
  * This is how transactions are typically displayed in a table layout.
  */
 export const Default: Story = {
   args: {
-    transaction: mockTransaction,
+    transaction: fullMockTransaction,
     onClickDetails: () => alert('Details clicked'),
   },
   render: ({ transaction, onClickDetails }) => (
@@ -114,7 +92,7 @@ export const Default: Story = {
  */
 export const MinimalColumns: Story = {
   args: {
-    transaction: mockTransaction,
+    transaction: fullMockTransaction,
   },
   render: ({ transaction }) => (
     <Transaction.Root transaction={transaction}>
@@ -131,7 +109,7 @@ export const MinimalColumns: Story = {
  */
 export const WithoutActions: Story = {
   args: {
-    transaction: mockTransaction,
+    transaction: fullMockTransaction,
   },
   render: ({ transaction }) => (
     <Transaction.Root transaction={transaction}>
@@ -155,7 +133,7 @@ export const MultipleTransactions: Story = {
       <Transaction.Table.Head />
       <Transaction.Table.Body>
         <Transaction.Root
-          transaction={mockTransaction}
+          transaction={fullMockTransaction}
           onClickDetails={() => alert('Details clicked')}
         >
           <Transaction.Address type="from" />
@@ -168,9 +146,9 @@ export const MultipleTransactions: Story = {
         </Transaction.Root>
         <Transaction.Root
           transaction={{
-            ...mockTransaction,
+            ...fullMockTransaction,
             id: '5678',
-            transactionType: 'INBOUND' as const,
+            transactionType: 'INBOUND',
           }}
           onClickDetails={() => alert('Details clicked')}
         >
