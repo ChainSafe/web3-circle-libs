@@ -50,9 +50,6 @@ const toText = (state: string) => state.replace(/_/gi, ' ');
  * - Icons to indicate status:
  *   - ✓ for successful states
  *   - ✘ for error states
- * - Formats state text for readability
- * - Dark mode support
- * - Non-breaking text layout
  */
 export function TransactionState({ state }: TransactionStateProps) {
   return greenStates.includes(state) ? (
