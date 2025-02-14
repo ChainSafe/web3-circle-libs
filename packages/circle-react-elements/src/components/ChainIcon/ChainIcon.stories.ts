@@ -6,43 +6,66 @@ const meta = {
   title: 'Blockchain Components/ChainIcon',
   component: ChainIcon,
   tags: ['autodocs'],
+  argTypes: {
+    blockchain: {
+      control: 'select',
+      options: [
+        'ARB-SEPOLIA',
+        'ARB',
+        'AVAX-FUJI',
+        'AVAX',
+        'ETH-SEPOLIA',
+        'ETH',
+        'EVM-TESTNET',
+        'EVM',
+        'MATIC-AMOY',
+        'MATIC',
+        'NEAR-TESTNET',
+        'NEAR',
+        'SOL-DEVNET',
+        'SOL',
+        'UNI-SEPOLIA',
+        'UNI',
+      ],
+    },
+  },
 } satisfies Meta<typeof ChainIcon>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const EthSepolia: Story = {
+export const EthereumSepolia: Story = {
   args: {
     blockchain: 'ETH-SEPOLIA',
   },
 };
 
-export const EthMainnet: Story = {
+export const Ethereum: Story = {
   args: {
     blockchain: 'ETH',
   },
 };
 
-export const ArbSepolia: Story = {
+export const ArbitrumSepolia: Story = {
   args: {
     blockchain: 'ARB-SEPOLIA',
   },
 };
 
-export const ArbMainnet: Story = {
+export const Arbitrum: Story = {
   args: {
     blockchain: 'ARB',
   },
 };
 
-export const AvaxFuji: Story = {
+export const AvalancheFuji: Story = {
   args: {
     blockchain: 'AVAX-FUJI',
   },
 };
 
-export const AvaxMainnet: Story = {
+export const Avalanche: Story = {
   args: {
     blockchain: 'AVAX',
   },
@@ -54,7 +77,7 @@ export const PolygonAmoy: Story = {
   },
 };
 
-export const PolygonMainnet: Story = {
+export const Polygon: Story = {
   args: {
     blockchain: 'MATIC',
   },
@@ -66,7 +89,7 @@ export const SolanaDevnet: Story = {
   },
 };
 
-export const SolanaMainnet: Story = {
+export const Solana: Story = {
   args: {
     blockchain: 'SOL',
   },
@@ -78,14 +101,20 @@ export const NearTestnet: Story = {
   },
 };
 
-export const NearMainnet: Story = {
+export const Near: Story = {
   args: {
     blockchain: 'NEAR',
   },
 };
 
-export const UniSepolia: Story = {
+export const UnichainSepolia: Story = {
   args: {
     blockchain: 'UNI-SEPOLIA',
+  },
+};
+
+export const Unichain: Story = {
+  args: {
+    blockchain: 'UNI',
   },
 };

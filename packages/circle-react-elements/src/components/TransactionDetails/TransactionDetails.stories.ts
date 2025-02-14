@@ -41,6 +41,7 @@ export const Default: Story = {
       networkFee: '0.005164650002582325',
       firstConfirmDate: '2024-12-10T13:52:57Z',
       operation: 'TRANSFER',
+      refId: 'This is a note',
       abiParameters: [],
       createDate: '2024-12-10T13:52:57Z',
       updateDate: '2024-12-10T13:54:43Z',
