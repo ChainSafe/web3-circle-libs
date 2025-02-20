@@ -44,7 +44,7 @@
     "build:js": "tsup",
     "build:css": "tailwindcss -i src/styles/tailwind.css -o dist/styles.css",
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}'",
-    "watch": "tsup src/index.tsx --format cjs,esm --dts --watch",
+    "watch": "tsup --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
