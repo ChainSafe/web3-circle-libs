@@ -17,33 +17,25 @@ This document outlines the steps to prepare and publish a new release of @circle
 ## Creating a Release
 
 1. Create a new branch for the release:
+
    ```bash
    git checkout -b release/v[version]
    ```
 
-### Beta Release
+2. Update version in `package.json` following semver:
 
-1. Update version in `package.json` to include beta tag (e.g., "0.1.0-beta.1")
-2. Build the package:
-   ```bash
-   yarn build
-   ```
-3. Publish with beta tag:
-   ```bash
-   npm publish --tag beta --access public
-   ```
-
-### Stable Release
-
-1. Update version in `package.json` following semver:
    - MAJOR version for incompatible API changes
    - MINOR version for backwards-compatible functionality
    - PATCH version for backwards-compatible bug fixes
-2. Build the package:
+
+3. Build the package:
+
    ```bash
    yarn build
    ```
-3. Publish:
+
+4. Publish:
+
    ```bash
    npm publish --access public
    ```
@@ -62,7 +54,6 @@ This document outlines the steps to prepare and publish a new release of @circle
    git tag @circle-libs/react-elements@[version]
    git push origin --tags
    ```
-5. If this was a beta release that is now stable, update release notes with what changed
-6. Create a GitHub release with the changelog
+5. Create a GitHub release with the changelog
 
 This workflow ensures that version tags are always attached to the squashed commits in the main branch, preventing tag loss during squash merges.
