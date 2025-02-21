@@ -53,9 +53,7 @@ export function ChainSelectInternal({
 }: ChainSelectInternalProps) {
   return (
     <Select {...props}>
-      <SelectTrigger
-        className={cn('w-full max-w-md', isError ? 'border border-destructive' : '')}
-      >
+      <SelectTrigger className={cn('w-full', isError ? 'border border-destructive' : '')}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

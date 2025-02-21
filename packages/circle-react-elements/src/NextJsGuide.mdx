@@ -64,7 +64,7 @@ The setup tool will:
    - `CIRCLE_SECRET`: Generated entity secret
 4. Generate a recovery file (`recovery_file_YYYY-MM-DD.dat`)
 
-You’ll see a confirmation message at every step of the process.
+You'll see a confirmation message at every step of the process.
 
 Important security practices:
 
@@ -121,11 +121,12 @@ Location: `src/app/api/wallet-sets/route.ts` (API route handler)
 ```typescript
 import { NextResponse } from 'next/server';
 import { getCircleSDK } from '@/libs/circle-sdk.server';
+import { NewWalletSetFormInput } from '@circle-libs/react-elements';
 
 export async function POST(request: Request) {
   try {
     const sdk = getCircleSDK();
-    const body = await request.json();
+    const body = (await request.json()) as NewWalletSetFormInput;
     const walletSet = await sdk.createWalletSet(body);
 
     return NextResponse.json({
@@ -265,9 +266,9 @@ export async function GET() {
 }
 ```
 
-Now, let’s add the frontend functionality to list wallet sets, handling data fetching, loading states, and error handling.
+Now, let's add the frontend functionality to list wallet sets, handling data fetching, loading states, and error handling.
 
-To ensure a consistent display, we’ll use Circle Elements’ <WalletSetDetails /> component. Since some logic overlaps with the wallet creation form, we’ll define everything directly within the page.
+To ensure a consistent display, we'll use Circle Elements' <WalletSetDetails /> component. Since some logic overlaps with the wallet creation form, we'll define everything directly within the page.
 
 Navigate to `src/app/page.tsx` and update the file with the following code:
 
@@ -351,21 +352,21 @@ export default function WalletSets() {
 
 ### 5. Take a Moment to Reflect
 
-You’ve successfully implemented wallet set creation and listing in your Next.js app! Start your development server with:
+You've successfully implemented wallet set creation and listing in your Next.js app! Start your development server with:
 
 ```
 npm run dev
 ```
 
-Then, head to http://localhost:3000 to see it in action. Try creating your first wallet set and watch it instantly appear on the page. When you’re ready, move on to the next steps to add individual wallet management features.
+Then, head to http://localhost:3000 to see it in action. Try creating your first wallet set and watch it instantly appear on the page. When you're ready, move on to the next steps to add individual wallet management features.
 
-## Next Steps: Individual Wallet Management
+## Next Step: Creating and Listing Wallets in a Wallet Set
 
-After implementing wallet sets, you can follow similar patterns to add individual wallet features. The implementation will mirror the wallet set functionality but use different Circle Elements components:
+Now that wallet sets are implemented, you can extend this functionality to support wallet creation and listing within a selected set. The process will follow a similar structure but with different Circle Elements components.
 
 1. Create API endpoints for wallet operations
 
-   - `/api/wallets/route.ts` for wallet CRUD operations
+   - `src/app/api/wallet-sets/[id]/wallets/route.ts` for wallets CRUD operations
    - Follow the same security and error handling patterns
 
 2. Implement wallet creation UI
@@ -379,7 +380,262 @@ After implementing wallet sets, you can follow similar patterns to add individua
    - Implement data fetching and state management like the wallet sets list
    - Handle loading and error states consistently
 
-The core concepts remain the same - secure server-side SDK usage, client-side Circle Elements components, proper error handling, and type safety. Just swap out the wallet set components for their wallet counterparts.
+The core concepts remain the same - secure server-side SDK usage, client-side Circle Elements components, proper error handling, and type safety. Need more details? Keep reading!
+
+### 1. Create Wallets API Endpoints
+
+Create a new file at `src/app/api/wallet-sets/[id]/wallets/route.ts` to handle wallet operations within a wallet set. We will create both GET and POST endpoints for listing and creating wallets, respectively.
+
+```typescript
+import { NextResponse } from 'next/server';
+import { getCircleSDK } from '@/libs/circle-sdk.server';
+import { NewWalletFormInput } from '@circle-libs/react-elements';
+import { Blockchain } from '@circle-fin/developer-controlled-wallets';
+
+export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const sdk = getCircleSDK();
+    const response = await sdk.listWallets({ walletSetId: id });
+
+    return NextResponse.json({
+      success: true,
+      data: response.data?.wallets,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        error,
+      },
+      { status: 500 },
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const sdk = getCircleSDK();
+    const { walletSetId, blockchain, name, description } =
+      (await request.json()) as NewWalletFormInput;
+
+    const response = await sdk.createWallets({
+      walletSetId: walletSetId,
+      count: 1,
+      blockchains: [blockchain as Blockchain],
+      metadata: [
+        {
+          name,
+          ...(description ? { refId: description } : {}),
+        },
+      ],
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: response.data?.wallets,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        error,
+      },
+      { status: 500 },
+    );
+  }
+}
+```
+
+### 2. Implement the Create Wallet Component
+
+To enable wallet creation, create a dedicated form component that uses **Circle Elements' `<NewWalletForm />`** for rendering and validation. While the Elements' form handles user input, you will be responsible for managing API communication and handling errors.
+
+The component should be placed in `src/components/CreateWallet.tsx` as a client-side component.
+
+```typescript
+"use client";
+
+import { useState } from "react";
+import {
+  NewWalletForm,
+  ElementsWallet,
+  NewWalletFormInput,
+} from "@circle-libs/react-elements";
+
+interface CreateWalletProps {
+  walletSetId: string;
+  onSuccess?: () => void;
+}
+
+interface ApiResponse {
+  success: boolean;
+  data?: ElementsWallet;
+  error?: unknown;
+}
+
+export function CreateWallet({ walletSetId, onSuccess }: CreateWalletProps) {
+  const [error, setError] = useState<Error | undefined>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleCreateWallet = async (formData: NewWalletFormInput) => {
+    setIsSubmitting(true);
+    try {
+      setError(undefined);
+      const response = await fetch(`/api/wallet-sets/${walletSetId}/wallets`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data: ApiResponse = await response.json();
+
+      if (!data.success) {
+        throw new Error(
+          typeof data.error === "string"
+            ? data.error
+            : "Failed to create wallet"
+        );
+      }
+
+      if (typeof onSuccess === "function") {
+        onSuccess();
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("An error occurred"));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border rounded p-4">
+      <h2 className="text-lg font-semibold mb-4">Create New Wallet</h2>
+      <NewWalletForm
+        walletSetId={walletSetId}
+        onSubmit={handleCreateWallet}
+        serverError={error}
+        isSubmitting={isSubmitting}
+        isTestnet
+      />
+    </div>
+  );
+}
+```
+
+The `<NewWalletForm />` component includes an `isTestnet` prop, which determines the blockchain network for wallet creation. If set to `true`, wallets will be created on testnet blockchains supported by the Circle API. If set to `false`, the form defaults to mainnet blockchains.
+
+### 3. Create Wallets Page
+
+Create a new page to manage wallets within a wallet set. This page will include the wallet creation form and a list of existing wallets. Create a new file at `src/app/wallets/[id]/page.tsx` and add the following code:
+
+```typescript
+"use client";
+
+import { CreateWallet } from "@/components/CreateWallet";
+import { ElementsWallet, WalletDetails } from "@circle-libs/react-elements";
+import { useParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
+interface ApiResponse {
+  success: boolean;
+  data?: ElementsWallet[];
+  error?: unknown;
+}
+
+export default function WalletSetPage() {
+  const params = useParams();
+  const id = params?.id as string;
+
+  const [wallets, setWallets] = useState<ElementsWallet[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchWallets = useMemo(() => {
+    return async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch(`/api/wallet-sets/${id}/wallets`);
+        const data: ApiResponse = await response.json();
+
+        if (!data.success) {
+          throw new Error(
+            typeof data.error === "string"
+              ? data.error
+              : "Failed to fetch wallets"
+          );
+        }
+
+        setWallets(data.data || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      fetchWallets();
+    }
+  }, [fetchWallets, id]);
+
+  if (!id) {
+    return null;
+  }
+
+  return (
+    <div className="p-8 max-w-2xl mx-auto space-y-8">
+      <h1>Wallet Set: {id}</h1>
+      <CreateWallet walletSetId={id} onSuccess={fetchWallets} />
+
+      <div className="space-y-4">
+        <h2>Wallets</h2>
+
+        {isLoading ? (
+          <p>Loading wallets...</p>
+        ) : error ? (
+          <div className="border p-2 text-red-600">{error}</div>
+        ) : wallets.length === 0 ? (
+          <p>No wallets found in this set.</p>
+        ) : (
+          <div className="grid gap-4">
+            {wallets.map((wallet) => (
+              <div key={wallet.id} className="border rounded p-4">
+                <WalletDetails wallet={wallet} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+Before testing the new features, one final step is required. A link needs to be added from the wallet sets list to the corresponding wallet set page. This ensures smooth navigation between the two views.
+
+Update the wallet set list page at `src/app/page.tsx` by including a link to the wallet set page.
+
+```typescript
+// Add the following import
+import Link from "next/link";
+
+// Extend the WalletSetDetails component with a link to the wallet set page
+<WalletSetDetails walletSet={walletSet}>
+  <Link
+    href={`/wallets/${walletSet.id}`}
+    className="text-blue-500 hover:underline"
+  >
+    Show Wallets
+  </Link>
+</WalletSetDetails>;
+```
+
+And that's it! You've successfully implemented wallet creation and listing within a wallet set. Go back to your development server and navigate to the wallet set page to see the new features in action.
 
 ## Important Notes
 
