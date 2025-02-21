@@ -149,15 +149,15 @@ Next, create a form component for wallet set creation. This component uses Circl
 
 Location: `src/components/CreateWalletSet.tsx` (client-side component)
 
-```typescript
-"use client";
+```tsx
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   NewWalletSetForm,
   ElementsWalletSet,
   NewWalletSetFormInput,
-} from "@circle-libs/react-elements";
+} from '@circle-libs/react-elements';
 
 interface CreateWalletSetProps {
   onSuccess?: () => void;
@@ -177,10 +177,10 @@ export function CreateWalletSet({ onSuccess }: CreateWalletSetProps) {
     setIsSubmitting(true);
     try {
       setError(undefined);
-      const response = await fetch("/api/wallet-sets", {
-        method: "POST",
+      const response = await fetch('/api/wallet-sets', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -188,17 +188,15 @@ export function CreateWalletSet({ onSuccess }: CreateWalletSetProps) {
 
       if (!data.success) {
         throw new Error(
-          typeof data.error === "string"
-            ? data.error
-            : "Failed to create wallet set"
+          typeof data.error === 'string' ? data.error : 'Failed to create wallet set',
         );
       }
 
-      if (typeof onSuccess === "function") {
+      if (typeof onSuccess === 'function') {
         onSuccess();
       }
     } catch (err) {
-      setError(err instanceof Error ? err : new Error("An error occurred"));
+      setError(err instanceof Error ? err : new Error('An error occurred'));
     } finally {
       setIsSubmitting(false);
     }
@@ -223,10 +221,10 @@ Create a new wallet set management page as the foundation for your app, includin
 
 Navigate to `src/app/page.tsx` and replace its content with the following:
 
-```typescript
-"use client";
+```tsx
+'use client';
 
-import { CreateWalletSet } from "@/components/CreateWalletSet";
+import { CreateWalletSet } from '@/components/CreateWalletSet';
 
 export default function WalletSets() {
   return (
@@ -272,15 +270,12 @@ To ensure a consistent display, we'll use Circle Elements' `<WalletSetDetails />
 
 Navigate to `src/app/page.tsx` and update the file with the following code:
 
-```typescript
-"use client";
+```tsx
+'use client';
 
-import { CreateWalletSet } from "@/components/CreateWalletSet";
-import {
-  ElementsWalletSet,
-  WalletSetDetails,
-} from "@circle-libs/react-elements";
-import { useState, useEffect } from "react";
+import { CreateWalletSet } from '@/components/CreateWalletSet';
+import { ElementsWalletSet, WalletSetDetails } from '@circle-libs/react-elements';
+import { useState, useEffect } from 'react';
 
 interface ApiResponse {
   success: boolean;
@@ -297,20 +292,18 @@ export default function WalletSets() {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await fetch("/api/wallet-sets");
+      const response = await fetch('/api/wallet-sets');
       const data: ApiResponse = await response.json();
 
       if (!data.success) {
         throw new Error(
-          typeof data.error === "string"
-            ? data.error
-            : "Failed to fetch wallet sets"
+          typeof data.error === 'string' ? data.error : 'Failed to fetch wallet sets',
         );
       }
 
       setWalletSets(data.data || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -354,7 +347,7 @@ export default function WalletSets() {
 
 You've successfully implemented wallet set creation and listing in your Next.js app! Start your development server with:
 
-```
+```bash
 npm run dev
 ```
 
@@ -453,15 +446,15 @@ To enable wallet creation, create a dedicated form component that uses **Circle 
 
 The component should be placed in `src/components/CreateWallet.tsx` as a client-side component.
 
-```typescript
-"use client";
+```tsx
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   NewWalletForm,
   ElementsWallet,
   NewWalletFormInput,
-} from "@circle-libs/react-elements";
+} from '@circle-libs/react-elements';
 
 interface CreateWalletProps {
   walletSetId: string;
@@ -483,9 +476,9 @@ export function CreateWallet({ walletSetId, onSuccess }: CreateWalletProps) {
     try {
       setError(undefined);
       const response = await fetch(`/api/wallet-sets/${walletSetId}/wallets`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -493,17 +486,15 @@ export function CreateWallet({ walletSetId, onSuccess }: CreateWalletProps) {
 
       if (!data.success) {
         throw new Error(
-          typeof data.error === "string"
-            ? data.error
-            : "Failed to create wallet"
+          typeof data.error === 'string' ? data.error : 'Failed to create wallet',
         );
       }
 
-      if (typeof onSuccess === "function") {
+      if (typeof onSuccess === 'function') {
         onSuccess();
       }
     } catch (err) {
-      setError(err instanceof Error ? err : new Error("An error occurred"));
+      setError(err instanceof Error ? err : new Error('An error occurred'));
     } finally {
       setIsSubmitting(false);
     }
@@ -530,13 +521,13 @@ The `<NewWalletForm />` component includes an `isTestnet` prop, which determines
 
 Create a new page to manage wallets within a wallet set. This page will include the wallet creation form and a list of existing wallets. Create a new file at `src/app/wallets/[id]/page.tsx` and add the following code:
 
-```typescript
-"use client";
+```tsx
+'use client';
 
-import { CreateWallet } from "@/components/CreateWallet";
-import { ElementsWallet, WalletDetails } from "@circle-libs/react-elements";
-import { useParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { CreateWallet } from '@/components/CreateWallet';
+import { ElementsWallet, WalletDetails } from '@circle-libs/react-elements';
+import { useParams } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 
 interface ApiResponse {
   success: boolean;
@@ -562,15 +553,13 @@ export default function WalletSetPage() {
 
         if (!data.success) {
           throw new Error(
-            typeof data.error === "string"
-              ? data.error
-              : "Failed to fetch wallets"
+            typeof data.error === 'string' ? data.error : 'Failed to fetch wallets',
           );
         }
 
         setWallets(data.data || []);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
         setIsLoading(false);
       }
@@ -620,16 +609,13 @@ Before testing the new features, one final step is required. A link needs to be 
 
 Update the wallet set list page at `src/app/page.tsx` by including a link to the wallet set page.
 
-```typescript
+```tsx
 // Add the following import
-import Link from "next/link";
+import Link from 'next/link';
 
 // Extend the WalletSetDetails component with a link to the wallet set page
 <WalletSetDetails walletSet={walletSet}>
-  <Link
-    href={`/wallets/${walletSet.id}`}
-    className="text-blue-500 hover:underline"
-  >
+  <Link href={`/wallets/${walletSet.id}`} className="text-blue-500 hover:underline">
     Show Wallets
   </Link>
 </WalletSetDetails>;
