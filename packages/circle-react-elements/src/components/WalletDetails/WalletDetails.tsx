@@ -1,7 +1,7 @@
 import { AccountType } from '@circle-fin/developer-controlled-wallets';
 import makeBlockie from 'ethereum-blockies-base64';
-import { Copy } from 'lucide-react';
-import { useMemo } from 'react';
+import { Check, Copy } from 'lucide-react';
+import { useMemo, useState } from 'react';
 
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
@@ -52,17 +52,19 @@ const ACCOUNT_TYPE_TO_TEXT: Record<AccountType, string> = {
  * - Displays shortened wallet address with copy button
  * - Shows blockchain network with icon
  * - Supports custom child components for extensibility
- * - Address clipboard copy with optional callback
- * - Responsive layout with consistent spacing
- * - Uses design system components (Badge, Button)
  * - Full address available in tooltip
  */
 export function WalletDetails({ wallet, onAddressCopy, children }: WalletDetailsProps) {
   const shortAddress = useMemo(() => shortenAddress(wallet.address), [wallet]);
   const walletImage = useMemo(() => makeBlockie(wallet.address), [wallet]);
+  const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
     void navigator.clipboard.writeText(wallet.address);
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+
     if (typeof onAddressCopy === 'function') {
       onAddressCopy(wallet.address);
     }
@@ -88,7 +90,11 @@ export function WalletDetails({ wallet, onAddressCopy, children }: WalletDetails
           </span>
 
           <Button onClick={copyToClipboard} variant="ghost" size="sm">
-            <Copy size={16} strokeWidth={1} />
+            {copied ? (
+              <Check size={16} strokeWidth={1} />
+            ) : (
+              <Copy size={16} strokeWidth={1} />
+            )}
           </Button>
         </p>
 

@@ -613,12 +613,21 @@ Update the wallet set list page at `src/app/page.tsx` by including a link to the
 // Add the following import
 import Link from 'next/link';
 
-// Extend the WalletSetDetails component with a link to the wallet set page
-<WalletSetDetails walletSet={walletSet}>
-  <Link href={`/wallets/${walletSet.id}`} className="text-blue-500 hover:underline">
-    Show Wallets
-  </Link>
-</WalletSetDetails>;
+// Update the WalletSets component
+export default function WalletSets() {
+  // Existing code
+
+  return (
+    // Existing code
+
+    // Extend the WalletSetDetails component with a link to the wallet set page
+    <WalletSetDetails walletSet={walletSet}>
+      <Link href={`/wallets/${walletSet.id}`} className="text-blue-500 hover:underline">
+        Show Wallets
+      </Link>
+    </WalletSetDetails>
+  );
+}
 ```
 
 And that's it! You've successfully implemented wallet creation and listing within a wallet set. Go back to your development server and navigate to the wallet set page to see the new features in action.
