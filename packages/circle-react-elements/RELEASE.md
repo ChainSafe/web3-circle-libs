@@ -1,6 +1,6 @@
 # Release Process
 
-This document outlines the steps to prepare and publish a new release of @circle-libs/react-elements.
+This document outlines the steps to prepare and publish a new release of @chainsafe/circle-react-elements.
 
 ## Before Release
 
@@ -24,9 +24,9 @@ This document outlines the steps to prepare and publish a new release of @circle
 
 2. Update version in `package.json` following semver:
 
-   - MAJOR version for incompatible API changes
-   - MINOR version for backwards-compatible functionality
-   - PATCH version for backwards-compatible bug fixes
+    - MAJOR version for incompatible API changes
+    - MINOR version for backwards-compatible functionality
+    - PATCH version for backwards-compatible bug fixes
 
 3. Build the package:
 
@@ -51,9 +51,10 @@ This document outlines the steps to prepare and publish a new release of @circle
    ```
 4. Now create and push the version tag on the squashed commit:
    ```bash
-   git tag @circle-libs/react-elements@[version]
+   git tag @chainsafe/circle-react-elements@[version]
    git push origin --tags
    ```
 5. Create a GitHub release with the changelog
 
-This workflow ensures that version tags are always attached to the squashed commits in the main branch, preventing tag loss during squash merges.
+This workflow ensures that version tags are always attached to the squashed commits in the main branch, preventing tag
+loss during squash merges.

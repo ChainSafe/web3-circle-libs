@@ -1,4 +1,12 @@
 import {
+  ElementsSubmitHandler,
+  SendTransactionForm,
+  SendTransactionFormInput,
+  SuccessMessage,
+  utils,
+  WalletDetails,
+} from '@chainsafe/circle-react-elements';
+import {
   Balance,
   CreateTransactionInput,
 } from '@circle-fin/developer-controlled-wallets';
@@ -6,14 +14,6 @@ import {
   Transaction,
   Wallet,
 } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
-import {
-  ElementsSubmitHandler,
-  SendTransactionForm,
-  SendTransactionFormInput,
-  SuccessMessage,
-  utils,
-  WalletDetails,
-} from '@circle-libs/react-elements';
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
 

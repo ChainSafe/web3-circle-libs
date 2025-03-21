@@ -1,7 +1,7 @@
 {
-  "name": "@circle-libs/react-elements",
-  "version": "0.1.1",
-  "description": "React components compatible with Circle SDK",
+  "name": "@chainsafe/circle-react-elements",
+  "version": "0.1.2",
+  "description": "ChainSafe React Elements powered by Circle Web3 Services",
   "keywords": [
     "react",
     "components",

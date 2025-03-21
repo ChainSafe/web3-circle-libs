@@ -4,7 +4,7 @@ import {
   NewWalletSetForm,
   NewWalletSetFormInput,
   SuccessMessage,
-} from '@circle-libs/react-elements';
+} from '@chainsafe/circle-react-elements';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 

@@ -1,12 +1,12 @@
 @import 'tailwindcss';
-@import '@circle-libs/react-elements/styles.css';
+@import '@chainsafe/circle-react-elements/styles.css';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
+    --primary: hsl(255 82% 64%); /* Overwrite to match your theme. */
 }
 
 .dark {
-  --primary: hsl(255 82% 64%);
+    --primary: hsl(255 82% 64%);
 }

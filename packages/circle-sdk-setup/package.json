@@ -1,6 +1,9 @@
 {
-  "name": "@circle-libs/sdk-setup",
-  "version": "0.1.0",
+  "name": "@chainsafe/circle-sdk-setup",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.1.1",
   "description": "CLI tool for Circle SDK setup",
   "keywords": [
     "cli",
