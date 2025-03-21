@@ -3,7 +3,7 @@ import {
   ElementsWalletSet,
   formats,
   WalletDetails,
-} from '@chainsafe/circle-react-elements';
+} from '@chainsafe/react-elements';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 

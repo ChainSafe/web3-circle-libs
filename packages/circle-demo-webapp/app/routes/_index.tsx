@@ -7,7 +7,7 @@ export default function Page() {
           <p className="text-muted-foreground">
             This is a demonstration application showcasing Circle&apos;s
             developer-controlled wallets using Circle SDK and ChainSafe&apos;s{' '}
-            @chainsafe/circle-react-elements library.
+            @chainsafe/react-elements library.
           </p>
         </div>
 
@@ -19,7 +19,7 @@ export default function Page() {
           </p>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
             <li>Circle SDK for wallet and transaction management</li>
-            <li>@chainsafe/circle-react-elements library for pre-built UI components</li>
+            <li>@chainsafe/react-elements library for pre-built UI components</li>
             <li>Remix.js for the application framework</li>
             <li>Tailwind CSS for styling</li>
           </ul>
@@ -43,7 +43,7 @@ export default function Page() {
                   href="https://github.com/ChainSafe/web3-circle-libs"
                   className="text-primary hover:underline"
                 >
-                  @chainsafe/circle-react-elements GitHub Repository
+                  @chainsafe/react-elements GitHub Repository
                 </a>
               </li>
               <li>
@@ -51,7 +51,7 @@ export default function Page() {
                   href="https://chainsafe.github.io/web3-circle-libs/"
                   className="text-primary hover:underline"
                 >
-                  @chainsafe/circle-react-elements Documentation
+                  @chainsafe/react-elements Documentation
                 </a>
               </li>
             </ul>

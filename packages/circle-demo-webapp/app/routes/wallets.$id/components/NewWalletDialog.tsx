@@ -3,7 +3,7 @@ import {
   NewWalletForm,
   NewWalletFormInput,
   SuccessMessage,
-} from '@chainsafe/circle-react-elements';
+} from '@chainsafe/react-elements';
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';

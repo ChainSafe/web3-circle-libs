@@ -1,4 +1,4 @@
-import { ElementsWalletSet } from '@chainsafe/circle-react-elements';
+import { ElementsWalletSet } from '@chainsafe/react-elements';
 import { Token } from '@circle-fin/developer-controlled-wallets';
 
 import { sdk } from '~/lib/sdk';

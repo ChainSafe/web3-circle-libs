@@ -40,7 +40,7 @@ npx @tailwindcss/upgrade@next
 Install the required Circle packages. The ChainSafe React Elements  package provides UI components, while developer-controlled-wallets enables wallet management functionality:
 
 ```bash
-npm install @chainsafe/circle-react-elements @circle-fin/developer-controlled-wallets lucide-react
+npm install @chainsafe/react-elements @circle-fin/developer-controlled-wallets lucide-react
 ```
 
 ### 3. Set Up Your Local Environment for Circle SDK
@@ -81,7 +81,7 @@ Location: `src/app/globals.css`
 
 ```css
 @import 'tailwindcss';
-@import '@chainsafe/circle-react-elements/styles.css';
+@import '@chainsafe/react-elements/styles.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -121,7 +121,7 @@ Location: `src/app/api/wallet-sets/route.ts` (API route handler)
 ```typescript
 import { NextResponse } from 'next/server';
 import { getCircleSDK } from '@/libs/circle-sdk.server';
-import { NewWalletSetFormInput } from '@chainsafe/circle-react-elements';
+import { NewWalletSetFormInput } from '@chainsafe/react-elements';
 
 export async function POST(request: Request) {
   try {
@@ -157,7 +157,7 @@ import {
   NewWalletSetForm,
   ElementsWalletSet,
   NewWalletSetFormInput,
-} from '@chainsafe/circle-react-elements';
+} from '@chainsafe/react-elements';
 
 interface CreateWalletSetProps {
   onSuccess?: () => void;
@@ -274,7 +274,7 @@ Navigate to `src/app/page.tsx` and update the file with the following code:
 'use client';
 
 import { CreateWalletSet } from '@/components/CreateWalletSet';
-import { ElementsWalletSet, WalletSetDetails } from '@chainsafe/circle-react-elements';
+import { ElementsWalletSet, WalletSetDetails } from '@chainsafe/react-elements';
 import { useState, useEffect } from 'react';
 
 interface ApiResponse {
@@ -382,7 +382,7 @@ Create a new file at `src/app/api/wallet-sets/[id]/wallets/route.ts` to handle w
 ```typescript
 import { NextResponse } from 'next/server';
 import { getCircleSDK } from '@/libs/circle-sdk.server';
-import { NewWalletFormInput } from '@chainsafe/circle-react-elements';
+import { NewWalletFormInput } from '@chainsafe/react-elements';
 import { Blockchain } from '@circle-fin/developer-controlled-wallets';
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -454,7 +454,7 @@ import {
   NewWalletForm,
   ElementsWallet,
   NewWalletFormInput,
-} from '@chainsafe/circle-react-elements';
+} from '@chainsafe/react-elements';
 
 interface CreateWalletProps {
   walletSetId: string;
@@ -525,7 +525,7 @@ Create a new page to manage wallets within a wallet set. This page will include 
 'use client';
 
 import { CreateWallet } from '@/components/CreateWallet';
-import { ElementsWallet, WalletDetails } from '@chainsafe/circle-react-elements';
+import { ElementsWallet, WalletDetails } from '@chainsafe/react-elements';
 import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 

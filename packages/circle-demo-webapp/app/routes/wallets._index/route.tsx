@@ -1,4 +1,4 @@
-import { WalletSetDetails } from '@chainsafe/circle-react-elements';
+import { WalletSetDetails } from '@chainsafe/react-elements';
 import { Link, useLoaderData, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';
 

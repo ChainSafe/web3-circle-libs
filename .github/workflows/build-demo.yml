@@ -1,7 +1,7 @@
 name: 'Lint and Build All'
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [ opened, reopened, synchronize ]
 
 jobs:
   test:
@@ -17,4 +17,4 @@ jobs:
       - run: yarn elements:build
       - run: yarn build
       - run: yarn lint
-      - run: yarn workspace @circle-libs/react-elements build-storybook
+      - run: yarn workspace @chainsafe/react-elements build-storybook

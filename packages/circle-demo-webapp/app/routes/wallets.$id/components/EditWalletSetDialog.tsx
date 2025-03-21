@@ -3,7 +3,7 @@ import {
   EditWalletSetFormInput,
   ElementsSubmitHandler,
   ElementsWalletSet,
-} from '@chainsafe/circle-react-elements';
+} from '@chainsafe/react-elements';
 import { FilePenLine } from 'lucide-react';
 import { useState } from 'react';
 

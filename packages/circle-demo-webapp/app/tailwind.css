@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@chainsafe/circle-react-elements/styles.css';
+@import '@chainsafe/react-elements/styles.css';
 
 @custom-variant dark (&:is(.dark *));
 

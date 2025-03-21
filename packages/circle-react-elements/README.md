@@ -49,13 +49,13 @@ powered by Circle Web3 Services.
 ## Installation
 
 ```bash
-npm install @chainsafe/circle-react-elements
+npm install @chainsafe/react-elements
 ```
 
 or
 
 ```bash
-yarn add @chainsafe/circle-react-elements
+yarn add @chainsafe/react-elements
 ```
 
 ## Dependencies
@@ -93,7 +93,7 @@ Import the ChainSafe React Elements powered by Circle Web3 Services CSS in your 
 
 ```css
 @import 'tailwindcss';
-@import '@chainsafe/circle-react-elements/styles.css';
+@import '@chainsafe/react-elements/styles.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -111,7 +111,7 @@ Import the ChainSafe React Elements powered by Circle Web3 Services CSS in your 
 Here's a simple example using the wallet creation form:
 
 ```tsx
-import { NewWalletForm } from '@chainsafe/circle-react-elements';
+import { NewWalletForm } from '@chainsafe/react-elements';
 
 function CreateWallet() {
   const handleSubmit = async (data) => {
