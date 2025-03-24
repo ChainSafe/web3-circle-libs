@@ -1,5 +1,5 @@
 {
-  "name": "circle-demo-webapp",
+  "name": "@chainsafe/circle-demo-webapp",
   "version": "0.0.1",
   "description": "Demo application combining Circle React components and Circle SDK",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",

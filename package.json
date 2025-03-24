@@ -1,5 +1,5 @@
 {
-  "name": "chainsafe-circle-elements-monorepo",
+  "name": "@chainsafe/circle-elements-monorepo",
   "version": "0.0.1",
   "description": "ChainSafe React Elements powered by Circle Web3 Services - UI components and tools compatible with Circle SDK",
   "homepage": "https://github.com/ChainSafe/web3-circle-libs#readme",
