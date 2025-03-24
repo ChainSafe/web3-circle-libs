@@ -1,4 +1,4 @@
-import { ElementsTransactionWithToken } from '@chainsafe/react-elements';
+import { ElementsTransactionWithToken } from '@chainsafe/circle-react-elements';
 import {
   GetTransactionInput,
   TransactionType,

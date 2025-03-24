@@ -3,7 +3,7 @@ import {
   Transaction,
   WalletBalance,
   WalletDetails,
-} from '@chainsafe/react-elements';
+} from '@chainsafe/circle-react-elements';
 import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { Transaction as TransactionType } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';

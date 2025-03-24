@@ -5,7 +5,7 @@ import {
   SuccessMessage,
   utils,
   WalletDetails,
-} from '@chainsafe/react-elements';
+} from '@chainsafe/circle-react-elements';
 import {
   Balance,
   CreateTransactionInput,

@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@circle-fin/developer-controlled-wallets": "^7.1.0",
-    "@chainsafe/react-elements": "^0.1.0",
+    "@chainsafe/circle-react-elements": "^0.1.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.4",

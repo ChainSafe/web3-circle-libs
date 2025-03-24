@@ -1,6 +1,6 @@
 # Release Process
 
-This document outlines the steps to prepare and publish a new release of @chainsafe/react-elements.
+This document outlines the steps to prepare and publish a new release of @chainsafe/circle-react-elements.
 
 ## Before Release
 
@@ -51,7 +51,7 @@ This document outlines the steps to prepare and publish a new release of @chains
    ```
 4. Now create and push the version tag on the squashed commit:
    ```bash
-   git tag @chainsafe/react-elements@[version]
+   git tag @chainsafe/circle-react-elements@[version]
    git push origin --tags
    ```
 5. Create a GitHub release with the changelog

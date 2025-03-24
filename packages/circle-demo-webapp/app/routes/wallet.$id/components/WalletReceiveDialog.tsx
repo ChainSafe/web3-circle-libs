@@ -1,4 +1,4 @@
-import { WalletReceive } from '@chainsafe/react-elements';
+import { WalletReceive } from '@chainsafe/circle-react-elements';
 import { Wallet } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { ArrowDown } from 'lucide-react';
 import { useState } from 'react';

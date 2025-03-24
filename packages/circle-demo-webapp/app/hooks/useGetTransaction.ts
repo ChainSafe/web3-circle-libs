@@ -1,4 +1,4 @@
-import { ElementsTransactionWithToken } from '@chainsafe/react-elements';
+import { ElementsTransactionWithToken } from '@chainsafe/circle-react-elements';
 import { GetTransactionInput } from '@circle-fin/developer-controlled-wallets';
 import { useCallback, useState } from 'react';
 

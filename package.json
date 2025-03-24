@@ -18,9 +18,9 @@
   "scripts": {
     "demo:dev": "yarn workspace circle-demo-webapp dev",
     "demo:build": "yarn elements:build && yarn workspace circle-demo-webapp build",
-    "elements:build": "yarn workspace @chainsafe/react-elements build",
-    "elements:watch": "yarn workspace @chainsafe/react-elements watch",
-    "elements:storybook": "yarn workspace @chainsafe/react-elements storybook",
+    "elements:build": "yarn workspace @chainsafe/circle-react-elements build",
+    "elements:watch": "yarn workspace @chainsafe/circle-react-elements watch",
+    "elements:storybook": "yarn workspace @chainsafe/circle-react-elements storybook",
     "build": "yarn workspaces run build",
     "lint": "yarn workspaces run lint"
   },

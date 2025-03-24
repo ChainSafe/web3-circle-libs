@@ -1,4 +1,4 @@
-import { Transaction, TransactionDetails } from '@chainsafe/react-elements';
+import { Transaction, TransactionDetails } from '@chainsafe/circle-react-elements';
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
 import { useParams } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
