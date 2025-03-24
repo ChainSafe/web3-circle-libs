@@ -1,11 +1,11 @@
-import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
-import { Transaction as TransactionType } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import {
   formats,
   Transaction,
   WalletBalance,
   WalletDetails,
-} from '@circle-libs/react-elements';
+} from '@chainsafe/circle-react-elements';
+import { CreateTransactionInput } from '@circle-fin/developer-controlled-wallets';
+import { Transaction as TransactionType } from '@circle-fin/developer-controlled-wallets/dist/types/clients/developer-controlled-wallets';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Link, useLoaderData, useParams, useRevalidator } from '@remix-run/react';
 import { ArrowUpRight } from 'lucide-react';

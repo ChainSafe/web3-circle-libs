@@ -5,7 +5,7 @@ import { create } from '@storybook/theming';
 addons.setConfig({
   theme: create({
     base: 'light',
-    brandTitle: 'Circle React Elements',
+    brandTitle: 'ChainSafe React Elements powered by Circle Web3 Services',
     brandImage: './circle-logo.svg',
   }),
 });
@@ -18,7 +18,7 @@ addons.register('theme-switcher', (api) => {
     channel.on('DARK_MODE', (isDark) => {
       const newTheme = create({
         base: isDark ? 'dark' : 'light',
-        brandTitle: 'Circle React Elements',
+        brandTitle: 'ChainSafe React Elements powered by Circle Web3 Services',
         brandImage: isDark ? './circle-logo-ondark.svg' : './circle-logo.svg',
       });
 

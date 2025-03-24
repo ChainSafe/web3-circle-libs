@@ -1,4 +1,4 @@
-import { ElementsWalletSet } from '@circle-libs/react-elements';
+import { ElementsWalletSet } from '@chainsafe/circle-react-elements';
 import { useCallback, useState } from 'react';
 
 import { callFetch } from '~/lib/utils';

@@ -1,4 +1,4 @@
-import { ElementsWalletSet } from '@circle-libs/react-elements';
+import { ElementsWalletSet } from '@chainsafe/circle-react-elements';
 import { Link, NavLink } from '@remix-run/react';
 import { Database, LayoutDashboard } from 'lucide-react';
 import React from 'react';

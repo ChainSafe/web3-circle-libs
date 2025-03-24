@@ -1,5 +1,5 @@
+import { Transaction, TransactionDetails } from '@chainsafe/circle-react-elements';
 import { ListTransactionsInput } from '@circle-fin/developer-controlled-wallets';
-import { TransactionDetails, Transaction } from '@circle-libs/react-elements';
 import { useParams } from '@remix-run/react';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';

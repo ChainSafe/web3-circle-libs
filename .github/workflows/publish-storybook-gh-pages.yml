@@ -29,7 +29,7 @@ jobs:
           node-version: 20
           cache: yarn
       - run: yarn install
-      - run: yarn workspace @circle-libs/react-elements build-storybook
+      - run: yarn workspace @chainsafe/circle-react-elements build-storybook
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

@@ -2,12 +2,12 @@ import { Meta } from '@storybook/blocks';
 
 <Meta
   title="Guides/Next.js Guide"
-  description="A guide for integrating Circle Elements with Next.js"
+  description="A guide for integrating ChainSafe React Elements  with Next.js"
 />
 
-# Integrating Circle Elements and SDK with Next.js
+# Integrating ChainSafe React Elements  and SDK with Next.js
 
-This guide will walk you through setting up a Next.js project with Circle Elements, a UI library for building web3 applications. You'll learn how to integrate Circle's Developer Controlled Wallets SDK and create your first blockchain-enabled application.
+This guide will walk you through setting up a Next.js project with ChainSafe React Elements , a UI library for building web3 applications. You'll learn how to integrate Circle's Developer Controlled Wallets SDK and create your first blockchain-enabled application.
 
 ## Prerequisites
 
@@ -31,16 +31,16 @@ Select TypeScript and Tailwind CSS when prompted to set up your development envi
 
 ### 2. Install Required Dependencies
 
-Circle Elements requires Tailwind CSS v4. Update your Tailwind installation with the following command:
+ChainSafe React Elements  requires Tailwind CSS v4. Update your Tailwind installation with the following command:
 
 ```bash
 npx @tailwindcss/upgrade@next
 ```
 
-Install the required Circle packages. The Circle Elements package provides UI components, while developer-controlled-wallets enables wallet management functionality:
+Install the required Circle packages. The ChainSafe React Elements  package provides UI components, while developer-controlled-wallets enables wallet management functionality:
 
 ```bash
-npm install @circle-libs/react-elements @circle-fin/developer-controlled-wallets lucide-react
+npm install @chainsafe/circle-react-elements @circle-fin/developer-controlled-wallets lucide-react
 ```
 
 ### 3. Set Up Your Local Environment for Circle SDK
@@ -52,7 +52,7 @@ Before beginning the setup, you'll need:
 Run this command to generate a `.env` file and store your Circle API credentials securely:
 
 ```bash
-npx @circle-libs/sdk-setup --api-key YOUR_API_KEY
+npx @chainsafe/circle-sdk-setup --api-key YOUR_API_KEY
 ```
 
 The setup tool will:
@@ -75,13 +75,13 @@ Important security practices:
 
 ### 4. Configure Global Styles
 
-Add Circle Elements styles to your global stylesheet. These imports ensure proper styling of Circle components and enable dark mode support:
+Add ChainSafe React Elements  styles to your global stylesheet. These imports ensure proper styling of ChainSafe React Elements and enable dark mode support:
 
 Location: `src/app/globals.css`
 
 ```css
 @import 'tailwindcss';
-@import '@circle-libs/react-elements/styles.css';
+@import '@chainsafe/circle-react-elements/styles.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -121,7 +121,7 @@ Location: `src/app/api/wallet-sets/route.ts` (API route handler)
 ```typescript
 import { NextResponse } from 'next/server';
 import { getCircleSDK } from '@/libs/circle-sdk.server';
-import { NewWalletSetFormInput } from '@circle-libs/react-elements';
+import { NewWalletSetFormInput } from '@chainsafe/circle-react-elements';
 
 export async function POST(request: Request) {
   try {
@@ -145,7 +145,7 @@ export async function POST(request: Request) {
 }
 ```
 
-Next, create a form component for wallet set creation. This component uses Circle Elements' `<NewWalletSetForm />` component to handle form rendering and validation, while managing API communication and error states are up to you:
+Next, create a form component for wallet set creation. This component uses ChainSafe React Elements `<NewWalletSetForm />` component to handle form rendering and validation, while managing API communication and error states are up to you:
 
 Location: `src/components/CreateWalletSet.tsx` (client-side component)
 
@@ -157,7 +157,7 @@ import {
   NewWalletSetForm,
   ElementsWalletSet,
   NewWalletSetFormInput,
-} from '@circle-libs/react-elements';
+} from '@chainsafe/circle-react-elements';
 
 interface CreateWalletSetProps {
   onSuccess?: () => void;
@@ -266,7 +266,7 @@ export async function GET() {
 
 Now, let's add the frontend functionality to list wallet sets, handling data fetching, loading states, and error handling.
 
-To ensure a consistent display, we'll use Circle Elements' `<WalletSetDetails />` component. Since some logic overlaps with the wallet creation form, we'll define everything directly within the page.
+To ensure a consistent display, we'll use ChainSafe React Elements `<WalletSetDetails />` component. Since some logic overlaps with the wallet creation form, we'll define everything directly within the page.
 
 Navigate to `src/app/page.tsx` and update the file with the following code:
 
@@ -274,7 +274,7 @@ Navigate to `src/app/page.tsx` and update the file with the following code:
 'use client';
 
 import { CreateWalletSet } from '@/components/CreateWalletSet';
-import { ElementsWalletSet, WalletSetDetails } from '@circle-libs/react-elements';
+import { ElementsWalletSet, WalletSetDetails } from '@chainsafe/circle-react-elements';
 import { useState, useEffect } from 'react';
 
 interface ApiResponse {
@@ -355,7 +355,7 @@ Then, head to http://localhost:3000 to see it in action. Try creating your first
 
 ## Next Step: Creating and Listing Wallets in a Wallet Set
 
-Now that wallet sets are implemented, you can extend this functionality to support wallet creation and listing within a selected set. The process will follow a similar structure but with different Circle Elements components.
+Now that wallet sets are implemented, you can extend this functionality to support wallet creation and listing within a selected set. The process will follow a similar structure but with different ChainSafe React Elements  components.
 
 1. Create API endpoints for wallet operations
 
@@ -364,16 +364,16 @@ Now that wallet sets are implemented, you can extend this functionality to suppo
 
 2. Implement wallet creation UI
 
-   - Use Circle Elements' `<NewWalletForm />` component for the form interface
+   - Use ChainSafe React Elements `<NewWalletForm />` component for the form interface
    - Follow the same client-side component patterns as wallet sets
    - Handle API communication and error states similarly
 
 3. Add wallet listing functionality
-   - Use Circle Elements' `<WalletDetails />` component for displaying wallet information
+   - Use ChainSafe React Elements `<WalletDetails />` component for displaying wallet information
    - Implement data fetching and state management like the wallet sets list
    - Handle loading and error states consistently
 
-The core concepts remain the same - secure server-side SDK usage, client-side Circle Elements components, proper error handling, and type safety. Need more details? Keep reading!
+The core concepts remain the same - secure server-side SDK usage, client-side ChainSafe React Elements  components, proper error handling, and type safety. Need more details? Keep reading!
 
 ### 1. Create Wallets API Endpoints
 
@@ -382,7 +382,7 @@ Create a new file at `src/app/api/wallet-sets/[id]/wallets/route.ts` to handle w
 ```typescript
 import { NextResponse } from 'next/server';
 import { getCircleSDK } from '@/libs/circle-sdk.server';
-import { NewWalletFormInput } from '@circle-libs/react-elements';
+import { NewWalletFormInput } from '@chainsafe/circle-react-elements';
 import { Blockchain } from '@circle-fin/developer-controlled-wallets';
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -442,7 +442,7 @@ export async function POST(request: Request) {
 
 ### 2. Implement the Create Wallet Component
 
-To enable wallet creation, create a dedicated form component that uses **Circle Elements' `<NewWalletForm />`** for rendering and validation. While the Elements' form handles user input, you will be responsible for managing API communication and handling errors.
+To enable wallet creation, create a dedicated form component that uses **ChainSafe React Elements `<NewWalletForm />`** for rendering and validation. While the Elements' form handles user input, you will be responsible for managing API communication and handling errors.
 
 The component should be placed in `src/components/CreateWallet.tsx` as a client-side component.
 
@@ -454,7 +454,7 @@ import {
   NewWalletForm,
   ElementsWallet,
   NewWalletFormInput,
-} from '@circle-libs/react-elements';
+} from '@chainsafe/circle-react-elements';
 
 interface CreateWalletProps {
   walletSetId: string;
@@ -525,7 +525,7 @@ Create a new page to manage wallets within a wallet set. This page will include 
 'use client';
 
 import { CreateWallet } from '@/components/CreateWallet';
-import { ElementsWallet, WalletDetails } from '@circle-libs/react-elements';
+import { ElementsWallet, WalletDetails } from '@chainsafe/circle-react-elements';
 import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -634,10 +634,10 @@ And that's it! You've successfully implemented wallet creation and listing withi
 
 ## Important Notes
 
-1. **Client-Side Components**: When using Circle Elements always create them as client components by adding `"use client";` at the top of your component file.
+1. **Client-Side Components**: When using ChainSafe React Elements  always create them as client components by adding `"use client";` at the top of your component file.
 
 2. **Environment Variables**: Keep your Circle API credentials in `.env` and never expose them to the client side. Always interact with the Circle SDK through server-side API routes.
 
 3. **Error Handling**: Implement proper error handling for API calls and display appropriate feedback to users.
 
-4. **TypeScript Support**: Circle Elements comes with built-in TypeScript types. Use them to ensure type safety in your application.
+4. **TypeScript Support**: ChainSafe React Elements  comes with built-in TypeScript types. Use them to ensure type safety in your application.
