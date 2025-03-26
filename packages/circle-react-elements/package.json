@@ -91,7 +91,7 @@
     "tsup": "^8.3.6",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.11.0",
-    "vite": "^5.2.0"
+    "vite": "^5.4.15"
   },
   "peerDependencies": {
     "@circle-fin/developer-controlled-wallets": "~7.1.0",
