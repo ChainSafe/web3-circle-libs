@@ -1,6 +1,7 @@
-# Circle Console Setup
+# ChainSafe Circle Console Setup CLI Tool
 
-CLI tool for setting up Circle Console configuration. This tool helps you generate and configure the necessary secrets
+ChainSafe CLI tool to generate and register the entity secret for Circle's Dev Controlled Wallets. This tool helps you
+generate and configure the necessary secrets
 and environment variables to work with Circle Developer-Controlled Wallets.
 
 ## Usage
